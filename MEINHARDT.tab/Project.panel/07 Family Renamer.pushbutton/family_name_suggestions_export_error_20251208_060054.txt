@@ -1,0 +1,6 @@
+Export failed: global name 'rows' is not defined
+
+Traceback (most recent call last):
+  File "C:\Users\Gino Moreno\AppData\Roaming\pyRevit-Master\extensions\pyRevitBundlesCreatorExtension.extension\pyRevit Bundles Creator.tab\gm-tools.panel\Family_Rnmr.pushbutton\script.py", line 2508, in on_export
+    csv_path, dbg_path = export_results_now(rows, rules=rules, script_dir=SCRIPT_DIR, open_file=auto_open)
+NameError: global name 'rows' is not defined

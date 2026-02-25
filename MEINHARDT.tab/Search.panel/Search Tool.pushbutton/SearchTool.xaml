@@ -1,0 +1,90 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Search Tool by GM"
+        WindowStartupLocation="CenterScreen"
+  SizeToContent="Manual"
+  Width="720"
+  Height="640"
+  MinWidth="560"
+  MinHeight="420"
+        ShowInTaskbar="True"
+  Topmost="True"
+  ShowActivated="False"
+  ResizeMode="CanResizeWithGrip"
+  WindowStyle="SingleBorderWindow"
+        Background="#1E1E1E"
+        Foreground="#E6E6E6">
+  <Grid Margin="14">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="10"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="10"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="10"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Grid.Row="0" FontSize="14" FontWeight="SemiBold" Text="Search Tool by GM"/>
+
+    <DockPanel Grid.Row="2" LastChildFill="True">
+      <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,0,8,0" Text="Search:"/>
+      <TextBox x:Name="SearchBox"
+               MinWidth="520"
+               Padding="8,6"
+               Background="#2D2D30"
+               Foreground="#E6E6E6"
+               BorderBrush="#3F3F46"
+               TextChanged="search_changed" />
+    </DockPanel>
+
+    <Border Grid.Row="4" BorderBrush="#3F3F46" BorderThickness="1" CornerRadius="3">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="#252526" Padding="8,6">
+          <DockPanel LastChildFill="True">
+            <TextBlock DockPanel.Dock="Left" Text="Results:"/>
+            <TextBlock x:Name="CountText" DockPanel.Dock="Right" Text="0"/>
+          </DockPanel>
+        </Border>
+        <ListBox x:Name="ToolsList"
+                 Grid.Row="1"
+                 Background="#1E1E1E"
+                 Foreground="#E6E6E6"
+                 BorderThickness="0"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 MouseDoubleClick="run_selected">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid Margin="6,5">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="26"/>
+                  <ColumnDefinition Width="10"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Width="22" Height="22" CornerRadius="3" Background="#2D2D30" BorderBrush="#3F3F46" BorderThickness="1">
+                  <Image Width="16" Height="16" Stretch="Uniform" Source="{Binding icon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <StackPanel Grid.Column="2" Orientation="Vertical">
+                  <TextBlock Text="{Binding tool_title}" FontWeight="SemiBold" />
+                  <TextBlock Text="{Binding location}" Foreground="#A0A0A0" FontSize="11" />
+                </StackPanel>
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Grid>
+    </Border>
+
+    <DockPanel Grid.Row="6" LastChildFill="False">
+      <TextBlock x:Name="StatusText" DockPanel.Dock="Left" VerticalAlignment="Center" Foreground="#A0A0A0" Text="Tip: type keywords like tool name, panel, or tab."/>
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+        <Button Content="Run" Width="90" Margin="8,0,0,0" Click="run_selected" />
+        <Button Content="Close" Width="90" Margin="8,0,0,0" Click="close_click" />
+      </StackPanel>
+    </DockPanel>
+  </Grid>
+</Window>

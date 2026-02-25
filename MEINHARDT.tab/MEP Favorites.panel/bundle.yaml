@@ -1,0 +1,11 @@
+title:
+  en_us: MEP Favorites
+layout:
+  - ConnectTo
+  - DisConnect
+  - MakeParallel
+  - Transition
+  - RoomToSpace
+  - SplitPipes
+  - SplitSelectedPipes
+  - RemoveDuplicates

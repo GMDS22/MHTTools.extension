@@ -1,0 +1,40 @@
+{
+  "generated": "20251209_083953", 
+  "problems": [
+    {
+      "suggested": "MHT-ME-FAM-M-Air-Terminal-Tag", 
+      "classified_size": null, 
+      "family": "MHT_M_Air Terminal Tag", 
+      "category": "Air Terminal Tags", 
+      "classified_shape": null, 
+      "type_params_first": [
+        {
+          "type_name": "", 
+          "params": {
+            "Family Name": "MHT_M_Air Terminal Tag", 
+            "Vis_Type": "", 
+            "Type Name": "SAD", 
+            "Vis_AQ_SAD": "", 
+            "Design Option": "", 
+            "Vis_AQ_AB": "", 
+            "Category": "", 
+            "Vis_F_Size": "", 
+            "Leader Arrowhead": "", 
+            "Vis_Line": "", 
+            "Vis_N_Size": "", 
+            "Vis_Legend Des": ""
+          }
+        }
+      ], 
+      "classified_system": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_size", 
+        "missing_shape"
+      ], 
+      "classified_fitting": null, 
+      "instance_params": {}, 
+      "classified_modifier": null
+    }
+  ]
+}

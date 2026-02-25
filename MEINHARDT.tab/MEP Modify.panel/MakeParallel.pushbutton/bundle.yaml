@@ -1,0 +1,12 @@
+title:
+  fr_fr: Rendre parallèle (XY)
+  en_us: Make parallel (XY)
+tooltip:
+  fr_fr: |
+    Updated version of pyRevit MEP's parallel tool. Make multiple elements parallel to a reference in XY plane.
+    1. Select the reference element.
+    2. Select elements to rotate (multiple allowed).
+  en_us: |
+    Updated version of pyRevit MEP's parallel tool. Make multiple elements parallel to a reference in XY plane. First element selected is reference. Subsequent selections are rotated to match.
+help_url: "{{youtube}}"
+author: "{{author}}"

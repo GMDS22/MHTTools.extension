@@ -1,0 +1,7 @@
+tooltip:
+  en_us: Reload pyRevit (refreshes Meinhardt tools)
+engine:
+  clean: true
+title:
+  en_us: 'Refresh\nAll'
+context: zero-doc

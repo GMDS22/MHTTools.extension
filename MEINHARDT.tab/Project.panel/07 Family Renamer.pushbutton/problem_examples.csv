@@ -1,0 +1,113 @@
+Family,Category,Current,Suggested
+MHT-ME-DF-Duct Fittings,Duct Fittings,MHT-ME-DF-Duct Fittings,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN500
+MHT-ME-DF-Rectangular Short Radius Bend - Flanged,Duct Fittings,MHT-ME-DF-Rectangular Short Radius Bend - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN2000
+MHT-ME-DF-Rectangular Square Bend - Flanged,Duct Fittings,MHT-ME-DF-Rectangular Square Bend - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN2400-01
+MHT-ME-DF-Rectangular Shoe Branch - Flanged,Duct Fittings,MHT-ME-DF-Rectangular Shoe Branch - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN250-01
+MHT-ME-DF-Rectangular Square Branch - Flanged,Duct Fittings,MHT-ME-DF-Rectangular Square Branch - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN250-02
+MHT-ME-DF-Rectangular transition,Duct Fittings,MHT-ME-DF-Rectangular transition,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-DN24
+MHT-ME-DF-Spigot,Duct Fittings,MHT-ME-DF-Spigot,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-01
+MHT-ME-DF-Round Union-01,Duct Fittings,MHT-ME-DF-Round Union-01,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-02
+MHT-ME-DF-Round Pressed Equal Tee - Slip Joint,Duct Fittings,MHT-ME-DF-Round Pressed Equal Tee - Slip Joint,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-01
+MHT-ME-DF-Round Taper - Slip Joint,Duct Fittings,MHT-ME-DF-Round Taper - Slip Joint,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-01
+MHT-ME-DF-Rectangular - Oval Transformation - Slip Joint,Duct Fittings,MHT-ME-DF-Rectangular - Oval Transformation - Slip Joint,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-02
+MHT-ME-DF-Rectangular - Round Transformation - Flanged,Duct Fittings,MHT-ME-DF-Rectangular - Round Transformation - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-03
+MHT-ME-DF-Rectangular Union-01,Duct Fittings,MHT-ME-DF-Rectangular Union-01,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-03
+MHT-ME-DF-Rectangular - Oval Transformation - Flanged-01,Duct Fittings,MHT-ME-DF-Rectangular - Oval Transformation - Flanged-01,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-04
+MHT-ME-DF-Rectangular Long Radius Bend - Flanged,Duct Fittings,MHT-ME-DF-Rectangular Long Radius Bend - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN2400-02
+MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01,Duct Fittings,MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN3000
+MHT-ME-FAM-Tundish,Generic Annotations,MHT-ME-FAM-Tundish,MHT-ME-FAM-Tundish
+MHT-ME-FAM-Tundish Symbol,Generic Annotations,MHT-ME-FAM-Tundish Symbol,MHT-ME-FAM-Tundish Symbol
+MHT-ME-MEQ-Equipment,Mechanical Equipment,MHT-ME-MEQ-Equipment,MHT-ME-MEQ-Pump-UND-DN800
+MHT-ME-MEQ-Celmec HP Series,Mechanical Equipment,MHT-ME-MEQ-Celmec HP Series,MHT-ME-MEQ-Pump-DN750-UND
+MHT-ME-MEQ-Cooling-Tower-BAC-PT2-1-Cell-End-Outlet-RH,Mechanical Equipment,MHT-ME-MEQ-Cooling-Tower-BAC-PT2-1-Cell-End-Outlet-RH,MHT-ME-MEQ-Pump-DN603-UND
+MHT-ME-MEQ-N-01,Mechanical Equipment,MHT-ME-MEQ-N-01,MHT-ME-MEQ-Pump-DN1200-UND
+MHT-ME-MEQ-N-04,Mechanical Equipment,MHT-ME-MEQ-N-04,MHT-ME-MEQ-Pump-UND-UND
+MHT-ME-MEQ-N-05,Mechanical Equipment,MHT-ME-MEQ-N-05,MHT-ME-MEQ-Pump-DN63141-UND
+MHT-ME-MEQ-N-07,Mechanical Equipment,MHT-ME-MEQ-N-07,MHT-ME-MEQ-Pump-DN7700-UND
+MHT-EL-EE-Equipment,Electrical Equipment,MHT-EL-EE-Equipment,MHT-EL-EE-Electrical-UND
+MHT-ME-DF-ENDCAP-REC-N,Duct Fittings,MHT-ME-DF-ENDCAP-REC-N,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN593-DN593
+MHT-ME-DF-TRANSITION-ANGLE-REC-N,Duct Fittings,MHT-ME-DF-TRANSITION-ANGLE-REC-N,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN593-01
+MHT-ME-DF-TRANSITION-ANGLE,Duct Fittings,MHT-ME-DF-TRANSITION-ANGLE,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN593-02
+MHT-ME-DF-Rectangular to Oval Transition - Length,Duct Fittings,MHT-ME-DF-Rectangular to Oval Transition - Length,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN603-DN603
+MHT-ME-DF-Round Union-02,Duct Fittings,MHT-ME-DF-Round Union-02,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN603-01
+MHT-ME-DF-Rectangular Tee,Duct Fittings,MHT-ME-DF-Rectangular Tee,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN603-02
+MHT-ME-DF-Rectangular to Round Transition - Angle,Duct Fittings,MHT-ME-DF-Rectangular to Round Transition - Angle,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN603-03
+MHT-ME-DF-Rectangular Transition - Angle,Duct Fittings,MHT-ME-DF-Rectangular Transition - Angle,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN603-04
+MHT-ME-DF-Rectangular Union-02,Duct Fittings,MHT-ME-DF-Rectangular Union-02,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN603-05
+MHT-ME-DF-Round Tee,Duct Fittings,MHT-ME-DF-Round Tee,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN603-06
+MHT-ME-DF-Round Transition - Angle,Duct Fittings,MHT-ME-DF-Round Transition - Angle,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN603-07
+MHT-ME-DF-Rectangular Takeoff,Duct Fittings,MHT-ME-DF-Rectangular Takeoff,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN603-08
+MHT-ME-DF-Round Takeoff,Duct Fittings,MHT-ME-DF-Round Takeoff,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN603-09
+MHT-ME-MEQ-Pump-End-Suction-Frame-Mounted-Taco-FI,Mechanical Equipment,MHT-ME-MEQ-Pump-End-Suction-Frame-Mounted-Taco-FI,MHT-ME-MEQ-Pump-DN11-UND
+MHT-ME-MEQ-Pump-Base-Mounted-End-Taco-FI-D-Models,Mechanical Equipment,MHT-ME-MEQ-Pump-Base-Mounted-End-Taco-FI-D-Models,MHT-ME-MEQ-Pump-DN102-UND
+MHT-ME-MEQ-Pump-SurfaceMounted-Centrifugal-Horizontal,Mechanical Equipment,MHT-ME-MEQ-Pump-SurfaceMounted-Centrifugal-Horizontal,MHT-ME-MEQ-Pump-DN800-UND
+MHT-ME-DF-Round Pressed Bend - Flanged,Duct Fittings,MHT-ME-DF-Round Pressed Bend - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-02
+MHT-ME-DF-Round Pressed Bend - Slip Joint,Duct Fittings,MHT-ME-DF-Round Pressed Bend - Slip Joint,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN150
+MHT-ME-DF-Round Segmented Bend - Flanged,Duct Fittings,MHT-ME-DF-Round Segmented Bend - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-03
+MHT-ME-DF-Round Segmented Bend - Slip Joint,Duct Fittings,MHT-ME-DF-Round Segmented Bend - Slip Joint,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-04
+MHT-ME-FAM-Balancing Damper - Round-01,Duct Accessories,MHT-ME-FAM-Balancing Damper - Round-01,MHT-ME-FAM-Balancing Damper - Round-01
+MHT-ME-FAM-Fire Damper - Round-01,Duct Accessories,MHT-ME-FAM-Fire Damper - Round-01,MHT-ME-FAM-Fire Damper - Round-01
+MHT-ME-FAM-Motorised Damper - Round-01,Duct Accessories,MHT-ME-FAM-Motorised Damper - Round-01,MHT-ME-FAM-Motorised Damper - Round-01
+MHT-ME-FAM-Non-Return Back-Draught Damper - Round-01,Duct Accessories,MHT-ME-FAM-Non-Return Back-Draught Damper - Round-01,MHT-ME-FAM-Non-Return Back-Draught Damper - Round-01
+MHT-ME-FAM-Smoke Damper - Round-01,Duct Accessories,MHT-ME-FAM-Smoke Damper - Round-01,MHT-ME-FAM-Smoke Damper - Round-01
+MHT-ME-FAM-Volume Control Damper - Round-01,Duct Accessories,MHT-ME-FAM-Volume Control Damper - Round-01,MHT-ME-FAM-Volume Control Damper - Round-01
+MHT-ME-DF-Takeoff-Round-Damper,Duct Fittings,MHT-ME-DF-Takeoff-Round-Damper,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-04
+MHT-ME-DF-Duct-Rectangular-Elbow-Radius,Duct Fittings,MHT-ME-DF-Duct-Rectangular-Elbow-Radius,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN152
+MHT-ME-DF-Duct-Rectangular-Tap-Shoe,Duct Fittings,MHT-ME-DF-Duct-Rectangular-Tap-Shoe,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-05
+MHT-ME-DF-Duct-Rectangular-Transition-Length,Duct Fittings,MHT-ME-DF-Duct-Rectangular-Transition-Length,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-06
+MHT-ME-DF-Duct-Rectangular-Union,Duct Fittings,MHT-ME-DF-Duct-Rectangular-Union,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-07
+MHT-ME-DF-Duct-Transition-Rectangular to Round-Length,Duct Fittings,MHT-ME-DF-Duct-Transition-Rectangular to Round-Length,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-08
+MHT-ME-DF-Rectangular - Oval Transformation - Flanged-02,Duct Fittings,MHT-ME-DF-Rectangular - Oval Transformation - Flanged-02,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-10
+MHT-ME-DF-Rectangular-EndCap,Duct Fittings,MHT-ME-DF-Rectangular-EndCap,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-05
+MHT-ME-DF-Oval - Round Transformation - Flanged,Duct Fittings,MHT-ME-DF-Oval - Round Transformation - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-11
+MHT-ME-DF-Oval Eccentric Taper - Flanged,Duct Fittings,MHT-ME-DF-Oval Eccentric Taper - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-12
+MHT-ME-DF-Oval Segmented Bend - Flanged,Duct Fittings,MHT-ME-DF-Oval Segmented Bend - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-06
+MHT-ME-DF-Oval Shoe Cross - Flanged,Duct Fittings,MHT-ME-DF-Oval Shoe Cross - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-07
+MHT-ME-DF-Oval Square Tee - Flanged,Duct Fittings,MHT-ME-DF-Oval Square Tee - Flanged,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-08
+MHT-ME-DF-Duct-Rectangular-Elbow-Mitred,Duct Fittings,MHT-ME-DF-Duct-Rectangular-Elbow-Mitred,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN613593
+MHT-ME-DF-Duct-Rectangular-Radius-Elbow-Reducing,Duct Fittings,MHT-ME-DF-Duct-Rectangular-Radius-Elbow-Reducing,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-09
+MHT-ME-DF-Duct-Rectangular-Tap-Square,Duct Fittings,MHT-ME-DF-Duct-Rectangular-Tap-Square,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-13
+MHT-ME-DF-Duct-Round-Tap-Shoe,Duct Fittings,MHT-ME-DF-Duct-Round-Tap-Shoe,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-10
+MHT-ME-DF-Duct Shoe-01,Duct Fittings,MHT-ME-DF-Duct Shoe-01,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-11
+MHT-ME-DF-rec- Radius Elbow-Adjustable Radius,Duct Fittings,MHT-ME-DF-rec- Radius Elbow-Adjustable Radius,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-09
+MHT-ME-DF-45� Rectangular Shoe Branch,Duct Fittings,MHT-ME-DF-45� Rectangular Shoe Branch,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-12
+MHT-ME-DF-Duct Shoe-02,Duct Fittings,MHT-ME-DF-Duct Shoe-02,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-10
+MHT-ME-DF-Endcap-Rectangular,Duct Fittings,MHT-ME-DF-Endcap-Rectangular,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN200-01
+MHT-ME-MEQ-Fan Coil Industries SA-050V(S),Mechanical Equipment,MHT-ME-MEQ-Fan Coil Industries SA-050V(S),MHT-ME-MEQ-Pump-DN25-UND
+MHT-PL-PF-Tundish,Plumbing Fixtures,MHT-PL-PF-Tundish,MHT-PL-PF-Tundish
+MHT-EL-EE-Single Panel-1,Electrical Equipment,MHT-EL-EE-Single Panel-1,MHT-EL-EE-Electrical-Equipment-DN1200-UND
+MHT-EL-EE-Single Panel,Electrical Equipment,MHT-EL-EE-Single Panel,MHT-EL-EE-Electrical-Equipment-UND-UND
+MHT-EL-EE-Single Panel1,Electrical Equipment,MHT-EL-EE-Single Panel1,MHT-EL-EE-Electrical-Equipment-UND
+MHT-ME-DF-M-Rectangular Elbow - Mitered - Transition1,Duct Fittings,MHT-ME-DF-M-Rectangular Elbow - Mitered - Transition1,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-13
+MHT-ME-DF-M-Rectangular to Round Transition - Angle,Duct Fittings,MHT-ME-DF-M-Rectangular to Round Transition - Angle,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-14
+MHT-ME-DF-M-Rectangular Transition - Angle,Duct Fittings,MHT-ME-DF-M-Rectangular Transition - Angle,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-15
+MHT-ME-DF-M-Round Takeoff - Shoe,Duct Fittings,MHT-ME-DF-M-Round Takeoff - Shoe,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-16
+MHT-ME-DF-M-Round Takeoff,Duct Fittings,MHT-ME-DF-M-Round Takeoff,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-17
+MHT-ME-DF-M-Round Transition - Angle,Duct Fittings,MHT-ME-DF-M-Round Transition - Angle,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-18
+MHT-ME-DF-M-Round Transition - Angle1,Duct Fittings,MHT-ME-DF-M-Round Transition - Angle1,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-19
+MHT-ME-FAM-M-VCD-Damper-Round,Duct Accessories,MHT-ME-FAM-M-VCD-Damper-Round,MHT-ME-FAM-M-VCD-Damper-Round
+MHT-ME-DF-Rectangular - Duct Mitered Elbow Vaned,Duct Fittings,MHT-ME-DF-Rectangular - Duct Mitered Elbow Vaned,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-11
+MHT-ME-DF-Rectangular - Duct Radius Elbow (Adj- Straight)1,Duct Fittings,MHT-ME-DF-Rectangular - Duct Radius Elbow (Adj- Straight)1,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-12
+MHT-ME-DF-Rectangular - Duct Radius Elbow (Adj. Straight Riser),Duct Fittings,MHT-ME-DF-Rectangular - Duct Radius Elbow (Adj. Straight Riser),MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-13
+MHT-ME-DF-Rectangular - Duct Radius Elbow (Adj. Straight),Duct Fittings,MHT-ME-DF-Rectangular - Duct Radius Elbow (Adj. Straight),MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-14
+MHT-ME-DF-Rectangular - Duct Radius Elbow,Duct Fittings,MHT-ME-DF-Rectangular - Duct Radius Elbow,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-15
+MHT-ME-DF-Rectangular - Transition,Duct Fittings,MHT-ME-DF-Rectangular - Transition,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-16
+MHT-ME-DF-Rectangular Duct Mitered Elbow-Vaned,Duct Fittings,MHT-ME-DF-Rectangular Duct Mitered Elbow-Vaned,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-17
+MHT-ME-DF-Rectangular Duct Mitered Elbow-Vaned1,Duct Fittings,MHT-ME-DF-Rectangular Duct Mitered Elbow-Vaned1,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-18
+MHT-ME-DF-Rectangular Duct Tee 150 Flange,Duct Fittings,MHT-ME-DF-Rectangular Duct Tee 150 Flange,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN1270
+MHT-ME-DF-Rectangular Duct Transition,Duct Fittings,MHT-ME-DF-Rectangular Duct Transition,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-19
+MHT-ME-DF-Rectangular Eccentric Taper - Flanged-02,Duct Fittings,MHT-ME-DF-Rectangular Eccentric Taper - Flanged-02,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-15
+MHT-ME-DF-Rectangular Eccentric Taper - Flanged1,Duct Fittings,MHT-ME-DF-Rectangular Eccentric Taper - Flanged1,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-16
+MHT-ME-DF-Rectangular Eccentric Taper - Flanged-Manula Length,Duct Fittings,MHT-ME-DF-Rectangular Eccentric Taper - Flanged-Manula Length,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-17
+MHT-ME-DF-Rectangular To Round Duct Transition,Duct Fittings,MHT-ME-DF-Rectangular To Round Duct Transition,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN200-02
+MHT-ME-DF-Rectangular-Duct-Bend CW Flanges,Duct Fittings,MHT-ME-DF-Rectangular-Duct-Bend CW Flanges,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-21
+MHT-ME-DF-Rectangular-Tee-Square-THT,Duct Fittings,MHT-ME-DF-Rectangular-Tee-Square-THT,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-20
+MHT-ME-FAM-Round Flex Connector,Duct Accessories,MHT-ME-FAM-Round Flex Connector,MHT-ME-FAM-Round Flex Connector
+MHT-ME-DF-Shoe Take Off,Duct Fittings,MHT-ME-DF-Shoe Take Off,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-DN24-21
+MHT_ME_ANN_WI_EA SYMBOL,Generic Annotations,MHT_ME_ANN_WI_EA SYMBOL,MHT-ME-FAM-SYMBOL-01
+MHT_ME_ANN_WI_RA SYMBOL,Generic Annotations,MHT_ME_ANN_WI_RA SYMBOL,MHT-ME-FAM-SYMBOL-02
+MHT_ME_ANN_WI_SA SYMBOL,Generic Annotations,MHT_ME_ANN_WI_SA SYMBOL,MHT-ME-FAM-SYMBOL-03
+MHT-ME-FAM-Balancing Damper - Round-02,Duct Accessories,MHT-ME-FAM-Balancing Damper - Round-02,MHT-ME-FAM-Balancing Damper - Round-02
+MHT-ME-DF-Rectangular Duct Union - Canvas,Duct Fittings,MHT-ME-DF-Rectangular Duct Union - Canvas,MHT-ME-DF-<Shape>-<Fitting>-<Modifier>-UND-20
+MHT-ME-FAM-Structural Foundations,Structural Foundations,MHT-ME-FAM-Structural Foundations,MHT-ME-FAM-Structural Foundations
+MHT-ME-FAM,,MHT-ME-FAM,

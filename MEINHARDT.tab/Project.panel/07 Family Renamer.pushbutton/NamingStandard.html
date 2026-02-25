@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MHT Revit Family Naming Standard</title>
+    <style>
+        :root {
+            --primary-color: #082A4A; /* dark-blue */
+            --accent-color: #1976d2;
+            --text-color: #EAF6FF;
+            --border-color: rgba(255,255,255,0.08);
+            --background-dark: #071726;
+            --background-light: #0b2540;
+            --code-bg: rgba(255,255,255,0.04);
+            --code-color: #e6f2ff;
+            --shadow: 0 6px 16px rgba(3, 16, 30, 0.6);
+        }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(180deg, var(--background-dark), var(--background-light));
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        h1, h2, h3 {
+            color: var(--accent-color);
+            border-bottom: 2px solid rgba(255,255,255,0.06);
+            padding-bottom: 10px;
+            margin-top: 2em;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 1em;
+        }
+        code {
+            background-color: var(--code-bg);
+            color: var(--code-color);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Consolas", "Courier New", monospace;
+        }
+        .pattern-container {
+            background-color: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(2,10,20,0.6);
+        }
+        .pattern-box {
+            display: inline-block;
+            border: 2px solid rgba(255,255,255,0.06);
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            background-color: rgba(255,255,255,0.02);
+            font-weight: bold;
+            position: relative;
+            color: var(--text-color);
+        }
+        .pattern-separator {
+            display: inline-block;
+            font-size: 1.5em;
+            color: #888;
+            margin: 0 5px;
+            vertical-align: middle;
+        }
+        .pattern-box .label {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            white-space: nowrap;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: rgba(255,255,255,0.02);
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        tbody tr:nth-child(odd) {
+            background-color: var(--background-light);
+        }
+        .example {
+            background-color: rgba(255,255,255,0.02);
+            border-left: 5px solid var(--accent-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 6px 14px rgba(2,10,20,0.5);
+        }
+        .example-title {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MHT Revit Family Naming Standard</h1>
+
+    <p>This document outlines the standard naming convention for all Revit families used in the <strong>MHT NWBHP project</strong>. This convention is based on the principles outlined in the ISO 19650 standard for information management, adapted for Revit family naming. The goal is to create consistent, predictable, and easily searchable names that clearly identify a family's purpose at a glance.</p>
+
+    <h2>General Naming Structure</h2>
+
+    <p>The standard name is composed of several parts separated by hyphens. Each part provides specific information about the family.</p>
+
+    <div class="pattern-container">
+        <div class="pattern-box">
+            <span class="label">Company</span>
+            MHT
+        </div>
+        <div class="pattern-separator">-</div>
+        <div class="pattern-box">
+            <span class="label">Discipline</span>
+            ME
+        </div>
+        <div class="pattern-separator">-</div>
+        <div class="pattern-box">
+            <span class="label">Category</span>
+            EQ
+        </div>
+        <div class="pattern-separator">-</div>
+        <div class="pattern-box">
+            <span class="label">Description</span>
+            Family-Name
+        </div>
+        <div class="pattern-separator">-</div>
+        <div class="pattern-box">
+            <span class="label">Sub-Type / Parameters</span>
+            Type-Name
+        </div>
+    </div>
+
+    <h2>Component Breakdown</h2>
+    <p>Here is a detailed explanation of each component in the naming structure.</p>
+
+    <h3>1. Company Identifier</h3>
+    <p>The name always begins with the company initials.</p>
+    <ul>
+        <li><code>MHT</code>: Stands for <strong>Meinhardt</strong>.</li>
+    </ul>
+
+    <h3>2. Discipline Code</h3>
+    <p>The second part is a two-letter code representing the primary engineering discipline for the family.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Discipline</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>ME</code></td>
+                <td>Mechanical / HVAC</td>
+            </tr>
+            <tr>
+                <td><code>PL</code></td>
+                <td>Plumbing / Piping</td>
+            </tr>
+            <tr>
+                <td><code>EL</code></td>
+                <td>Electrical</td>
+            </tr>
+            <tr>
+                <td><code>FP</code></td>
+                <td>Fire Protection</td>
+            </tr>
+            <tr>
+                <td><code>AN</code></td>
+                <td>Annotation (Tags, Symbols, Title Blocks, etc.)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3. Category Code</h3>
+    <p>The third part is a short code that identifies the Revit category of the family. This helps group similar types of components.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Revit Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>EQ</code></td>
+                <td>Mechanical Equipment</td>
+            </tr>
+            <tr>
+                <td><code>PF</code></td>
+                <td>Pipe Fittings</td>
+            </tr>
+            <tr>
+                <td><code>DF</code></td>
+                <td>Duct Fittings</td>
+            </tr>
+            <tr>
+                <td><code>PLF</code></td>
+                <td>Plumbing Fixtures</td>
+            </tr>
+            <tr>
+                <td><code>LFX</code></td>
+                <td>Lighting Fixtures</td>
+            </tr>
+            <tr>
+                <td><code>EFX</code></td>
+                <td>Electrical Fixtures</td>
+            </tr>
+             <tr>
+                <td><code>GM</code></td>
+                <td>Generic Models</td>
+            </tr>
+            <tr>
+                <td><code>FAM</code></td>
+                <td>Generic Annotations</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>4. Description (Family & Type)</h3>
+    <p>This part describes the component. It is typically built from the original family name and type name, cleaned up for consistency.</p>
+    <ul>
+        <li><strong>Family Name</strong>: A descriptive name for the overall family (e.g., <code>Air-Handling-Unit</code>).</li>
+        <li><strong>Type Name / Parameters</strong>: Describes the specific variation or size (e.g., <code>VAV-Single-Duct</code>, <code>DN100</code>, or a specific model number).</li>
+    </ul>
+
+    <h3>5. Smart Classification (Generic Naming)</h3>
+    <p>To create cleaner and more consistent names, the tool includes a "smart classification" engine. Instead of always using the original family and type name for the description, it first attempts to identify the family's generic purpose.</p>
+    <ul>
+        <li>The tool looks for clues within the family, such as its Revit Category, specific parameter names (e.g., `CFM`, `GPM`, `Head`), and keywords in the family name.</li>
+        <li>If a match is found based on the rules in <code>naming_rules.json</code>, it will use a standardized, generic name (like <code>Pump</code> or <code>Air-Handling-Unit</code>) for the descriptive part of the name.</li>
+        <li>If no classification rule matches, it will fall back to using the cleaned-up original family and type name as the description.</li>
+    </ul>
+
+    <h4>Air Terminal Naming Logic</h4>
+    <p>Air Terminals have special logic to make their names more descriptive:</p>
+    <ol>
+        <li>The tool searches common type and instance parameter names (for example: <code>System Abbreviation</code>, <code>Service Type</code>, <code>Type Comments</code>, <code>Comments</code>, or other configured parameter names) for known system abbreviations such as <code>SAD</code>, <code>EAD</code>, <code>RAD</code>, etc. The parameter list is configurable in <code>naming_rules.json</code> for each classification rule.</li>
+        <li>If no system type is found, the tool will insert the placeholder <code>UND</code> (Undefined) so names remain predictable and searchable.</li>
+        <li>When multiple families would produce the same generic classified name (for example, <code>MHT-ME-AT-SAD</code>), the tool first attempts to create a more specific name by appending a size parameter (e.g., <code>-DN150</code>) when a relevant size parameter exists on the type or instance. Only if no size information is available for conflict resolution will the tool append numeric suffixes (e.g., <code>-01</code>, <code>-02</code>) as a last resort.</li>
+    </ol>
+
+    <h3>Hierarchical Conflict Resolution</h3>
+    <p>To keep names meaningful and minimize artificial suffixes, the tool resolves conflicts in a hierarchy of specificity:</p>
+    <ol>
+        <li>Prefer different generic names when classification rules detect different sub-types.</li>
+        <li>If generics collide, append system code (e.g., <code>-SAD</code>) when available.</li>
+        <li>If still colliding, append the size parameter (e.g., <code>-DN150</code>) to disambiguate.</li>
+        <li>Only when none of the above delivers uniqueness does the tool append incremental numeric suffixes (e.g., <code>-01</code>).</li>
+    </ol>
+
+    <h3>Exact Duplicate Family Handling</h3>
+    <p>When two or more loaded families appear to be exact duplicates (same category, same number of types, and matching parameter patterns), the tool will prompt you during the Apply step with a dedicated dialog that summarizes duplicate groups and suggests actions:</p>
+    <ul>
+        <li><strong>Keep</strong> — Retain this family. The UI will smartly pre-select the family to Keep if it is already used in the project.</li>
+        <li><strong>Mark as Obsolete (X_ Prefix)</strong> — Rename the family by adding an <code>X_</code> prefix (for example, <code>X_MHT-...)</code>. This is the forced action for families that are in use to avoid deleting used content.</li>
+        <li><strong>Delete</strong> — Permanently delete the family from the project. This option is only enabled when the family is not used in the model.</li>
+    </ul>
+    <p>The duplicate handler UI pre-selects sensible defaults (keep a used family, mark unused families as obsolete) but you can override choices before the apply step proceeds.</p>
+
+    <h2>Examples in Practice</h2>
+
+    <div class="example">
+        <p class="example-title">Example 1: Mechanical Equipment</p>
+        <p>An Air Handling Unit family named "AHU - Rooftop" with a type named "1200 CFM".</p>
+        <p><strong>Resulting Name:</strong> <code>MHT-ME-EQ-AHU-Rooftop-1200-CFM</code></p>
+        <ul>
+            <li><strong>MHT</strong>: Company</li>
+            <li><strong>ME</strong>: Mechanical discipline</li>
+            <li><strong>EQ</strong>: Mechanical Equipment category</li>
+            <li><strong>AHU-Rooftop-1200-CFM</strong>: Descriptive name from the family and type.</li>
+        </ul>
+    </div>
+
+    <div class="example">
+        <p class="example-title">Example 1.1: Smart Classification</p>
+        <p>A pump family with a long, vendor-specific name like "Pump-Inline-Circulator-Grundfos-TP000-SEEK".</p>
+        <p><strong>Resulting Name:</strong> <code>MHT-ME-MEQ-PUMP</code></p>
+        <ul>
+            <li><strong>MHT</strong>: Company</li>
+            <li><strong>ME</strong>: Mechanical discipline</li>
+            <li><strong>MEQ</strong>: Mechanical Equipment category code from the template.</li>
+            <li><strong>PUMP</strong>: The generic name identified by the smart classification engine. The original family/type name is replaced for consistency.</li>
+        </ul>
+    </div>
+
+    <div class="example">
+        <p class="example-title">Example 2: Pipe Fitting</p>
+        <p>A pipe elbow family with a type that has a "Size" parameter of "100mm".</p>
+        <p><strong>Resulting Name:</strong> <code>MHT-PL-PF-Elbow-Generic-DN100</code></p>
+        <ul>
+            <li><strong>MHT</strong>: Company</li>
+            <li><strong>PL</strong>: Plumbing discipline</li>
+            <li><strong>PF</strong>: Pipe Fitting category</li>
+            <li><strong>Elbow-Generic-DN100</strong>: Description including the nominal diameter (DN) from the size parameter.</li>
+        </ul>
+    </div>
+
+    <div class="example">
+        <p class="example-title">Example 3: Annotation Tag</p>
+        <p>A tag for Mechanical Equipment.</p>
+        <p><strong>Resulting Name:</strong> <code>MHT-AN-TAG-Mechanical-Equipment</code></p>
+        <ul>
+            <li><strong>MHT</strong>: Company</li>
+            <li><strong>AN</strong>: Annotation discipline</li>
+            <li><strong>TAG</strong>: A common identifier for tags.</li>
+            <li><strong>Mechanical-Equipment</strong>: Describes what the tag is for.</li>
+        </ul>
+    </div>
+
+    <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.04); text-align: center; font-size: 0.9em; color: rgba(234,246,255,0.8);">
+        <p>
+            Document prepared by Gino Moreno<br>
+            <a href="mailto:Gino.Moreno@meinhardtgroup.com" style="color: var(--accent-color); text-decoration: none;">Gino.Moreno@meinhardtgroup.com</a>
+        </p>
+    </footer>
+</body>
+</html>

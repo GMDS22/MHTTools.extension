@@ -1,0 +1,11 @@
+title: "Legend Creator"
+tooltip: |
+  Create legend content from:
+  - Family types (single category)
+  - All MEP-related family categories
+  - Color Fill Schemes
+  - Spaces
+
+  Options include restricting to items used in the active view and choosing where to create/place the legend (Legend view, Drafting view, or Current view).
+
+  Author: GM

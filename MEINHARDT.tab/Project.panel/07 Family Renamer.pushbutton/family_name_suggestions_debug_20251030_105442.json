@@ -1,0 +1,455 @@
+{
+  "generated": "20251030_105442", 
+  "problems": [
+    {
+      "family": "MHT-ME-AT-03", 
+      "classified_system": "UND", 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_shape"
+      ], 
+      "suggested": "MHT-ME-AT-DN42", 
+      "type_params_first": [
+        {
+          "params": {
+            "Assembly Description": "", 
+            "Code Name": "", 
+            "Type IFC Predefined Type": "", 
+            "OmniClass Title": "", 
+            "Edited by": "", 
+            "Export Type to IFC As": "", 
+            "Classification.OmniClass.22.Number": "", 
+            "Type Name": "MHT-ME-AT", 
+            "Classification.MasterFormat.Number": "", 
+            "Cost": "0", 
+            "URL": "", 
+            "Max Flow": "0", 
+            "Min Flow": "0", 
+            "Description": "", 
+            "Family Name": "MHT-ME-AT-03", 
+            "Type Image": "", 
+            "Type Mark": "", 
+            "Classification.OmniClass.23.Number": "", 
+            "Classification.OmniClass.22.Description": "", 
+            "Classification.OmniClass.21.Description": "", 
+            "Type Comments": "", 
+            "Classification.MasterFormat.Description": "", 
+            "Workset": "", 
+            "Category": "", 
+            "Assembly Code": "", 
+            "Keynote": "", 
+            "Type IfcGUID": "1g42vRwKn9Sh$Y67bjj8NV", 
+            "Classification.OmniClass.23.Description": "", 
+            "OmniClass Number": "23.33.49.11.11", 
+            "Export Type to IFC": "", 
+            "Default Elevation": "0", 
+            "Model": "", 
+            "Manufacturer": "", 
+            "Classification.OmniClass.21.Number": "", 
+            "Design Option": ""
+          }, 
+          "type_name": "MHT-ME-AT-03"
+        }
+      ], 
+      "category": "Air Terminals", 
+      "instance_params": {}, 
+      "classified_size": "DN42"
+    }, 
+    {
+      "family": "MHT-ME-AT-06", 
+      "classified_system": "UND", 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_shape"
+      ], 
+      "suggested": "MHT-ME-AT-DN200", 
+      "type_params_first": [
+        {
+          "params": {
+            "Assembly Description": "", 
+            "Code Name": "", 
+            "Type IFC Predefined Type": "", 
+            "OmniClass Title": "", 
+            "Edited by": "", 
+            "Export Type to IFC As": "", 
+            "Classification.OmniClass.22.Number": "", 
+            "Type Name": "MHT-ME-AT", 
+            "Classification.MasterFormat.Number": "", 
+            "Cost": "0", 
+            "URL": "", 
+            "Arrow Out": "", 
+            "Max Flow": "0", 
+            "Min Flow": "0", 
+            "Description": "", 
+            "Family Name": "MHT-ME-AT-06", 
+            "Type Image": "", 
+            "Type Mark": "", 
+            "Classification.OmniClass.23.Number": "", 
+            "Classification.OmniClass.22.Description": "", 
+            "Classification.OmniClass.21.Description": "", 
+            "Type Comments": "FAL", 
+            "Classification.MasterFormat.Description": "", 
+            "Arrow In": "", 
+            "Workset": "", 
+            "Category": "", 
+            "Assembly Code": "", 
+            "Keynote": "23 36 00", 
+            "Type IfcGUID": "1g42vRwKn9Sh$Y67bjjNko", 
+            "Diameter": "200", 
+            "Classification.OmniClass.23.Description": "", 
+            "OmniClass Number": "23.33.41.00", 
+            "Export Type to IFC": "", 
+            "Default Elevation": "0", 
+            "Model": "", 
+            "Manufacturer": "", 
+            "Classification.OmniClass.21.Number": "", 
+            "Design Option": ""
+          }, 
+          "type_name": "MHT-ME-AT-06"
+        }
+      ], 
+      "category": "Air Terminals", 
+      "instance_params": {}, 
+      "classified_size": "DN200"
+    }, 
+    {
+      "family": "MHT-ME-AT-17", 
+      "classified_system": "UND", 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_shape"
+      ], 
+      "suggested": "MHT-ME-AT-DN23-DN23", 
+      "type_params_first": [
+        {
+          "params": {
+            "Assembly Description": "", 
+            "Code Name": "", 
+            "Type IFC Predefined Type": "", 
+            "OmniClass Title": "", 
+            "Edited by": "", 
+            "Export Type to IFC As": "", 
+            "Classification.OmniClass.22.Number": "", 
+            "Type Name": "MHT-ME-AT", 
+            "Classification.MasterFormat.Number": "", 
+            "Cost": "0", 
+            "URL": "", 
+            "Arrow Out": "", 
+            "Max Flow": "0", 
+            "Min Flow": "0", 
+            "Description": "", 
+            "Family Name": "MHT-ME-AT-17", 
+            "Type Image": "", 
+            "Type Mark": "", 
+            "Classification.OmniClass.23.Number": "", 
+            "Classification.OmniClass.22.Description": "", 
+            "Classification.OmniClass.21.Description": "", 
+            "Type Comments": "FAL", 
+            "Classification.MasterFormat.Description": "", 
+            "Arrow In": "", 
+            "Workset": "", 
+            "Category": "", 
+            "Assembly Code": "", 
+            "Keynote": "23 36 00", 
+            "Type IfcGUID": "1g42vRwKn9Sh$Y67bjjTgN", 
+            "Classification.OmniClass.23.Description": "", 
+            "OmniClass Number": "23.33.41.00", 
+            "Export Type to IFC": "", 
+            "Default Elevation": "0", 
+            "Model": "", 
+            "Manufacturer": "", 
+            "Classification.OmniClass.21.Number": "", 
+            "Design Option": ""
+          }, 
+          "type_name": "MHT-ME-AT-17"
+        }
+      ], 
+      "category": "Air Terminals", 
+      "instance_params": {}, 
+      "classified_size": "DN23"
+    }, 
+    {
+      "family": "MHT-ME-AT-19", 
+      "classified_system": "UND", 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_shape"
+      ], 
+      "suggested": "MHT-ME-AT-DN23", 
+      "type_params_first": [
+        {
+          "params": {
+            "Assembly Description": "", 
+            "Code Name": "", 
+            "Type IFC Predefined Type": "", 
+            "OmniClass Title": "", 
+            "Edited by": "", 
+            "Export Type to IFC As": "", 
+            "Classification.OmniClass.22.Number": "", 
+            "Type Name": "MHT-ME-AT", 
+            "Classification.MasterFormat.Number": "", 
+            "Cost": "0", 
+            "URL": "", 
+            "Arrow Out": "", 
+            "Max Flow": "0", 
+            "Min Flow": "0", 
+            "Description": "", 
+            "Family Name": "MHT-ME-AT-19", 
+            "Type Image": "", 
+            "Type Mark": "", 
+            "Classification.OmniClass.23.Number": "", 
+            "Classification.OmniClass.22.Description": "", 
+            "Classification.OmniClass.21.Description": "", 
+            "Type Comments": "FAL", 
+            "Classification.MasterFormat.Description": "", 
+            "Arrow In": "", 
+            "Workset": "", 
+            "Category": "", 
+            "Assembly Code": "", 
+            "Keynote": "23 36 00", 
+            "Type IfcGUID": "1g42vRwKn9Sh$Y67bjjSfL", 
+            "Classification.OmniClass.23.Description": "", 
+            "OmniClass Number": "23.33.41.00", 
+            "Export Type to IFC": "", 
+            "Default Elevation": "0", 
+            "Model": "", 
+            "Manufacturer": "", 
+            "Classification.OmniClass.21.Number": "", 
+            "Design Option": ""
+          }, 
+          "type_name": "MHT-ME-AT-19"
+        }
+      ], 
+      "category": "Air Terminals", 
+      "instance_params": {}, 
+      "classified_size": "DN23"
+    }, 
+    {
+      "family": "MHT-ME-FAM-Air Terminal Tags", 
+      "classified_system": null, 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_size", 
+        "missing_shape"
+      ], 
+      "suggested": "MHT-ME-FAM-Air Terminal Tags", 
+      "type_params_first": [
+        {
+          "params": {
+            "Workset": "", 
+            "Show Linear Length": "", 
+            "Edited by": "", 
+            "Show Flex": "", 
+            "Length": "13", 
+            "Show No Flex": "", 
+            "Category": "", 
+            "Family Name": "MHT-ME-FAM-Air Terminal Tags", 
+            "Show Grille Size": "", 
+            "Show General": "", 
+            "show border": "", 
+            "Show Wall Grille ID": "", 
+            "Show Floor Grille Size": "", 
+            "Design Option": "", 
+            "Show Section Size": "", 
+            "Leader Arrowhead": "", 
+            "Show Airflow": "", 
+            "Show No Flow": "", 
+            "Type Name": "MHT-ME-FAM-FAM-Air Terminal Tags"
+          }, 
+          "type_name": "MHT-ME-FAM-Air Terminal Tags"
+        }
+      ], 
+      "category": "Air Terminal Tags", 
+      "instance_params": {}, 
+      "classified_size": null
+    }, 
+    {
+      "family": "MHT-ME-FAM-Grille Tag2", 
+      "classified_system": null, 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_size", 
+        "missing_shape"
+      ], 
+      "suggested": "MHT-ME-FAM-Grille Tag2", 
+      "type_params_first": [
+        {
+          "params": {
+            "Workset": "", 
+            "Show Linear Length": "", 
+            "Edited by": "", 
+            "Show Flex": "", 
+            "Length": "13", 
+            "Show No Flex": "", 
+            "Category": "", 
+            "Family Name": "MHT-ME-FAM-Grille Tag2", 
+            "Show Grille Size": "", 
+            "Show General": "", 
+            "show border": "", 
+            "Show Wall Grille ID": "", 
+            "Show Floor Grille Size": "", 
+            "Design Option": "", 
+            "Show Section Size": "", 
+            "Leader Arrowhead": "", 
+            "Show Airflow": "", 
+            "Show No Flow": "", 
+            "Type Name": "MHT-ME-FAM-FAM-Grille Tag1"
+          }, 
+          "type_name": "MHT-ME-FAM-Grille Tag2"
+        }
+      ], 
+      "category": "Air Terminal Tags", 
+      "instance_params": {}, 
+      "classified_size": null
+    }, 
+    {
+      "family": "MHT-ME-AT-31", 
+      "classified_system": "UND", 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_shape"
+      ], 
+      "suggested": "MHT-ME-AT-DN12", 
+      "type_params_first": [
+        {
+          "params": {
+            "NDY_Version": "12.0", 
+            "Assembly Description": "", 
+            "Code Name": "", 
+            "Type IFC Predefined Type": "", 
+            "OmniClass Title": "Diffusers, Registers, and Grilles", 
+            "Edited by": "", 
+            "Export Type to IFC As": "", 
+            "NDY_Min Flow": "0", 
+            "Classification.OmniClass.22.Number": "", 
+            "Type Name": "MHT-ME-AT 1", 
+            "Classification.MasterFormat.Number": "", 
+            "NDY_Face Size X": "600", 
+            "NDY_Face Size Y": "1400", 
+            "Cost": "0", 
+            "URL": "", 
+            "Max Flow": "0", 
+            "Min Flow": "0", 
+            "Description": "Outside Air Louvre", 
+            "Family Name": "MHT-ME-AT-31", 
+            "Type Image": "", 
+            "Type Mark": "", 
+            "Classification.OmniClass.23.Number": "", 
+            "Classification.OmniClass.22.Description": "", 
+            "Classification.OmniClass.21.Description": "", 
+            "Type Comments": "", 
+            "Classification.MasterFormat.Description": "", 
+            "Workset": "", 
+            "Category": "", 
+            "Assembly Code": "D3040100", 
+            "Keynote": "", 
+            "Type IfcGUID": "1fY8Jtm$D79flr7chyVbiI", 
+            "Classification.OmniClass.23.Description": "", 
+            "OmniClass Number": "23.75.70.21.27.11", 
+            "Export Type to IFC": "", 
+            "Default Elevation": "2400", 
+            "Model": "", 
+            "NDY_Max Flow": "0", 
+            "Manufacturer": "", 
+            "Classification.OmniClass.21.Number": "", 
+            "Design Option": ""
+          }, 
+          "type_name": "MHT-ME-AT-31"
+        }
+      ], 
+      "category": "Air Terminals", 
+      "instance_params": {}, 
+      "classified_size": "DN12"
+    }, 
+    {
+      "family": "MHT-ME-AT-32", 
+      "classified_system": "UND", 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_shape"
+      ], 
+      "suggested": "MHT-ME-AT-DN861", 
+      "type_params_first": [
+        {
+          "params": {
+            "Assembly Description": "", 
+            "Code Name": "", 
+            "Type IFC Predefined Type": "", 
+            "OmniClass Title": "", 
+            "Edited by": "", 
+            "Export Type to IFC As": "", 
+            "Classification.OmniClass.22.Number": "", 
+            "Type Name": "MHT-ME-AT 1", 
+            "Classification.MasterFormat.Number": "", 
+            "Cost": "0", 
+            "URL": "", 
+            "Max Flow": "0", 
+            "Min Flow": "0", 
+            "Description": "", 
+            "Family Name": "MHT-ME-AT-32", 
+            "Type Image": "", 
+            "Type Mark": "", 
+            "Classification.OmniClass.23.Number": "", 
+            "Classification.OmniClass.22.Description": "", 
+            "Classification.OmniClass.21.Description": "", 
+            "Type Comments": "DUCT MOUNT DOUBLE DEFLECTION", 
+            "Classification.MasterFormat.Description": "", 
+            "Workset": "", 
+            "Category": "", 
+            "Assembly Code": "", 
+            "Keynote": "", 
+            "Type IfcGUID": "1fY8Jtm$D79flr7chyVK$4", 
+            "Classification.OmniClass.23.Description": "", 
+            "OmniClass Number": "", 
+            "Export Type to IFC": "", 
+            "Default Elevation": "0", 
+            "Model": "", 
+            "Manufacturer": "", 
+            "Classification.OmniClass.21.Number": "", 
+            "Design Option": ""
+          }, 
+          "type_name": "MHT-ME-AT-32"
+        }
+      ], 
+      "category": "Air Terminals", 
+      "instance_params": {}, 
+      "classified_size": "DN861"
+    }, 
+    {
+      "family": "MHT-ME-FAM-AirTerminal", 
+      "classified_system": null, 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_size", 
+        "missing_shape"
+      ], 
+      "suggested": "MHT-ME-FAM-AirTerminal", 
+      "type_params_first": [
+        {
+          "params": {
+            "Workset": "", 
+            "Edited by": "", 
+            "Category": "", 
+            "Family Name": "MHT-ME-FAM-AirTerminal", 
+            "Design Option": "", 
+            "Leader Arrowhead": "", 
+            "Type Name": "MHT-ME-FAM-FAM-AirTerminal"
+          }, 
+          "type_name": "MHT-ME-FAM-AirTerminal"
+        }
+      ], 
+      "category": "Air Terminal Tags", 
+      "instance_params": {}, 
+      "classified_size": null
+    }
+  ]
+}

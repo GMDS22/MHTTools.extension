@@ -1,0 +1,4 @@
+title: Filter by Value
+tooltip: Creates view filters based on system types or selected parameter values, with automatic support for linked files. Applies graphic overrides to MEP elements.
+author: Gino Moreno
+description: Filters and colors MEP elements in the current and linked Revit files, with per-category selection. Includes support for duct and pipe systems. Now automatically processes linked files!

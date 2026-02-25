@@ -1,0 +1,6 @@
+title: Family Renamer
+tooltip: "Scan loaded families and propose standardized names from naming_rules.json. Review suggestions and safely apply family & type renames."
+script: script.py
+icon: icon.svg
+author: gmoreno
+

@@ -1,0 +1,61 @@
+{
+  "problems": [
+    {
+      "suggested": "MHT-ME-FAM-M-Diffuser-Tag-Autodesk-Revit-Db-Familysymbol-Object-At-0X0000000000000A31-Autodesk-Revit-Db-Familysymbol", 
+      "family": "M_Diffuser Tag", 
+      "type_params_first": [
+        {
+          "type_name": "<Autodesk.Revit.DB.FamilySymbol object at 0x0000000000000A31 [Autodesk.Revit.DB.FamilySymbol]>", 
+          "params": {
+            "Category": "", 
+            "Type Name": "M_Diffuser Tag", 
+            "Leader Arrowhead": "", 
+            "Design Option": "", 
+            "Family Name": "M_Diffuser Tag"
+          }
+        }
+      ], 
+      "classified_system": null, 
+      "classified_modifier": null, 
+      "instance_params": {}, 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_size", 
+        "missing_shape"
+      ], 
+      "classified_fitting": null, 
+      "category": "Air Terminal Tags", 
+      "classified_size": null
+    }, 
+    {
+      "suggested": "MHT-ME-FAM-Diffuser-Tag-Name-Autodesk-Revit-Db-Familysymbol-Object-At-0X0000000000000A4D-Autodesk-Revit-Db-Familysymbol", 
+      "family": "Diffuser Tag  - TYPE NAME", 
+      "type_params_first": [
+        {
+          "type_name": "<Autodesk.Revit.DB.FamilySymbol object at 0x0000000000000A4D [Autodesk.Revit.DB.FamilySymbol]>", 
+          "params": {
+            "Category": "", 
+            "Type Name": "Diffuser Tag  - TYPE NAME", 
+            "Leader Arrowhead": "", 
+            "Design Option": "", 
+            "Family Name": "Diffuser Tag  - TYPE NAME"
+          }
+        }
+      ], 
+      "classified_system": null, 
+      "classified_modifier": null, 
+      "instance_params": {}, 
+      "classified_shape": null, 
+      "reasons": [
+        "missing_system", 
+        "missing_size", 
+        "missing_shape"
+      ], 
+      "classified_fitting": null, 
+      "category": "Air Terminal Tags", 
+      "classified_size": null
+    }
+  ], 
+  "generated": "20251205_091046"
+}

@@ -1,0 +1,36 @@
+{
+  "problems": [
+    {
+      "type_params_first": [
+        {
+          "type_name": "MHT-ME-FAM-Air Terminal-Tag-ƒs", 
+          "params": {
+            "Category": "", 
+            "Airflow": "", 
+            "Masking Region": "", 
+            "Type Name": "Air Flow", 
+            "Leader Arrowhead": "", 
+            "Workset": "", 
+            "Edited by": "", 
+            "Design Option": "", 
+            "Airflow Off": "", 
+            "Family Name": "MHT-ME-FAM-Air Terminal-Tag-ƒs"
+          }
+        }
+      ], 
+      "classified_shape": null, 
+      "instance_params": {}, 
+      "classified_size": null, 
+      "suggested": "MHT-ME-FAM-Air Terminal-Tag-ƒs", 
+      "classified_system": null, 
+      "category": "Air Terminal Tags", 
+      "family": "MHT-ME-FAM-Air Terminal-Tag-ƒs", 
+      "reasons": [
+        "missing_system", 
+        "missing_size", 
+        "missing_shape"
+      ]
+    }
+  ], 
+  "generated": "20251030_123856"
+}

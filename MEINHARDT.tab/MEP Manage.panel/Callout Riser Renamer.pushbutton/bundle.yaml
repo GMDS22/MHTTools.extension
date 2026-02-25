@@ -1,0 +1,8 @@
+title:
+  en_us: Callout Riser Renamer
+tooltip:
+  en_us: |
+    Rename selected callout views using the reference level and
+    all Riser values found in Generic Model elements inside each
+    callout view.
+author: Gino Moreno

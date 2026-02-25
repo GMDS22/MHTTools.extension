@@ -1,0 +1,127 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HVAC Zone Filters" Height="720" Width="900" WindowStartupLocation="CenterScreen">
+  <Grid Margin="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <GroupBox Header="Target" Margin="0,0,0,8">
+      <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="4">
+          <RadioButton x:Name="rbActiveView" Content="Active view" IsChecked="True" Margin="0,0,12,0"/>
+          <RadioButton x:Name="rbSelectViews" Content="Select views" Margin="0,0,8,0"/>
+          <Button x:Name="btnPickViews" Content="Pick..." Width="70"/>
+          <TextBlock x:Name="txtViews" Margin="12,0,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="If views have templates:" VerticalAlignment="Center" Margin="0,6,8,0"/>
+        <ComboBox x:Name="cbTemplatePolicy" Grid.Row="1" Grid.Column="1" Width="240" Margin="0,6,0,0"/>
+      </Grid>
+    </GroupBox>
+
+    <GroupBox Header="Global Settings" Grid.Row="1" Margin="0,0,0,8">
+      <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="260"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="120"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="120"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Zone parameter:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+        <ComboBox x:Name="cbZoneParam" Grid.Row="0" Grid.Column="1"/>
+
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Fill pattern:" VerticalAlignment="Center" Margin="12,0,8,0"/>
+        <ComboBox x:Name="cbFillPattern" Grid.Row="0" Grid.Column="3"/>
+
+        <TextBlock Grid.Row="0" Grid.Column="4" Text="Transparency:" VerticalAlignment="Center" Margin="12,0,8,0"/>
+        <TextBox x:Name="txtTransparency" Grid.Row="0" Grid.Column="5" Text="0"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Color source:" VerticalAlignment="Center" Margin="0,8,8,0"/>
+        <ComboBox x:Name="cbColorSource" Grid.Row="1" Grid.Column="1" Margin="0,8,0,0"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Global RGB:" VerticalAlignment="Center" Margin="12,8,8,0"/>
+        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" Margin="0,8,0,0">
+          <TextBox x:Name="txtR" Width="36" Text="200"/>
+          <TextBlock Text="," VerticalAlignment="Center" Margin="4,0"/>
+          <TextBox x:Name="txtG" Width="36" Text="200"/>
+          <TextBlock Text="," VerticalAlignment="Center" Margin="4,0"/>
+          <TextBox x:Name="txtB" Width="36" Text="200"/>
+          <Button x:Name="btnPickGlobal" Content="Pick" Margin="8,0,0,0" Width="50"/>
+        </StackPanel>
+
+        <CheckBox x:Name="chkHalftone" Grid.Row="1" Grid.Column="4" Content="Halftone" Margin="12,8,0,0" VerticalAlignment="Center"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Line weight:" VerticalAlignment="Center" Margin="0,8,8,0"/>
+        <TextBox x:Name="txtLineWeight" Grid.Row="2" Grid.Column="1" Margin="0,8,0,0"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="CSCHN:" VerticalAlignment="Center" Margin="12,8,8,0"/>
+        <StackPanel Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,8,0,0">
+          <TextBox x:Name="txtCschn" Width="360"/>
+          <Button x:Name="btnPickCschn" Content="Browse..." Margin="8,0,0,0" Width="80"/>
+        </StackPanel>
+      </Grid>
+    </GroupBox>
+
+    <GroupBox Header="Zones" Grid.Row="2" Margin="0,0,0,8">
+      <Grid Margin="8">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,6">
+          <Button x:Name="btnReload" Content="Load/Refresh Zones" Width="140"/>
+          <Button x:Name="btnApplyColors" Content="Apply Color Source" Width="140" Margin="8,0,0,0"/>
+          <Button x:Name="btnAllOn" Content="All On" Width="80" Margin="8,0,0,0"/>
+          <Button x:Name="btnAllOff" Content="All Off" Width="80" Margin="8,0,0,0"/>
+          <TextBlock x:Name="txtZoneCount" Margin="12,0,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <DataGrid x:Name="dgZones" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="False">
+          <DataGrid.Columns>
+            <DataGridCheckBoxColumn Header="Use" Binding="{Binding Include}" Width="50"/>
+            <DataGridTextColumn Header="Zone" Binding="{Binding Value}" IsReadOnly="True" Width="*"/>
+            <DataGridTemplateColumn Header="Color" Width="70">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Button Content="Pick" Width="50" Click="pick_row_color" Tag="{Binding}"/>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Header="R" Binding="{Binding R}" Width="60"/>
+            <DataGridTextColumn Header="G" Binding="{Binding G}" Width="60"/>
+            <DataGridTextColumn Header="B" Binding="{Binding B}" Width="60"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </Grid>
+    </GroupBox>
+
+    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+      <Button x:Name="btnRun" Content="Create + Apply Filters" Width="160" Margin="0,0,8,0"/>
+      <Button x:Name="btnCancel" Content="Cancel" Width="90"/>
+    </StackPanel>
+  </Grid>
+</Window>

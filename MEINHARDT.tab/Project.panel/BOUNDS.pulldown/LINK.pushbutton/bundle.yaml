@@ -1,0 +1,4 @@
+title: LINK
+tooltip: Linked boundaries → host lines (legacy).
+author: Gino Moreno
+description: Creates Space Separation lines in the current model by reading Room/Area boundary segments from a selected Revit link and transforming them into the active view plane.

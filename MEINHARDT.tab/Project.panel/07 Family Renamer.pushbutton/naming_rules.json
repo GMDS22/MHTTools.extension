@@ -1,0 +1,466 @@
+{
+  "AUTO_OPEN": false, 
+  "TEMPLATES": {
+    "Tag": "<COMPANY>-<DISC:Annotation>-TAG-<Family>-<Type>", 
+    "Cleanout": "<COMPANY>-<DISC:Plumbing>-CO-<Family>-<Type>", 
+    "Pipe Accessories": "<COMPANY>-<DISC:Plumbing>-PACC-<Family>-<Type>", 
+    "Electrical Equipment": "<COMPANY>-<DISC:Electrical>-EE-<Family>-<Type>", 
+    "Default": "<COMPANY>-<DISC:Mechanical>-FAM-<Family>-<Type>", 
+    "CalloutHead": "<COMPANY>-<DISC:Annotation>-CH-<Family>-<Type>", 
+    "Plumbing Equipment": "<COMPANY>-<DISC:Plumbing>-PEQ-<Family>-<Type>", 
+    "Pipe Fitting": "<COMPANY>-<DISC:Plumbing>-PFIT-<Family>-<Type>", 
+    "Lighting Devices": "<COMPANY>-<DISC:Electrical>-LD-<Family>-<Type>", 
+    "Urinal": "<COMPANY>-<DISC:Plumbing>-UR-<Type>-<Param:Mount>", 
+    "TitleBlock": "<COMPANY>-<DISC:Annotation>-TB-<Family>-<Type>", 
+    "Air Terminals": "<COMPANY>-<DISC:Mechanical>-AT-<SYS>-<SIZE>", 
+    "FloorDrain": "<COMPANY>-<DISC:Plumbing>-FD-<Type>-<Param:Size>", 
+    "Tag:Plumbing": "<COMPANY>-<DISC:Plumbing>-TAG-<Family>-<Type>", 
+    "Lavatory": "<COMPANY>-<DISC:Plumbing>-LV-<Type>-<Param:Mount>", 
+    "Mechanical Equipment": "<COMPANY>-<DISC:Mechanical>-MEQ-<Family>-<Type>", 
+    "Windows": "<COMPANY>-<DISC:Architectural>-W-<Param:Width>-<Param:Height>-<Type>", 
+    "FlowArrow": "<COMPANY>-<DISC:Mechanical>-FA-<Family>-<Type>", 
+    "SectionHead": "<COMPANY>-<DISC:Annotation>-SH-<Family>-<Type>", 
+    "Tag:Electrical": "<COMPANY>-<DISC:Electrical>-TAG-<Family>-<Type>", 
+    "LevelHead": "<COMPANY>-<DISC:Annotation>-LH-<Family>-<Type>", 
+    "Duct Fittings": "<COMPANY>-<DISC:Mechanical>-DF-<Shape>-<Fitting>-<Modifier>-<SYS>-<SIZE>", 
+    "HoseBibb": "<COMPANY>-<DISC:Plumbing>-HB-<Family>-<Type>", 
+    "NorthArrow": "<COMPANY>-<DISC:Annotation>-NA-<Family>-<Type>", 
+    "FlowSwitch": "<COMPANY>-<DISC:Plumbing>-FS-<Family>-<Type>", 
+    "Doors": "<COMPANY>-<DISC:Mechanical>-D-<Param:Width>-<Type>", 
+    "Lighting Fixtures": "<COMPANY>-<DISC:Electrical>-LF-<Family>-<Type>", 
+    "Conduit Fitting": "<COMPANY>-<DISC:Electrical>-CF-<Family>-<Type>", 
+    "Generic Models": "<COMPANY>-<DISC:Mechanical>-GM-<Family>-<Type>", 
+    "Sink": "<COMPANY>-<DISC:Plumbing>-SK-<Type>-<Param:Mount>", 
+    "Plumbing Fixtures": "<COMPANY>-<DISC:Plumbing>-PF-<Family>-<Type>", 
+    "WaterCloset": "<COMPANY>-<DISC:Plumbing>-WC-<Type>-<Param:Mount>"
+  }, 
+  "COMPANY": "MHT", 
+  "DEFAULT_CONFLICT_ACTION": "Auto-suffix", 
+  "DEFAULT_CASING": "UPPER", 
+  "CLASSIFICATION_RULES": [
+    {
+      "clues": {
+        "param_names": [
+          "GPM", 
+          "Flow", 
+          "Head"
+        ], 
+        "category": [
+          "Mechanical Equipment"
+        ], 
+        "system_classification": [
+          "Hydronic", 
+          "Domestic"
+        ], 
+        "family_name_keywords": [
+          "pump", 
+          "circulator"
+        ], 
+        "sub_type_keywords": [
+          "inline", 
+          "end-suction", 
+          "base-mounted", 
+          "circulator", 
+          "centrifugal"
+        ]
+      }, 
+      "generic_name": "Pump"
+    }, 
+    {
+      "clues": {
+        "param_names": [
+          "CFM", 
+          "Airflow", 
+          "Static Pressure"
+        ], 
+        "category": [
+          "Mechanical Equipment"
+        ], 
+        "system_classification": [
+          "Air"
+        ], 
+        "family_name_keywords": [
+          "ahu", 
+          "air handler", 
+          "air handling unit"
+        ], 
+        "sub_type_keywords": [
+          "rooftop", 
+          "indoor", 
+          "vertical"
+        ]
+      }, 
+      "generic_name": "Air-Handling-Unit"
+    }, 
+    {
+      "clues": {
+        "param_names": [
+          "CFM", 
+          "Airflow"
+        ], 
+        "category": [
+          "Mechanical Equipment", 
+          "Air Terminals"
+        ], 
+        "system_classification": [
+          "Air"
+        ], 
+        "family_name_keywords": [
+          "vav", 
+          "variable air volume"
+        ], 
+        "sub_type_keywords": [
+          "single-duct", 
+          "dual-duct", 
+          "fan-powered"
+        ]
+      }, 
+      "generic_name": "VAV-Box"
+    }, 
+    {
+      "clues": {
+        "param_names": [
+          "CFM", 
+          "Airflow", 
+          "AirTerminalType", 
+          "Air Pattern", 
+          "Pattern", 
+          "Air Flow", 
+          "Flow"
+        ], 
+        "category": [
+          "Air Terminals"
+        ], 
+        "size_param_keywords": [
+          "Size", 
+          "Duct Size", 
+          "Neck Size", 
+          "Diameter", 
+          "DN", 
+          "\u00d8", 
+          "Dia", 
+          "Spigot Size", 
+          "Neck Width", 
+          "Neck Height", 
+          "Outlet Size", 
+          "Width", 
+          "Height", 
+          "W", 
+          "H"
+        ], 
+        "system_type_values": [
+          "SAD", 
+          "RAD", 
+          "EAD", 
+          "RA", 
+          "EA", 
+          "SA", 
+          "SUPPLY", 
+          "RETURN", 
+          "EXHAUST", 
+          "SUP", 
+          "RET", 
+          "EXH", 
+          "SUPPLY AIR", 
+          "RETURN AIR", 
+          "EXHAUST AIR", 
+          "SUPPLY-AIR", 
+          "RETURN-AIR", 
+          "EXHAUST-AIR", 
+          "EXHAUST", 
+          "SUPPLY", 
+          "RETURN", 
+          "EXHAUST", 
+          "EXH", 
+          "SUPP", 
+          "RET", 
+          "EA", 
+          "RA", 
+          "SA", 
+          "S/A", 
+          "R/A"
+        ], 
+        "family_name_keywords": [
+          "diffuser", 
+          "diff", 
+          "diffuser slot", 
+          "slot diffuser", 
+          "linear slot", 
+          "grille", 
+          "register", 
+          "register grille", 
+          "air terminal", 
+          "supply diffuser", 
+          "return grille", 
+          "supply grille", 
+          "plenum outlet", 
+          "swirl", 
+          "spiral", 
+          "louver", 
+          "square diffuser", 
+          "rectangular diffuser", 
+          "slot", 
+          "linear"
+        ], 
+        "system_type_param_keywords": [
+          "System Abbreviation", 
+          "Service Type", 
+          "Comments", 
+          "System", 
+          "System Name", 
+          "SystemType", 
+          "SystemClassification", 
+          "Service", 
+          "Air System", 
+          "Air System Name", 
+          "Mark", 
+          "Type Comments", 
+          "System Code", 
+          "System Abbrev"
+        ], 
+        "sub_type_keywords": [
+          "round", 
+          "rect", 
+          "rectangular", 
+          "rec", 
+          "square", 
+          "slot", 
+          "linear", 
+          "horizontal", 
+          "vertical", 
+          "swirl", 
+          "spiral", 
+          "slot diffuser", 
+          "linear slot", 
+          "square diffuser", 
+          "rectangular diffuser"
+        ]
+      }, 
+      "generic_name": "Air-Terminal"
+    }, 
+    {
+      "clues": {
+        "category": [
+          "Pipe Fitting"
+        ], 
+        "family_name_keywords": [
+          "elbow", 
+          "tee", 
+          "coupling", 
+          "reducer", 
+          "wye"
+        ], 
+        "size_param_keywords": [
+          "Size", 
+          "Diameter"
+        ], 
+        "param_names": [
+          "Size", 
+          "Diameter", 
+          "DN"
+        ]
+      }, 
+      "generic_name": "Pipe-Fitting"
+    }, 
+    {
+      "clues": {
+        "sub_type_keywords": [
+          "wall-mounted", 
+          "floor-mounted", 
+          "counter-top"
+        ], 
+        "category": [
+          "Plumbing Fixtures"
+        ], 
+        "family_name_keywords": [
+          "lavatory", 
+          "lav", 
+          "toilet", 
+          "urinal", 
+          "sink", 
+          "floor drain"
+        ], 
+        "param_names": [
+          "Flow", 
+          "Mount", 
+          "Rough In"
+        ]
+      }, 
+      "generic_name": "Plumbing-Fixture"
+    }, 
+    {
+      "clues": {
+        "param_names": [
+          "Size", 
+          "Neck Size", 
+          "Width", 
+          "Diameter", 
+          "Dia", 
+          "DN", 
+          "Spigot Size", 
+          "Face Size X", 
+          "Face Size Y", 
+          "NDY_Face Size X", 
+          "NDY_Face Size Y", 
+          "Outlet Size", 
+          "Inlet Size", 
+          "SizeX", 
+          "SizeY", 
+          "Size1", 
+          "Size2"
+        ], 
+        "category": [
+          "Duct Fittings"
+        ], 
+        "fitting_modifier_keywords": [
+          "long radius", 
+          "short radius", 
+          "longrad", 
+          "shortrad", 
+          "lr", 
+          "sr", 
+          "long", 
+          "short", 
+          "flanged", 
+          "slip joint", 
+          "pressed", 
+          "segmented", 
+          "adjustable", 
+          "mitred", 
+          "fabric", 
+          "canvas", 
+          "vaned"
+        ], 
+        "size_param_keywords": [
+          "Size", 
+          "Neck Size", 
+          "Duct Size", 
+          "Diameter", 
+          "DN", 
+          "Dia", 
+          "Width", 
+          "Height", 
+          "Face Size X", 
+          "Face Size Y", 
+          "Outlet Size", 
+          "Inlet Size", 
+          "SizeX", 
+          "SizeY"
+        ], 
+        "family_name_keywords": [
+          "elbow", 
+          "tee", 
+          "transition", 
+          "wye", 
+          "fitting", 
+          "reducer", 
+          "takeoff", 
+          "spigot", 
+          "endcap", 
+          "union", 
+          "shoe", 
+          "press", 
+          "pressed", 
+          "segmented", 
+          "mitre", 
+          "mitred", 
+          "taper", 
+          "eccentric", 
+          "concentric", 
+          "sleeve", 
+          "canvas", 
+          "vaned", 
+          "square branch", 
+          "shoe branch", 
+          "branch"
+        ], 
+        "sub_type_keywords": [
+          "round", 
+          "rect", 
+          "rectangular", 
+          "rec", 
+          "square", 
+          "oval", 
+          "tee", 
+          "elbow", 
+          "transition", 
+          "wye", 
+          "reducer", 
+          "union", 
+          "taper", 
+          "eccentric", 
+          "concentric", 
+          "takeoff", 
+          "shoe", 
+          "spigot", 
+          "pressed", 
+          "flanged", 
+          "segmented", 
+          "mitred", 
+          "mitered", 
+          "sleeve", 
+          "vaned"
+        ]
+      }, 
+      "generic_name": "Duct-Fitting"
+    }, 
+    {
+      "clues": {
+        "sub_type_keywords": [
+          "recessed", 
+          "surface", 
+          "pendant"
+        ], 
+        "category": [
+          "Lighting Fixtures"
+        ], 
+        "family_name_keywords": [
+          "lamp", 
+          "fixture", 
+          "recessed", 
+          "downlight", 
+          "luminaire"
+        ], 
+        "param_names": [
+          "Wattage", 
+          "Lumens", 
+          "Fixture Type"
+        ]
+      }, 
+      "generic_name": "Lighting-Fixture"
+    }, 
+    {
+      "clues": {
+        "sub_type_keywords": [
+          "main", 
+          "sub"
+        ], 
+        "category": [
+          "Electrical Equipment"
+        ], 
+        "family_name_keywords": [
+          "panel", 
+          "transformer", 
+          "switchboard", 
+          "meter"
+        ], 
+        "param_names": [
+          "Amps", 
+          "Voltage", 
+          "kVA"
+        ]
+      }, 
+      "generic_name": "Electrical-Equipment"
+    }
+  ], 
+  "AUTO_EXPORT": true, 
+  "DISCIPLINE": {
+    "Piping": "PL", 
+    "Plumbing": "PL", 
+    "Electrical": "EL", 
+    "FireProtection": "FP", 
+    "Mechanical": "ME", 
+    "Annotation": "AN", 
+    "HVAC": "ME"
+  }
+}

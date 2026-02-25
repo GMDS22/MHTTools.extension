@@ -1,0 +1,9 @@
+title:
+  en_us: Search Tool
+tooltip:
+  en_us: Search and run any loaded pyRevit tool by keyword (name, tab, panel, tooltip).
+author: GMoreno
+description:
+  en_us: Tool finder for pyRevit. Search tools across loaded extensions and run them.
+engine:
+  ironpython: true

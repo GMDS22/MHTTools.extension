@@ -1,0 +1,9 @@
+{
+  "name": "MHT Family Namer",
+  "author": "Gino Moreno",
+  "description": "Scan loaded families and suggest standardized names based on configurable templates.",
+  "tooltip": "Scan loaded families and propose standardized names from naming_rules.json. Review suggestions and safely apply family & type renames.",
+  "revit_version": "2018+",
+  "url": "",
+  "dependencies": []
+}

@@ -1,0 +1,9 @@
+title:
+  en_us: MEP Manage
+  fr_fr: MEP Gérer
+layout:
+  - Copy
+  - FamilyReLoad
+  - Callout Riser Renamer
+  - Parameters
+  - Fluid

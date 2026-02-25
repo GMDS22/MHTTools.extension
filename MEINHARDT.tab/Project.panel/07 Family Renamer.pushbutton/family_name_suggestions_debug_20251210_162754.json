@@ -1,0 +1,33 @@
+{
+  "problems": [
+    {
+      "classified_modifier": null, 
+      "instance_params": {}, 
+      "suggested": "MHT-ME-FAM-Diffuser-Tag", 
+      "family": "Diffuser Tag", 
+      "reasons": [
+        "missing_system", 
+        "missing_size", 
+        "missing_shape"
+      ], 
+      "classified_size": null, 
+      "classified_shape": null, 
+      "type_params_first": [
+        {
+          "params": {
+            "Type Name": "Diffuser Tag", 
+            "Leader Arrowhead": "", 
+            "Design Option": "", 
+            "Category": "", 
+            "Family Name": "Diffuser Tag"
+          }, 
+          "type_name": ""
+        }
+      ], 
+      "classified_system": null, 
+      "classified_fitting": null, 
+      "category": "Air Terminal Tags"
+    }
+  ], 
+  "generated": "20251210_162754"
+}

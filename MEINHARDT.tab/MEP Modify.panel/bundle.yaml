@@ -1,0 +1,9 @@
+title:
+  fr_fr: MEP Modifier
+  en_us: MEP Modify
+layout:
+  - Connect
+  - Element3DRotation
+  - MakeParallel
+  - Color
+  - Other
