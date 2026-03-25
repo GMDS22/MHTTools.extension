@@ -1,0 +1,6 @@
+title: Family Convention Converter
+tooltip: Convert selected loadable families to the Meinhardt naming convention and rename eligible family parameters from converter_rules.json.
+script: script.py
+icon: icon.png
+author: Gino Moreno
+description: Renames selected project families and their eligible editable family parameters. Also supports explicit shared-parameter replacement mappings with best-effort type-value restoration.

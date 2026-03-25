@@ -1,0 +1,8 @@
+title: FORMAT.V2 [BACKUP]
+tooltip: |
+  [BACKUP COPY - Do not modify]
+  FORMAT v2 snapshot before V3 smart automation update.
+  Unified single-window batch parameter editor.
+author: GM
+help_url: ""
+image: icon.png

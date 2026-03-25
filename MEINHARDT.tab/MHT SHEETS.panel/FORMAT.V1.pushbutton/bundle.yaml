@@ -1,0 +1,12 @@
+title: FORMAT.V1 [BACKUP]
+tooltip: |
+  [BACKUP COPY - Do not modify]
+  Original FORMAT tool version before V2 development.
+  Batch-edit parameters across sheets, title blocks, or placed views.
+  Hierarchical sheet picker with search, group checkboxes, Shift/Alt
+  multi-select, and type-aware editors (text, checkbox, named dropdowns
+  for Scope Box, View Template, Level, Phase, Workset, Design Option, etc.).
+  Session loop — no need to rerun after each edit.
+author: GM
+help_url: ""
+image: icon.png

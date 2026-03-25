@@ -1,7 +1,9 @@
 title: 00 MEINHARDT
 
 layout:
+
   - Project
+  - IMPORT
   - MEP Favorites
   - MEP Modify
   - MEP Create
@@ -12,8 +14,8 @@ layout:
   - MEP Design
   - MEP Samples
   - MEP Lab
-  - IMPORT
-  - MEP Tests
+  - MPORT
+  - MHT SHEETS
   - Documentation
   - Search
   - Refresh

@@ -1,0 +1,277 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="FORMAT"
+    Height="640" Width="860"
+    WindowStartupLocation="CenterScreen"
+    HorizontalAlignment="Center"
+    ShowInTaskbar="True"
+    WindowStyle="None"
+    ResizeMode="CanMinimize"
+    Background="Transparent"
+    AllowsTransparency="True">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="accent"                     Color="#0f5ea8" />
+            <SolidColorBrush x:Key="hover"                      Color="#1e75c1" />
+            <SolidColorBrush x:Key="bg1"                        Color="#0b1a2b" />
+            <SolidColorBrush x:Key="bg2"                        Color="#10243a" />
+            <SolidColorBrush x:Key="header_background"          Color="#12304a" />
+            <SolidColorBrush x:Key="text_white"                 Color="#f2f2f2" />
+            <SolidColorBrush x:Key="button_fg_normal"           Color="White" />
+            <SolidColorBrush x:Key="button_bg_normal"           Color="#0b1a2b" />
+            <SolidColorBrush x:Key="button_bg_hover"            Color="#0f5ea8" />
+            <SolidColorBrush x:Key="main_background"            Color="#0b1a2b" />
+            <SolidColorBrush x:Key="text_header_title"          Color="White" />
+            <SolidColorBrush x:Key="text_header_item"           Color="White" />
+            <SolidColorBrush x:Key="text_darkblue"              Color="#10243a" />
+            <SolidColorBrush x:Key="text_red"                   Color="#9ad7ff" />
+            <SolidColorBrush x:Key="text_magenta"               Color="#9ad7ff" />
+            <SolidColorBrush x:Key="input_box_darkblue"         Color="#10243a" />
+            <SolidColorBrush x:Key="border_secondary"           Color="#0f5ea8" />
+
+
+
+
+            <!--[BUTTON] STYLE START-->
+            <Style TargetType="Button">
+                <!--[BUTTON] STYLES-->
+                <Setter Property="TextElement.FontFamily" Value="Arial"/>
+                <Setter Property="Background" Value="{StaticResource button_bg_normal}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource accent}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Foreground" Value="{StaticResource button_fg_normal}"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <!--[BUTTON] TEMPLATE-->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="8"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter  VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <!--[BUTTON] TRIGGERS-->
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource button_bg_hover}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource hover}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!--[BUTTON] - STYLE END-->
+
+            <!--[COMBOBOX] STYLE START-->
+            <Style TargetType="ComboBox">
+                <Setter Property="Background" Value="#0b1a2b"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderBrush" Value="{StaticResource border_secondary}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="MaxDropDownHeight" Value="300"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                        </Grid.ColumnDefinitions>
+                                        <ContentPresenter Grid.Column="0"
+                                                          IsHitTestVisible="False"
+                                                          Content="{TemplateBinding SelectionBoxItem}"
+                                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                          Margin="6,2,0,2"
+                                                          VerticalAlignment="Center"
+                                                          TextElement.Foreground="White"/>
+                                        <Path Grid.Column="1"
+                                              IsHitTestVisible="False"
+                                              Data="M 0 0 L 4 4 L 8 0 Z"
+                                              Fill="White"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                                        <ToggleButton Grid.ColumnSpan="2"
+                                                      Focusable="False"
+                                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      ClickMode="Press">
+                                            <ToggleButton.Template>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Rectangle Fill="Transparent"/>
+                                                </ControlTemplate>
+                                            </ToggleButton.Template>
+                                        </ToggleButton>
+                                    </Grid>
+                                </Border>
+                                <Popup x:Name="PART_Popup"
+                                       AllowsTransparency="True"
+                                       Focusable="False"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                                       Placement="Bottom"
+                                       PopupAnimation="Slide"
+                                       MinWidth="{TemplateBinding ActualWidth}">
+                                    <Border Background="#0b1a2b"
+                                            BorderBrush="{StaticResource border_secondary}"
+                                            BorderThickness="1"
+                                            MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <ScrollViewer>
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <!--[COMBOBOX] - STYLE END-->
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border CornerRadius="10" Background="{StaticResource bg1}" BorderBrush="{StaticResource accent}" BorderThickness="1">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!--HEADER START-->
+        <Grid   MouseDown="header_drag"
+                Background="{StaticResource header_background}"
+                Grid.ColumnSpan="2">
+            <!--HEADER GRID-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel  Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+                <TextBlock>
+                    <Hyperlink
+                        RequestNavigate="Hyperlink_RequestNavigate"
+                        NavigateUri="https://github.com/"
+                        FontSize="14px"
+                        FontWeight="Heavy"
+                        Foreground="{StaticResource text_white}">
+                        MHT Tools
+                    </Hyperlink>
+                </TextBlock>
+            </DockPanel>
+
+            <!--__TITLE__-->
+            <TextBlock x:Name="main_title"
+                Text="FORMAT"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Foreground="{StaticResource text_white}"/>
+
+            <Button Content="Close"
+                    Grid.Column="2"
+                    Width="60" Height="20"
+                    FontSize="10"
+                    Click="button_close"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"/>
+        </Grid>
+        <!--HEADER END-->
+
+        <Grid Grid.Row="1" Margin="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Row="0" Margin="0,0,0,8">
+                <TextBlock x:Name="UI_tb_count" Foreground="White" FontSize="13" Margin="0,0,18,0"/>
+                <TextBlock x:Name="UI_param_count" Foreground="White" FontSize="13"/>
+            </DockPanel>
+
+            <Border Grid.Row="1" Background="{StaticResource bg2}" BorderBrush="{StaticResource border_secondary}" BorderThickness="1" CornerRadius="10" Padding="8" Margin="0,0,0,0">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Editable Parameters" Foreground="{StaticResource text_magenta}" FontWeight="Bold" Margin="2,0,2,6"/>
+                    
+                    <!-- Inline Editor Panel -->
+                    <Border DockPanel.Dock="Top" Background="#10243a" BorderBrush="{StaticResource border_secondary}" BorderThickness="1" CornerRadius="6" Padding="8" Margin="0,0,0,8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MinWidth="180"/>
+                                <ColumnDefinition Width="Auto" MinWidth="140"/>
+                                <ColumnDefinition Width="Auto" MinWidth="140"/>
+                                <ColumnDefinition Width="Auto" MinWidth="60"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Grid.Column="0" x:Name="UI_param_name" Text="Select a parameter..." Foreground="White" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                            
+                            <!-- Checkbox for boolean -->
+                            <CheckBox Grid.Column="1" x:Name="UI_param_checkbox" Visibility="Collapsed" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,0,0,0"/>
+                            
+                            <!-- TextBox for text/number -->
+                            <TextBox Grid.Column="1" x:Name="UI_param_input" Visibility="Collapsed" Height="24" Background="#0b1a2b" Foreground="White" BorderBrush="{StaticResource border_secondary}" Padding="4,2" Margin="8,0,0,0"/>
+
+                            <!-- ComboBox for ElementId-backed parameters (e.g., Scope Box, View Template) -->
+                            <ComboBox Grid.Column="1" x:Name="UI_param_elementid" Visibility="Collapsed" Height="24"
+                                      Padding="4,2" Margin="8,0,0,0">
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Background" Value="#0b1a2b"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Padding" Value="6,3"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#0f5ea8"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#1e75c1"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
+                            
+                            <Button Grid.Column="2" Content="Apply" Click="button_apply" Height="24" Margin="8,0,0,0"/>
+                            <Button Grid.Column="3" Content="Refresh" Click="button_refresh" Height="24" Margin="8,0,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <ListBox x:Name="UI_param_list" SelectionChanged="UI_param_list_SelectionChanged" Background="#0b1a2b" Foreground="White" BorderBrush="{StaticResource accent}" BorderThickness="1"/>
+                </DockPanel>
+            </Border>
+
+            <DockPanel Grid.Row="2" Margin="0,10,0,0" LastChildFill="True">
+                <Button DockPanel.Dock="Right" Content="&#8592; Back to Sheets"
+                        Click="button_back_to_sheets"
+                        Width="140" Height="28" Margin="10,0,0,0"/>
+                <TextBlock Foreground="#CFCFE8" VerticalAlignment="Center"
+                           Text="Tip: The editor is type-aware — booleans use a checkbox, text/number use a text field, and named ElementId parameters (Scope Box, View Template, Level, Phase, Workset, Design Option, View, Sheet) use dropdowns when available."
+                           TextWrapping="Wrap"/>
+            </DockPanel>
+        </Grid>
+    </Grid>
+    </Border>
+</Window>

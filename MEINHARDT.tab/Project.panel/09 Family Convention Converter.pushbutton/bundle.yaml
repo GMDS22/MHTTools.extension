@@ -1,0 +1,9 @@
+title:
+  en_us: Family Conv
+tooltip:
+  en_us: Convert selected loadable families to the Meinhardt naming convention by renaming the family and eligible family parameters, with optional shared-parameter replacement mappings.
+author: Gino Moreno
+description:
+  en_us: Opens selected project families in the family editor, previews family and parameter renames from converter_rules.json, applies safe non-shared parameter renames, and supports guarded shared-parameter migration where explicit mappings exist.
+engine:
+  ironpython: true

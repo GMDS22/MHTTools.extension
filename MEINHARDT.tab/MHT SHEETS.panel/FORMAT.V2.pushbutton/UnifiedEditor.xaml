@@ -1,0 +1,650 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="FORMAT v2"
+    Height="680" Width="1100"
+    MinHeight="500" MinWidth="800"
+    WindowStartupLocation="CenterScreen"
+    ShowInTaskbar="True"
+    WindowStyle="None"
+    ResizeMode="CanResize"
+    Background="Transparent"
+    AllowsTransparency="True">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="accent"               Color="#0f5ea8"/>
+            <SolidColorBrush x:Key="hover"                Color="#1e75c1"/>
+            <SolidColorBrush x:Key="bg1"                  Color="#0b1a2b"/>
+            <SolidColorBrush x:Key="bg2"                  Color="#10243a"/>
+            <SolidColorBrush x:Key="bg3"                  Color="#0d2035"/>
+            <SolidColorBrush x:Key="header_background"    Color="#12304a"/>
+            <SolidColorBrush x:Key="panel_separator"      Color="#1a3a58"/>
+            <SolidColorBrush x:Key="text_white"           Color="#f2f2f2"/>
+            <SolidColorBrush x:Key="text_cyan"            Color="#9ad7ff"/>
+            <SolidColorBrush x:Key="text_dim"             Color="#6a8fa8"/>
+            <SolidColorBrush x:Key="border_secondary"     Color="#0f5ea8"/>
+            <SolidColorBrush x:Key="border_panel"         Color="#1a3a58"/>
+            <SolidColorBrush x:Key="button_bg_hover"      Color="#1e75c1"/>
+
+            <!-- Button Style -->
+            <Style TargetType="Button">
+                <Setter Property="TextElement.FontFamily" Value="Arial"/>
+                <Setter Property="Background"             Value="#0b1a2b"/>
+                <Setter Property="BorderBrush"            Value="{StaticResource accent}"/>
+                <Setter Property="BorderThickness"        Value="1"/>
+                <Setter Property="Foreground"             Value="{StaticResource text_white}"/>
+                <Setter Property="Cursor"                 Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="6"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource button_bg_hover}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource hover}"/>
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.4"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Accent Button Style (Apply, Select All) -->
+            <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Background"  Value="{StaticResource accent}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource hover}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource hover}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- RadioButton Style -->
+            <Style TargetType="RadioButton">
+                <Setter Property="Foreground"   Value="{StaticResource text_white}"/>
+                <Setter Property="Cursor"       Value="Hand"/>
+                <Setter Property="Margin"       Value="0,4,0,4"/>
+                <Setter Property="FontSize"     Value="12"/>
+            </Style>
+
+            <!-- CheckBox Style -->
+            <Style TargetType="CheckBox">
+                <Setter Property="Foreground" Value="{StaticResource text_white}"/>
+                <Setter Property="Cursor"     Value="Hand"/>
+                <Setter Property="FontSize"   Value="12"/>
+            </Style>
+
+            <!-- TextBox Style -->
+            <Style TargetType="TextBox">
+                <Setter Property="Background"     Value="#0b1a2b"/>
+                <Setter Property="Foreground"     Value="{StaticResource text_white}"/>
+                <Setter Property="BorderBrush"    Value="{StaticResource border_secondary}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CaretBrush"     Value="White"/>
+                <Setter Property="Padding"        Value="6,3"/>
+            </Style>
+
+            <!-- ListView Style (properties-like two-column rows) -->
+            <Style TargetType="ListView">
+                <Setter Property="Background"     Value="#0b1a2b"/>
+                <Setter Property="Foreground"     Value="{StaticResource text_white}"/>
+                <Setter Property="BorderBrush"    Value="{StaticResource border_secondary}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            </Style>
+            <Style TargetType="ListViewItem">
+                <Setter Property="Foreground" Value="{StaticResource text_white}"/>
+                <Setter Property="Padding"    Value="6,3"/>
+                <Setter Property="Cursor"     Value="Hand"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#1a3a58"/>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{StaticResource accent}"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="GridViewColumnHeader">
+                <Setter Property="Background" Value="#12304a"/>
+                <Setter Property="Foreground" Value="#9ad7ff"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="BorderBrush" Value="{StaticResource border_secondary}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                <Setter Property="Padding" Value="6,4"/>
+            </Style>
+
+            <!-- ComboBox Style -->
+            <Style TargetType="ComboBox">
+                <Setter Property="Background"        Value="#0b1a2b"/>
+                <Setter Property="Foreground"        Value="White"/>
+                <Setter Property="BorderBrush"       Value="{StaticResource border_secondary}"/>
+                <Setter Property="BorderThickness"   Value="1"/>
+                <Setter Property="MaxDropDownHeight" Value="300"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="3">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                        </Grid.ColumnDefinitions>
+                                        <ContentPresenter Grid.Column="0" IsHitTestVisible="False"
+                                                          Content="{TemplateBinding SelectionBoxItem}"
+                                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                          Margin="6,2,0,2" VerticalAlignment="Center"
+                                                          TextElement.Foreground="White"/>
+                                        <Path Grid.Column="1" IsHitTestVisible="False"
+                                              Data="M 0 0 L 4 4 L 8 0 Z"
+                                              Fill="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <ToggleButton Grid.ColumnSpan="2" Focusable="False"
+                                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      ClickMode="Press">
+                                            <ToggleButton.Template>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Rectangle Fill="Transparent"/>
+                                                </ControlTemplate>
+                                            </ToggleButton.Template>
+                                        </ToggleButton>
+                                    </Grid>
+                                </Border>
+                                <Popup x:Name="PART_Popup" AllowsTransparency="True" Focusable="False"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom"
+                                       PopupAnimation="Slide" MinWidth="{TemplateBinding ActualWidth}">
+                                    <Border Background="#0b1a2b" BorderBrush="{StaticResource border_secondary}" BorderThickness="1"
+                                            MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <ScrollViewer>
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="Background" Value="#0b1a2b"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Padding"    Value="6,3"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#0f5ea8"/>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="#1e75c1"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- TreeView Style -->
+            <Style TargetType="TreeView">
+                <Setter Property="Background"     Value="#0b1a2b"/>
+                <Setter Property="Foreground"     Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+            <Style TargetType="TreeViewItem">
+                <Setter Property="IsExpanded" Value="True"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="Transparent"/>
+            </Style>
+
+            <!-- Scrollbar -->
+            <Style TargetType="ScrollBar">
+                <Setter Property="Background" Value="#10243a"/>
+                <Setter Property="Foreground" Value="#0f5ea8"/>
+            </Style>
+
+            <!-- Separator -->
+            <Style TargetType="Separator">
+                <Setter Property="Background" Value="{StaticResource panel_separator}"/>
+                <Setter Property="Margin" Value="0,6,0,6"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <!-- Outer rounded border -->
+    <Border CornerRadius="10" Background="{StaticResource bg1}"
+            BorderBrush="{StaticResource accent}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28"/>   <!-- Header bar -->
+                <RowDefinition Height="*"/>    <!-- Main content -->
+                <RowDefinition Height="Auto"/> <!-- Status bar -->
+            </Grid.RowDefinitions>
+
+            <!-- ═══════════════════════════════════ HEADER ═══════════════════════════════════ -->
+                        <Grid Grid.Row="0" Background="{StaticResource header_background}"
+                  MouseDown="header_drag">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+
+                <DockPanel Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0">
+                    <TextBlock Foreground="{StaticResource text_white}" FontWeight="Heavy" FontSize="13">
+                        <Hyperlink RequestNavigate="Hyperlink_RequestNavigate"
+                                   NavigateUri="https://github.com/"
+                                   Foreground="{StaticResource text_white}">
+                            MHT Tools
+                        </Hyperlink>
+                    </TextBlock>
+                    <TextBlock Text="  |  FORMAT v2 — Unified Sheet Parameter Editor"
+                               Foreground="{StaticResource text_cyan}" FontSize="12"
+                               VerticalAlignment="Center"/>
+                </DockPanel>
+
+                <TextBlock Grid.Column="1" x:Name="UI_header_mode"
+                           Foreground="{StaticResource text_dim}" FontSize="11"
+                           VerticalAlignment="Center" Margin="0,0,12,0"
+                           Text=""/>
+
+                <Button Grid.Column="2" Content="_" Width="28" Height="20"
+                    FontSize="12" Click="button_minimize"
+                    ToolTip="Minimize"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <Button Grid.Column="3" x:Name="UI_btn_maximize" Content="□" Width="28" Height="20"
+                    FontSize="10" Click="button_maximize"
+                    ToolTip="Maximize / Restore"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <Button Grid.Column="4" Content="Close" Width="55" Height="20"
+                        FontSize="10" Click="button_close"
+                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <!-- ═══════════════════════════════════ BODY (3 panels) ═══════════════════════════ -->
+            <Grid Grid.Row="1" Margin="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="UI_col_panel_1" Width="*" MinWidth="220"/>   <!-- Panel 1 -->
+                    <ColumnDefinition Width="4"/>                    <!-- Splitter -->
+                    <ColumnDefinition x:Name="UI_col_panel_2" Width="*" MinWidth="220"/>    <!-- Panel 2 -->
+                    <ColumnDefinition Width="4"/>                    <!-- Splitter -->
+                    <ColumnDefinition x:Name="UI_col_panel_3" Width="*" MinWidth="220"/>    <!-- Panel 3 -->
+                </Grid.ColumnDefinitions>
+
+                <!-- ── Panel 1: Target Type Selector ── -->
+                <Border Grid.Column="0" Margin="8,8,4,8"
+                        Background="{StaticResource bg2}"
+                        BorderBrush="{StaticResource border_panel}"
+                        BorderThickness="1" CornerRadius="8">
+                    <DockPanel Margin="10">
+                        <TextBlock DockPanel.Dock="Top"
+                                   Text="EDIT TARGET"
+                                   Foreground="{StaticResource text_cyan}"
+                                   FontWeight="Bold" FontSize="11"
+                                   Margin="0,0,0,8"/>
+
+                        <Separator DockPanel.Dock="Top"/>
+
+                        <!-- Radio buttons -->
+                        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+                            <RadioButton x:Name="UI_rb_sheet"
+                                         Content="Sheet Parameters"
+                                         IsChecked="True"
+                                         Checked="target_radio_changed"
+                                         GroupName="TargetType"/>
+                            <RadioButton x:Name="UI_rb_titleblock"
+                                         Content="Title Block Params"
+                                         Checked="target_radio_changed"
+                                         GroupName="TargetType"/>
+                            <RadioButton x:Name="UI_rb_placedview"
+                                         Content="Placed View Params"
+                                         Checked="target_radio_changed"
+                                         GroupName="TargetType"/>
+                        </StackPanel>
+
+                        <Separator DockPanel.Dock="Top"/>
+
+                        <!-- Info counters -->
+                        <StackPanel DockPanel.Dock="Top" Margin="0,4,0,8">
+                            <TextBlock Text="INFO" Foreground="{StaticResource text_cyan}"
+                                       FontWeight="Bold" FontSize="10" Margin="0,0,0,4"/>
+                            <TextBlock x:Name="UI_info_sheets"
+                                       Foreground="#9ad7ff" FontSize="11"
+                                       Text="Sheets: 0 selected" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="UI_info_targets"
+                                       Foreground="#9ad7ff" FontSize="11"
+                                       Text="Elements: 0" TextWrapping="Wrap" Margin="0,2,0,0"/>
+                            <TextBlock x:Name="UI_info_params"
+                                       Foreground="#9ad7ff" FontSize="11"
+                                       Text="Params: 0 editable" TextWrapping="Wrap" Margin="0,2,0,0"/>
+                        </StackPanel>
+
+                        <Separator DockPanel.Dock="Top"/>
+
+                        <!-- Refresh Button -->
+                        <Button DockPanel.Dock="Top"
+                                Content="⟳  Refresh Targets"
+                                Height="28" Margin="0,8,0,0"
+                                Click="button_refresh_targets"/>
+
+                        <!-- Spacer fills remaining height -->
+                        <Grid/>
+                    </DockPanel>
+                </Border>
+
+                <!-- Grid Splitter 1 -->
+                <GridSplitter Grid.Column="1" Width="4"
+                              HorizontalAlignment="Stretch"
+                              Background="{StaticResource panel_separator}"
+                              Cursor="SizeWE"/>
+
+                <!-- ── Panel 2: Sheet Picker ── -->
+                <Border Grid.Column="2" Margin="4,8,4,8"
+                        Background="{StaticResource bg2}"
+                        BorderBrush="{StaticResource border_panel}"
+                        BorderThickness="1" CornerRadius="8">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>  <!-- Title -->
+                            <RowDefinition Height="Auto"/>  <!-- Search -->
+                            <RowDefinition Height="*"/>     <!-- Tree -->
+                            <RowDefinition Height="Auto"/>  <!-- Footer -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Panel 2 Header -->
+                        <DockPanel Grid.Row="0" Margin="0,0,0,6">
+                            <TextBlock Text="SHEET SELECTION"
+                                       Foreground="{StaticResource text_cyan}"
+                                       FontWeight="Bold" FontSize="11"/>
+                            <TextBlock x:Name="UI_sheet_count"
+                                       Foreground="{StaticResource text_white}"
+                                       FontSize="11" Margin="8,0,0,0"
+                                       Text="(0 of 0)"/>
+                        </DockPanel>
+
+                        <!-- Search Box -->
+                        <DockPanel Grid.Row="1" Margin="0,0,0,6" LastChildFill="False">
+                            <TextBlock DockPanel.Dock="Left" Text="🔍 "
+                                       Foreground="{StaticResource text_dim}"
+                                       VerticalAlignment="Center"/>
+                            <TextBox x:Name="UI_search"
+                                     Width="220"
+                                     Height="26"
+                                     ToolTip="Type to filter sheets by number, name, or group"
+                                     TextChanged="search_textbox_changed"/>
+                            <Button Content="Clear" Width="52" Height="24"
+                                    Margin="6,0,0,0"
+                                    FontSize="10"
+                                    ToolTip="Clear search filter"
+                                    Click="button_clear_search"/>
+                        </DockPanel>
+
+                        <!-- Sheet Tree -->
+                        <Border Grid.Row="2"
+                                BorderBrush="{StaticResource border_secondary}"
+                                BorderThickness="1" CornerRadius="4">
+                            <TreeView x:Name="UI_tree_sheets"
+                                      VirtualizingStackPanel.IsVirtualizing="True"
+                                      VirtualizingStackPanel.VirtualizationMode="Recycling"
+                                      ScrollViewer.CanContentScroll="True"
+                                      ScrollViewer.IsDeferredScrollingEnabled="True">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                        <Grid>
+                                            <!-- Sheet node -->
+                                            <CheckBox x:Name="SheetCheck"
+                                                      Content="{Binding Name}"
+                                                      IsChecked="{Binding IsChecked}"
+                                                      Tag="{Binding}"
+                                                      Click="sheet_checkbox_click"
+                                                      Foreground="White"
+                                                      Visibility="Collapsed"/>
+                                            <!-- Group node -->
+                                            <CheckBox x:Name="GroupCheck"
+                                                      Content="{Binding Name}"
+                                                      IsChecked="{Binding GroupCheckState}"
+                                                      IsThreeState="True"
+                                                      Tag="{Binding}"
+                                                      Click="sheet_checkbox_click"
+                                                      FontWeight="SemiBold"
+                                                      Foreground="#9ad7ff"
+                                                      Visibility="Visible"/>
+                                        </Grid>
+                                        <HierarchicalDataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding IsSheet}" Value="True">
+                                                <Setter TargetName="SheetCheck" Property="Visibility" Value="Visible"/>
+                                                <Setter TargetName="GroupCheck" Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </HierarchicalDataTemplate.Triggers>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                        </Border>
+
+                        <!-- Panel 2 Footer -->
+                        <DockPanel Grid.Row="3" Margin="0,8,0,0">
+                            <TextBlock x:Name="UI_selected_count"
+                                       Text="Selected: 0"
+                                       Foreground="{StaticResource text_cyan}"
+                                       VerticalAlignment="Center" FontSize="11"
+                                       Margin="0,0,8,0"/>
+                            <Button Content="Check Shown" Width="90" Height="24"
+                                    Margin="0,0,6,0" FontSize="11"
+                                ToolTip="Check all visible sheets (respects active search filter)"
+                                    Click="button_check_all"/>
+                            <Button Content="Uncheck Shown" Width="100" Height="24"
+                                Margin="0,0,6,0"
+                                    FontSize="11"
+                                ToolTip="Uncheck all visible sheets (respects active search filter)"
+                                    Click="button_uncheck_all"/>
+                            <Button Content="Expand" Width="62" Height="24"
+                                Margin="0,0,6,0"
+                                FontSize="11"
+                                ToolTip="Expand all groups"
+                                Click="button_expand_all"/>
+                            <Button Content="Collapse" Width="66" Height="24"
+                                FontSize="11"
+                                ToolTip="Collapse all groups"
+                                Click="button_collapse_all"/>
+                        </DockPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Grid Splitter 2 -->
+                <GridSplitter Grid.Column="3" Width="4"
+                              HorizontalAlignment="Stretch"
+                              Background="{StaticResource panel_separator}"
+                              Cursor="SizeWE"/>
+
+                <!-- ── Panel 3: Parameter Editor ── -->
+                <Border Grid.Column="4" Margin="4,8,8,8"
+                        Background="{StaticResource bg2}"
+                        BorderBrush="{StaticResource border_panel}"
+                        BorderThickness="1" CornerRadius="8">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>  <!-- Panel 3 header -->
+                            <RowDefinition Height="*"/>     <!-- Param list -->
+                            <RowDefinition Height="Auto"/>  <!-- Inline editor -->
+                            <RowDefinition Height="Auto"/>  <!-- Feedback + actions -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Panel 3 Header -->
+                        <DockPanel Grid.Row="0" Margin="0,0,0,6">
+                            <TextBlock Text="PARAMETER EDITOR"
+                                       Foreground="{StaticResource text_cyan}"
+                                       FontWeight="Bold" FontSize="11"/>
+                            <TextBlock x:Name="UI_target_label"
+                                       Foreground="{StaticResource text_white}"
+                                       FontSize="11" Margin="8,0,0,0"
+                                       Text="— Sheet Parameters"/>
+                        </DockPanel>
+
+                        <!-- Counters row -->
+                        <DockPanel Grid.Row="0" Margin="0,18,0,0">
+                            <TextBlock x:Name="UI_tb_count"
+                                       Foreground="{StaticResource text_dim}"
+                                       FontSize="11" Margin="0,0,12,0"
+                                       Text="Targets: 0"/>
+                            <TextBlock x:Name="UI_param_count"
+                                       Foreground="{StaticResource text_dim}"
+                                       FontSize="11"
+                                       Text="Editable Params: 0"/>
+                        </DockPanel>
+
+                        <!-- Parameter List (Revit properties-like two columns) -->
+                        <Border Grid.Row="1"
+                                BorderBrush="{StaticResource border_secondary}"
+                                BorderThickness="1" CornerRadius="4"
+                                Margin="0,6,0,0">
+                            <ListView x:Name="UI_param_list"
+                                      SelectionChanged="UI_param_list_SelectionChanged"
+                                      ToolTip="Parameter and current value. Select a row to edit below.">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="False">
+                                        <GridViewColumn Header="Parameter" Width="220"
+                                                        DisplayMemberBinding="{Binding ParamName}"/>
+                                        <GridViewColumn Header="Value" Width="260"
+                                                        DisplayMemberBinding="{Binding ValueDisplay}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Border>
+
+                        <!-- Inline Editor Area -->
+                        <Border Grid.Row="2"
+                                Background="{StaticResource bg3}"
+                                BorderBrush="{StaticResource border_secondary}"
+                                BorderThickness="1" CornerRadius="6"
+                                Padding="10" Margin="0,8,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>  <!-- Param name label -->
+                                    <RowDefinition Height="Auto"/>  <!-- Editor controls -->
+                                </Grid.RowDefinitions>
+
+                                <!-- Selected param name -->
+                                <TextBlock Grid.Row="0"
+                                           x:Name="UI_param_name"
+                                           Foreground="{StaticResource text_white}"
+                                           FontWeight="SemiBold" FontSize="12"
+                                           Text="Select a parameter..."
+                                           Margin="0,0,0,6"
+                                           TextWrapping="Wrap"/>
+
+                                <!-- Editor row: control + Apply -->
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Boolean checkbox -->
+                                    <CheckBox Grid.Column="0"
+                                              x:Name="UI_param_checkbox"
+                                              Visibility="Collapsed"
+                                              Content="Yes"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,8,0"/>
+
+                                    <!-- Text / Number input -->
+                                    <TextBox Grid.Column="0"
+                                             x:Name="UI_param_input"
+                                             Visibility="Collapsed"
+                                             Height="26"
+                                             VerticalAlignment="Center"/>
+
+                                    <!-- ElementId combo -->
+                                    <ComboBox Grid.Column="0"
+                                              x:Name="UI_param_elementid"
+                                              Visibility="Collapsed"
+                                              Height="26"
+                                              VerticalAlignment="Center">
+                                        <ComboBox.ItemContainerStyle>
+                                            <Style TargetType="ComboBoxItem">
+                                                <Setter Property="Background" Value="#0b1a2b"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Padding"    Value="6,3"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#0f5ea8"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background" Value="#1e75c1"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ComboBox.ItemContainerStyle>
+                                    </ComboBox>
+
+                                    <!-- Apply Button -->
+                                    <Button Grid.Column="1"
+                                            Content="Apply"
+                                            Height="26" Width="70"
+                                            Margin="8,0,0,0"
+                                            Style="{StaticResource AccentButton}"
+                                            Click="button_apply"/>
+
+                                    <!-- Refresh Button -->
+                                    <Button Grid.Column="2"
+                                            Content="⟳"
+                                            Height="26" Width="30"
+                                            Margin="4,0,0,0"
+                                            ToolTip="Refresh parameters"
+                                            Click="button_refresh_params"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+                        <!-- Feedback / Status Row -->
+                        <DockPanel Grid.Row="3" Margin="0,8,0,0">
+                            <TextBlock x:Name="UI_feedback"
+                                       Foreground="{StaticResource text_dim}"
+                                       FontSize="11"
+                                       Text="No changes applied yet."
+                                       TextWrapping="Wrap"
+                                       VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- ═══════════════════════════════════ STATUS BAR ══════════════════════════════ -->
+            <Border Grid.Row="2"
+                    Background="{StaticResource header_background}"
+                    CornerRadius="0,0,10,10">
+                <DockPanel Margin="12,4,12,4">
+                    <Button DockPanel.Dock="Right"
+                            Content="Reset Panel Layout"
+                            Width="125" Height="20"
+                            FontSize="10"
+                            Margin="8,0,0,0"
+                            ToolTip="Reset the 3 panel widths to equal sizes"
+                            Click="button_reset_layout"/>
+                    <TextBlock x:Name="UI_status_bar"
+                               Foreground="{StaticResource text_dim}" FontSize="10"
+                               Text="Tip: Select sheets in the center panel → choose what to edit (left) → pick a parameter and apply (right)."
+                               VerticalAlignment="Center" TextWrapping="NoWrap"
+                               TextTrimming="CharacterEllipsis"/>
+                </DockPanel>
+            </Border>
+
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,344 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="MHT Sheet Generator" Height="750" Width="1100"
+    WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+    WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!--COLORS-->
+        <SolidColorBrush x:Key="accent"    Color="#0f5ea8"/>
+        <SolidColorBrush x:Key="hover"     Color="#1e75c1"/>
+        <SolidColorBrush x:Key="white"     Color="#f2f2f2"/>
+        <SolidColorBrush x:Key="gray"      Color="#999999"/>
+        <SolidColorBrush x:Key="bg1"       Color="#0b1a2b"/>
+        <SolidColorBrush x:Key="bg2"       Color="#10243a"/>
+        <SolidColorBrush x:Key="bg_header" Color="#12304a"/>
+
+        <!-- BUTTON STYLE-->
+        <Style x:Key="CloseButton" TargetType="Button">
+            <Setter Property="TextElement.FontFamily" Value="Arial"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BorderElement"
+                                CornerRadius="8"
+                                Background="{StaticResource bg1}"
+                                BorderBrush="{StaticResource accent}"
+                                BorderThickness="1">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BorderElement" Property="Background" Value="{StaticResource accent}"/>
+                                <Setter TargetName="BorderElement" Property="BorderBrush" Value="{StaticResource accent}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--COMBOBOX STYLE-->
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="#f2f2f2"/>
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="BorderBrush" Value="#444444"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="MainBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                                <Grid>
+                                    <ContentPresenter Margin="5,0,30,0"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"/>
+                                    <ToggleButton Name="DropDownButton"
+                                          Focusable="False"
+                                          IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Background="Transparent"
+                                          BorderBrush="Transparent"
+                                          HorizontalAlignment="Right"
+                                          VerticalAlignment="Center"
+                                          Width="25"
+                                          Height="25"
+                                          Margin="0,0,5,0"
+                                          ClickMode="Press">
+                                        <Path x:Name="ArrowIcon"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M 0 0 L 4 4 L 8 0 Z"
+                                      Fill="#f2f2f2"
+                                      Width="10"
+                                      Height="6"/>
+                                        <ToggleButton.Style>
+                                            <Style TargetType="ToggleButton">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ToggleButton">
+                                                            <Border x:Name="ToggleBorder"
+                                                            Background="Transparent"
+                                                            CornerRadius="5"
+                                                            Width="25"
+                                                            Height="25">
+                                                                <Path x:Name="Arrow"
+                                                              Data="M 0 0 L 4 4 L 8 0 Z"
+                                                              Fill="#f2f2f2"
+                                                              Width="10"
+                                                              Height="6"
+                                                              HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center"/>
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter TargetName="ToggleBorder" Property="Background">
+                                                                        <Setter.Value>
+                                                                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                                                                <GradientStop Color="#880f5ea8" Offset="0.8" />
+                                                                                <GradientStop Color="#992b2b2b" Offset="0" />
+                                                                            </LinearGradientBrush>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </Trigger>
+                                                                <Trigger Property="IsChecked" Value="True">
+                                                                    <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource accent}"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ToggleButton.Style>
+                                    </ToggleButton>
+                                </Grid>
+                            </Border>
+                            <Popup Name="Popup"
+                           Placement="Bottom"
+                           IsOpen="{TemplateBinding IsDropDownOpen}"
+                           AllowsTransparency="True"
+                           Focusable="False"
+                           PopupAnimation="Slide">
+                                <Border Background="#444444"
+                                BorderBrush="{StaticResource accent}"
+                                BorderThickness="1"
+                                CornerRadius="5">
+                                    <ScrollViewer Margin="0"
+                                          SnapsToDevicePixels="True"
+                                          Focusable="False">
+                                        <StackPanel IsItemsHost="True"
+                                            KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource accent}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource hover}"/>
+                            </Trigger>
+                            <Trigger SourceName="DropDownButton" Property="IsChecked" Value="True">
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource accent}"/>
+                                <Setter Property="Background" TargetName="MainBorder" Value="#2b2b2b"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#f2f2f2"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="ItemBorder"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="5"
+                        SnapsToDevicePixels="True">
+                            <ContentPresenter Margin="10,0"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                            <GradientStop Color="#880f5ea8" Offset="0.8" />
+                                            <GradientStop Color="#992b2b2b" Offset="0" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Border CornerRadius="10" Background="{StaticResource bg1}" BorderBrush="{StaticResource accent}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--HEADER-->
+            <Border Grid.Row="0" CornerRadius="10,10,0,0" Background="{StaticResource bg_header}" Height="40" VerticalAlignment="Top" MouseDown="UIe_header_drag">
+                <Grid>
+                    <TextBlock Text="MHT Sheet Generator" Foreground="{StaticResource white}" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+                        <Button Content="□" Width="30" Height="30" Margin="0,0,6,0" Style="{StaticResource CloseButton}" Click="UIe_header_btn_maximize"/>
+                        <Button Content="X" Width="30" Height="30" Style="{StaticResource CloseButton}" Click="UIe_header_btn_close"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--MAIN CONTENT-->
+            <Grid Grid.Row="1" Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="320" MinWidth="250"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="340" MinWidth="250"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" MinWidth="260"/>
+                </Grid.ColumnDefinitions>
+
+                <!--LEFT PANEL-->
+                <Border Grid.Column="0" Background="{StaticResource bg2}" CornerRadius="0,0,0,10" Margin="0,0,10,10">
+                    <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+
+                        <!--Excel File Picker-->
+                        <DockPanel Margin="5">
+                            <Button Content="Browse Excel" Width="100" Click="UIe_select_excel" Background="{StaticResource accent}" Foreground="White"/>
+                            <Button Content="Test Read" Width="80" Margin="8,0,0,0" Click="UIe_test_excel" Background="#444444" Foreground="White"/>
+                            <TextBox x:Name="UI_excel_path" Margin="10,0,0,0" IsReadOnly="True"/>
+                        </DockPanel>
+
+                        <!--Worksheet Picker-->
+                        <DockPanel Margin="5,0,5,5">
+                            <TextBlock Text="Worksheet" Margin="0,0,10,0" VerticalAlignment="Center" Foreground="{StaticResource accent}" FontWeight="Bold"/>
+                            <ComboBox x:Name="UI_combo_excel_sheet" SelectionChanged="UIe_excel_sheet_changed"/>
+                        </DockPanel>
+
+                        <!--Title Block-->
+                        <DockPanel Margin="5">
+                            <TextBlock Text="TitleBlock" Margin="0,0,10,0" VerticalAlignment="Center" Foreground="{StaticResource accent}" FontWeight="Bold"/>
+                            <ComboBox x:Name="UI_combo_title_blocks" />
+                        </DockPanel>
+
+                        <Border Background="#0a1828" BorderBrush="#444444" BorderThickness="1" CornerRadius="4" Margin="5,10,5,0" Padding="8">
+                            <StackPanel>
+                                <TextBlock Text="Simple Generation Mode" Foreground="{StaticResource accent}" FontWeight="Bold" FontSize="11" Margin="0,0,0,5"/>
+                                <TextBlock Text="Creates floor plan parent views, dependent views, sheets, and places generated views automatically from Excel." Foreground="#ccc" FontSize="10" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!--Run Buttons-->
+                        <Button Content="Generate Views" Margin="5,10" Height="36" Background="{StaticResource accent}" Foreground="White" Click="UIe_generate_views"/>
+                        <Button Content="Preview Sheets" Margin="5,0,5,5" Height="32" Background="#444444" Foreground="White" Click="UIe_preview_sheets"/>
+                        <Button Content="Generate Sheets" Margin="5,0,5,5" Height="40" Background="{StaticResource accent}" Foreground="White" Click="UIe_btn_run"/>
+                    </StackPanel>
+                    </ScrollViewer>
+                </Border>
+
+                <!--SPLITTER: Left / Middle-->
+                <GridSplitter Grid.Column="1" Width="5" Background="#444444" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Cursor="SizeWE"/>
+
+                <!--MIDDLE PANEL: Views-->
+                <Border Grid.Column="2" Background="{StaticResource bg2}" CornerRadius="8" Margin="0,0,10,10">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Margin="2,2,2,6">
+                            <TextBlock Text="Views (Planned / Generated)" Margin="0,0,10,0" VerticalAlignment="Center" Foreground="{StaticResource accent}" FontWeight="Bold"/>
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button x:Name="UI_btn_select_all_views" Content="Select All" Width="72" Height="24" Margin="0,0,6,0" Click="UIe_select_all_views"/>
+                                <Button x:Name="UI_btn_deselect_all_views" Content="Deselect All" Width="82" Height="24" Margin="0,0,6,0" Click="UIe_deselect_all_views"/>
+                                <TextBox x:Name="UI_search" TextChanged="UIe_search_changed" Width="170" HorizontalAlignment="Right" ToolTip="Filter views by text"/>
+                            </StackPanel>
+                        </DockPanel>
+
+                        <ListBox x:Name="UI_viewsListBox" Grid.Row="1" Margin="2" Background="#0a1828" Foreground="White" FontSize="11"
+                                 SelectionMode="Extended">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel>
+                                        <CheckBox x:Name="viewCheckbox" DockPanel.Dock="Left" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="White" IsChecked="True" PreviewMouseLeftButtonDown="UIe_view_checkbox_preview_mouse_down" Checked="UIe_view_checkbox_checked" Unchecked="UIe_view_checkbox_unchecked"/>
+                                        <TextBlock Text="{Binding}" Foreground="White" TextWrapping="Wrap"/>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                    <Setter Property="Padding" Value="4,2"/>
+                                    <Setter Property="ContextMenu">
+                                        <Setter.Value>
+                                            <ContextMenu>
+                                                <MenuItem Header="Duplicate" Click="UIe_DuplicateView"/>
+                                                <MenuItem Header="Duplicate As Detailed" Click="UIe_DuplicateView"/>
+                                                <MenuItem Header="Duplicate As Dependent" Click="UIe_DuplicateView"/>
+                                            </ContextMenu>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                    </Grid>
+                </Border>
+
+                <!--SPLITTER: Middle / Right-->
+                <GridSplitter Grid.Column="3" Width="5" Background="#444444" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Cursor="SizeWE"/>
+
+                <!--RIGHT PANEL: Preview-->
+                <Border x:Name="UI_preview_panel" Grid.Column="4" Background="{StaticResource bg2}" CornerRadius="8" Margin="0,0,10,10">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0" Margin="2,2,2,6">
+                            <TextBlock x:Name="UI_preview_title" Text="Preview" Foreground="{StaticResource accent}" FontWeight="Bold"/>
+                            <Button Content="Clear" Width="54" Height="22" DockPanel.Dock="Right" Click="UIe_clear_preview"/>
+                        </DockPanel>
+                        <TextBlock Grid.Row="1" Text="View and sheet previews appear here based on the current selection." Foreground="#7fa6c8" FontSize="10" Margin="2,0,2,6" TextWrapping="Wrap"/>
+                        <ScrollViewer Grid.Row="2" Margin="2" VerticalScrollBarVisibility="Auto">
+                            <TextBox x:Name="UI_preview_text" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True"
+                                     BorderThickness="0" Background="#0a1828" Foreground="#DDDDDD" FontFamily="Consolas" FontSize="11"
+                                     Text="Preview output will appear here."/>
+                        </ScrollViewer>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

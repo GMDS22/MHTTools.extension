@@ -1,0 +1,49 @@
+{
+  "family_rules": {
+    "prefix": "MHT_",
+    "uppercase": true,
+    "strip_prefixes": ["TMP_", "OLD_"],
+    "regex_replacements": [
+      {
+        "pattern": "[^A-Za-z0-9_]+",
+        "replace": "_"
+      },
+      {
+        "pattern": "_{2,}",
+        "replace": "_"
+      }
+    ],
+    "exact_map": {}
+  },
+  "parameter_rules": {
+    "prefix": "MHT_",
+    "uppercase": false,
+    "replace_leading_abbreviation_with_prefix": true,
+    "leading_abbreviation_pattern": "^(?:[A-Za-z]{2,6}_)+",
+    "strip_prefixes": ["tmp_", "old_", "MHT_"],
+    "regex_replacements": [
+      {
+        "pattern": "[^A-Za-z0-9_]+",
+        "replace": "_"
+      },
+      {
+        "pattern": "_{2,}",
+        "replace": "_"
+      }
+    ],
+    "exact_map": {}
+  },
+  "skip_parameter_names": [
+    "Width",
+    "Height"
+  ],
+  "shared_parameter_replacements": [
+    {
+      "old_name": "LegacySharedParam",
+      "new_name": "MHT_LegacySharedParam",
+      "definition_group": "Meinhardt",
+      "target_group": "PG_IDENTITY_DATA"
+    }
+  ],
+  "reload_overwrite_parameter_values": false
+}

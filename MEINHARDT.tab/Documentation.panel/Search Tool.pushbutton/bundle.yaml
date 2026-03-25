@@ -1,5 +1,0 @@
-title:
-  en_us: Search Tool
-tooltip:
-  en_us: Search and run any loaded pyRevit tool by keyword (name, tab, panel, tooltip).
-hidden: true

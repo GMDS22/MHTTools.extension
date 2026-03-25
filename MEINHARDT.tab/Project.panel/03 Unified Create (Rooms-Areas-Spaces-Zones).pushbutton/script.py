@@ -16,6 +16,12 @@ LEVEL_ELEV_TOL_FT = 0.5   # 6 inches
 MIN_CURVE_LEN_FT = 0.005  # ~1/16 inch
 
 
+# Cache successful API call signatures to avoid expensive exception-heavy probing
+# on every element creation (large speedup on big models).
+_SPACE_CREATE_SIG_IDX = None
+_SPACE_TAG_CREATE_SIG_IDX = None
+
+
 class _LevelItem(object):
     def __init__(self, level, host_elev):
         self.level = level
@@ -141,10 +147,30 @@ def _curve_key(curve, tol=0.01):
 
     a = _r(p0)
     b = _r(p1)
+
+    # Preserve old behavior for line-like curves.
+    if isinstance(curve, DB.Line):
+        if a <= b:
+            return ('Line', a, b)
+        else:
+            return ('Line', b, a)
+
+    # For arcs/other curves, include a rounded midpoint to avoid false dedup
+    # of different curves sharing endpoints.
+    try:
+        mp = curve.Evaluate(0.5, True)
+    except Exception:
+        try:
+            pts = list(curve.Tessellate())
+            mp = pts[len(pts) // 2] if pts else None
+        except Exception:
+            mp = None
+
+    m = _r(mp) if mp is not None else None
     if a <= b:
-        return (a, b)
+        return (curve.GetType().Name if hasattr(curve, 'GetType') else 'Curve', a, b, m)
     else:
-        return (b, a)
+        return (curve.GetType().Name if hasattr(curve, 'GetType') else 'Curve', b, a, m)
 
 
 def _flatten_curve_to_elevation(curve, elevation, z_tol=1e-4):
@@ -176,6 +202,40 @@ def _flatten_curve_to_elevation(curve, elevation, z_tol=1e-4):
 def _chunks(seq, size):
     for i in range(0, len(seq), size):
         yield seq[i:i + size]
+
+
+def _estimate_link_rooms_to_spaces_runtime(room_count, raw_curve_count, dedup_curve_count):
+    # Coarse estimate only; actual runtime depends on model complexity and hardware.
+    if room_count <= 150 and dedup_curve_count <= 3000:
+        return 'Likely fast (~1-5 min)'
+    if room_count <= 500 and dedup_curve_count <= 10000:
+        return 'Moderate (~5-15 min)'
+    return 'Heavy (15+ min; very large models can exceed 30 min)'
+
+
+def _confirm_preflight_link_rooms_to_spaces(room_count, raw_curve_count, raw_unique_count, host_curve_count):
+    estimate = _estimate_link_rooms_to_spaces_runtime(room_count, raw_curve_count, host_curve_count)
+    action = forms.CommandSwitchWindow.show(
+        ['Continue', 'Cancel'],
+        message=(
+            'Preflight: Linked Rooms → Space Boundaries + Spaces + Tags\n\n'
+            'Rooms to process: {}\n'
+            'Linked boundary curves read: {}\n'
+            'Linked boundary curves unique: {}\n'
+            'Host curves to create (after flatten/dedup): {}\n\n'
+            'Estimated runtime: {}\n\n'
+            'Continue?'
+        ).format(room_count, raw_curve_count, raw_unique_count, host_curve_count, estimate)
+    )
+    return bool(action and action == 'Continue')
+
+
+def _checkpoint_continue_or_cancel(stage_label, processed, total):
+    action = forms.CommandSwitchWindow.show(
+        ['Continue', 'Cancel'],
+        message='{} progress: {} / {}\n\nContinue?'.format(stage_label, processed, total)
+    )
+    return bool(action and action == 'Continue')
 
 
 def _pick_elements_in_view_by_bic(uidoc, prompt, bic):
@@ -1078,21 +1138,37 @@ def _point_key_xy(xyz, tol=0.2):
 
 
 def _create_space(doc, level, phase, point_xyz):
+    global _SPACE_CREATE_SIG_IDX
+
     uv = DB.UV(point_xyz.X, point_xyz.Y)
     creator = doc.Create
 
     # Try common signatures across versions.
-    for args in (
+    variants = (
         (level, uv),
         (level.Id, uv),
         (phase, uv, level),
         (phase.Id, uv, level.Id),
-    ):
+    )
+
+    if not hasattr(creator, 'NewSpace'):
+        return None
+
+    # Fast path: use last successful signature first.
+    if _SPACE_CREATE_SIG_IDX is not None and 0 <= _SPACE_CREATE_SIG_IDX < len(variants):
         try:
-            if hasattr(creator, 'NewSpace'):
-                sp = creator.NewSpace(*args)
-                if sp is not None:
-                    return sp
+            sp = creator.NewSpace(*variants[_SPACE_CREATE_SIG_IDX])
+            if sp is not None:
+                return sp
+        except Exception:
+            _SPACE_CREATE_SIG_IDX = None
+
+    for idx, args in enumerate(variants):
+        try:
+            sp = creator.NewSpace(*args)
+            if sp is not None:
+                _SPACE_CREATE_SIG_IDX = idx
+                return sp
         except Exception:
             continue
 
@@ -1100,25 +1176,39 @@ def _create_space(doc, level, phase, point_xyz):
 
 
 def _create_space_tag(doc, view, space, point_xyz, tag_type):
+    global _SPACE_TAG_CREATE_SIG_IDX
+
     uv = DB.UV(point_xyz.X, point_xyz.Y)
     creator = doc.Create
     tag = None
 
     # Try creator.NewSpaceTag variants
-    for args in (
+    variants = (
         # Per Revit API: NewSpaceTag(space, point(UV), view)
         (space, uv, view),
         (uv, space, view),
         (view, space, uv),
         (view.Id, space.Id, uv),
         (uv, space.Id, view.Id),
-    ):
-        try:
-            if hasattr(creator, 'NewSpaceTag'):
-                tag = creator.NewSpaceTag(*args)
-                break
-        except Exception:
-            continue
+    )
+
+    if hasattr(creator, 'NewSpaceTag'):
+        # Fast path: use last successful signature first.
+        if _SPACE_TAG_CREATE_SIG_IDX is not None and 0 <= _SPACE_TAG_CREATE_SIG_IDX < len(variants):
+            try:
+                tag = creator.NewSpaceTag(*variants[_SPACE_TAG_CREATE_SIG_IDX])
+            except Exception:
+                _SPACE_TAG_CREATE_SIG_IDX = None
+
+        if tag is None:
+            for idx, args in enumerate(variants):
+                try:
+                    tag = creator.NewSpaceTag(*args)
+                    if tag is not None:
+                        _SPACE_TAG_CREATE_SIG_IDX = idx
+                        break
+                except Exception:
+                    continue
 
     # Fallback: SpatialElementTag.Create
     if tag is None:
@@ -1384,6 +1474,7 @@ def main():
             [
                 'From Link Areas → Spaces + Space Tags',
                 'From Link Rooms → Space Separation Lines + Spaces + Space Tags',
+                'From Link Rooms → Spaces + Space Tags (no separators, faster)',
                 'From Current View Area Boundaries → Space Separation Lines + Spaces + Space Tags',
                 'From Selected Areas (Current View) → Spaces + Space Tags (no separators)',
                 'From Selected Rooms (Current View) → Space Separation Lines + Spaces + Space Tags',
@@ -1394,6 +1485,8 @@ def main():
             return
         if action.startswith('From Link Areas'):
             mode = 'Create Spaces + Space Tags (from Link Areas)'
+        elif action.startswith('From Link Rooms → Spaces + Space Tags (no separators, faster)'):
+            mode = 'Create Spaces + Space Tags (from Linked Rooms, no separators)'
         elif action.startswith('From Link Rooms'):
             mode = 'Create Space Boundaries + Spaces + Space Tags (from Linked Rooms)'
         elif action.startswith('From Current View Area Boundaries'):
@@ -1588,6 +1681,7 @@ def main():
                 continue
 
         tag_type = _get_default_space_tag_type(doc)
+        create_space_tags = tag_type is not None
 
         created_spaces = 0
         failed_spaces = 0
@@ -1621,11 +1715,12 @@ def main():
                     if k is not None:
                         existing_keys.add(k)
 
-                    tag = _create_space_tag(doc, view, sp, hp, tag_type)
-                    if tag is None:
-                        failed_tags += 1
-                    else:
-                        created_tags += 1
+                    if create_space_tags:
+                        tag = _create_space_tag(doc, view, sp, hp, tag_type)
+                        if tag is None:
+                            failed_tags += 1
+                        else:
+                            created_tags += 1
                 except Exception:
                     failed_spaces += 1
 
@@ -3131,6 +3226,19 @@ def main():
         if not room_points:
             forms.alert('No placed Rooms found in the selected link (after level filtering).', exitscript=True)
 
+        # De-dup room placement points to avoid repeated space creation attempts
+        # for overlapping/duplicate linked room locations.
+        room_points_unique = []
+        seen_room_keys = set()
+        for pt, rm in room_points:
+            k = _point_key_xy(pt)
+            if k is not None:
+                if k in seen_room_keys:
+                    continue
+                seen_room_keys.add(k)
+            room_points_unique.append((pt, rm))
+        room_points = room_points_unique
+
         raw_curves = _collect_boundary_curves_from_spatial_elements(
             link_doc,
             use_rooms=True,
@@ -3140,10 +3248,21 @@ def main():
         if not raw_curves:
             forms.alert('No Room boundary curves found in the selected link (after level filtering).', exitscript=True)
 
+        # Early dedup in link space to reduce transform/flatten work.
+        raw_uniq = {}
+        for c in raw_curves:
+            if c is None:
+                continue
+            k = _curve_key(c)
+            if k is None:
+                continue
+            raw_uniq[k] = c
+        raw_curves_unique = list(raw_uniq.values()) if raw_uniq else raw_curves
+
         transformed = []
         skipped = 0
         skipped_too_short = 0
-        for c in raw_curves:
+        for c in raw_curves_unique:
             if c is None:
                 continue
             try:
@@ -3292,9 +3411,13 @@ def main():
         return
 
     # Special mode: Space boundaries + spaces + tags from linked Rooms
-    if mode == 'Create Space Boundaries + Spaces + Space Tags (from Linked Rooms)':
+    if mode in (
+        'Create Space Boundaries + Spaces + Space Tags (from Linked Rooms)',
+        'Create Spaces + Space Tags (from Linked Rooms, no separators)'
+    ):
         link_t = _get_link_transform(link_instance)
         elev = level.Elevation
+        skip_boundary_creation = (mode == 'Create Spaces + Space Tags (from Linked Rooms, no separators)')
 
         # Pick the linked level that corresponds to this host level.
         link_level, link_level_host_elev = _pick_link_level_for_host_elevation(link_doc, link_t, elev)
@@ -3330,50 +3453,95 @@ def main():
         if not room_points:
             forms.alert('No placed Rooms found in the selected link (after level filtering).', exitscript=True)
 
-        # Collect linked room boundary curves
-        raw_curves = _collect_boundary_curves_from_spatial_elements(
-            link_doc,
-            use_rooms=True,
-            use_areas=False,
-            level_id=(link_level.Id if link_level is not None else None)
-        )
-        if not raw_curves:
-            forms.alert('No Room boundary curves found in the selected link (after level filtering).', exitscript=True)
-
+        raw_curves = []
+        raw_curves_unique = []
         transformed = []
+        curves = []
         skipped = 0
         skipped_too_short = 0
-        for c in raw_curves:
-            if c is None:
-                continue
-            try:
-                host_c = c.CreateTransformed(link_t)
-            except Exception:
-                skipped += 1
-                continue
 
-            try:
-                if hasattr(host_c, 'Length') and host_c.Length <= MIN_CURVE_LEN_FT:
-                    skipped_too_short += 1
+        if not skip_boundary_creation:
+            # Collect linked room boundary curves
+            raw_curves = _collect_boundary_curves_from_spatial_elements(
+                link_doc,
+                use_rooms=True,
+                use_areas=False,
+                level_id=(link_level.Id if link_level is not None else None)
+            )
+            if not raw_curves:
+                forms.alert('No Room boundary curves found in the selected link (after level filtering).', exitscript=True)
+
+            # Early dedup in link space to reduce transform/flatten work.
+            raw_uniq = {}
+            for c in raw_curves:
+                if c is None:
                     continue
-            except Exception:
-                pass
+                k = _curve_key(c)
+                if k is None:
+                    continue
+                raw_uniq[k] = c
+            raw_curves_unique = list(raw_uniq.values()) if raw_uniq else raw_curves
 
-            flat = _flatten_curve_to_elevation(host_c, elev)
-            if flat is None:
-                skipped += 1
-                continue
-            transformed.append(flat)
+            with forms.ProgressBar(title='Preparing boundary curves {value}/{max_value}', cancellable=True) as pb_prepare:
+                total_prepare = max(1, len(raw_curves_unique))
+                for i, c in enumerate(raw_curves_unique, 1):
+                    if pb_prepare.cancelled:
+                        forms.alert('Cancelled by user before creating boundaries/spaces.')
+                        return
+                    if c is None:
+                        continue
+                    try:
+                        host_c = c.CreateTransformed(link_t)
+                    except Exception:
+                        skipped += 1
+                        continue
 
-        uniq = {}
-        for c in transformed:
-            k = _curve_key(c)
-            if k is None:
-                continue
-            uniq[k] = c
-        curves = list(uniq.values())
-        if not curves:
-            forms.alert('No usable Room boundary curves found in the selected link (after filtering).', exitscript=True)
+                    try:
+                        if hasattr(host_c, 'Length') and host_c.Length <= MIN_CURVE_LEN_FT:
+                            skipped_too_short += 1
+                            continue
+                    except Exception:
+                        pass
+
+                    flat = _flatten_curve_to_elevation(host_c, elev)
+                    if flat is None:
+                        skipped += 1
+                        continue
+                    transformed.append(flat)
+                    if i % 100 == 0 or i == total_prepare:
+                        pb_prepare.update_progress(i, total_prepare)
+
+            uniq = {}
+            for c in transformed:
+                k = _curve_key(c)
+                if k is None:
+                    continue
+                uniq[k] = c
+            curves = list(uniq.values())
+            if not curves:
+                forms.alert('No usable Room boundary curves found in the selected link (after filtering).', exitscript=True)
+
+        if not skip_boundary_creation and len(curves) > 20000:
+            action = forms.CommandSwitchWindow.show(
+                ['Continue anyway', 'Cancel'],
+                message=(
+                    'Very large run detected.\n\n'
+                    'Space boundary curves to create: {}\n\n'
+                    'This can freeze Revit for a long time on some projects.\n'
+                    'It is safer to process smaller subsets (per level/view).\n\n'
+                    'Continue anyway?'
+                ).format(len(curves))
+            )
+            if not action or action == 'Cancel':
+                return
+
+        if not _confirm_preflight_link_rooms_to_spaces(
+            len(room_points),
+            len(raw_curves),
+            len(raw_curves_unique),
+            len(curves)
+        ):
+            return
 
         # Phase for spaces
         phase = _get_view_phase(doc, view)
@@ -3413,93 +3581,122 @@ def main():
         skipped_existing = 0
         created_tags = 0
         failed_tags = 0
+        create_space_tags = tag_type is not None
 
-        with revit.Transaction('Create Space Boundaries + Spaces + Tags from linked Rooms'):
+        boundary_cancelled = False
+        spaces_cancelled = False
+
+        if not skip_boundary_creation:
             creator = doc.Create
             if not hasattr(creator, 'NewSpaceBoundaryLines'):
                 forms.alert('This Revit version/API does not expose NewSpaceBoundaryLines.', exitscript=True)
 
-            # Ensure sketch plane
             sketch_plane = None
             try:
                 sketch_plane = view.SketchPlane
             except Exception:
                 sketch_plane = None
             if sketch_plane is None:
-                plane = DB.Plane.CreateByNormalAndOrigin(DB.XYZ.BasisZ, DB.XYZ(0, 0, elev))
-                sketch_plane = DB.SketchPlane.Create(doc, plane)
+                with revit.Transaction('Create Sketch Plane for Space Boundaries'):
+                    plane = DB.Plane.CreateByNormalAndOrigin(DB.XYZ.BasisZ, DB.XYZ(0, 0, elev))
+                    sketch_plane = DB.SketchPlane.Create(doc, plane)
 
-            deleted_existing = _prompt_delete_existing_space_separators(doc, view)
-            if deleted_existing is None:
-                return
+            with revit.Transaction('Delete Existing Space Separators'):
+                deleted_existing = _prompt_delete_existing_space_separators(doc, view)
+                if deleted_existing is None:
+                    return
 
-            for batch in _chunks(curves, 200):
-                ca = DB.CurveArray()
-                for cc in batch:
-                    ca.Append(cc)
-                try:
-                    creator.NewSpaceBoundaryLines(sketch_plane, ca, view)
-                    created_bounds += len(batch)
-                except Exception as ex:
-                    logger.debug('Batch boundary creation failed, falling back per-curve: %s', ex)
+            batches = list(_chunks(curves, 200))
+            total_batches = max(1, len(batches))
+            for bi, batch in enumerate(batches, 1):
+                if bi > 1 and (bi - 1) % 25 == 0:
+                    if not _checkpoint_continue_or_cancel('Boundary creation', bi - 1, total_batches):
+                        boundary_cancelled = True
+                        break
+
+                with revit.Transaction('Create Space Boundary Batch'):
+                    ca = DB.CurveArray()
                     for cc in batch:
-                        ca2 = DB.CurveArray()
-                        ca2.Append(cc)
+                        ca.Append(cc)
+                    try:
+                        creator.NewSpaceBoundaryLines(sketch_plane, ca, view)
+                        created_bounds += len(batch)
+                    except Exception as ex:
+                        logger.debug('Batch boundary creation failed, falling back per-curve: %s', ex)
+                        for cc in batch:
+                            ca2 = DB.CurveArray()
+                            ca2.Append(cc)
+                            try:
+                                creator.NewSpaceBoundaryLines(sketch_plane, ca2, view)
+                                created_bounds += 1
+                            except Exception:
+                                failed_bounds += 1
+
+        room_batches = list(_chunks(room_points, 100))
+        total_spaces = max(1, len(room_points))
+        processed_spaces = 0
+        for room_batch in room_batches:
+            if processed_spaces > 0 and processed_spaces % 250 == 0:
+                if not _checkpoint_continue_or_cancel('Spaces/Tags creation', processed_spaces, total_spaces):
+                    spaces_cancelled = True
+                    break
+
+            with revit.Transaction('Create Spaces + Tags Batch from linked Rooms'):
+                for p, src_room in room_batch:
+                    processed_spaces += 1
+                    try:
+                        hp = link_t.OfPoint(p)
+                        if link_level is None and abs(hp.Z - filter_elev) > LEVEL_ELEV_TOL_FT:
+                            continue
+                        hp = DB.XYZ(hp.X, hp.Y, elev)
+
+                        k = _point_key_xy(hp)
+                        if k is not None and k in existing_keys:
+                            skipped_existing += 1
+                            continue
+
+                        sp = _create_space(doc, level, phase, hp)
+                        if sp is None:
+                            failed_spaces += 1
+                            continue
+
+                        # Copy name/number from linked room.
                         try:
-                            creator.NewSpaceBoundaryLines(sketch_plane, ca2, view)
-                            created_bounds += 1
+                            src_name = src_room.Name
                         except Exception:
-                            failed_bounds += 1
+                            src_name = _get_param_as_string(src_room, 'Name')
+                        try:
+                            src_number = src_room.Number
+                        except Exception:
+                            src_number = _get_param_as_string(src_room, 'Number')
 
-            try:
-                doc.Regenerate()
-            except Exception:
-                pass
+                        _set_space_name_number(sp, src_name, src_number)
+                        created_spaces += 1
+                        if k is not None:
+                            existing_keys.add(k)
 
-            for p, src_room in room_points:
-                try:
-                    hp = link_t.OfPoint(p)
-                    if link_level is None and abs(hp.Z - filter_elev) > LEVEL_ELEV_TOL_FT:
-                        continue
-                    hp = DB.XYZ(hp.X, hp.Y, elev)
-
-                    k = _point_key_xy(hp)
-                    if k is not None and k in existing_keys:
-                        skipped_existing += 1
-                        continue
-
-                    sp = _create_space(doc, level, phase, hp)
-                    if sp is None:
+                        if create_space_tags:
+                            tag = _create_space_tag(doc, view, sp, hp, tag_type)
+                            if tag is None:
+                                failed_tags += 1
+                            else:
+                                created_tags += 1
+                    except Exception:
                         failed_spaces += 1
-                        continue
 
-                    # Copy name/number from linked room.
-                    try:
-                        src_name = src_room.Name
-                    except Exception:
-                        src_name = _get_param_as_string(src_room, 'Name')
-                    try:
-                        src_number = src_room.Number
-                    except Exception:
-                        src_number = _get_param_as_string(src_room, 'Number')
+        if boundary_cancelled:
+            forms.alert('Cancelled by user during boundary creation. Partial results were kept.')
+        if spaces_cancelled:
+            forms.alert('Cancelled by user during space creation. Partial results were kept.')
 
-                    _set_space_name_number(sp, src_name, src_number)
-                    created_spaces += 1
-                    if k is not None:
-                        existing_keys.add(k)
-
-                    tag = _create_space_tag(doc, view, sp, hp, tag_type)
-                    if tag is None:
-                        failed_tags += 1
-                    else:
-                        created_tags += 1
-                except Exception:
-                    failed_spaces += 1
-
+        with revit.Transaction('Unhide Space Categories'):
             _try_unhide_category(view, DB.BuiltInCategory.OST_MEPSpaceSeparationLines)
             _try_unhide_category(view, DB.BuiltInCategory.OST_MEPSpaceTags)
 
-        output.print_md('## Linked Rooms → Space Boundaries + Spaces + Space Tags')
+        if skip_boundary_creation:
+            output.print_md('## Linked Rooms → Spaces + Space Tags (No Separators)')
+        else:
+            output.print_md('## Linked Rooms → Space Boundaries + Spaces + Space Tags')
         output.print_md('* Link: `{}`'.format(getattr(link_instance, 'Name', 'Revit Link')))
         if link_level is not None:
             try:
@@ -3508,6 +3705,7 @@ def main():
                 output.print_md('* Linked level filter applied')
         output.print_md('* Rooms processed: `{}`'.format(len(room_points)))
         output.print_md('* Room boundary curves read: `{}`'.format(len(raw_curves)))
+        output.print_md('* Room boundary curves unique (pre-transform): `{}`'.format(len(raw_curves_unique)))
         output.print_md('* Space boundary curves created (deduped): `{}` | failed: `{}`'.format(created_bounds, failed_bounds))
         output.print_md('* Skipped (transform/flatten): `{}`'.format(skipped))
         output.print_md('* Skipped (too short): `{}`'.format(skipped_too_short))

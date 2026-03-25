@@ -39,7 +39,8 @@
         <GroupBox Header="Output" Grid.Row="1" Margin="0,0,0,10">
             <Grid Margin="8">
                 <StackPanel>
-                    <RadioButton x:Name="rb_drafting" Content="Drafting View Table" IsChecked="True"/>
+                    <RadioButton x:Name="rb_drafting" Content="Drafting View Table" IsChecked="True" Checked="output_changed"/>
+                    <RadioButton x:Name="rb_schedule" Content="Schedule View Table" Margin="0,6,0,0" Checked="output_changed"/>
                 </StackPanel>
             </Grid>
         </GroupBox>
@@ -56,9 +57,7 @@
         </GroupBox>
 
         <GroupBox Header="Notes" Grid.Row="3" Margin="0,0,0,10">
-            <TextBlock Margin="8" TextWrapping="Wrap">
-                Drafting View mode creates a table-style view from Excel. Update rebuilds from the saved Excel link.
-            </TextBlock>
+            <TextBlock x:Name="tb_notes" Margin="8" TextWrapping="Wrap"/>
         </GroupBox>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">

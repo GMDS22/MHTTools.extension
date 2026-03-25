@@ -1,0 +1,16 @@
+title: FORMAT
+tooltip: |
+  FORMAT V3 - Meinhardt sheet formatting tool by GM.
+  Three side-by-side panels: target type selector (left), hierarchical
+  sheet picker with live search and multi-select (center), and an
+  auto-populating type-aware parameter editor (right).
+  Includes Smart Auto Fill from sheet naming tokens and Smart Align
+  Viewports centered to each sheet titleblock.
+  Smart Auto Fill also toggles titleblock keyplan visibility by zone
+  and view scale, and updates Scope Box on placed views.
+  Edit sheet, title block, or placed view parameters across any set of
+  sheets without re-invoking. Toggle target types and sheet selections
+  seamlessly in one persistent window.
+author: GM
+help_url: ""
+image: icon.png
