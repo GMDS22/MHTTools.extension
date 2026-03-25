@@ -20,7 +20,7 @@ from Autodesk.Revit import DB
 # Wrap imports in try/except to avoid static analyzer errors in editors.
 try:
     from System import Array
-    from System.Windows.Forms import Application, Form, DataGridView, DataGridViewCheckBoxColumn, DataGridViewTextBoxColumn, Button, DockStyle, DialogResult, FormStartPosition, ComboBox, Label, TextBox, MessageBox, MessageBoxButtons, MessageBoxIcon, FlatStyle, DataGridViewAutoSizeColumnsMode, DataGridViewRowHeadersWidthSizeMode, AutoScaleMode, FormWindowState, FlowDirection
+    from System.Windows.Forms import Application, Form, DataGridView, DataGridViewCheckBoxColumn, DataGridViewTextBoxColumn, Button, DockStyle, DialogResult, FormStartPosition, ComboBox, Label, TextBox, MessageBox, MessageBoxButtons, MessageBoxIcon, FlatStyle, DataGridViewAutoSizeColumnsMode, DataGridViewRowHeadersWidthSizeMode, AutoScaleMode, FormWindowState, FlowDirection, SaveFileDialog
     from System.Drawing import Size, Color, SystemColors, SizeF
 except Exception:
     Application = None
@@ -42,6 +42,7 @@ except Exception:
     AutoScaleMode = None
     FormWindowState = None
     FlowDirection = None
+    SaveFileDialog = None
 
 logger = script.get_logger()
 
@@ -338,7 +339,7 @@ def _scan_for_token_in_text(tokens, text):
 # ---------------------------------------------------------------------------------
 
 
-def _write_export_files(csv_text, results, rules, script_dir, open_file=False):
+def _write_export_files(csv_text, results, rules, script_dir, open_file=False, csv_path=None):
     """Centralized CSV + debug JSON writer. Returns (csv_path, dbg_path or None).
 
     Uses `_write_text_file` for cross-runtime compatibility. If `open_file` is True
@@ -347,8 +348,14 @@ def _write_export_files(csv_text, results, rules, script_dir, open_file=False):
     try:
         from datetime import datetime
         ts = datetime.now().strftime('%Y%m%d_%H%M%S')
-        fname = 'family_name_suggestions_{}.csv'.format(ts)
-        csv_path = os.path.join(script_dir or SCRIPT_DIR, fname)
+        if csv_path:
+            csv_path = os.path.abspath(csv_path)
+            export_dir = os.path.dirname(csv_path) or (script_dir or SCRIPT_DIR)
+            base_name = os.path.splitext(os.path.basename(csv_path))[0]
+        else:
+            base_name = 'family_name_suggestions_{}'.format(ts)
+            export_dir = script_dir or SCRIPT_DIR
+            csv_path = os.path.join(export_dir, base_name + '.csv')
         ok = _write_text_file(csv_path, csv_text, encoding='utf-8')
         if not ok:
             raise Exception('Failed to write CSV via helper')
@@ -410,12 +417,17 @@ def _write_export_files(csv_text, results, rules, script_dir, open_file=False):
         dbg_path = None
         if debug_rows:
             try:
-                dbg_fname = 'family_name_suggestions_debug_{}.json'.format(ts)
-                dbg_path = os.path.join(script_dir or SCRIPT_DIR, dbg_fname)
+                dbg_fname = '{}_debug.json'.format(base_name)
+                dbg_path = os.path.join(export_dir, dbg_fname)
                 dbg_text = json.dumps({'generated': ts, 'problems': debug_rows}, indent=2, ensure_ascii=False)
                 _write_text_file(dbg_path, dbg_text, encoding='utf-8')
             except Exception:
                 dbg_path = None
+
+        try:
+            globals()['_last_csv_path'] = csv_path
+        except Exception:
+            pass
 
         # Optionally open file for user convenience
         try:
@@ -438,7 +450,7 @@ def _write_export_files(csv_text, results, rules, script_dir, open_file=False):
         return None, None
 
 
-def export_results_now(rows, rules=None, script_dir=None, open_file=False):
+def export_results_now(rows, rules=None, script_dir=None, open_file=False, csv_path=None):
     """Build CSV from `rows` (list of dicts) and write CSV + debug JSON using helper.
 
     Returns tuple (csv_path, dbg_path) or (None, None) on failure.
@@ -539,7 +551,7 @@ def export_results_now(rows, rules=None, script_dir=None, open_file=False):
 
         csv_text = '\n'.join(out)
 
-        return _write_export_files(csv_text, results, rules, script_dir or SCRIPT_DIR, open_file=open_file)
+        return _write_export_files(csv_text, results, rules, script_dir or SCRIPT_DIR, open_file=open_file, csv_path=csv_path)
     except Exception as e:
         logger.warning('export_results_now failed: {}'.format(e))
         return None, None
@@ -572,6 +584,28 @@ def remove_existing_prefixes(name, rules):
             for k in disc.keys():
                 if k and k not in prefixes:
                     prefixes.append(k)
+            for v in disc.values():
+                if v and v not in prefixes:
+                    prefixes.append(v)
+        except Exception:
+            pass
+        try:
+            for v in CATEGORY_CODE.values():
+                if v and v not in prefixes:
+                    prefixes.append(v)
+        except Exception:
+            pass
+        try:
+            templates = rules.get('TEMPLATES', {}) or {}
+            for tpl in templates.values():
+                try:
+                    literal = re.sub(r'<[^>]+>', '', tpl or '')
+                    for tok in re.split(r'[^A-Za-z0-9]+', literal):
+                        tok = (tok or '').strip()
+                        if tok and len(tok) >= 2 and tok.upper() == tok and tok not in prefixes:
+                            prefixes.append(tok)
+                except Exception:
+                    continue
         except Exception:
             pass
 
@@ -788,6 +822,51 @@ CATEGORY_CODE = {
 }
 
 
+def _resolve_template(templates, category, family_name=None):
+    """Resolve template with exact category first, then family-specific and simple singular/plural variants."""
+    try:
+        templates = templates or {}
+        category = category or ''
+        family_name = family_name or ''
+
+        if category in templates:
+            return templates[category]
+        if category and family_name:
+            key = "%s:%s" % (category, family_name)
+            if key in templates:
+                return templates[key]
+        if family_name in templates:
+            return templates[family_name]
+
+        variants = []
+        if category:
+            if category.endswith('ies'):
+                variants.append(category[:-3] + 'y')
+            elif category.endswith('s'):
+                variants.append(category[:-1])
+            else:
+                variants.append(category + 's')
+
+        seen = set([category])
+        for variant in variants:
+            if not variant or variant in seen:
+                continue
+            seen.add(variant)
+            if variant in templates:
+                return templates[variant]
+            if family_name:
+                key = "%s:%s" % (variant, family_name)
+                if key in templates:
+                    return templates[key]
+
+        return templates.get('Default', '')
+    except Exception:
+        try:
+            return (templates or {}).get('Default', '')
+        except Exception:
+            return ''
+
+
 def family_primary_category_name(family):
     try:
         cat = family.FamilyCategory
@@ -979,6 +1058,20 @@ def classify_family(info, rules, used_generic_names=None):
                 if found_param:
                     break
             if found_param:
+                # Guard the Pump rule against broad false positives. Parameters like
+                # Flow and Head appear on many Mechanical Equipment families, so only
+                # accept a pump classification when there is at least one additional
+                # pump-specific clue in the family/type text or parameter values.
+                try:
+                    if (generic_name or '').lower() == 'pump':
+                        pump_family_hit = _scan_for_token_in_text(clues.get("family_name_keywords", []), combined_text)
+                        pump_subtype_hit = _scan_for_token_in_text(clues.get("sub_type_keywords", []), combined_text)
+                        pump_system_hit = _scan_for_token_in_text(clues.get("system_classification", []), combined_text)
+                        if not (pump_family_hit or pump_subtype_hit or pump_system_hit):
+                            continue
+                except Exception:
+                    pass
+
                 # Pre-scan parameter values, type names, and family name for system, size, and subtype tokens
                 sys_param_clues = clues.get("system_type_param_keywords", [])
                 sys_val_clues = clues.get("system_type_values", [])
@@ -1599,16 +1692,7 @@ def main():
     for f in families:
         info = gather_family_info(f, instance_params_cache)
         # determine template: category, Category:Family, Family, default
-        rule = None
-        cat_key = info['category']
-        if cat_key in templates:
-            rule = templates[cat_key]
-        elif "%s:%s" % (cat_key, info['family_name']) in templates:
-            rule = templates["%s:%s" % (cat_key, info['family_name'])]
-        elif info['family_name'] in templates:
-            rule = templates[info['family_name']]
-        else:
-            rule = templates.get('Default', '')
+        rule = _resolve_template(templates, info['category'], info['family_name'])
 
         suggestion = ''
         if rule:
@@ -2011,13 +2095,13 @@ def main():
                 except Exception:
                     pass
 
-                # Professional dark theme colors
-                self.bg_dark = Color.FromArgb(30, 30, 30)          # Main background (dark gray)
-                self.bg_control = Color.FromArgb(45, 45, 45)       # Control background (lighter dark gray)
-                self.bg_header = Color.FromArgb(20, 20, 20)        # Header background (darkest)
-                self.fg_text = Color.FromArgb(220, 220, 220)       # Text color (light gray)
-                self.accent = Color.FromArgb(0, 120, 212)          # Accent color (blue)
-                self.accent_dark = Color.FromArgb(0, 90, 160)      # Darker accent
+                # Meinhardt dark navy theme (aligns with #0b1a2b / #0f5ea8 palette)
+                self.bg_dark = Color.FromArgb(15, 22, 31)           # Main background (dark navy)
+                self.bg_control = Color.FromArgb(26, 40, 58)        # Control background (medium navy)
+                self.bg_header = Color.FromArgb(11, 26, 43)         # Header background (#0b1a2b)
+                self.fg_text = Color.FromArgb(220, 225, 232)        # Text color (cool light)
+                self.accent = Color.FromArgb(15, 94, 168)           # Accent color (#0f5ea8 Meinhardt blue)
+                self.accent_dark = Color.FromArgb(10, 65, 120)      # Darker accent
 
                 # Set form colors
                 self.BackColor = self.bg_dark
@@ -2228,44 +2312,37 @@ def main():
 
                 self.btnFilter = Button()
                 self.btnFilter.Text = 'Filter'
-                self.btnFilter.Dock = DockStyle.Bottom
                 self.btnFilter.Height = 24
                 self.btnFilter.Click += self.on_filter
 
                 self.btnApply = Button()
                 self.btnApply.Text = 'Apply Selected'
-                self.btnApply.Dock = DockStyle.Bottom
                 self.btnApply.Height = 30
                 self.btnApply.Click += self.on_apply
 
                 self.btnSelectAll = Button()
                 self.btnSelectAll.Text = 'Select All'
-                self.btnSelectAll.Dock = DockStyle.Bottom
                 self.btnSelectAll.Height = 24
                 self.btnSelectAll.Click += self.on_select_all
 
                 self.btnClearAll = Button()
                 self.btnClearAll.Text = 'Clear All'
-                self.btnClearAll.Dock = DockStyle.Bottom
                 self.btnClearAll.Height = 24
                 self.btnClearAll.Click += self.on_clear_all
 
                 self.btnExport = Button()
                 self.btnExport.Text = 'Export CSV'
-                self.btnExport.Dock = DockStyle.Bottom
                 self.btnExport.Height = 30
                 self.btnExport.Click += self.on_export
 
                 self.btnOpenCSV = Button()
                 self.btnOpenCSV.Text = 'Open Last CSV'
-                self.btnOpenCSV.Dock = DockStyle.Bottom
                 self.btnOpenCSV.Height = 30
                 self.btnOpenCSV.Click += self.on_open_csv
 
                 # Close All button: confirm and close all related tool windows
                 self.btnCloseAll = Button()
                 self.btnCloseAll.Text = 'Close All'
-                self.btnCloseAll.Dock = DockStyle.Bottom
                 self.btnCloseAll.Height = 30
                 self.btnCloseAll.Click += self.on_close_all
 
@@ -2543,11 +2620,8 @@ def main():
                 # casing controls
                 self.lbl = Label()
                 self.lbl.Text = 'Casing:'
-                self.lbl.Dock = DockStyle.Bottom
 
                 self.cbo = ComboBox()
-                self.Controls.Add(self.btnClearAll)
-                self.Controls.Add(self.btnSelectAll)
                 self.cbo.Items.Add('UPPER')
                 self.cbo.Items.Add('TITLE')
                 self.cbo.Items.Add('ASIS')
@@ -2559,37 +2633,110 @@ def main():
                     self.cbo.SelectedItem = default_casing
                 else:
                     self.cbo.SelectedItem = 'UPPER'
-                self.cbo.Dock = DockStyle.Bottom
 
                 self.btnRefresh = Button()
                 self.btnRefresh.Text = 'Refresh Casing'
-                self.btnRefresh.Dock = DockStyle.Bottom
-                self.btnRefresh.Height = 24
+                self.btnRefresh.Height = 30
                 self.btnRefresh.Click += self.on_refresh
 
-                # add controls (order: bottom up)
-                # add controls (order: bottom up)
-                # Add controls (bottom up)
-                self.Controls.Add(self.dgv)
-                self.Controls.Add(self.btnExport)
-                self.Controls.Add(self.btnOpenCSV)
-                self.Controls.Add(self.btnApply)
-                self.Controls.Add(self.btnCloseAll)
-                self.Controls.Add(self.btnRefresh)
-                self.Controls.Add(self.btnFilter)
-                self.Controls.Add(self.txtSearch)
-                self.Controls.Add(self.cbo)
-                self.Controls.Add(self.lblStatus)
-                self.Controls.Add(self.lbl)
+                # ── Split layout: left panel (grid) | right panel (action buttons) ──
+                try:
+                    from System.Windows.Forms import Panel, FlowLayoutPanel, Padding as WinPadding
+                    _btn_w = 148
+
+                    # Right sidebar panel
+                    self._rightPanel = Panel()
+                    self._rightPanel.Dock = DockStyle.Right
+                    self._rightPanel.Width = 166
+                    self._rightPanel.BackColor = self.bg_header
+
+                    # Vertical flow container inside the right panel
+                    self._btnFlow = FlowLayoutPanel()
+                    self._btnFlow.Dock = DockStyle.Fill
+                    try:
+                        self._btnFlow.FlowDirection = FlowDirection.TopDown
+                    except Exception:
+                        self._btnFlow.FlowDirection = 1
+                    self._btnFlow.WrapContents = False
+                    self._btnFlow.AutoScroll = True
+                    try:
+                        self._btnFlow.Padding = WinPadding(8, 10, 8, 10)
+                    except Exception:
+                        pass
+                    self._btnFlow.BackColor = self.bg_header
+
+                    # Uniform size for all sidebar buttons
+                    for _btn in [self.btnSelectAll, self.btnClearAll, self.btnApply,
+                                 self.btnExport, self.btnOpenCSV, self.btnCloseAll,
+                                 self.btnRefresh, self.btnFilter]:
+                        try:
+                            _btn.Width = _btn_w
+                            _btn.Height = 30
+                        except Exception:
+                            pass
+
+                    # Casing label and combobox sizing
+                    try:
+                        self.lbl.Width = _btn_w
+                        self.lbl.Height = 20
+                        self.cbo.Width = _btn_w
+                        self.cbo.Height = 24
+                    except Exception:
+                        pass
+
+                    # Populate right sidebar (top to bottom)
+                    self._btnFlow.Controls.Add(self.btnSelectAll)
+                    self._btnFlow.Controls.Add(self.btnClearAll)
+                    self._btnFlow.Controls.Add(self.btnApply)
+                    self._btnFlow.Controls.Add(self.btnExport)
+                    self._btnFlow.Controls.Add(self.btnOpenCSV)
+                    self._btnFlow.Controls.Add(self.btnCloseAll)
+                    self._btnFlow.Controls.Add(self.lbl)
+                    self._btnFlow.Controls.Add(self.cbo)
+                    self._btnFlow.Controls.Add(self.btnRefresh)
+                    self._btnFlow.Controls.Add(self.btnFilter)
+                    self._rightPanel.Controls.Add(self._btnFlow)
+
+                    # Left panel: filter bar + grid + status bar
+                    self._leftPanel = Panel()
+                    self._leftPanel.Dock = DockStyle.Fill
+
+                    # Add to left panel (WinForms docking: last added = outermost)
+                    self._leftPanel.Controls.Add(self.dgv)          # Fill
+                    self._leftPanel.Controls.Add(self.txtSearch)    # Bottom (inner)
+                    self._leftPanel.Controls.Add(self.lblStatus)    # Bottom (outer/very bottom)
+                    if self.filterPanel is not None:
+                        self._leftPanel.Controls.Add(self.filterPanel)  # Top (outermost)
+
+                    # Assemble form: right panel before fill so Fill respects the right column
+                    self.Controls.Add(self._rightPanel)
+                    self.Controls.Add(self._leftPanel)
+
+                except Exception:
+                    # Fallback: original flat bottom-button layout
+                    self.Controls.Add(self.dgv)
+                    self.Controls.Add(self.btnExport)
+                    self.Controls.Add(self.btnOpenCSV)
+                    self.Controls.Add(self.btnApply)
+                    self.Controls.Add(self.btnCloseAll)
+                    self.Controls.Add(self.btnRefresh)
+                    self.Controls.Add(self.btnFilter)
+                    self.Controls.Add(self.txtSearch)
+                    self.Controls.Add(self.cbo)
+                    self.Controls.Add(self.lblStatus)
+                    self.Controls.Add(self.lbl)
+                    self.Controls.Add(self.btnClearAll)
+                    self.Controls.Add(self.btnSelectAll)
+                    if self.filterPanel is not None:
+                        self.Controls.Add(self.filterPanel)
 
                 # Dark theme for all buttons and controls
-                for ctrl in [self.btnExport, self.btnOpenCSV, self.btnApply, self.btnCloseAll, self.btnRefresh, 
-                           self.btnFilter, self.btnSelectAll, self.btnClearAll]:
+                for ctrl in [self.btnExport, self.btnOpenCSV, self.btnApply, self.btnCloseAll, self.btnRefresh,
+                             self.btnFilter, self.btnSelectAll, self.btnClearAll]:
                     try:
                         ctrl.BackColor = self.bg_control
                         ctrl.ForeColor = self.fg_text
                         ctrl.FlatStyle = FlatStyle.Flat
-                        # Set flat button appearance
                         ctrl.FlatAppearance.BorderColor = self.accent
                         ctrl.FlatAppearance.MouseDownBackColor = self.accent_dark
                         ctrl.FlatAppearance.MouseOverBackColor = self.accent
@@ -2603,28 +2750,57 @@ def main():
                 except Exception:
                     pass
 
-                # Dark theme for ComboBox
+                # Dark theme for ComboBox and casing label
                 try:
                     self.cbo.BackColor = self.bg_control
                     self.cbo.ForeColor = self.fg_text
-                except Exception:
-                    pass
-                # add filter panel above the grid if available
-                try:
-                    if self.filterPanel is not None:
-                        self.Controls.Add(self.filterPanel)
+                    self.lbl.BackColor = self.bg_header
+                    self.lbl.ForeColor = self.fg_text
                 except Exception:
                     pass
 
             def on_export(self, sender, args):
                 try:
-                    # Use the manual export helper so UI-triggered exports match programmatic exports.
-                    # Do not automatically open the file from the UI export unless rules request it.
+                    save_path = None
                     try:
-                        auto_open = bool(self._rules.get('AUTO_OPEN', False))
+                        if SaveFileDialog is not None:
+                            from datetime import datetime
+                            dlg = SaveFileDialog()
+                            dlg.Title = 'Save Family Renamer Export'
+                            dlg.Filter = 'CSV files (*.csv)|*.csv|All files (*.*)|*.*'
+                            dlg.DefaultExt = 'csv'
+                            dlg.AddExtension = True
+                            try:
+                                last_csv = globals().get('_last_csv_path')
+                                if last_csv and os.path.exists(os.path.dirname(last_csv)):
+                                    dlg.InitialDirectory = os.path.dirname(last_csv)
+                            except Exception:
+                                pass
+                            if not getattr(dlg, 'InitialDirectory', None):
+                                dlg.InitialDirectory = SCRIPT_DIR
+                            dlg.FileName = 'family_name_suggestions_{}.csv'.format(datetime.now().strftime('%Y%m%d_%H%M%S'))
+                            if dlg.ShowDialog() != DialogResult.OK:
+                                return
+                            save_path = dlg.FileName
                     except Exception:
-                        auto_open = False
-                    csv_path, dbg_path = export_results_now(self._rows, rules=self._rules, script_dir=SCRIPT_DIR, open_file=auto_open)
+                        save_path = None
+
+                    csv_path, dbg_path = export_results_now(self._rows, rules=self._rules, script_dir=SCRIPT_DIR, open_file=False, csv_path=save_path)
+
+                    try:
+                        open_after = False
+                        if MessageBox is not None and csv_path:
+                            res = MessageBox.Show('CSV saved successfully.\n\nOpen the file now?', 'Export Completed', MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                            open_after = (res == DialogResult.Yes)
+                        if open_after:
+                            if os.name == 'nt':
+                                os.startfile(csv_path)
+                            else:
+                                import webbrowser
+                                webbrowser.open('file://' + os.path.realpath(csv_path))
+                    except Exception:
+                        pass
+
                     # inform user where files were written
                     try:
                         msg = 'Exported CSV to: {}'.format(csv_path)
@@ -3687,7 +3863,7 @@ def handle_exact_duplicates(doc, to_apply, results):
             type_name = safe_get_name(sym)
 
             # Suggest name using family-based template
-            rule = templates.get(cat_name, templates.get('Default', ''))
+            rule = _resolve_template(templates, cat_name, fam_name)
             if rule:
                 info = gather_family_info(fam, None)
                 # Override type name for current symbol
