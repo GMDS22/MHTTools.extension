@@ -295,6 +295,15 @@ Basic operation:
 1. Run tool.
 2. Manage shared parameter groups/definitions.
 
+### Parameter Transfer
+Copies or moves parameter values on selected elements (including detail items) from one parameter to another compatible parameter.
+Basic operation:
+1. Select model/detail elements.
+2. Pick source parameter and destination parameter from dropdowns.
+3. Optional: enable Move to clear source after transfer.
+4. Optional: create a new destination project parameter from source type.
+5. Apply.
+
 ## MEP Modify.panel
 
 ### GreyOutElements

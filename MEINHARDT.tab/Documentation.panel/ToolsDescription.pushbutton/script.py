@@ -1,4 +1,6 @@
 import os
+import subprocess
+import sys
 import tempfile
 import webbrowser
 from pathlib import Path
@@ -18,8 +20,33 @@ doc_md_path = extension_dir / "MeinhardtTabTools.md"
 
 
 def _open_in_browser(path_obj):
-    """Open a local file in the default browser."""
-    webbrowser.open(path_obj.resolve().as_uri(), new=2)
+    """Open a local file in the default browser (not VS Code or other editors).
+
+    On Windows we use rundll32 url.dll,FileProtocolHandler which routes through
+    the OS default browser protocol handler rather than the file-type association
+    (which may be VS Code on developer machines).
+    """
+    uri = path_obj.resolve().as_uri()
+    if sys.platform.startswith("win"):
+        try:
+            subprocess.Popen(
+                ["rundll32", "url.dll,FileProtocolHandler", uri],
+                shell=False,
+            )
+            return
+        except Exception:
+            pass
+        # Second fallback: cmd /c start
+        try:
+            subprocess.Popen(
+                'start "" "{}"'.format(uri),
+                shell=True,
+            )
+            return
+        except Exception:
+            pass
+    # Non-Windows / last resort
+    webbrowser.open(uri, new=2)
 
 # Open the document
 if doc_html_path.exists():
