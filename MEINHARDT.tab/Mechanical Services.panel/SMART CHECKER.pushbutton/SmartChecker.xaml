@@ -1,0 +1,279 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="SMART DUCT CHECKER by GM"
+    Height="740" Width="1280"
+    MinHeight="580" MinWidth="1000"
+    WindowStartupLocation="CenterScreen"
+    ShowInTaskbar="True"
+    WindowStyle="None"
+    ResizeMode="CanResize"
+    Background="Transparent"
+    AllowsTransparency="True"
+    UseLayoutRounding="True"
+    Loaded="window_loaded">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="accent" Color="#0f5ea8"/>
+            <SolidColorBrush x:Key="hover" Color="#1e75c1"/>
+            <SolidColorBrush x:Key="bg1" Color="#0b1a2b"/>
+            <SolidColorBrush x:Key="bg2" Color="#10243a"/>
+            <SolidColorBrush x:Key="header_background" Color="#12304a"/>
+            <SolidColorBrush x:Key="panel_separator" Color="#1a3a58"/>
+            <SolidColorBrush x:Key="text_white" Color="#f2f2f2"/>
+            <SolidColorBrush x:Key="text_cyan" Color="#9ad7ff"/>
+            <SolidColorBrush x:Key="text_dim" Color="#6a8fa8"/>
+            <SolidColorBrush x:Key="border_secondary" Color="#0f5ea8"/>
+            <SolidColorBrush x:Key="border_panel" Color="#1a3a58"/>
+            <SolidColorBrush x:Key="field_bg" Color="#eef2d6"/>
+            <SolidColorBrush x:Key="field_text" Color="#111111"/>
+
+            <Style TargetType="Button">
+                <Setter Property="TextElement.FontFamily" Value="Arial"/>
+                <Setter Property="Background" Value="#0b1a2b"/>
+                <Setter Property="BorderBrush" Value="{StaticResource accent}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Foreground" Value="{StaticResource text_white}"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="6" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource hover}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Background" Value="{StaticResource accent}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource hover}"/>
+            </Style>
+
+            <Style TargetType="CheckBox">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Background" Value="{StaticResource field_bg}"/>
+                <Setter Property="Foreground" Value="{StaticResource field_text}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource border_secondary}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="6,3"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="TextElement.FontFamily" Value="Arial"/>
+                <Setter Property="Background" Value="{StaticResource field_bg}"/>
+                <Setter Property="Foreground" Value="{StaticResource field_text}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource border_secondary}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="MaxDropDownHeight" Value="320"/>
+                <Setter Property="Padding" Value="6,3"/>
+            </Style>
+
+            <Style TargetType="ListBox">
+                <Setter Property="Background" Value="#0b1a2b"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderBrush" Value="{StaticResource border_secondary}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+
+            <Style TargetType="ListBoxItem">
+                <Setter Property="Padding" Value="4,2"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#1a3a58"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border CornerRadius="10" Background="{StaticResource bg1}" BorderBrush="{StaticResource accent}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="{StaticResource header_background}" PreviewMouseLeftButtonDown="header_drag">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+
+                <DockPanel Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0">
+                    <TextBlock Text="MHT Tools" Foreground="{StaticResource text_white}" FontWeight="Bold" FontSize="13"/>
+                    <TextBlock Text="  |  SMART DUCT CHECKER by GM" Foreground="{StaticResource text_cyan}" FontSize="12" VerticalAlignment="Center"/>
+                </DockPanel>
+
+                <TextBlock Grid.Column="1" x:Name="UI_header_mode" Foreground="{StaticResource text_dim}" FontSize="11" VerticalAlignment="Center" Margin="0,0,12,0" Text="Scope ducts: 0 | Rules: 0 | Results: 0"/>
+                <Button Grid.Column="2" Content="_" Width="28" Height="20" FontSize="12" Click="button_minimize" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Grid.Column="3" x:Name="UI_btn_maximize" Content="[]" Width="28" Height="20" FontSize="10" Click="button_maximize" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Grid.Column="4" Content="Close" Width="55" Height="20" FontSize="10" Click="button_close" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="UI_col_panel_1" Width="0.95*" MinWidth="260"/>
+                    <ColumnDefinition Width="4"/>
+                    <ColumnDefinition x:Name="UI_col_panel_2" Width="1.15*" MinWidth="360"/>
+                    <ColumnDefinition Width="4"/>
+                    <ColumnDefinition x:Name="UI_col_panel_3" Width="1.2*" MinWidth="320"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Margin="8,8,4,8" Background="{StaticResource bg2}" BorderBrush="{StaticResource border_panel}" BorderThickness="1" CornerRadius="8">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <DockPanel Margin="10">
+                            <TextBlock DockPanel.Dock="Top" Text="SETTINGS" Foreground="{StaticResource text_cyan}" FontWeight="Bold" FontSize="11" Margin="0,0,0,8"/>
+                            <TextBlock DockPanel.Dock="Top" Text="Check ducts by" Foreground="{StaticResource text_cyan}" FontSize="10" Margin="0,4,0,3"/>
+                            <ComboBox DockPanel.Dock="Top" x:Name="UI_scope" Height="26" Margin="0,0,0,6" SelectionChanged="scope_changed"/>
+                            <TextBlock DockPanel.Dock="Top" x:Name="UI_level_label" Text="Select level" Foreground="{StaticResource text_cyan}" FontSize="10" Margin="0,4,0,3"/>
+                            <ComboBox DockPanel.Dock="Top" x:Name="UI_level_filter" Height="26" Margin="0,0,0,6" SelectionChanged="level_changed"/>
+                            <TextBlock DockPanel.Dock="Top" Text="Workflow" Foreground="{StaticResource text_cyan}" FontSize="10" Margin="0,4,0,3"/>
+                            <TextBlock DockPanel.Dock="Top" x:Name="UI_info_summary" Foreground="#9ad7ff" FontSize="11" TextWrapping="Wrap" Text="Scope preview: selection -> 0" Margin="0,0,0,8"/>
+                            <Button DockPanel.Dock="Top" x:Name="UI_btn_run" Content="Run Check" Height="30" Style="{StaticResource AccentButton}" Click="button_run_check" Margin="0,4,0,0"/>
+                            <Button DockPanel.Dock="Top" x:Name="UI_pick_button" Content="Pick Ducts From Model" Height="28" Click="button_pick_from_model" Margin="0,6,0,0"/>
+                            <Button DockPanel.Dock="Top" Content="Refresh Context" Height="28" Click="button_refresh_context" Margin="0,6,0,0"/>
+                            <Button DockPanel.Dock="Top" Content="Clear Results" Height="28" Click="button_clear_results" Margin="0,6,0,0"/>
+                            <Button DockPanel.Dock="Top" Content="Reset Panel Layout" Height="28" Click="button_reset_layout" Margin="0,6,0,0"/>
+                            <TextBlock DockPanel.Dock="Top" Foreground="{StaticResource text_dim}" FontSize="10" TextWrapping="Wrap" Margin="0,10,0,0" Text="Choose one check mode. Selected Level enables the level list. Selected Ducts enables model picking. Clicking a result will still auto-show the duct."/>
+                            <Grid/>
+                        </DockPanel>
+                    </ScrollViewer>
+                </Border>
+
+                <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch" Background="{StaticResource panel_separator}" Cursor="SizeWE" DragCompleted="panel_splitter_drag_completed"/>
+
+                <Border Grid.Column="2" Margin="4,8,4,8" Background="{StaticResource bg2}" BorderBrush="{StaticResource border_panel}" BorderThickness="1" CornerRadius="8">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="2.2*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Grid.Row="0" Margin="0,0,0,6">
+                            <TextBlock Text="CHECK RULES" Foreground="{StaticResource text_cyan}" FontWeight="Bold" FontSize="11"/>
+                            <TextBlock x:Name="UI_rule_count" Foreground="White" FontSize="11" Margin="8,0,0,0" Text="(0 rules, 0 enabled)"/>
+                        </DockPanel>
+
+                        <ListBox Grid.Row="1" x:Name="UI_rule_list" SelectionChanged="rule_selection_changed">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel Margin="2,1,2,1">
+                                        <CheckBox IsChecked="{Binding IsEnabled}" Tag="{Binding}" Click="rule_enabled_click" Margin="0,0,6,0"/>
+                                        <TextBlock Text="{Binding Display}" TextWrapping="Wrap"/>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <TextBlock Grid.Row="2" Text="Rule name" Foreground="{StaticResource text_cyan}" FontSize="10" Margin="0,10,0,3"/>
+                        <TextBox Grid.Row="3" x:Name="UI_rule_name" Height="26"/>
+                        <TextBlock Grid.Row="4" Text="Parameter aliases to search (comma separated)" Foreground="{StaticResource text_cyan}" FontSize="10" Margin="0,8,0,3"/>
+                        <TextBox Grid.Row="5" x:Name="UI_rule_aliases" Height="54" AcceptsReturn="True"/>
+
+                        <Grid Grid.Row="6" Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="8"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Rule mode" Foreground="{StaticResource text_cyan}" FontSize="10" Margin="0,0,0,3"/>
+                                <ComboBox x:Name="UI_rule_mode" Height="26" SelectionChanged="rule_mode_changed"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Minimum numeric value" Foreground="{StaticResource text_cyan}" FontSize="10" Margin="0,0,0,3"/>
+                                <TextBox x:Name="UI_rule_min_value" Height="26"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Grid.Row="7" Text="Allowed values (comma separated)" Foreground="{StaticResource text_cyan}" FontSize="10" Margin="0,8,0,3"/>
+                        <TextBox Grid.Row="8" x:Name="UI_rule_allowed_values" Height="54" AcceptsReturn="True"/>
+                        <CheckBox Grid.Row="9" x:Name="UI_rule_enabled" Content="Rule enabled" Margin="0,8,0,0"/>
+
+                        <WrapPanel Grid.Row="10" Margin="0,10,0,0">
+                            <Button Content="New" Width="68" Height="24" Click="button_new_rule"/>
+                            <Button Content="Add / Update" Width="110" Height="24" Margin="6,0,0,0" Click="button_save_rule"/>
+                            <Button Content="Remove" Width="78" Height="24" Margin="6,0,0,0" Click="button_remove_rule"/>
+                            <Button Content="Reset Defaults" Width="108" Height="24" Margin="6,0,0,0" Click="button_reset_rules"/>
+                        </WrapPanel>
+
+                        <TextBlock Grid.Row="11" Foreground="{StaticResource text_dim}" FontSize="10" TextWrapping="Wrap" Margin="0,10,0,0" Text="Keep the rules simple: Required for text completeness, Positive Number for Pa-style values, Minimum Number for thresholds, or Allowed Values for exact status checks."/>
+                    </Grid>
+                </Border>
+
+                <GridSplitter Grid.Column="3" Width="4" HorizontalAlignment="Stretch" Background="{StaticResource panel_separator}" Cursor="SizeWE" DragCompleted="panel_splitter_drag_completed"/>
+
+                <Border Grid.Column="4" Margin="4,8,8,8" Background="{StaticResource bg2}" BorderBrush="{StaticResource border_panel}" BorderThickness="1" CornerRadius="8">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="2.1*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="1.1*"/>
+                            <RowDefinition Height="1.0*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Grid.Row="0" Margin="0,0,0,6">
+                            <TextBlock Text="RESULTS" Foreground="{StaticResource text_cyan}" FontWeight="Bold" FontSize="11"/>
+                            <TextBlock x:Name="UI_result_count" Foreground="White" FontSize="11" Margin="8,0,0,0" Text="(0 results, 0 failing)"/>
+                        </DockPanel>
+
+                        <ListBox Grid.Row="1" x:Name="UI_results_list" SelectionChanged="result_selection_changed">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Display}" TextWrapping="Wrap" Margin="2,1,2,1"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <WrapPanel Grid.Row="2" Margin="0,8,0,8">
+                            <Button Content="Show Selected" Width="102" Height="24" Click="button_show_selected"/>
+                        </WrapPanel>
+
+                        <TextBox Grid.Row="3" x:Name="UI_result_details" IsReadOnly="True" Background="#243832" Foreground="#f4f7ef" BorderBrush="{StaticResource border_secondary}" BorderThickness="1" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" AcceptsReturn="True" Text="Select a result to inspect details."/>
+                        <TextBox Grid.Row="4" x:Name="UI_log" IsReadOnly="True" Background="#1d2834" Foreground="#f4f7ef" BorderBrush="{StaticResource border_secondary}" BorderThickness="1" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" AcceptsReturn="True" Text="Ready. Choose scope and rules, then run the check."/>
+                        <TextBlock Grid.Row="5" x:Name="UI_feedback" Foreground="{StaticResource text_dim}" FontSize="11" Text="No results yet." TextWrapping="Wrap" Margin="0,8,0,0"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="2" Background="{StaticResource header_background}" CornerRadius="0,0,10,10">
+                <DockPanel Margin="12,4,12,4">
+                    <TextBlock x:Name="UI_status_bar" Foreground="{StaticResource text_dim}" FontSize="10" Text="Tip: edit the rules in the middle panel, run the check, then click any result to jump to it."/>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

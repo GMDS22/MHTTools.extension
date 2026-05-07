@@ -941,6 +941,12 @@ else:
             except:
                 pass
 
+            fill_color = get_system_material_color(st)
+            if line_color_mode == "same":
+                line_color = fill_color
+            else:
+                line_color = darker_color(fill_color, factor=line_darken)
+
             ogs = DB.OverrideGraphicSettings()
 
             try:
@@ -1065,6 +1071,9 @@ if link_docs:
                         # Collect system types from linked document
                         linked_duct_systems = collect_system_types_from_link(DB.BuiltInCategory.OST_DuctSystem, linked_doc)
                         linked_pipe_systems = collect_system_types_from_link(DB.BuiltInCategory.OST_PipingSystem, linked_doc)
+                    except Exception as ex:
+                        linked_duct_systems = []
+                        linked_pipe_systems = []
                     
                     if not linked_duct_systems and not linked_pipe_systems:
                         continue
@@ -1254,8 +1263,6 @@ if link_docs:
                                 except:
                                     pass
                         
-                    except Exception as ex:
-                        pass  # Continue with next link if one fails
             
             if total_linked_filters > 0:
                 forms.alert(

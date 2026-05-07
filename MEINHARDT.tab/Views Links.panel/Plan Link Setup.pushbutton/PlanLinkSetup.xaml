@@ -1,0 +1,313 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Plan Link Setup"
+    Height="720" Width="1220"
+    MinHeight="560" MinWidth="980"
+    WindowStartupLocation="CenterScreen"
+    Background="#0b1a2b"
+    Foreground="#f2f2f2"
+    UseLayoutRounding="True"
+    Loaded="window_loaded">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="accent" Color="#0f5ea8"/>
+        <SolidColorBrush x:Key="hover" Color="#1e75c1"/>
+        <SolidColorBrush x:Key="bg1" Color="#0b1a2b"/>
+        <SolidColorBrush x:Key="bg2" Color="#10243a"/>
+        <SolidColorBrush x:Key="header_background" Color="#12304a"/>
+        <SolidColorBrush x:Key="panel_separator" Color="#1a3a58"/>
+        <SolidColorBrush x:Key="text_white" Color="#f2f2f2"/>
+        <SolidColorBrush x:Key="text_cyan" Color="#9ad7ff"/>
+        <SolidColorBrush x:Key="text_dim" Color="#6a8fa8"/>
+        <SolidColorBrush x:Key="border_secondary" Color="#0f5ea8"/>
+        <SolidColorBrush x:Key="border_panel" Color="#1a3a58"/>
+        <SolidColorBrush x:Key="field_bg" Color="#eef2d6"/>
+        <SolidColorBrush x:Key="field_text" Color="#111111"/>
+
+        <Style TargetType="Button">
+            <Setter Property="TextElement.FontFamily" Value="Arial"/>
+            <Setter Property="Background" Value="#0b1a2b"/>
+            <Setter Property="BorderBrush" Value="{StaticResource accent}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{StaticResource text_white}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="6"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource hover}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.45"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource accent}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource hover}"/>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource field_bg}"/>
+            <Setter Property="Foreground" Value="{StaticResource field_text}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource border_secondary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="6,3"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="TextElement.FontFamily" Value="Arial"/>
+            <Setter Property="Background" Value="{StaticResource field_bg}"/>
+            <Setter Property="Foreground" Value="{StaticResource field_text}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource border_secondary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="MaxDropDownHeight" Value="320"/>
+            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="IsEditable" Value="False"/>
+        </Style>
+
+        <Style TargetType="TreeView">
+            <Setter Property="Background" Value="#0b1a2b"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#0b1a2b"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource border_secondary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="4,3"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1a3a58"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0f5ea8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource bg1}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{StaticResource header_background}" BorderBrush="{StaticResource accent}" BorderThickness="0,0,0,1">
+            <DockPanel Margin="12,8">
+                <TextBlock Text="MHT Tools" Foreground="{StaticResource text_white}" FontWeight="Bold" FontSize="13"/>
+                <TextBlock Text="  |  Plan Link Setup V2" Foreground="{StaticResource text_cyan}" FontSize="12" VerticalAlignment="Center"/>
+            </DockPanel>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.0*" MinWidth="250"/>
+                <ColumnDefinition Width="4"/>
+                <ColumnDefinition Width="1.55*" MinWidth="360"/>
+                <ColumnDefinition Width="4"/>
+                <ColumnDefinition Width="1.2*" MinWidth="320"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Margin="8,8,4,8" Background="{StaticResource bg2}" BorderBrush="{StaticResource border_panel}" BorderThickness="1" CornerRadius="8">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <DockPanel Margin="10">
+                        <TextBlock DockPanel.Dock="Top" Text="SETTINGS" Foreground="{StaticResource text_cyan}" FontWeight="Bold" FontSize="11" Margin="0,0,0,8"/>
+
+                        <TextBlock DockPanel.Dock="Top" Text="Template Policy" Foreground="{StaticResource text_cyan}" FontSize="10" Margin="0,4,0,3"/>
+                        <ComboBox DockPanel.Dock="Top" x:Name="UI_template_policy" Height="26" Margin="0,0,0,6"/>
+
+                        <CheckBox DockPanel.Dock="Top" x:Name="UI_release_rvt_links_from_templates" Content="Release RVT Links from assigned templates before editing" Margin="0,0,0,8"/>
+                        <CheckBox DockPanel.Dock="Top" x:Name="UI_hide_grids_all_links" Content="Hide linked grids on all visible links in each target view" Margin="0,0,0,6"/>
+                        <CheckBox DockPanel.Dock="Top" x:Name="UI_adapt_level_views" Content="Adapt selected linked view to matching level plans" Margin="0,0,0,6"/>
+                        <CheckBox DockPanel.Dock="Top" x:Name="UI_finish_custom" Content="After applying By Linked View, switch the selected link to Custom" Margin="0,0,0,6"/>
+                        <CheckBox DockPanel.Dock="Top" x:Name="UI_view_filters_by_host" Content="When using Custom, set View Filters to By Host" Margin="0,0,0,8"/>
+
+                        <TextBlock DockPanel.Dock="Top" x:Name="UI_info_summary" Foreground="#9ad7ff" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,8"/>
+
+                        <Button DockPanel.Dock="Top" x:Name="UI_btn_apply" Content="Apply To Selected Views" Height="30" Style="{StaticResource AccentButton}" Click="button_apply" Margin="0,4,0,0"/>
+                        <Button DockPanel.Dock="Top" Content="Refresh Context" Height="28" Click="button_refresh_context" Margin="0,6,0,0"/>
+
+                        <TextBlock DockPanel.Dock="Top" Foreground="{StaticResource text_dim}" FontSize="10" TextWrapping="Wrap" Margin="0,10,0,0"
+                                   Text="Version 2 keeps the structured selection workflow from Views Links Manager, but it is focused on one repeated task: choose the source link, choose the linked plan, hide linked grids, then finish the selected link as Custom with View Filters set to By Host."/>
+
+                        <Grid/>
+                    </DockPanel>
+                </ScrollViewer>
+            </Border>
+
+            <GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Stretch" Background="{StaticResource panel_separator}" Cursor="SizeWE"/>
+
+            <Border Grid.Column="2" Margin="4,8,4,8" Background="{StaticResource bg2}" BorderBrush="{StaticResource border_panel}" BorderThickness="1" CornerRadius="8">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="2.25*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1.7*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Row="0" Margin="0,0,0,6">
+                        <TextBlock Text="SHEETS AND VIEWS" Foreground="{StaticResource text_cyan}" FontWeight="Bold" FontSize="11"/>
+                        <TextBlock x:Name="UI_sheet_count" Foreground="White" FontSize="11" Margin="8,0,0,0" Text="(0 selected)"/>
+                    </DockPanel>
+
+                    <DockPanel Grid.Row="1" Margin="0,0,0,6">
+                        <TextBox x:Name="UI_search" Height="26" Width="240" ToolTip="Filter sheets by number, name, or group" TextChanged="search_textbox_changed"/>
+                        <Button Content="Clear" Width="52" Height="24" Margin="6,0,0,0" Click="button_clear_search"/>
+                    </DockPanel>
+
+                    <Border Grid.Row="2" BorderBrush="{StaticResource border_secondary}" BorderThickness="1" CornerRadius="4">
+                        <TreeView x:Name="UI_tree_sheets" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" ScrollViewer.CanContentScroll="True">
+                            <TreeView.ItemContainerStyle>
+                                <Style TargetType="TreeViewItem">
+                                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                                </Style>
+                            </TreeView.ItemContainerStyle>
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                    <Grid>
+                                        <CheckBox x:Name="SheetCheck" Content="{Binding Name}" IsChecked="{Binding IsChecked}" Tag="{Binding}" Click="sheet_checkbox_click" Foreground="White" Visibility="Collapsed"/>
+                                        <CheckBox x:Name="GroupCheck" Content="{Binding Name}" IsChecked="{Binding GroupCheckState}" IsThreeState="True" Tag="{Binding}" Click="sheet_checkbox_click" FontWeight="SemiBold" Foreground="#9ad7ff" Visibility="Visible"/>
+                                    </Grid>
+                                    <HierarchicalDataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding IsSheet}" Value="True">
+                                            <Setter TargetName="SheetCheck" Property="Visibility" Value="Visible"/>
+                                            <Setter TargetName="GroupCheck" Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </HierarchicalDataTemplate.Triggers>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>
+                    </Border>
+
+                    <DockPanel Grid.Row="3" Margin="0,8,0,0">
+                        <Button Content="Check Shown" Width="90" Height="24" Click="button_check_all_sheets"/>
+                        <Button Content="Uncheck Shown" Width="102" Height="24" Margin="6,0,0,0" Click="button_uncheck_all_sheets"/>
+                        <Button Content="Invert Shown" Width="92" Height="24" Margin="6,0,0,0" Click="button_invert_shown_sheets"/>
+                        <Button Content="Expand" Width="62" Height="24" Margin="6,0,0,0" Click="button_expand_all"/>
+                        <Button Content="Collapse" Width="68" Height="24" Margin="6,0,0,0" Click="button_collapse_all"/>
+                    </DockPanel>
+
+                    <DockPanel Grid.Row="4" Margin="0,10,0,6">
+                        <TextBlock Text="PLACED VIEWS ON SELECTED SHEETS" Foreground="{StaticResource text_cyan}" FontWeight="Bold" FontSize="10"/>
+                        <TextBlock x:Name="UI_view_count" Foreground="White" FontSize="11" Margin="8,0,0,0" Text="(0 of 0)"/>
+                    </DockPanel>
+
+                    <Grid Grid.Row="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Grid.Row="0" Margin="0,0,0,6">
+                            <TextBox x:Name="UI_view_filter" Height="26" Width="240" ToolTip="Filter views by sheet, view name, or level" TextChanged="view_filter_text_changed"/>
+                        </DockPanel>
+
+                        <ListBox Grid.Row="1" x:Name="UI_view_list">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsChecked}" Tag="{Binding}" Click="view_checkbox_click" Margin="2,1,2,1">
+                                        <TextBlock Text="{Binding Display}" TextWrapping="Wrap"/>
+                                    </CheckBox>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+
+                    <DockPanel Grid.Row="6" Margin="0,8,0,0">
+                        <Button Content="Check Shown Views" Width="120" Height="24" Click="button_check_all_views"/>
+                        <Button Content="Uncheck Shown Views" Width="136" Height="24" Margin="6,0,0,0" Click="button_uncheck_all_views"/>
+                        <Button Content="Invert Shown Views" Width="126" Height="24" Margin="6,0,0,0" Click="button_invert_shown_views"/>
+                    </DockPanel>
+                </Grid>
+            </Border>
+
+            <GridSplitter Grid.Column="3" Width="4" HorizontalAlignment="Stretch" Background="{StaticResource panel_separator}" Cursor="SizeWE"/>
+
+            <Border Grid.Column="4" Margin="4,8,8,8" Background="{StaticResource bg2}" BorderBrush="{StaticResource border_panel}" BorderThickness="1" CornerRadius="8">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1.75*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1.55*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Row="0" Margin="0,0,0,6">
+                        <TextBlock Text="SOURCE LINK" Foreground="{StaticResource text_cyan}" FontWeight="Bold" FontSize="11"/>
+                        <TextBlock x:Name="UI_link_count" Foreground="White" FontSize="11" Margin="8,0,0,0" Text="(0 loaded | selected: None)"/>
+                    </DockPanel>
+
+                    <DockPanel Grid.Row="1" Margin="0,0,0,6">
+                        <TextBox x:Name="UI_link_filter" Height="26" Width="240" ToolTip="Filter loaded links by name" TextChanged="link_filter_text_changed"/>
+                    </DockPanel>
+
+                    <ListBox Grid.Row="2" x:Name="UI_link_list" SelectionChanged="link_selection_changed" SelectionMode="Extended">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Display}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <DockPanel Grid.Row="3" Margin="0,8,0,8">
+                        <Button Content="Select Architectural" Width="126" Height="24" Click="button_select_arch_link"/>
+                        <Button Content="Select First" Width="84" Height="24" Margin="6,0,0,0" Click="button_select_first_link"/>
+                        <Button Content="Clear" Width="58" Height="24" Margin="6,0,0,0" Click="button_clear_link_selection"/>
+                    </DockPanel>
+
+                    <Button Grid.Row="4" x:Name="UI_btn_remove_link" Content="Remove Selected Link From Checked Views" Height="26" Margin="0,0,0,8" Click="button_remove_selected_link"/>
+
+                    <TextBlock Grid.Row="5" Text="LINKED VIEW FROM SELECTED LINK" Foreground="{StaticResource text_cyan}" FontWeight="Bold" FontSize="10" Margin="0,0,0,4"/>
+                    <ComboBox Grid.Row="6" x:Name="UI_linked_view" Height="26" Margin="0,0,0,8" DisplayMemberPath="Display"/>
+
+                    <TextBox Grid.Row="7" x:Name="UI_log" IsReadOnly="True" Background="#243832" Foreground="#f4f7ef" BorderBrush="{StaticResource border_secondary}" BorderThickness="1" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" AcceptsReturn="True"/>
+
+                    <TextBlock Grid.Row="8" x:Name="UI_feedback" Foreground="{StaticResource text_dim}" FontSize="11" Text="No changes applied yet." TextWrapping="Wrap" Margin="0,8,0,0"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="2" Background="{StaticResource header_background}" BorderBrush="{StaticResource accent}" BorderThickness="0,1,0,0">
+            <DockPanel Margin="12,4,12,4">
+                <TextBlock x:Name="UI_status_bar" Foreground="{StaticResource text_dim}" FontSize="10" Text="Tip: Shift-click sheets for a range, Alt-click for all shown, or use the source-link panel to target the architectural plan that already shows rooms."/>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>

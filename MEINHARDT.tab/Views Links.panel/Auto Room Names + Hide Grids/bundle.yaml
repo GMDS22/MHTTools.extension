@@ -1,0 +1,6 @@
+title:
+  en_us: Auto Room Names + Hide Grids
+tooltip:
+  en_us: Combines Auto Room Names and Hide Grids. Finds best architectural view for room names, applies room visibility settings, and hides grids on all visible links.
+author: GM
+image: icon.png

@@ -1,0 +1,6 @@
+title:
+  en_us: Auto Room Names
+tooltip:
+  en_us: Automatically finds the best architectural linked view for the current view, then shows linked room names with the same finishing sequence used by Plan Link Setup.
+author: GM
+image: icon.png

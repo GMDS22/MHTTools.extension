@@ -1,0 +1,9 @@
+title:
+  en_us: Ductulator
+tooltip:
+  en_us: "ENVAR Duct Sizing Reference\n\nHow to size a duct:\n1. Enter the supply/exhaust Airflow in L/s.\n2. Set a Target Velocity (recommended: 3.0\u20134.0 m/s for main ducts).\n3. Enter the Known Duct Width (mm) for rectangular sizing.\n4. Click Calculate.\n\nResults:\n\u2022 Flowrate (m\xb3/h) \u2013 converted airflow\n\u2022 Round Diameter \u2013 equivalent circular duct size\n\u2022 Rect. Size \u2013 suggested W x H for the given width\n\nUse the colour-coded velocity tables to verify your chosen size falls in the preferred (amber) band."
+author: GMoreno
+description:
+  en_us: Calculate airflow conversion, round equivalent diameter, and rectangular duct velocity matrix.
+engine:
+  ironpython: true

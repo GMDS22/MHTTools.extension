@@ -1,0 +1,836 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meinhardt Tab Tools Description</title>
+<style>
+  :root {
+    --ink: #e8eef7;
+    --muted: #8aa3c1;
+    --line: #3b6a95;
+    --panel: #184064;
+    --accent: #34b7ff;
+    --accent-2: #6ad0ff;
+    --accent-warm: #ff8a5b;
+    --accent-gold: #f2c66d;
+    --accent-ice: #b7f0ff;
+    --accent-rose: #ff6f7d;
+    --bg: #113454;
+    --bg-deep: #0a223a;
+    --shot-bg: rgba(8, 24, 40, 0.96);
+    --shot-edge: rgba(91, 137, 179, 0.55);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(1200px 420px at 12% -10%, #2f5d89 0, rgba(47,93,137,0) 56%),
+        radial-gradient(900px 340px at 95% -15%, #204f7c 0, rgba(32,79,124,0) 58%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%),
+      var(--bg);
+  }
+  .wrap {
+    width: calc(100vw - 24px);
+    max-width: 1900px;
+    margin: 0 auto;
+    padding: 22px 10px 64px;
+  }
+  h1 { margin: 8px 0 8px; font-size: 2rem; letter-spacing: 0.02em; }
+  p { margin: 0 0 12px; line-height: 1.55; }
+  .note { color: var(--muted); margin-bottom: 16px; }
+  .brand-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background:
+      linear-gradient(90deg, rgba(255,138,91,0.12) 0%, rgba(255,138,91,0) 22%),
+      linear-gradient(180deg, rgba(13,34,56,0.95) 0%, rgba(10,27,45,0.95) 100%);
+  }
+  .brand-head img { height: 28px; width: auto; }
+  .brand-head span { color: var(--accent-2); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .hero {
+    margin: 0 0 18px;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background:
+      radial-gradient(540px 180px at 88% 0%, rgba(255,111,125,0.12) 0%, rgba(255,111,125,0) 60%),
+      radial-gradient(420px 160px at 8% 0%, rgba(242,198,109,0.11) 0%, rgba(242,198,109,0) 62%),
+      linear-gradient(180deg, rgba(29,66,102,0.94) 0%, rgba(17,44,72,0.94) 100%);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+  }
+  .hero p { margin-bottom: 10px; }
+  .quick-install {
+    margin: 10px 0 8px;
+    padding: 10px 12px;
+    border: 1px solid rgba(242,198,109,0.42);
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(53, 68, 96, 0.74) 0%, rgba(21, 56, 89, 0.82) 100%);
+  }
+  .quick-install strong { color: var(--accent-gold); }
+  .quick-install ol { margin: 8px 0 0 18px; }
+  .quick-install li { margin-bottom: 4px; }
+  .toc {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+    margin: 14px 0 30px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(18, 50, 80, 0.96) 0%, rgba(12, 35, 58, 0.96) 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  }
+  .toc a {
+    --toc-accent: rgba(106, 208, 255, 0.78);
+    --toc-glow: rgba(106, 208, 255, 0.12);
+    color: #e8f4ff;
+    text-decoration: none;
+    min-height: 64px;
+    padding: 10px 12px 11px;
+    border-radius: 8px;
+    display: block;
+    border: 1px solid rgba(99, 154, 201, 0.28);
+    border-top: 3px solid var(--toc-accent);
+    background:
+      linear-gradient(135deg, var(--toc-glow) 0%, rgba(255,255,255,0) 44%),
+      linear-gradient(180deg, rgba(26, 65, 101, 0.82) 0%, rgba(14, 40, 64, 0.86) 100%);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255,255,255,0.04);
+    transition: background 140ms ease, border-color 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+  }
+  .toc a:nth-child(4n+1) {
+    --toc-accent: rgba(242, 198, 109, 0.82);
+    --toc-glow: rgba(242, 198, 109, 0.13);
+  }
+  .toc a:nth-child(4n+2) {
+    --toc-accent: rgba(106, 208, 255, 0.82);
+    --toc-glow: rgba(106, 208, 255, 0.13);
+  }
+  .toc a:nth-child(4n+3) {
+    --toc-accent: rgba(255, 111, 125, 0.8);
+    --toc-glow: rgba(255, 111, 125, 0.12);
+  }
+  .toc a:nth-child(4n+4) {
+    --toc-accent: rgba(183, 240, 255, 0.84);
+    --toc-glow: rgba(183, 240, 255, 0.12);
+  }
+  .toc-title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 3px;
+    color: #f4fbff;
+  }
+  .toc-desc {
+    display: block;
+    font-size: 0.84rem;
+    color: #bdd6eb;
+    line-height: 1.35;
+  }
+  .toc a:hover {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 36%),
+      linear-gradient(180deg, rgba(39, 87, 129, 0.94) 0%, rgba(20, 54, 84, 0.92) 100%);
+    border-color: var(--toc-accent);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255,255,255,0.06);
+    transform: translateY(-1px);
+    color: #ffffff;
+  }
+  section.panel {
+    margin: 24px 0;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    background:
+      radial-gradient(420px 120px at 100% 0%, rgba(255,138,91,0.06) 0%, rgba(255,138,91,0) 62%),
+      linear-gradient(180deg, rgba(25,58,91,0.92) 0%, rgba(16,40,65,0.92) 100%);
+  }
+  h2 { margin: 0 0 10px; }
+  .panel-intro {
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(39, 81, 120, 0.88) 0%, rgba(48, 70, 104, 0.88) 100%);
+    border: 1px solid var(--line);
+    margin-bottom: 14px;
+  }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  article.tool {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    background: rgba(14, 39, 63, 0.9);
+  }
+  .tool-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .tool-head img { width: 34px; height: 34px; }
+  .tool-icons { display: inline-flex; align-items: center; gap: 4px; }
+  .tool-icons img {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid rgba(129, 185, 232, 0.45);
+    background: rgba(8, 24, 42, 0.8);
+    padding: 1px;
+    object-fit: contain;
+  }
+  h3 { margin: 0; font-size: 1rem; }
+  ul { margin: 6px 0 10px 18px; }
+  li { margin-bottom: 4px; }
+  .ui-placeholder {
+    margin-top: 8px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 10px;
+    background: var(--shot-bg);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  }
+  .ui-placeholder img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    image-rendering: auto;
+    filter: none;
+  }
+  /* Protocol: shot-ui = compact tool dialog/form screenshot */
+  .shot-ui img {
+    max-height: 600px;
+    object-fit: contain;
+  }
+  /* Protocol: any screenshot filename containing LargeUI renders full width automatically */
+  .ui-placeholder img[src*="LargeUI"] {
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    height: auto;
+    object-fit: contain;
+  }
+  /* Protocol: shot-panel-ribbon = panel ribbon screenshot used inline in a tool card */
+  .shot-panel-ribbon img {
+    max-height: 260px;
+    object-fit: contain;
+  }
+  .shot-icon img {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .shot-panel img {
+    max-height: 320px;
+    object-fit: contain;
+  }
+  #mht-sheets .grid { grid-template-columns: 1fr; gap: 16px; }
+  #mht-sheets article.tool { padding: 16px; }
+  #mht-sheets .tool-head h3 { font-size: 1.1rem; }
+  .ui-caption { margin: 6px 0 0; color: var(--muted); font-size: 0.9rem; }
+  .steps-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.8fr);
+    gap: 14px;
+    align-items: flex-start;
+    margin-top: 8px;
+  }
+  .steps-left {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .steps-right {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .steps-right .ui-placeholder {
+    min-height: 0;
+  }
+  .steps-right .ui-placeholder img {
+    max-height: 360px;
+  }
+  .panel-shot {
+    margin: 10px 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--shot-bg);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  }
+  .panel-shot img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 220px;
+    height: auto;
+    margin: 0 auto;
+    image-rendering: auto;
+    filter: contrast(1.04) saturate(1.02) brightness(1.01);
+  }
+  .panel-shot p { margin: 8px 10px 10px; color: var(--muted); font-size: 0.9rem; }
+  .panel-shot-compact {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .panel-shot-full {
+    max-width: none;
+    width: 100%;
+  }
+  .panel-shot-full img {
+    width: 100%;
+    max-height: none;
+    height: auto;
+    object-fit: contain;
+  }
+  .search-inline {
+    display: block;
+    margin-bottom: 6px;
+  }
+  .tool-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+    gap: 16px;
+    align-items: start;
+  }
+  .tool-split-copy,
+  .tool-split-media {
+    min-width: 0;
+  }
+  .tool-split-media .ui-placeholder {
+    margin-top: 0;
+  }
+  .tool-split-media .shot-ui img {
+    max-height: 280px;
+  }
+  .search-inline .ui-placeholder {
+    margin-top: 0;
+  }
+  .search-inline .shot-icon img {
+    max-width: 150px;
+  }
+  .meta-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  .meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 520px;
+    background: rgba(10, 30, 48, 0.75);
+  }
+  .meta-table th,
+  .meta-table td {
+    border-bottom: 1px solid rgba(91, 137, 179, 0.45);
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 0.92rem;
+  }
+  .meta-table th {
+    color: #d9ecff;
+    background: rgba(27, 66, 101, 0.75);
+  }
+  .meta-table td {
+    color: #c9def3;
+  }
+  @media (max-width: 980px) {
+    .steps-layout,
+    .tool-split {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    .search-inline {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand-head">
+    <img src="MEINHARDT.tab/logo-mainhardt-web-w.png" alt="Meinhardt logo">
+    <span>Engineering Better Futures</span>
+  </div>
+  <h1>Meinhardt Tab Tools Description</h1>
+  <div class="hero">
+    <div class="panel-shot panel-shot-full">
+      <img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/panel-meinhardt-tab.png" alt="Meinhardt tab screenshot">
+      <p>Meinhardt tab screenshot (top reference).</p>
+    </div>
+    <p><strong>Meinhardt Tab</strong> is a curated collection of tools specially created for modeling MEP projects and formatting sheets and files to Meinhardt standards. It centralizes day-to-day production commands for setup, coordination, data quality, and drawing package consistency.</p>
+    <p class="note">Scope: All tools under Meinhardt tab except MEP Lab panel. This page is browser-formatted for easy onboarding and includes UI screenshots.</p>
+    <div class="quick-install">
+      <strong>Installation Instructions (Header Summary)</strong>
+      <ol>
+        <li>Install pyRevit and verify the pyRevit ribbon appears in Revit.</li>
+        <li>Copy MHTTools.extension into %APPDATA%\\pyRevit\\Extensions.</li>
+        <li>Reload pyRevit (or restart Revit), then confirm the MEINHARDT tab is visible.</li>
+      </ol>
+    </div>
+    <p><strong>User Instructions:</strong> Start by selecting the panel from the table of contents below, open the tool card, then follow the basic operation steps. For tools with screenshots, match your UI to the sample image to confirm correct workflow.</p>
+  </div>
+  <nav class="toc">
+    <a href="#installation"><span class="toc-title">Installation Guide</span><span class="toc-desc">First-time setup and quick validation steps.</span></a>
+    <a href="#project"><span class="toc-title">Project Panel</span><span class="toc-desc">Project setup, renaming, and standards baseline.</span></a>
+    <a href="#views-links"><span class="toc-title">Views Links Panel</span><span class="toc-desc">Sheet-driven link display and visibility management.</span></a>
+    <a href="#mht-sheets"><span class="toc-title">MHT SHEETS Panel</span><span class="toc-desc">Drawing list generation and sheet package formatting.</span></a>
+    <a href="#documentation"><span class="toc-title">Documentation Panel</span><span class="toc-desc">Formatting workflows and doc utilities.</span></a>
+    <a href="#import"><span class="toc-title">IMPORT Panel</span><span class="toc-desc">Import external files, data, and references.</span></a>
+    <a href="#mep-check"><span class="toc-title">MEP Check Panel</span><span class="toc-desc">QA checks and model validation helpers.</span></a>
+    <a href="#mep-create"><span class="toc-title">MEP Create Panel</span><span class="toc-desc">Create MEP elements and drafting helpers.</span></a>
+    <a href="#mep-data"><span class="toc-title">MEP Data Panel</span><span class="toc-desc">Parameter edits, mapping, and data cleanup.</span></a>
+    <a href="#mep-design"><span class="toc-title">MEP Design Panel</span><span class="toc-desc">Design actions for routing and coordination.</span></a>
+    <a href="#mep-export"><span class="toc-title">MEP Export Panel</span><span class="toc-desc">Export packages, reports, and deliverables.</span></a>
+    <a href="#mep-favorites"><span class="toc-title">MEP Favorites Panel</span><span class="toc-desc">Frequently used shortcuts for daily tasks.</span></a>
+    <a href="#mep-manage"><span class="toc-title">MEP Manage Panel</span><span class="toc-desc">System management and maintenance tools.</span></a>
+    <a href="#mep-modify"><span class="toc-title">MEP Modify Panel</span><span class="toc-desc">Element edits, alignment, and cleanup actions.</span></a>
+    <a href="#search"><span class="toc-title">Search Panel</span><span class="toc-desc">Find and run tools quickly across panels.</span></a>
+    <a href="#refresh"><span class="toc-title">Refresh Panel</span><span class="toc-desc">Reload extension content and refresh states.</span></a>
+    <a href="#all-tools-metadata"><span class="toc-title">All Tools Metadata</span><span class="toc-desc">Icon name, bundle name, and author for all Meinhardt tools.</span></a>
+  </nav>
+
+  <section id="installation" class="panel">
+    <h2>Installation Guide (Simple Setup)</h2>
+    <div class="panel-intro">Quick setup for new users. Keep it simple: install pyRevit, copy one folder, reload, then check one tool.</div>
+    <div class="grid">
+      <article class="tool">
+        <div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>1) Install pyRevit</h3></div>
+        <ul>
+          <li>Install pyRevit and open Revit once.</li>
+          <li>Confirm the pyRevit tab appears in the ribbon.</li>
+        </ul>
+      </article>
+      <article class="tool">
+        <div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>2) Copy the Meinhardt Extension</h3></div>
+        <ul>
+          <li>Copy MHTTools.extension into %APPDATA%\\pyRevit\\Extensions.</li>
+          <li>Do not copy only MEINHARDT.tab. Copy the full MHTTools.extension folder.</li>
+        </ul>
+      </article>
+      <article class="tool">
+        <div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>3) Reload and Verify</h3></div>
+        <ul>
+          <li>Click pyRevit Reload (or restart Revit).</li>
+          <li>Confirm the MEINHARDT tab is visible.</li>
+          <li>Run Search Tool or ToolsDescription as a quick check.</li>
+        </ul>
+      </article>
+      <article class="tool">
+        <div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Quick Troubleshooting</h3></div>
+        <ul>
+          <li>If MEINHARDT tab is missing, check folder name is exactly MHTTools.extension.</li>
+          <li>Reload pyRevit again after confirming folder location.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="project" class="panel">
+    <h2>Project Panel</h2>
+    <div class="panel-intro">General description: Planning and project-setup workflows for spatial creation, value-based color control, legends, and standards conversion.</div>
+    <div class="panel-shot">
+      <img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/panel-project.png" alt="Project panel ribbon screenshot">
+      <p>Actual panel screenshot: Project panel ribbon layout.</p>
+    </div>
+    <div class="grid">
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>03 Unified Create (Rooms-Areas-Spaces-Zones)</h3></div><p>Creates coordinated rooms, spaces, areas, and zones from host or linked context with boundary support.</p><ul><li>Open a valid plan view.</li><li>Set scope/options in the UI.</li><li>Run creation and review generated elements.</li></ul><div class="steps-layout"><div class="steps-left"><p><strong>Step 1 - Define source and element scope:</strong> Choose whether geometry comes from Host or Link and select what to create (Rooms, Areas, Spaces, Zones).</p><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-unified-create-step1.png" alt="Unified Create step 1 screenshot"></div><p class="ui-caption">Step 1 screenshot: Source/model context and primary create options.</p><p><strong>Step 2 - Configure boundaries and matching rules:</strong> Set boundary behavior, naming/number rules, and creation filters before execution.</p><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-unified-create-step2.png" alt="Unified Create step 2 screenshot"></div><p class="ui-caption">Step 2 screenshot: Boundary and rules setup panel.</p></div><div class="steps-right"><p><strong>Step 3 - Review preview and run:</strong> Validate selected targets, execute create, then check the generated results in view.</p><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-unified-create-step3.png" alt="Unified Create step 3 screenshot"></div><p class="ui-caption">Step 3 screenshot: Final review and create action.</p></div></div></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>04 Color by Value (Export-Import)</h3></div><div class="tool-split"><div class="tool-split-copy"><p>Builds and updates parameter-based filters with color assignment and CSV import/export.</p><ul><li>Select category, views, and parameter.</li><li>Assign or import colors.</li><li>Apply and verify filter graphics.</li></ul></div><div class="tool-split-media"><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-color-by-value.png" alt="Color by Value tool UI screenshot"></div><p class="ui-caption">Actual UI screenshot: Color by Value setup and filter color assignment workflow.</p></div></div></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>05 Color Scheme Editor</h3></div><div class="tool-split"><div class="tool-split-copy"><p>Edits color fill scheme entries and supports backup/import/export workflows.</p><ul><li>Select scheme/category.</li><li>Edit or import entries.</li><li>Apply and validate in target views.</li></ul></div><div class="tool-split-media"><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-color-scheme-editor.png" alt="Color Scheme Editor UI screenshot"></div><p class="ui-caption">Actual UI screenshot: Color Scheme Editor with entry controls and import/export actions.</p></div></div></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>06 Legend Creator</h3></div><p>Generates legends for family text, color schemes, and space data in legend/drafting views.</p><ul><li>Select legend mode and view options.</li><li>Set placement and formatting.</li><li>Generate and review layout.</li></ul></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>07 Family Renamer</h3></div><p>Applies naming standards and classification rules to families and types.</p><ul><li>Load/select naming rules.</li><li>Preview rename map.</li><li>Execute and confirm results.</li></ul><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-family-renamer-LargeUI.png" alt="Family Renamer UI screenshot"></div><p class="ui-caption">Actual UI screenshot: Family Renamer naming rule and preview interface.</p></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>08 Selection Filter</h3></div><p>Recreation of JoTools Selection Filter for teams that no longer have access to JoTools Free Revit Tools in Revit 2015 environments. This tool is still in progress, but it is already usable for production filtering tasks.</p><p><strong>How it works:</strong> Expand a parameter, tick one or more values, choose mode (Keep Checked or Unselect Checked), then apply to refine the current set.</p><p><strong>How it differs from default Revit Selection Filter:</strong> Revit's built-in filter mostly narrows by category, while this tool filters by parameter values within and across categories, giving much finer control for QA and targeted edits.</p><ul><li>Set scope (for example Current Selection).</li><li>Use Search to quickly find parameter names.</li><li>Expand parameter values and check match criteria.</li><li>Choose Keep or Unselect mode and click Apply Filter.</li></ul><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-selection-filter-LargeUI.png" alt="Selection Filter UI screenshot"></div><p class="ui-caption">Actual UI screenshot: GM Selection Filter with scope selector, parameter/value tree, and Keep or Unselect filtering mode.</p></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>09 Family Convention Converter</h3></div><div class="tool-split"><div class="tool-split-copy"><p>Converts existing family naming to current convention templates.</p><ul><li>Select source naming standard.</li><li>Choose target convention profile.</li><li>Preview and apply conversion.</li></ul></div><div class="tool-split-media"><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-family-convention-converter.png" alt="Family Convention Converter UI screenshot"></div><p class="ui-caption">Actual UI screenshot: Family Convention Converter mapping and conversion panel.</p></div></div></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>BOUNDS / HOST</h3></div><p>Boundary workflow for host model room/space/area generation and cleanup.</p><ul><li>Open target host plan.</li><li>Set boundary options.</li><li>Run and validate boundaries.</li></ul></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>BOUNDS / LINK</h3></div><p>Boundary generation using linked model references.</p><ul><li>Select linked model and options.</li><li>Run boundary creation.</li><li>Review outputs and tags.</li></ul></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>BOUNDS / S2A</h3></div><p>Converts spaces to areas with optional area boundaries and tagging.</p><ul><li>Open target area plan.</li><li>Set scheme and plan options.</li><li>Run conversion.</li></ul></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>GM Filters by Value</h3></div><p>Creates and updates value-driven filters and graphics overrides, including linked contexts.</p><ul><li>Select views/templates.</li><li>Define filter and color rules.</li><li>Apply and review graphics.</li></ul></article>
+    </div>
+  </section>
+
+  <section id="views-links" class="panel">
+    <h2>Views Links Panel</h2>
+    <div class="panel-intro">General description: Sheet-driven link management for placed views. Use it to batch control link display mode, halftone, hide or unhide link types, and apply linked-grid visibility actions when the active Revit API supports that category override path.</div>
+    <div class="grid">
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Plan Link Setup</h3></div><p>Focused setup tool for the repeated mechanical-plan workflow: select sheets and views, choose one loaded source link, choose the linked plan that already shows rooms, then let the tool finish the override sequence automatically.</p><ul><li>Use the structured sheet tree to choose one or many sheets, then confirm which placed views should be edited.</li><li>Select the room-tag source link and the linked view to reuse.</li><li>The tool hides linked grids on all visible links, applies By Linked View to the selected link, then freezes that link to Custom with View Filters set to By Host.</li></ul><p class="ui-caption">Version 2 keeps the same selection-panel logic as Views Links Manager but reduces the settings surface to the exact manual Revit sequence needed for room-tag coordination plans.</p></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Auto Room Names</h3></div><p>Single-click current-view tool that tries to find the correct architectural linked plan automatically before applying the room-name setup.</p><ul><li>Scans visible architectural links in the active view only.</li><li>Scores linked views using host level match, view type, name similarity, and actual room-tag presence in the linked view.</li><li>Applies the best match, hides linked grids on all visible links, and finishes the selected source link with the same Custom cleanup used by Plan Link Setup.</li></ul><p class="ui-caption">Use this first for the common case. Keep Plan Link Setup for projects where naming is inconsistent or when you need to override the automatic choice.</p></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>QUICK FORMAT</h3></div><p>Smart link configuration tool that intelligently finds and displays room names from linked plan views while hiding grids and dimensions.</p><ul><li>Scans all visible links in the active view.</li><li>Releases RVT Links from view template control if needed.</li><li>For each link, automatically finds the best plan view at the matching level that shows room names.</li><li>Sets each link to Custom mode with the selected room view and View Filters set to By Host.</li><li>Hides grids and dimensions on all links for clean display.</li></ul><p class="ui-caption">Intelligent room name coordination - finds the right view automatically and configures links perfectly.</p></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Hide Grids</h3></div><p>Standalone tool to hide grids on all visible linked models in the current view.</p><ul><li>Scans all visible links in the active view.</li><li>Hides the grid category on each link's visibility settings.</li><li>Applies changes immediately without additional configuration.</li></ul><p class="ui-caption">Simple grid hiding for linked models - use when you only need to hide grids without other link formatting.</p></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Views Links Manager</h3></div><p>Three-panel batch editor for Revit links across selected sheets and their placed views.</p><ul><li>Select sheets in the center tree and confirm which placed views should be edited.</li><li>Select target links, or use the architectural-link shortcut to isolate the main architectural model quickly.</li><li>Apply By Host View or By Linked View settings, halftone, hide or unhide actions, and linked-grid actions in one batch.</li></ul><p class="ui-caption">UI structure mirrors the FORMAT workflow: settings on the left, sheet and view selection in the center, and link selection plus batch feedback on the right.</p></article>
+    </div>
+  </section>
+
+  <section id="mht-sheets" class="panel">
+    <h2>MHT SHEETS Panel</h2>
+    <div class="panel-intro">General description: High-impact sheet production toolkit for Meinhardt deliverables. Use these tools to standardize titleblock data, automate naming logic, align viewports consistently, generate sheets, and prepare issue-ready drawing sets faster.</div>
+    <div class="grid">
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>FORMAT</h3></div><p>Main formatting command for production sheets. It combines target selection, sheet filtering, parameter editing, smart auto fill, and smart viewport alignment in one workspace.</p><ul><li>Tick target sheets from the center tree.</li><li>Select Sheet, Title Block, or Placed View parameter mode.</li><li>Apply direct edits, Smart Auto Fill, Smart Align, and Auto Revision update as needed.</li></ul><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-format-v3-LargeUI.png" alt="FORMAT V3 UI screenshot"></div><p class="ui-caption">Actual UI screenshot: FORMAT V3 full panel interface with sheet tree, target mode switch, and parameter editor.</p></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>SheetGenerator</h3></div><p>Generates planned and dependent views, previews output, and creates sheets from Excel-driven definitions.</p><ul><li>Load Excel source and choose worksheet/titleblock.</li><li>Preview generated views/sheets.</li><li>Run Generate Views then Generate Sheets.</li></ul><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-sheet-generator-LargeUI.png" alt="MHT Sheet Generator UI screenshot"></div><p class="ui-caption">Actual UI screenshot: MHT Sheet Generator panel with source controls, planned/generated view list, and preview pane.</p></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>RENUMBER_RENAME</h3></div><p>Batch tool to renumber and rename sheets using ordered rules to keep package naming clean and consistent.</p><ul><li>Select target sheets.</li><li>Define numbering and naming sequence.</li><li>Run and verify collisions/warnings before finalizing.</li></ul></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>AlignViewports</h3></div><p>Aligns selected viewports to a consistent placement pattern across multiple sheets.</p><ul><li>Select a source alignment reference.</li><li>Select target sheets/viewports.</li><li>Apply and visually verify final placement.</li></ul></article>
+    </div>
+  </section>
+
+  <section id="documentation" class="panel">
+    <h2>Documentation Panel</h2>
+    <div class="panel-intro">General description: Access to standards, launcher utilities, and this tool manual.</div>
+    <div class="panel-shot panel-shot-compact">
+      <img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/panel-documentation.png" alt="Documentation panel ribbon screenshot">
+      <p>Actual panel screenshot: Documentation panel tools.</p>
+    </div>
+    <div class="grid">
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>FamilyNamingConvention</h3></div><p>Opens family naming convention documentation.</p><ul><li>Click tool.</li><li>Review standards.</li></ul></article>
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>ToolsDescription</h3></div><p>Opens this browser-formatted tool documentation page.</p><ul><li>Click tool.</li><li>Read panel and tool instructions.</li></ul></article>
+    </div>
+  </section>
+
+  <section id="import" class="panel"><h2>IMPORT Panel</h2><div class="panel-intro">General description: Data import workflows from external files into Revit views and schedules.</div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Excel</h3></div><p>Imports Excel data as drafting-view table or schedule-style output with update capability.</p><ul><li>Pick Excel file and sheet.</li><li>Choose output mode.</li><li>Import and optionally update later.</li></ul></article></div></section>
+
+  <section id="mep-check" class="panel"><h2>MEP Check Panel</h2><div class="panel-intro">General description: Validation workflows for QA checks between model data sources.</div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>SpaceVsRoom</h3></div><p>Compares rooms and spaces by name/number and reports mismatches.</p><ul><li>Select room source document.</li><li>Run comparison.</li><li>Review report output.</li></ul></article></div></section>
+
+  <section id="mechanical-services" class="panel"><h2>Mechanical Services Panel</h2><div class="panel-intro">General description: Mechanical QA tools focused on duct model health, parameter completeness, and fast issue isolation.</div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>SMART CHECKER</h3></div><p>Panel-based duct checker with a simpler check-mode workflow, editable parameter rules, selectable result rows, and automatic navigation to the duct in the current or a 3D view.</p><ul><li>Choose one check mode: Current View, Selected Level, or Selected Ducts.</li><li>Edit the parameter checks, aliases, allowed values, or numeric thresholds directly in the middle panel.</li><li>Run the check and click any result row to focus that duct for review.</li></ul></article></div></section>
+
+  <section id="mep-create" class="panel"><h2>MEP Create Panel</h2><div class="panel-intro">General description: Creation and generation workflows for systems, views, worksets, fittings, and dimensions.</div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>BatchCreateSystems</h3></div><p>Creates and duplicates MEP system types from workbook/template input.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>BatchDependentViewCreation</h3></div><p>Creates dependent views from selected parent views and scope boxes.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>BatchWorksetCreation</h3></div><p>Batch creates worksets from typed or imported list.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>PipeTypeFromCSV</h3></div><p>Creates pipe schedule/segment sizes from CSV input.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>CreateSection</h3></div><p>Creates section views along selected linear elements.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>QuickDimension</h3></div><p>Creates one dimension line to multiple selected references.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Transition</h3></div><p>Creates transition fitting between selected open connectors.</p></article></div></section>
+
+  <section id="mep-data" class="panel"><h2>MEP Data Panel</h2><div class="panel-intro">General description: Parameter/data transfer, level control, and material database operations.</div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>ElementChangeLevel</h3></div><p>Changes level/reference level while preserving elevation behavior.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>ElevationUnder</h3></div><p>Computes vertical distance to nearest floor/roof above and writes to parameter.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>ExportMaterialsGraphics</h3></div><p>Exports material graphics data to JSON for database workflows.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>UpdateMaterials</h3></div><p>Updates/regenerates materials database and applies graphics/assets.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>RoomToSpace</h3></div><p>Copies mapped room parameters into spaces from selected source document.</p></article></div></section>
+
+  <section id="mep-design" class="panel"><h2>MEP Design Panel</h2><div class="panel-intro">General description: Day-to-day MEP design productivity tools for cleanup and network editing.</div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>About</h3></div><p>Opens project/author reference page.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>RemoveDuplicates</h3></div><p>Finds and removes duplicate elements by category/options.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>SplitPipes</h3></div><p>Splits eligible pipes based on configured distance/logic.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>SplitSelectedPipes</h3></div><p>Splits only selected pipes.</p></article></div></section>
+
+  <section id="mep-export" class="panel"><h2>MEP Export Panel</h2><div class="panel-intro">General description: Batch export workflows.</div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>MultiIFC</h3></div><p>Batch exports selected 3D views to IFC using selected configuration.</p></article></div></section>
+
+  <section id="mep-favorites" class="panel"><h2>MEP Favorites Panel</h2><div class="panel-intro">General description: One-click access to frequently used MEP operations from other panels.</div><div class="panel-shot"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/panel-mep-favorites.png" alt="MEP Favorites panel ribbon screenshot"><p>Actual panel screenshot: MEP Favorites quick-access tools.</p></div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>ConnectTo</h3></div><p>Moves selected element and connects nearest compatible connector.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>DisConnect</h3></div><p>Disconnects connectors on selected elements.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>MakeParallel</h3></div><p>Rotates targets to match reference XY direction.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>RemoveDuplicates</h3></div><p>Duplicate cleanup.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>RoomToSpace</h3></div><p>Room-to-space mapping workflow.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>SplitPipes</h3></div><p>Batch split pipes.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>SplitSelectedPipes</h3></div><p>Split selected pipes only.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Transition</h3></div><p>Create transition fitting between connectors.</p></article></div></section>
+
+  <section id="mep-manage" class="panel"><h2>MEP Manage Panel</h2><div class="panel-intro">General description: Document standards management, copy utilities, fluid setup, and parameter administration.</div><div class="panel-shot panel-shot-compact"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/panel-mep-manage.png" alt="MEP Manage panel ribbon screenshot"><p>Actual panel screenshot: MEP Manage panel tools.</p></div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Callout Riser Renamer</h3></div><p>Renames selected callouts using riser parameter values.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>CopyPipeType</h3></div><p>Copies pipe type from source document.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>CopyProjectUnits</h3></div><p>Copies project units from source to target document.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>CopyViewRange</h3></div><p>Copies plan view range settings.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>CopyViewType</h3></div><p>Copies view family types and template defaults.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>FamilyReLoad</h3></div><p>Reloads selected families into target document.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>FluidCreate</h3></div><p>Creates/updates fluid definitions and temperature tables.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>ReplaceFluid</h3></div><p>Replaces fluid and temperature settings in piping systems.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>ManageDocumentParameters</h3></div><p>Opens document parameter manager.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>ManageSharedParameter</h3></div><p>Opens shared parameter manager.</p></article></div></section>
+
+  <section id="mep-modify" class="panel"><h2>MEP Modify Panel</h2><div class="panel-intro">General description: Element modification, cleanup, color override, and utility transforms.</div><div class="panel-shot panel-shot-compact"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/panel-mep-modify-a.png" alt="MEP Modify panel ribbon screenshot"><p>Actual panel screenshot: MEP Modify panel (layout A).</p></div><div class="panel-shot panel-shot-compact"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/panel-mep-modify-b.png" alt="MEP Modify panel ribbon screenshot alternate"><p>Actual panel screenshot: MEP Modify panel (layout B).</p></div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>GreyOutElements</h3></div><p>Applies gray graphic overrides in active view.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>GreyOutElements_reset</h3></div><p>Resets gray overrides from GreyOutElements.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>ConnectTo</h3></div><p>Connector move-and-connect workflow.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>DisConnect</h3></div><p>Disconnect selected connectors.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Element3DRotation</h3></div><p>Rotates selected element(s) around chosen axis using modeless UI.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>MakeParallel</h3></div><p>Aligns target elements parallel to reference.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>FamilyDelete</h3></div><p>Deletes selected families.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>FamilyTypeDelete</h3></div><p>Deletes selected family types.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>ParameterDelete</h3></div><p>Deletes selected project parameters.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>SystemDelete</h3></div><p>Deletes selected system objects.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>FlexFlatten</h3></div><p>Flattens selected flex elements.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>MoveLabelToOrigin</h3></div><p>Moves selected labels/annotations to origin.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>MoveSpaceToRoom</h3></div><p>Moves spaces to corresponding room positions by room number.</p></article><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>MoveTitleBlockToOrigin</h3></div><p>Moves title block annotation to origin.</p></article></div></section>
+
+
+
+  <section id="search" class="panel">
+    <h2>Search Panel</h2>
+    <div class="panel-intro">General description: Standalone launcher panel for the latest Search Tool implementation.</div>
+    <div class="panel-shot panel-shot-compact"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/panel-search-tool.png" alt="Search panel ribbon screenshot"><p>Actual panel screenshot: Search panel tools.</p></div>
+    <div class="grid">
+      <article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Search Tool</h3></div><div class="search-inline"><div><p>This is the active Search Tool from <strong>Search.panel</strong> (latest script). It indexes loaded pyRevit tools and runs the selected command.</p><ul><li>Type a keyword in the search field.</li><li>Select the command from results.</li><li>Double-click or press Enter to run.</li></ul></div></div><div class="ui-placeholder shot-ui"><img src="MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ui-search-tool-LargeUI.png" alt="Search Tool full UI screenshot"></div><p class="ui-caption">Actual UI screenshot: latest Search Tool dialog (Search.panel).</p></article>
+    </div>
+  </section>
+
+  <section id="refresh" class="panel"><h2>Refresh Panel</h2><div class="panel-intro">General description: Session-level reload utility.</div><div class="grid"><article class="tool"><div class="tool-head"><img src="docs/assets/tool-icon.svg" alt="icon"><h3>Refresh</h3></div><p>Reloads pyRevit tools/session.</p></article></div></section>
+
+<section id='all-tools-metadata' class='panel'>
+  <h2>All Meinhardt Tools Metadata</h2>
+  <div class='panel-intro'>Reference extracted from bundle files for all pushbutton tools. Format follows tooltip identity fields: Icon Name, Bundle Name, Author.</div>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>Documentation.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>FamilyNamingConvention</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ToolsDescription</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>IMPORT.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>Excel</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Check.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>SpaceVsRoom</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>Mechanical Services.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>SMART CHECKER</td><td>GM</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Create.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>BatchCreateSystems</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>BatchDependentViewCreation</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>BatchWorksetCreation</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>CreateSection</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>PipeTypeFromCSV</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>QuickDimension</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>Transition</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Data.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>ElementChangeLevel</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ElevationUnder</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ExportMaterialsGraphics</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>RoomToSpace</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>UpdateMaterials</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Design.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>About</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>RemoveDuplicates</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>SplitPipes</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>SplitSelectedPipes</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Export.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>MultiIFC</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Favorites.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>ConnectTo</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>DisConnect</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>MakeParallel</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>RemoveDuplicates</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>RoomToSpace</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>SplitPipes</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>SplitSelectedPipes</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>Transition</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Lab.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>3DControlView</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>AddReferenceLevel</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>AirFlowSpaceToTerminal</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>AirFlowTerminalToSpace</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>AirFlowToSchematic</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>AutoInsulate</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>BatchObjectParameterSetter</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>CheckCreators</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ConvertToFlexPipe</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>CopyLegendsLocations</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>CustomExcel</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>FamilyPreview</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>IfcClassItoT</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>LibreOffice</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ManageSystems</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>MEPLegend</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>odfpy</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ProvisionForVoidNum</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>PySide2FormSample</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>PySide2UISample</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ReplaceInName</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>SpaceCopy</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>SpaceNumbering</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>SpaceUuid</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>StraightSegment</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>WPFListViewSample</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>wxCPythonSample</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Manage.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>Callout Riser Renamer</td><td>Gino Moreno</td></tr>
+      <tr><td>icon.png</td><td>CopyPipeType</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>CopyProjectUnits</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>CopyViewRange</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>CopyViewType</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>FamilyReLoad</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>FluidCreate</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ManageDocumentParameters</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ManageSharedParameter</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ReplaceFluid</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Modify.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>ConnectTo</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>DisConnect</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>Element3DRotation</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>FamilyDelete</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>FamilyTypeDelete</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>FlexFlatten</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>GreyOutElements</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>GreyOutElements_reset</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>MakeParallel</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>MoveLabelToOrigin</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>MoveSpaceToRoom</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>MoveTitleBlockToOrigin</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>ParameterDelete</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>SystemDelete</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Samples.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>DataContextSample</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>FormExternalEventHandler</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>SimpleExternalEventHandler</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MEP Tests.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>unittest_parameter</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>MHT SHEETS.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>ALIGN VP</td><td>GM</td></tr>
+      <tr><td>icon.png</td><td>FORMAT</td><td>GM</td></tr>
+      <tr><td>icon.png</td><td>GENERATE</td><td>GM</td></tr>
+      <tr><td>icon.png</td><td>NUMBER/NAME</td><td>GM</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>Project.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>07 Family Renamer</td><td>MHTTools Team</td></tr>
+      <tr><td>icon.png</td><td>09 Family Convention Converter</td><td>Gino Moreno</td></tr>
+      <tr><td>icon.png</td><td>COLORS</td><td>GMToolbox</td></tr>
+      <tr><td>icon.png</td><td>Filter by Value</td><td>Gino Moreno</td></tr>
+      <tr><td>icon.png</td><td>HOST</td><td>Gino Moreno</td></tr>
+      <tr><td>icon.png</td><td>Legend Creator</td><td>GM</td></tr>
+      <tr><td>icon.png</td><td>LINK</td><td>Gino Moreno</td></tr>
+      <tr><td>icon.png</td><td>S2A</td><td>Gino Moreno</td></tr>
+      <tr><td>icon.png</td><td>SCHEME</td><td>GMToolbox</td></tr>
+      <tr><td>icon.png</td><td>Selection Filter</td><td>Gino Moreno</td></tr>
+      <tr><td>icon.png</td><td>UNIFIED CREATE</td><td>Gino Moreno</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>Views Links.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>Auto Room Names</td><td>GM</td></tr>
+      <tr><td>icon.png</td><td>Copy Room Tags</td><td>GM</td></tr>
+      <tr><td>icon.png</td><td>Hide Grids</td><td>GM</td></tr>
+      <tr><td>icon.png</td><td>QUICK FORMAT</td><td>GM</td></tr>
+      <tr><td>icon.png</td><td>Plan Link Setup</td><td>GM</td></tr>
+      <tr><td>icon.png</td><td>Views Links Manager</td><td>GM</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>Refresh.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>Refresh</td><td>MHTTools Team</td></tr>
+    </tbody></table></div></article>
+  <article class='tool'><div class='tool-head'><img src='docs/assets/tool-icon.svg' alt='icon'><h3>Search.panel</h3></div>
+    <div class='meta-table-wrap'><table class='meta-table'><thead><tr><th>Icon Name</th><th>Bundle Name</th><th>Author</th></tr></thead><tbody>
+      <tr><td>icon.png</td><td>Search Tool</td><td>GMoreno</td></tr>
+    </tbody></table></div></article>
+</section>
+
+
+</div>
+<script>
+  (function() {
+    var sectionToPanel = {
+      "project": "Project",
+      "mht-sheets": "MHT SHEETS",
+      "documentation": "Documentation",
+      "import": "IMPORT",
+      "mep-check": "MEP Check",
+      "mep-create": "MEP Create",
+      "mep-data": "MEP Data",
+      "mep-design": "MEP Design",
+      "mep-export": "MEP Export",
+      "mep-favorites": "MEP Favorites",
+      "mep-manage": "MEP Manage",
+      "mep-modify": "MEP Modify",
+      "search": "Search",
+      "refresh": "Refresh"
+    };
+
+    var nestedBySection = {
+      "project": ["", "BOUNDS.pulldown/"],
+      "mht-sheets": [""],
+      "documentation": [""],
+      "import": [""],
+      "mep-check": [""],
+      "mep-create": ["", "create1.stack/", "create1.stack/BatchCreation.pulldown/"],
+      "mep-data": ["", "MaterialsDB.pulldown/"],
+      "mep-design": [""],
+      "mep-export": [""],
+      "mep-favorites": [""],
+      "mep-manage": ["", "Copy.pulldown/", "Fluid.pulldown/", "Parameters.stack/"],
+      "mep-modify": ["", "Color.pulldown/", "Connect.stack/", "Other.stack/", "Other.stack/Delete.pulldown/", "Other.stack/Move.pulldown/"],
+      "search": [""],
+      "refresh": [""]
+    };
+
+    var explicitPathByKey = {
+      "project|BOUNDS / HOST": "MEINHARDT.tab/Project.panel/BOUNDS.pulldown/HOST.pushbutton",
+      "project|BOUNDS / LINK": "MEINHARDT.tab/Project.panel/BOUNDS.pulldown/LINK.pushbutton",
+      "project|BOUNDS / S2A": "MEINHARDT.tab/Project.panel/BOUNDS.pulldown/S2A.pushbutton",
+      "documentation|Search Tool": "MEINHARDT.tab/Search.panel/Search Tool.pushbutton"
+    };
+
+    function encodePath(path) {
+      return path.split("/").map(function(seg) {
+        return encodeURIComponent(seg);
+      }).join("/");
+    }
+
+    function tryCandidates(img, candidates) {
+      var idx = 0;
+      function next() {
+        if (idx >= candidates.length) {
+          img.style.display = "none";
+          return;
+        }
+        img.src = encodePath(candidates[idx]);
+        idx += 1;
+      }
+      img.onerror = next;
+      img.onload = function() { img.style.display = "inline-block"; };
+      next();
+    }
+
+    function makeIconSet(basePaths) {
+      var wrap = document.createElement("span");
+      wrap.className = "tool-icons";
+
+      var light = document.createElement("img");
+      light.alt = "icon";
+      var dark = document.createElement("img");
+      dark.alt = "dark icon";
+
+      var lightCandidates = [];
+      var darkCandidates = [];
+      basePaths.forEach(function(base) {
+        lightCandidates.push(base + "/icon.png");
+        darkCandidates.push(base + "/icon.dark.png");
+        darkCandidates.push(base + "/icon.DK.png");
+        darkCandidates.push(base + "/Icon.dark.png");
+      });
+
+      tryCandidates(light, lightCandidates);
+      tryCandidates(dark, darkCandidates);
+
+      wrap.appendChild(light);
+      wrap.appendChild(dark);
+      return wrap;
+    }
+
+    function basePathsFor(sectionId, titleText) {
+      var key = sectionId + "|" + titleText;
+      if (explicitPathByKey[key]) {
+        return [explicitPathByKey[key]];
+      }
+
+      var panel = sectionToPanel[sectionId];
+      if (!panel) {
+        return [];
+      }
+
+      var nests = nestedBySection[sectionId] || [""];
+      var folder = titleText + ".pushbutton";
+      return nests.map(function(n) {
+        return "MEINHARDT.tab/" + panel + ".panel/" + n + folder;
+      });
+    }
+
+    var cards = document.querySelectorAll("section.panel article.tool");
+    cards.forEach(function(card) {
+      var section = card.closest("section.panel");
+      if (!section || section.id === "installation") {
+        return;
+      }
+
+      var head = card.querySelector(".tool-head");
+      var title = head ? head.querySelector("h3") : null;
+      if (!head || !title) {
+        return;
+      }
+
+      var titleText = (title.textContent || "").trim();
+      if (!titleText) {
+        return;
+      }
+
+      var paths = basePathsFor(section.id, titleText);
+      if (!paths.length) {
+        return;
+      }
+
+      var firstImg = head.querySelector("img");
+      if (firstImg) {
+        firstImg.remove();
+      }
+
+      head.insertBefore(makeIconSet(paths), title);
+    });
+  })();
+</script>
+</body>
+</html>
+

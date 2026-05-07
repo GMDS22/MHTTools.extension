@@ -1,0 +1,20 @@
+# Python cache and compiled artifacts
+**/__pycache__/
+*.pyc
+*.pyo
+
+# Office temporary lock files
+~$*.docx
+
+# Local backup/archive artifacts
+*.zip
+
+# Tool-generated reports and debug exports
+MEINHARDT.tab/Project.panel/07 Family Renamer.pushbutton/family_name_suggestions_*.csv
+MEINHARDT.tab/Project.panel/07 Family Renamer.pushbutton/family_name_suggestions_debug_*.json
+
+# Color scheme editor local backups
+MEINHARDT.tab/Project.panel/05 Color Scheme Editor.pushbutton/backups/*.cschn
+
+# Local generated document exports
+MeinhardtTabTools-*.docx

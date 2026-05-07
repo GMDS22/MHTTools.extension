@@ -52,6 +52,7 @@ from Autodesk.Revit.DB import (
         FilteredElementCollector,
         FilteredWorksetCollector,
         BuiltInCategory,
+    BuiltInParameter,
     Revision,
     RevisionNumberType,
         ViewSheet,
@@ -59,6 +60,9 @@ from Autodesk.Revit.DB import (
         View,
         ElementId,
         XYZ,
+        BoundingBoxXYZ,
+        CurveLoop,
+        Line,
         StorageType,
         Transaction,
         WorksetKind,
@@ -110,30 +114,28 @@ def _clean_group_value(value):
 
 
 def _get_sheet_param_text(sheet, candidate_names):
-    wanted = set(n.replace("_", " ").strip().lower() for n in candidate_names)
-    try:
-        for p in sheet.Parameters:
+    # Use LookupParameter (O(1) dictionary lookup) instead of iterating all params.
+    # This is ~100x faster on sheets with many parameters.
+    for name in candidate_names:
+        try:
+            param = sheet.LookupParameter(name)
+        except Exception:
+            param = None
+        if param is None:
+            continue
+        val = ""
+        try:
+            val = param.AsString() or ""
+        except Exception:
+            pass
+        if not val:
             try:
-                defn = getattr(p, "Definition", None)
-                pname = defn.Name if defn else ""
-                norm = pname.replace("_", " ").strip().lower() if pname else ""
-                if norm not in wanted:
-                    continue
-                val = ""
-                try:
-                    val = p.AsString() or ""
-                except Exception:
-                    pass
-                if not val:
-                    try:
-                        val = p.AsValueString() or ""
-                    except Exception:
-                        pass
-                return _clean_group_value(val)
+                val = param.AsValueString() or ""
             except Exception:
-                continue
-    except Exception:
-        pass
+                pass
+        result = _clean_group_value(val)
+        if result:
+            return result
     return ""
 
 
@@ -640,6 +642,11 @@ class FORMATWindowV2(forms.WPFWindow):
     _TARGET_SHEET      = "Sheet"
     _TARGET_TITLEBLOCK = "TitleBlock"
     _TARGET_VIEW       = "PlacedView"
+    _CFG_ALIGN_LEFT_MM = "align_offset_left_mm"
+    _CFG_ALIGN_RIGHT_MM = "align_offset_right_mm"
+    _CFG_ALIGN_BOTTOM_MM = "align_offset_bottom_mm"
+    _CFG_ALIGN_TOP_MM = "align_offset_top_mm"
+    _CFG_ALIGN_USE_TB_PARAMS = "align_use_tb_params"
 
     def __init__(self, xaml_name):
         forms.WPFWindow.__init__(self, xaml_name)
@@ -665,6 +672,12 @@ class FORMATWindowV2(forms.WPFWindow):
 
         self._apply_screen_constraints()
 
+        try:
+            self.SizeChanged += self._on_window_size_changed
+            self.StateChanged += self._on_window_state_changed
+        except Exception:
+            pass
+
         self._load_all_sheets()
         self._build_tree()
         self._init_search_debounce()
@@ -674,6 +687,7 @@ class FORMATWindowV2(forms.WPFWindow):
         self._update_window_buttons()
         self.Topmost = False
         self._init_revision_ui()
+        self._load_align_preferences()
 
     def _get_current_screen_work_area(self):
         try:
@@ -921,6 +935,57 @@ class FORMATWindowV2(forms.WPFWindow):
 
     def _set_status(self, text):
         self.UI_status_bar.Text = text
+
+    def _load_align_preferences(self):
+        try:
+            cfg = script.get_config()
+        except Exception:
+            cfg = None
+
+        def _set_text(control_name, cfg_key):
+            box = getattr(self, control_name, None)
+            if box is None:
+                return
+            val = 0
+            if cfg is not None:
+                try:
+                    val = getattr(cfg, cfg_key)
+                except Exception:
+                    val = 0
+            try:
+                box.Text = str(val)
+            except Exception:
+                pass
+
+        _set_text("UI_align_offset_left", self._CFG_ALIGN_LEFT_MM)
+        _set_text("UI_align_offset_right", self._CFG_ALIGN_RIGHT_MM)
+        _set_text("UI_align_offset_bottom", self._CFG_ALIGN_BOTTOM_MM)
+        _set_text("UI_align_offset_top", self._CFG_ALIGN_TOP_MM)
+
+        chk = getattr(self, "UI_chk_align_use_tb_params", None)
+        if chk is not None:
+            use_params = True
+            if cfg is not None:
+                try:
+                    use_params = bool(getattr(cfg, self._CFG_ALIGN_USE_TB_PARAMS))
+                except Exception:
+                    use_params = True
+            try:
+                chk.IsChecked = use_params
+            except Exception:
+                pass
+
+    def _save_align_preferences(self, align_offsets_mm, use_param_inference):
+        try:
+            cfg = script.get_config()
+            setattr(cfg, self._CFG_ALIGN_LEFT_MM, float(align_offsets_mm.get("left", 0.0) or 0.0))
+            setattr(cfg, self._CFG_ALIGN_RIGHT_MM, float(align_offsets_mm.get("right", 0.0) or 0.0))
+            setattr(cfg, self._CFG_ALIGN_BOTTOM_MM, float(align_offsets_mm.get("bottom", 0.0) or 0.0))
+            setattr(cfg, self._CFG_ALIGN_TOP_MM, float(align_offsets_mm.get("top", 0.0) or 0.0))
+            setattr(cfg, self._CFG_ALIGN_USE_TB_PARAMS, bool(use_param_inference))
+            script.save_config()
+        except Exception:
+            pass
 
     def _capture_panel_ratio(self):
         try:
@@ -1277,7 +1342,21 @@ class FORMATWindowV2(forms.WPFWindow):
             fill_blanks_only=False,
         )
 
-    def _get_titleblock_anchor_center(self, sheet, titleblock):
+    def _read_align_offsets_mm(self):
+        def _mm_box_value(box):
+            try:
+                return float((box.Text or "0").strip())
+            except Exception:
+                return 0.0
+
+        return {
+            "left": _mm_box_value(getattr(self, "UI_align_offset_left", None)),
+            "right": _mm_box_value(getattr(self, "UI_align_offset_right", None)),
+            "bottom": _mm_box_value(getattr(self, "UI_align_offset_bottom", None)),
+            "top": _mm_box_value(getattr(self, "UI_align_offset_top", None)),
+        }
+
+    def _get_titleblock_anchor_center(self, sheet, titleblock, manual_offsets_mm=None, use_param_inference=True):
         tb_box = titleblock.get_BoundingBox(sheet)
         if tb_box is None:
             return None
@@ -1299,38 +1378,56 @@ class FORMATWindowV2(forms.WPFWindow):
                 pass
             return 0.0
 
-        # Prefer explicit drawing-field geometry inferred from family parameters.
-        perimeter = max(
-            _param_double_contains(["perimeter", "boundary"]),
-            _param_double_contains(["titleblock", "perimeter", "boundary"]),
-        )
-        ribbon_width = max(
-            _param_double_contains(["ribbon", "width"]),
-            _param_double_contains(["titleblock", "ribbon", "width"]),
-        )
-        ribbon_offset = max(
-            _param_double_contains(["ribbon", "line", "offset"]),
-            _param_double_contains(["titleblock", "ribbon", "line", "offset"]),
-        )
+        usable_min_x = tb_box.Min.X
+        usable_max_x = tb_box.Max.X
+        usable_min_y = tb_box.Min.Y
+        usable_max_y = tb_box.Max.Y
 
-        usable_min_x = tb_box.Min.X + perimeter
-        usable_max_x = tb_box.Max.X - perimeter
-        usable_min_y = tb_box.Min.Y + perimeter
-        usable_max_y = tb_box.Max.Y - perimeter
+        if use_param_inference:
+            # Prefer explicit drawing-field geometry inferred from family parameters.
+            perimeter = max(
+                _param_double_contains(["perimeter", "boundary"]),
+                _param_double_contains(["titleblock", "perimeter", "boundary"]),
+            )
+            ribbon_width = max(
+                _param_double_contains(["ribbon", "width"]),
+                _param_double_contains(["titleblock", "ribbon", "width"]),
+            )
+            ribbon_offset = max(
+                _param_double_contains(["ribbon", "line", "offset"]),
+                _param_double_contains(["titleblock", "ribbon", "line", "offset"]),
+            )
 
-        if ribbon_width > 0:
-            usable_max_x -= ribbon_width
-        if ribbon_offset > 0:
-            usable_max_x -= ribbon_offset
+            usable_min_x += perimeter
+            usable_max_x -= perimeter
+            usable_min_y += perimeter
+            usable_max_y -= perimeter
+
+            if ribbon_width > 0:
+                usable_max_x -= ribbon_width
+            if ribbon_offset > 0:
+                usable_max_x -= ribbon_offset
 
         if usable_max_x <= usable_min_x or usable_max_y <= usable_min_y:
-            return XYZ((tb_box.Min.X + tb_box.Max.X) * 0.5,
-                       (tb_box.Min.Y + tb_box.Max.Y) * 0.5,
-                       0)
+            base_center = XYZ((tb_box.Min.X + tb_box.Max.X) * 0.5,
+                              (tb_box.Min.Y + tb_box.Max.Y) * 0.5,
+                              0)
+        else:
+            base_center = XYZ((usable_min_x + usable_max_x) * 0.5,
+                              (usable_min_y + usable_max_y) * 0.5,
+                              0)
 
-        return XYZ((usable_min_x + usable_max_x) * 0.5,
-                   (usable_min_y + usable_max_y) * 0.5,
-                   0)
+        if manual_offsets_mm:
+            # Direct nudge semantics for predictable results while fine-tuning.
+            left_mm = (manual_offsets_mm.get("left", 0.0) or 0.0)
+            right_mm = (manual_offsets_mm.get("right", 0.0) or 0.0)
+            bottom_mm = (manual_offsets_mm.get("bottom", 0.0) or 0.0)
+            top_mm = (manual_offsets_mm.get("top", 0.0) or 0.0)
+            nudge_x = (right_mm - left_mm) / 304.8
+            nudge_y = (top_mm - bottom_mm) / 304.8
+            return XYZ(base_center.X + nudge_x, base_center.Y + nudge_y, 0)
+
+        return base_center
 
     def _match_scopebox_name_for_zone(self, zone_code):
         if not zone_code:
@@ -1475,6 +1572,15 @@ class FORMATWindowV2(forms.WPFWindow):
         apply_views = bool(getattr(self, "UI_chk_apply_view_scope", None) and self.UI_chk_apply_view_scope.IsChecked)
         apply_keyplan = bool(getattr(self, "UI_chk_keyplan_auto", None) and self.UI_chk_keyplan_auto.IsChecked)
 
+        if apply_views and len(sheets) > 20:
+            if not forms.alert(
+                "{} sheets selected with 'Apply to placed views' enabled.\n\n"
+                "Setting Scope Box / Level on many views can take 30+ seconds "
+                "and Revit may appear frozen during the operation. Continue?".format(len(sheets)),
+                title=__title__, yes=True, no=True
+            ):
+                return
+
         writes = 0
         processed = 0
 
@@ -1533,7 +1639,10 @@ class FORMATWindowV2(forms.WPFWindow):
             forms.alert("Smart Auto Fill failed: {}".format(ex), title=__title__)
             return
 
-        msg = "Smart Auto Fill complete. Sheets: {} | Parameter writes: {}".format(processed, writes)
+        msg = (
+            "Smart Auto Fill complete. Sheets: {} | Parameter writes: {} | "
+            "FillBlanksOnly={} ApplyToPlacedViews={} AutoKeyplan={}"
+        ).format(processed, writes, fill_blanks_only, apply_views, apply_keyplan)
         self.UI_feedback.Text = msg
         self._set_status(msg)
 
@@ -1542,6 +1651,12 @@ class FORMATWindowV2(forms.WPFWindow):
         if not sheets:
             forms.alert("Select at least one sheet first.", title=__title__)
             return
+
+        align_offsets_mm = self._read_align_offsets_mm()
+        use_param_inference = bool(
+            getattr(self, "UI_chk_align_use_tb_params", None)
+            and self.UI_chk_align_use_tb_params.IsChecked
+        )
 
         moved = 0
         skipped = 0
@@ -1555,7 +1670,12 @@ class FORMATWindowV2(forms.WPFWindow):
                     skipped += 1
                     continue
 
-                target_center = self._get_titleblock_anchor_center(sheet, tb)
+                target_center = self._get_titleblock_anchor_center(
+                    sheet,
+                    tb,
+                    manual_offsets_mm=align_offsets_mm,
+                    use_param_inference=use_param_inference,
+                )
                 if target_center is None:
                     skipped += 1
                     continue
@@ -1570,20 +1690,55 @@ class FORMATWindowV2(forms.WPFWindow):
                     skipped += 1
                     continue
 
-                # Use the largest viewport as the alignment anchor and move the
-                # rest by the same delta. This is more stable when auxiliary
-                # views use different scope boxes or crop extents.
+                # Anchor selection priority:
+                # 1) Viewports whose views have a Scope Box assigned.
+                # 2) Non-legend/schedule views.
+                # 3) Largest viewport area.
                 primary = None
                 primary_center = None
-                primary_area = -1.0
+                primary_score = None
                 for vp in viewports:
                     try:
                         outline = vp.GetBoxOutline()
                         min_pt = outline.MinimumPoint
                         max_pt = outline.MaximumPoint
                         area = abs(max_pt.X - min_pt.X) * abs(max_pt.Y - min_pt.Y)
-                        if area > primary_area:
-                            primary_area = area
+
+                        view = None
+                        try:
+                            view = doc.GetElement(vp.ViewId)
+                        except Exception:
+                            view = None
+
+                        has_scope = False
+                        view_type_name = ""
+                        if view is not None:
+                            try:
+                                p_scope = view.get_Parameter(BuiltInParameter.VIEWER_VOLUME_OF_INTEREST_CROP)
+                                if p_scope is not None:
+                                    scope_id = p_scope.AsElementId()
+                                    has_scope = bool(scope_id and scope_id.IntegerValue > 0)
+                            except Exception:
+                                has_scope = False
+                            try:
+                                view_type_name = str(view.ViewType).lower()
+                            except Exception:
+                                view_type_name = ""
+
+                        is_non_legend_schedule = (
+                            ("legend" not in view_type_name)
+                            and ("schedule" not in view_type_name)
+                        )
+
+                        # Tuple ordering gives deterministic comparison.
+                        score = (
+                            1 if has_scope else 0,
+                            1 if is_non_legend_schedule else 0,
+                            area,
+                        )
+
+                        if primary_score is None or score > primary_score:
+                            primary_score = score
                             primary = vp
                             primary_center = vp.GetBoxCenter()
                     except Exception:
@@ -1609,18 +1764,54 @@ class FORMATWindowV2(forms.WPFWindow):
             forms.alert("Smart Align Viewports failed: {}".format(ex), title=__title__)
             return
 
-        msg = "Smart Align complete. Viewports moved: {} | Sheets skipped: {}".format(moved, skipped)
+        offsets_mm = {
+            "L": int(round(align_offsets_mm.get("left", 0.0))),
+            "R": int(round(align_offsets_mm.get("right", 0.0))),
+            "B": int(round(align_offsets_mm.get("bottom", 0.0))),
+            "T": int(round(align_offsets_mm.get("top", 0.0))),
+        }
+        shift_x_mm = offsets_mm["R"] - offsets_mm["L"]
+        shift_y_mm = offsets_mm["T"] - offsets_mm["B"]
+        msg = (
+            "Smart Align complete. Viewports moved: {} | Sheets skipped: {} | "
+            "Offsets(mm) L{} R{} B{} T{} | Shift(mm) X{} Y{}"
+        ).format(
+            moved,
+            skipped,
+            offsets_mm["L"],
+            offsets_mm["R"],
+            offsets_mm["B"],
+            offsets_mm["T"],
+            shift_x_mm,
+            shift_y_mm,
+        )
         self.UI_feedback.Text = msg
         self._set_status(msg)
+        self._save_align_preferences(align_offsets_mm, use_param_inference)
+        self._refresh_sheet_counter()
+        self.UI_tree_sheets.Items.Refresh()
 
     def _update_window_buttons(self):
         try:
-            if self._is_custom_maximized or self.WindowState == System.Windows.WindowState.Maximized:
+            if self.WindowState == System.Windows.WindowState.Maximized:
                 self.UI_btn_maximize.Content = "❐"
                 self.UI_btn_maximize.ToolTip = "Restore"
             else:
                 self.UI_btn_maximize.Content = "□"
                 self.UI_btn_maximize.ToolTip = "Maximize"
+        except Exception:
+            pass
+
+    def _on_window_size_changed(self, sender, e):
+        try:
+            self._capture_panel_ratio()
+        except Exception:
+            pass
+
+    def _on_window_state_changed(self, sender, e):
+        try:
+            self._update_window_buttons()
+            self._apply_panel_ratio()
         except Exception:
             pass
 
@@ -1845,10 +2036,31 @@ class FORMATWindowV2(forms.WPFWindow):
 
     # ── EVENT HANDLERS ─────────────────────────────────────────────────────
 
+    def _is_click_inside_button(self, source_obj):
+        """Return True when click originated from a Button or its template subtree."""
+        try:
+            current = source_obj
+            while current is not None:
+                try:
+                    if isinstance(current, System.Windows.Controls.Button):
+                        return True
+                except Exception:
+                    pass
+                try:
+                    current = System.Windows.Media.VisualTreeHelper.GetParent(current)
+                except Exception:
+                    try:
+                        current = current.Parent
+                    except Exception:
+                        current = None
+        except Exception:
+            return False
+        return False
+
     def header_drag(self, sender, e):
         try:
             original = getattr(e, 'OriginalSource', None)
-            if isinstance(original, System.Windows.Controls.Button):
+            if self._is_click_inside_button(original):
                 return
         except Exception:
             pass
@@ -1863,7 +2075,7 @@ class FORMATWindowV2(forms.WPFWindow):
             return
 
         try:
-            if self._is_custom_maximized:
+            if self.WindowState == System.Windows.WindowState.Maximized:
                 mouse = Control.MousePosition
                 restore = self._restore_bounds or {
                     "Width": max(self.MinWidth, self.Width * 0.75),
@@ -1873,7 +2085,7 @@ class FORMATWindowV2(forms.WPFWindow):
                 }
                 new_width = restore.get("Width", self.Width)
                 new_height = restore.get("Height", self.Height)
-                self._restore_from_custom_maximize()
+                self.WindowState = System.Windows.WindowState.Normal
                 self.Left = mouse.X - (new_width * 0.5)
                 self.Top = max(0, mouse.Y - 12)
                 self.Width = new_width
@@ -1891,17 +2103,22 @@ class FORMATWindowV2(forms.WPFWindow):
 
     def button_maximize(self, sender, e):
         self._capture_panel_ratio()
-        if self._is_custom_maximized or self.WindowState == System.Windows.WindowState.Maximized:
+        if self.WindowState == System.Windows.WindowState.Maximized:
             self.WindowState = System.Windows.WindowState.Normal
-            self._restore_from_custom_maximize()
+            self._restore_window_bounds()
         else:
-            self._maximize_to_current_monitor()
+            self._store_restore_bounds()
+            self.WindowState = System.Windows.WindowState.Maximized
         try:
             self.UpdateLayout()
         except Exception:
             pass
         self._apply_panel_ratio()
         self._update_window_buttons()
+
+    def panel_splitter_drag_completed(self, sender, e):
+        self._capture_panel_ratio()
+        self._set_status("Panel widths updated.")
 
     def button_close(self, sender, e):
         self.Close()
@@ -2039,6 +2256,245 @@ class FORMATWindowV2(forms.WPFWindow):
 
         msg = 'Auto Revision Update complete. Sheets updated: {} | Revisions created: {} | Already assigned: {}'.format(
             added_count, created_count, skipped_count)
+        self.UI_feedback.Text = msg
+        self._set_status(msg)
+
+    # ── Viewport Cropbox Controls ─────────────────────────────────────────────
+
+    def button_show_cropbox(self, sender, e):
+        self._set_cropbox_visibility(True)
+
+    def button_hide_cropbox(self, sender, e):
+        self._set_cropbox_visibility(False)
+
+    def _set_cropbox_visibility(self, visible):
+        sheets = self._get_selected_sheets()
+        if not sheets:
+            forms.alert("Select at least one sheet first.", title=__title__)
+            return
+        views = _collect_placed_views_on_sheets(sheets)
+        if not views:
+            forms.alert("No placed views found on selected sheets.", title=__title__)
+            return
+        count = 0
+        skipped = 0
+        tx = Transaction(doc, "FORMAT: {} Crop Box Lines".format("Show" if visible else "Hide"))
+        tx.Start()
+        try:
+            for view in views:
+                try:
+                    # "Hide" should only hide crop boundary graphics, not disable cropping logic.
+                    if visible:
+                        try:
+                            if not view.CropBoxActive:
+                                view.CropBoxActive = True
+                        except Exception:
+                            pass
+                    view.CropBoxVisible = visible
+                    count += 1
+                except Exception:
+                    skipped += 1
+            tx.Commit()
+        except Exception as ex:
+            tx.RollBack()
+            forms.alert("Set crop box failed: {}".format(ex), title=__title__)
+            return
+        msg = "Crop box lines {} on {} view(s).".format("shown" if visible else "hidden", count)
+        if skipped:
+            msg += " ({} skipped — schedules/legends not supported)".format(skipped)
+        self.UI_feedback.Text = msg
+        self._set_status(msg)
+
+    def button_annotation_crop_on(self, sender, e):
+        self._set_annotation_crop(True)
+
+    def button_annotation_crop_off(self, sender, e):
+        self._set_annotation_crop(False)
+
+    def _set_annotation_crop(self, active):
+        sheets = self._get_selected_sheets()
+        if not sheets:
+            forms.alert("Select at least one sheet first.", title=__title__)
+            return
+        views = _collect_placed_views_on_sheets(sheets)
+        if not views:
+            forms.alert("No placed views found on selected sheets.", title=__title__)
+            return
+        count = 0
+        skipped = 0
+        tx = Transaction(doc, "FORMAT: {} Annotation Crop".format("Enable" if active else "Disable"))
+        tx.Start()
+        try:
+            for view in views:
+                try:
+                    view.AnnotationCropActive = active
+                    count += 1
+                except Exception:
+                    skipped += 1
+            tx.Commit()
+        except Exception as ex:
+            tx.RollBack()
+            forms.alert("Set annotation crop failed: {}".format(ex), title=__title__)
+            return
+        msg = "Annotation crop {} on {} view(s).".format("enabled" if active else "disabled", count)
+        if skipped:
+            msg += " ({} skipped — schedules/legends not supported)".format(skipped)
+        self.UI_feedback.Text = msg
+        self._set_status(msg)
+
+    def button_apply_cropbox_offset(self, sender, e):
+        def _read_mm(box):
+            try:
+                return float((box.Text or "0").strip())
+            except Exception:
+                raise ValueError("Enter valid numeric offsets (mm) for crop and annotation.")
+
+        try:
+            crop_mm = {
+                "left": _read_mm(self.UI_crop_offset_left),
+                "right": _read_mm(self.UI_crop_offset_right),
+                "bottom": _read_mm(self.UI_crop_offset_bottom),
+                "top": _read_mm(self.UI_crop_offset_top),
+            }
+            ann_mm = {
+                "left": _read_mm(self.UI_ann_offset_left),
+                "right": _read_mm(self.UI_ann_offset_right),
+                "bottom": _read_mm(self.UI_ann_offset_bottom),
+                "top": _read_mm(self.UI_ann_offset_top),
+            }
+        except ValueError as ex:
+            forms.alert(str(ex), title=__title__)
+            return
+
+        sheets = self._get_selected_sheets()
+        if not sheets:
+            forms.alert("Select at least one sheet first.", title=__title__)
+            return
+        views = _collect_placed_views_on_sheets(sheets)
+        if not views:
+            forms.alert("No placed views found on selected sheets.", title=__title__)
+            return
+
+        crop_ft = {k: (v / 304.8) for k, v in crop_mm.items()}
+        ann_ft = {k: (v / 304.8) for k, v in ann_mm.items()}
+        has_crop_offsets = any(abs(v) > 1e-9 for v in crop_ft.values())
+        has_ann_offsets = any(abs(v) > 1e-9 for v in ann_ft.values())
+
+        clear_scope_first = False
+        try:
+            clear_scope_first = bool(self.UI_chk_crop_clear_scopebox.IsChecked)
+        except Exception:
+            pass
+
+        # Warn before flattening non-rectangular annotation crop regions.
+        if has_ann_offsets:
+            non_rect_count = 0
+            for _v in views:
+                try:
+                    _loops = _v.GetAnnotationCropShape()
+                    if _loops and len(_loops) > 0:
+                        _pts = [_c.GetEndPoint(0) for _c in _loops[0]]
+                        if len(_pts) != 4:
+                            non_rect_count += 1
+                except Exception:
+                    pass
+            if non_rect_count:
+                if not forms.alert(
+                    "{} view(s) have non-rectangular annotation crop regions. "
+                    "Applying offsets will convert them to a bounding rectangle. Continue?".format(non_rect_count),
+                    title=__title__, yes=True, no=True
+                ):
+                    return
+
+        crop_count = 0
+        ann_count = 0
+        scope_cleared = 0
+        scope_blocked = 0
+        invalid_shape = 0
+        skipped = 0
+
+        tx = Transaction(doc, "FORMAT: Apply Crop/Annotation Offsets")
+        tx.Start()
+        try:
+            for view in views:
+                # Crop Box: optional Scope Box clearing before resize.
+                if has_crop_offsets:
+                    try:
+                        has_scope = False
+                        p_scope = view.get_Parameter(BuiltInParameter.VIEWER_VOLUME_OF_INTEREST_CROP)  # noqa
+                        if p_scope is not None:
+                            sid = p_scope.AsElementId()
+                            has_scope = bool(sid and sid.IntegerValue > 0)
+
+                        if has_scope:
+                            if clear_scope_first:
+                                p_scope.Set(ElementId.InvalidElementId)
+                                scope_cleared += 1
+                                has_scope = False
+                            else:
+                                scope_blocked += 1
+
+                        if not has_scope:
+                            bbox = view.CropBox
+                            if bbox is not None:
+                                new_min_x = bbox.Min.X - crop_ft["left"]
+                                new_max_x = bbox.Max.X + crop_ft["right"]
+                                new_min_y = bbox.Min.Y - crop_ft["bottom"]
+                                new_max_y = bbox.Max.Y + crop_ft["top"]
+                                if new_max_x > new_min_x and new_max_y > new_min_y:
+                                    new_box = BoundingBoxXYZ()
+                                    new_box.Transform = bbox.Transform
+                                    new_box.Min = XYZ(new_min_x, new_min_y, bbox.Min.Z)
+                                    new_box.Max = XYZ(new_max_x, new_max_y, bbox.Max.Z)
+                                    view.CropBox = new_box
+                                    crop_count += 1
+                                else:
+                                    invalid_shape += 1
+                    except Exception:
+                        skipped += 1
+
+                # Annotation crop offsets (0 keeps Revit default crop shape).
+                if has_ann_offsets:
+                    try:
+                        ann_loops = view.GetAnnotationCropShape()
+                        if ann_loops and len(ann_loops) > 0:
+                            loop = ann_loops[0]
+                            pts = [curve.GetEndPoint(0) for curve in loop]
+                            if pts:
+                                min_x = min(p.X for p in pts) - ann_ft["left"]
+                                min_y = min(p.Y for p in pts) - ann_ft["bottom"]
+                                max_x = max(p.X for p in pts) + ann_ft["right"]
+                                max_y = max(p.Y for p in pts) + ann_ft["top"]
+                                if max_x > min_x and max_y > min_y:
+                                    corners = [
+                                        XYZ(min_x, min_y, 0),
+                                        XYZ(max_x, min_y, 0),
+                                        XYZ(max_x, max_y, 0),
+                                        XYZ(min_x, max_y, 0),
+                                    ]
+                                    new_loop = CurveLoop()
+                                    for i in range(4):
+                                        new_loop.Append(
+                                            Line.CreateBound(corners[i], corners[(i + 1) % 4])
+                                        )
+                                    new_loops = List[CurveLoop]()
+                                    new_loops.Add(new_loop)
+                                    view.SetAnnotationCropShape(new_loops)
+                                    ann_count += 1
+                                else:
+                                    invalid_shape += 1
+                    except Exception:
+                        skipped += 1
+            tx.Commit()
+        except Exception as ex:
+            tx.RollBack()
+            forms.alert("Offset crop box failed: {}".format(ex), title=__title__)
+            return
+
+        msg = (
+            "Crop adjusted on {} view(s); annotation adjusted on {} view(s). "
+            "ScopeBox cleared: {} | ScopeBox blocked: {} | Invalid shape skips: {} | Errors: {}"
+        ).format(crop_count, ann_count, scope_cleared, scope_blocked, invalid_shape, skipped)
         self.UI_feedback.Text = msg
         self._set_status(msg)
 

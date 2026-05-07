@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
     mc:Ignorable="d"
     Title="FORMAT V3 - Meinhardt sheet formatting tool by GM"
     Height="680" Width="1100"
@@ -10,9 +11,18 @@
     WindowStartupLocation="CenterScreen"
     ShowInTaskbar="True"
     WindowStyle="None"
-    ResizeMode="CanResize"
-    Background="Transparent"
-    AllowsTransparency="True">
+    ResizeMode="CanResizeWithGrip"
+    Background="#0b1a2b"
+    AllowsTransparency="False">
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            CaptionHeight="0"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            ResizeBorderThickness="8"
+            UseAeroCaptionButtons="False"/>
+    </shell:WindowChrome.WindowChrome>
 
     <Window.Resources>
         <ResourceDictionary>
@@ -291,7 +301,11 @@
                         Background="{StaticResource bg2}"
                         BorderBrush="{StaticResource border_panel}"
                         BorderThickness="1" CornerRadius="8">
-                    <DockPanel Margin="10">
+                    <ScrollViewer Margin="10"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  CanContentScroll="True">
+                    <DockPanel>
                         <TextBlock DockPanel.Dock="Top"
                                    Text="EDIT TARGET"
                                    Foreground="{StaticResource text_cyan}"
@@ -342,11 +356,46 @@
                                 Height="28" Margin="0,8,0,0"
                                 Click="button_refresh_targets"/>
 
-                        <Button DockPanel.Dock="Top"
-                            Content="Smart Auto Fill"
-                            Height="28" Margin="0,8,0,0"
-                            ToolTip="Infer level/zone/discipline/series from sheet naming and fill matching parameters."
-                            Click="button_smart_autofill"/>
+                        <TextBlock DockPanel.Dock="Top"
+                                   Text="Smart Align Fine-Tune (mm)"
+                                   Foreground="{StaticResource text_dim}"
+                                   FontSize="10"
+                                   Margin="0,6,0,2"/>
+
+                        <Grid DockPanel.Dock="Top" Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="6"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="L" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="1" x:Name="UI_align_offset_left" Height="22" Text="0" ToolTip="Move alignment to the left by this value (mm)."/>
+                            <TextBlock Grid.Column="3" Text="R" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="4" x:Name="UI_align_offset_right" Height="22" Text="0" ToolTip="Move alignment to the right by this value (mm)."/>
+                        </Grid>
+
+                        <Grid DockPanel.Dock="Top" Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="6"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="B" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="1" x:Name="UI_align_offset_bottom" Height="22" Text="0" ToolTip="Move alignment downward by this value (mm)."/>
+                            <TextBlock Grid.Column="3" Text="T" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="4" x:Name="UI_align_offset_top" Height="22" Text="0" ToolTip="Move alignment upward by this value (mm)."/>
+                        </Grid>
+
+                        <CheckBox DockPanel.Dock="Top"
+                              x:Name="UI_chk_align_use_tb_params"
+                              Content="Use titleblock drawing-area params"
+                              IsChecked="True"
+                              ToolTip="When enabled, Smart Align first applies titleblock family parameter inference (perimeter/ribbon), then fine-tune offsets."
+                              Margin="0,0,0,2"/>
 
                         <Button DockPanel.Dock="Top"
                             Content="Smart Align Viewports"
@@ -372,6 +421,12 @@
                             IsChecked="False"
                             ToolTip="When enabled, Smart Auto Fill selects the matching keyplan location by zone + view scale and also turns on SHOW TITLEBLOCK KEY PLAN."
                             Margin="0,4,0,0"/>
+
+                        <Button DockPanel.Dock="Top"
+                            Content="Smart Auto Fill"
+                            Height="28" Margin="0,8,0,0"
+                            ToolTip="Infer level/zone/discipline/series from sheet naming and fill matching parameters."
+                            Click="button_smart_autofill"/>
 
                         <Separator DockPanel.Dock="Top" Margin="0,10,0,6"/>
 
@@ -429,15 +484,138 @@
                                 ToolTip="Replace title block type only on currently selected sheets."
                                 Click="button_replace_titleblocks"/>
 
+                        <Separator DockPanel.Dock="Top" Margin="0,10,0,6"/>
+
+                        <TextBlock DockPanel.Dock="Top"
+                                   Text="VIEWPORT CROPBOX"
+                                   Foreground="{StaticResource text_cyan}"
+                                   FontWeight="Bold" FontSize="10"
+                                   Margin="0,0,0,6"/>
+
+                        <!-- Show / Hide crop box row -->
+                        <Grid DockPanel.Dock="Top" Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Show Crop"
+                                    Height="26" Margin="0,0,2,0" FontSize="10"
+                                    ToolTip="Show crop boundary lines on placed views (does not disable crop)."
+                                    Click="button_show_cropbox"/>
+                            <Button Grid.Column="1" Content="Hide Crop"
+                                    Height="26" Margin="2,0,0,0" FontSize="10"
+                                    ToolTip="Hide crop boundary lines on placed views (keeps crop active)."
+                                    Click="button_hide_cropbox"/>
+                        </Grid>
+
+                        <!-- Annotation crop toggle row -->
+                        <Grid DockPanel.Dock="Top" Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Ann Crop ✓"
+                                    Height="26" Margin="0,0,2,0" FontSize="10"
+                                    ToolTip="Enable annotation crop on placed views of selected sheets."
+                                    Click="button_annotation_crop_on"/>
+                            <Button Grid.Column="1" Content="Ann Crop ✗"
+                                    Height="26" Margin="2,0,0,0" FontSize="10"
+                                    ToolTip="Disable annotation crop on placed views of selected sheets."
+                                    Click="button_annotation_crop_off"/>
+                        </Grid>
+
+                        <TextBlock DockPanel.Dock="Top"
+                                   Text="Crop Offsets (mm):"
+                                   Foreground="{StaticResource text_dim}"
+                                   FontSize="10" Margin="0,4,0,2"/>
+
+                        <Grid DockPanel.Dock="Top" Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="6"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="L" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="1" x:Name="UI_crop_offset_left" Height="22" Text="0" ToolTip="Crop offset Left (mm). Positive expands, negative shrinks."/>
+                            <TextBlock Grid.Column="3" Text="R" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="4" x:Name="UI_crop_offset_right" Height="22" Text="0" ToolTip="Crop offset Right (mm). Positive expands, negative shrinks."/>
+                        </Grid>
+
+                        <Grid DockPanel.Dock="Top" Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="6"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="B" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="1" x:Name="UI_crop_offset_bottom" Height="22" Text="0" ToolTip="Crop offset Bottom (mm). Positive expands, negative shrinks."/>
+                            <TextBlock Grid.Column="3" Text="T" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="4" x:Name="UI_crop_offset_top" Height="22" Text="0" ToolTip="Crop offset Top (mm). Positive expands, negative shrinks."/>
+                        </Grid>
+
+                        <TextBlock DockPanel.Dock="Top"
+                                   Text="Annotation Offsets (mm):"
+                                   Foreground="{StaticResource text_dim}"
+                                   FontSize="10" Margin="0,4,0,2"/>
+
+                        <Grid DockPanel.Dock="Top" Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="6"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="L" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="1" x:Name="UI_ann_offset_left" Height="22" Text="0" ToolTip="Annotation offset Left (mm). 0 keeps Revit default shape."/>
+                            <TextBlock Grid.Column="3" Text="R" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="4" x:Name="UI_ann_offset_right" Height="22" Text="0" ToolTip="Annotation offset Right (mm). 0 keeps Revit default shape."/>
+                        </Grid>
+
+                        <Grid DockPanel.Dock="Top" Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="6"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="B" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="1" x:Name="UI_ann_offset_bottom" Height="22" Text="0" ToolTip="Annotation offset Bottom (mm). 0 keeps Revit default shape."/>
+                            <TextBlock Grid.Column="3" Text="T" Foreground="{StaticResource text_dim}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBox Grid.Column="4" x:Name="UI_ann_offset_top" Height="22" Text="0" ToolTip="Annotation offset Top (mm). 0 keeps Revit default shape."/>
+                        </Grid>
+
+                        <CheckBox DockPanel.Dock="Top"
+                                  x:Name="UI_chk_crop_clear_scopebox"
+                                  Content="Clear Scope Box first (set to None)"
+                                  IsChecked="False"
+                                  Margin="0,2,0,0"
+                                  ToolTip="If checked, tool sets Scope Box to None before changing crop size."/>
+
+                        <Button DockPanel.Dock="Top"
+                                Content="Apply Crop/Annotation Offsets"
+                                Height="24" Margin="0,6,0,0"
+                                FontSize="10"
+                                ToolTip="Apply per-side crop and annotation offsets to placed views on selected sheets."
+                                Click="button_apply_cropbox_offset"/>
+
                         <!-- Spacer fills remaining height -->
                         <Grid/>
                     </DockPanel>
+                    </ScrollViewer>
                 </Border>
 
                 <!-- Grid Splitter 1 -->
                 <GridSplitter Grid.Column="1" Width="4"
                               HorizontalAlignment="Stretch"
                               Background="{StaticResource panel_separator}"
+                              ResizeBehavior="PreviousAndNext"
+                              DragCompleted="panel_splitter_drag_completed"
                               Cursor="SizeWE"/>
 
                 <!-- ── Panel 2: Sheet Picker ── -->
@@ -556,6 +734,8 @@
                 <GridSplitter Grid.Column="3" Width="4"
                               HorizontalAlignment="Stretch"
                               Background="{StaticResource panel_separator}"
+                              ResizeBehavior="PreviousAndNext"
+                              DragCompleted="panel_splitter_drag_completed"
                               Cursor="SizeWE"/>
 
                 <!-- ── Panel 3: Parameter Editor ── -->

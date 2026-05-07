@@ -1,0 +1,52 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Parameter Transfer" Width="520" Height="380"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanResize"
+        ShowInTaskbar="True" Topmost="False">
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Margin="0,0,0,10" TextWrapping="Wrap">
+            <Bold>Transfer parameter values on the selected elements.</Bold>
+            Select source and destination parameters.
+        </TextBlock>
+
+        <TextBlock Grid.Row="1" Margin="0,0,0,4" Text="Source parameter"/>
+        <ComboBox x:Name="source_combo" Grid.Row="2" MinWidth="460" SelectionChanged="source_changed"/>
+
+        <CheckBox x:Name="convert_to_string_chk" Grid.Row="3" Margin="0,8,0,8"
+                  Content="Convert source value to string  (shows only text destinations)"
+                  Checked="convert_to_string_changed" Unchecked="convert_to_string_changed"/>
+
+        <TextBlock Grid.Row="4" Margin="0,0,0,4" Text="Destination parameter"/>
+        <ComboBox x:Name="destination_combo" Grid.Row="5" MinWidth="460"/>
+
+        <StackPanel Grid.Row="6" Margin="0,12,0,0">
+            <CheckBox x:Name="move_values_chk" Margin="0,0,0,8" Content="Move values (clear source after transfer)"/>
+
+            <Separator Margin="0,0,0,8"/>
+
+            <CheckBox x:Name="create_dest_chk" Margin="0,0,0,6" Content="Create destination parameter if missing"/>
+            <DockPanel>
+                <TextBox x:Name="new_param_name" Width="340" Height="24" Margin="0,0,8,0"
+                         VerticalContentAlignment="Center"
+                         ToolTip="New project parameter name"/>
+                <Button x:Name="create_param_btn" Width="110" Height="24" Content="Create" Click="create_param_click"/>
+            </DockPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Width="90" Height="28" Margin="0,0,8,0" Content="Apply" IsDefault="True" Click="apply_click"/>
+            <Button Width="90" Height="28" Content="Cancel" IsCancel="True" Click="cancel_click"/>
+        </StackPanel>
+    </Grid>
+</Window>
