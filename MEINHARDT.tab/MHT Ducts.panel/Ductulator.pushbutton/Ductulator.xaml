@@ -146,145 +146,154 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- ===== LEFT PANEL (clean card, no accent strip) ===== -->
-            <Border Grid.Column="0" CornerRadius="8" Background="#FFFFFF"
-                    BorderBrush="#DDE3EA" BorderThickness="1" Padding="16,14,16,14">
+            <!-- ===== LEFT PANEL ===== -->
+            <Border Grid.Column="0" CornerRadius="8" Background="#F0F4F8"
+                    BorderBrush="#DDE3EA" BorderThickness="1" Padding="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="12"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="4"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="8"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="4"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="8"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="4"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="12"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="14"/>
-                        <RowDefinition Height="1"/>
-                        <RowDefinition Height="14"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="8"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="6"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="6"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- INPUTS label -->
-                    <TextBlock Grid.Row="0" Text="INPUTS" FontSize="9" FontWeight="Bold"
-                               Foreground="#A0AEC0"/>
-
-                    <!-- Airflow -->
-                    <TextBlock Grid.Row="2" Text="Airflow (L/s)" FontSize="11" FontWeight="SemiBold"
-                               Foreground="#4A5568"/>
-                    <TextBox x:Name="InpAirflow" Grid.Row="4" Style="{StaticResource InputBox}" Text="240"/>
-
-                    <!-- Target Velocity -->
-                    <TextBlock Grid.Row="6" Text="Target Velocity (m/s)" FontSize="11" FontWeight="SemiBold"
-                               Foreground="#4A5568"/>
-                    <TextBox x:Name="InpVelocity" Grid.Row="8" Style="{StaticResource InputBox}" Text="4"/>
-
-                    <!-- Known Duct Width -->
-                    <TextBlock Grid.Row="10" Text="Known Duct Width (mm)" FontSize="11" FontWeight="SemiBold"
-                               Foreground="#4A5568"/>
-                    <TextBox x:Name="InpWidth" Grid.Row="12" Style="{StaticResource InputBox}" Text="250"/>
-
-                    <!-- Buttons -->
-                    <Grid Grid.Row="14">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="6"/>
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="6"/>
-                            <ColumnDefinition Width="30"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Calculate"
-                                Style="{StaticResource PrimaryButton}"
-                                Click="calculate_click"/>
-                        <Button Grid.Column="2" Content="Reset"
-                                Style="{StaticResource SecondaryButton}"
-                                Click="reset_click"/>
-                        <Button Grid.Column="4" Content="?"
-                                Style="{StaticResource SecondaryButton}"
-                                Click="help_click"
-                                ToolTip="How to use this tool"/>
-                    </Grid>
-
-                    <!-- Divider -->
-                    <Border Grid.Row="16" Height="1" Background="#E2E8F0"/>
-
-                    <!-- RESULTS label -->
-                    <TextBlock Grid.Row="18" Text="RESULTS" FontSize="9" FontWeight="Bold"
-                               Foreground="#A0AEC0"/>
-
-                    <!-- Flowrate card — blue -->
-                    <Border Grid.Row="20" CornerRadius="6" Background="#EBF4FF"
-                            BorderBrush="#BEE3F8" BorderThickness="1" Padding="10,7">
+                    <!-- INPUTS sub-section -->
+                    <Border Grid.Row="0" CornerRadius="6" Background="#FFFFFF"
+                            BorderBrush="#C9D4DF" BorderThickness="1" Padding="14,12">
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel>
-                                <TextBlock Text="FLOWRATE" FontSize="9" FontWeight="Bold" Foreground="#2B6CB0"/>
-                                <TextBlock x:Name="TxtFlowrate" Text="864"
-                                           FontSize="20" FontWeight="Bold" Foreground="#1A365D"/>
-                            </StackPanel>
-                            <TextBlock Grid.Column="1" Text="m³/h" FontSize="11"
-                                       Foreground="#4299E1" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="4"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="8"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="4"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="8"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="4"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="12"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="INPUTS" FontSize="9" FontWeight="Bold"
+                                       Foreground="#7A8FA8"/>
+
+                            <TextBlock Grid.Row="2" Text="Airflow (L/s)" FontSize="11" FontWeight="SemiBold"
+                                       Foreground="#4A5568"/>
+                            <TextBox x:Name="InpAirflow" Grid.Row="4" Style="{StaticResource InputBox}" Text="240"/>
+
+                            <TextBlock Grid.Row="6" Text="Target Velocity (m/s)" FontSize="11" FontWeight="SemiBold"
+                                       Foreground="#4A5568"/>
+                            <TextBox x:Name="InpVelocity" Grid.Row="8" Style="{StaticResource InputBox}" Text="4"/>
+
+                            <TextBlock Grid.Row="10" Text="Known Duct Width (mm)" FontSize="11" FontWeight="SemiBold"
+                                       Foreground="#4A5568"/>
+                            <TextBox x:Name="InpWidth" Grid.Row="12" Style="{StaticResource InputBox}" Text="250"/>
+
+                            <Grid Grid.Row="14">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="6"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="6"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Content="Calculate"
+                                        Style="{StaticResource PrimaryButton}"
+                                        Click="calculate_click"/>
+                                <Button Grid.Column="2" Content="Reset"
+                                        Style="{StaticResource SecondaryButton}"
+                                        Click="reset_click"/>
+                                <Button Grid.Column="4" Content="?"
+                                        Style="{StaticResource SecondaryButton}"
+                                        Click="help_click"
+                                        ToolTip="How to use this tool"/>
+                            </Grid>
                         </Grid>
                     </Border>
 
-                    <!-- Round Diameter card — teal -->
-                    <Border Grid.Row="22" CornerRadius="6" Background="#E6FFFA"
-                            BorderBrush="#B2F5EA" BorderThickness="1" Padding="10,7">
+                    <!-- RESULTS sub-section -->
+                    <Border Grid.Row="2" CornerRadius="6" Background="#FAFCFF"
+                            BorderBrush="#C9D4DF" BorderThickness="1" Padding="14,12">
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel>
-                                <TextBlock Text="ROUND EQUIV. Ø" FontSize="9" FontWeight="Bold" Foreground="#276749"/>
-                                <TextBlock x:Name="TxtRoundDia" Text="276"
-                                           FontSize="20" FontWeight="Bold" Foreground="#1C4532"/>
-                            </StackPanel>
-                            <TextBlock Grid.Column="1" Text="mm" FontSize="11"
-                                       Foreground="#38A169" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="6"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="6"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="RESULTS" FontSize="9" FontWeight="Bold"
+                                       Foreground="#7A8FA8"/>
+
+                            <!-- Flowrate card — blue -->
+                            <Border Grid.Row="2" CornerRadius="6" Background="#EBF4FF"
+                                    BorderBrush="#BEE3F8" BorderThickness="1" Padding="10,7">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="FLOWRATE" FontSize="9" FontWeight="Bold" Foreground="#2B6CB0"/>
+                                        <TextBlock x:Name="TxtFlowrate" Text="864"
+                                                   FontSize="20" FontWeight="Bold" Foreground="#1A365D"/>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Text="m³/h" FontSize="11"
+                                               Foreground="#4299E1" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Round Diameter card — teal -->
+                            <Border Grid.Row="4" CornerRadius="6" Background="#E6FFFA"
+                                    BorderBrush="#B2F5EA" BorderThickness="1" Padding="10,7">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="ROUND EQUIV. Ø" FontSize="9" FontWeight="Bold" Foreground="#276749"/>
+                                        <TextBlock x:Name="TxtRoundDia" Text="276"
+                                                   FontSize="20" FontWeight="Bold" Foreground="#1C4532"/>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Text="mm" FontSize="11"
+                                               Foreground="#38A169" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Rect Size card — purple -->
+                            <Border Grid.Row="6" CornerRadius="6" Background="#FAF5FF"
+                                    BorderBrush="#E9D8FD" BorderThickness="1" Padding="10,7">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="RECT. SIZE (W × H)" FontSize="9" FontWeight="Bold" Foreground="#553C9A"/>
+                                        <TextBlock x:Name="TxtRect" Text="250 x 250"
+                                                   FontSize="18" FontWeight="Bold" Foreground="#322659"/>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Text="mm" FontSize="11"
+                                               Foreground="#805AD5" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Tip -->
+                            <TextBlock Grid.Row="8"
+                                       Text="Tip: Use the tables as a fast check against your design intent."
+                                       Foreground="#A0AEC0" FontSize="9" TextWrapping="Wrap" Margin="0,6,0,0"/>
                         </Grid>
                     </Border>
-
-                    <!-- Rect Size card — purple -->
-                    <Border Grid.Row="24" CornerRadius="6" Background="#FAF5FF"
-                            BorderBrush="#E9D8FD" BorderThickness="1" Padding="10,7">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel>
-                                <TextBlock Text="RECT. SIZE (W × H)" FontSize="9" FontWeight="Bold" Foreground="#553C9A"/>
-                                <TextBlock x:Name="TxtRect" Text="250 x 250"
-                                           FontSize="18" FontWeight="Bold" Foreground="#322659"/>
-                            </StackPanel>
-                            <TextBlock Grid.Column="1" Text="mm" FontSize="11"
-                                       Foreground="#805AD5" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
-                        </Grid>
-                    </Border>
-
-                    <!-- Tip -->
-                    <TextBlock Grid.Row="26"
-                               Text="Tip: Use the tables as a fast check against your design intent."
-                               Foreground="#A0AEC0" FontSize="9" TextWrapping="Wrap" Margin="0,4,0,0"/>
                 </Grid>
             </Border>
 
