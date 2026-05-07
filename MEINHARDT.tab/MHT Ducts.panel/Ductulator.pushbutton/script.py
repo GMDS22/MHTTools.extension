@@ -4,6 +4,7 @@ from __future__ import division, print_function
 __title__ = 'Ductulator'
 __author__ = 'GMoreno'
 __doc__ = 'ENVAR duct sizing reference with round and rectangular velocity tables.'
+__persistentengine__ = True
 
 import math
 import clr
@@ -11,23 +12,13 @@ import clr
 from pyrevit import forms
 from pyrevit import script
 
-try:
-    clr.AddReference('System.Data')
-except Exception:
-    pass
-
-try:
-    from System.Data import DataTable
-except Exception:
-    DataTable = None
-
 # WPF colour imports for velocity-band fills
 _WPF_COLOR_OK = False
 try:
     from System.Windows.Media import SolidColorBrush, Color
-    from System.Windows.Data import IValueConverter, Binding
+    from System.Windows.Data import Binding
     from System.Windows import FrameworkElementFactory, DataTemplate, Thickness
-    from System.Windows.Controls import TextBlock, DataGridTemplateColumn, Border, DataGridLength
+    from System.Windows.Controls import TextBlock, Border, DataGridLength, DataGridTemplateColumn, DataGridTextColumn
     import System.Windows
     _WPF_COLOR_OK = True
 except Exception:
@@ -60,26 +51,38 @@ def _vel_bg_brush(v):
     return None
 
 
+def _vel_bg_hex(v):
+    """Return a WPF-compatible hex colour string for velocity *v* (m/s)."""
+    for threshold, rgb in _VEL_BANDS:
+        if threshold is None or v < threshold:
+            return '#{0:02X}{1:02X}{2:02X}'.format(rgb[0], rgb[1], rgb[2])
+    return '#FFFFFF'
+
+
+def _vel_bg_value(v):
+    brush = _vel_bg_brush(v)
+    if brush is not None:
+        return brush
+    return _vel_bg_hex(v)
+
+
+class _GridRow(object):
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
+
 if _WPF_COLOR_OK:
-    class VelocityColorConverter(IValueConverter):
-        """IValueConverter: velocity string → SolidColorBrush (for SquareGrid cells)."""
-
-        def Convert(self, value, target_type, parameter, culture):
-            try:
-                v = float(str(value).strip())
-                if v <= 0:
-                    raise ValueError('non-positive')
-            except Exception:
-                return SolidColorBrush(Color.FromRgb(0xF9, 0xFA, 0xFB))
-            return _vel_bg_brush(v) or SolidColorBrush(Color.FromRgb(0xF9, 0xFA, 0xFB))
-
-        def ConvertBack(self, value, target_type, parameter, culture):
-            return None
+    pass
 
 
 ROUND_DIAMETERS_MM = [80, 90, 100, 112, 125, 150, 160, 180, 200, 225, 250, 280, 315, 400, 500]
 SQUARE_SIZES_MM = list(range(100, 3001, 50))
 DISPLAY_WIDTHS_MM = list(range(100, 1500, 50))
+
+
+# Keep a strong reference for modeless window lifetime across script calls.
+_DUCTULATOR_WINDOW = None
 
 
 def _to_float(value, default_value):
@@ -128,57 +131,47 @@ def _suggest_height(airflow_lps, velocity_mps, width_mm):
 class DuctulatorWindow(forms.WPFWindow):
     def __init__(self, xaml_path):
         forms.WPFWindow.__init__(self, xaml_path)
-        if _WPF_COLOR_OK:
-            self._vel_converter = VelocityColorConverter()
-            # Wire AutoGeneratingColumn BEFORE ItemsSource is set in _recalculate
-            self.SquareGrid.AutoGeneratingColumn += self.square_auto_col
+        self._build_square_grid_columns()
         self._seed_legend()
         self._recalculate()
 
-    # ------------------------------------------------------------------
-    # AutoGeneratingColumn handler – replaces each numeric column in the
-    # square-duct DataGrid with a colour-coded DataGridTemplateColumn.
-    # ------------------------------------------------------------------
-    def square_auto_col(self, sender, args):
+    def _build_square_grid_columns(self):
         if not _WPF_COLOR_OK:
             return
         try:
-            col_name = str(args.PropertyName)
-            if col_name == 'h x w':
-                return
+            self.SquareGrid.Columns.Clear()
 
-            template_col            = DataGridTemplateColumn()
-            template_col.Header     = col_name
-            template_col.Width      = DataGridLength(65)
-            template_col.IsReadOnly = True
+            h_col = DataGridTextColumn()
+            h_col.Header = 'H x W'
+            h_col.Binding = Binding('HxW')
+            h_col.Width = DataGridLength(70)
+            self.SquareGrid.Columns.Add(h_col)
 
-            border_fac = FrameworkElementFactory(Border)
-            bg_bind    = Binding(col_name)
-            bg_bind.Converter = self._vel_converter
-            border_fac.SetBinding(Border.BackgroundProperty, bg_bind)
+            for width_mm in DISPLAY_WIDTHS_MM:
+                w_key = 'W{0}'.format(width_mm)
+                c_key = 'C{0}'.format(width_mm)
 
-            text_fac = FrameworkElementFactory(TextBlock)
-            txt_bind = Binding(col_name)
-            text_fac.SetBinding(TextBlock.TextProperty, txt_bind)
-            text_fac.SetValue(
-                TextBlock.TextAlignmentProperty,
-                System.Windows.TextAlignment.Center)
-            text_fac.SetValue(
-                TextBlock.PaddingProperty,
-                Thickness(4.0, 2.0, 4.0, 2.0))
-            text_fac.SetValue(
-                TextBlock.ForegroundProperty,
-                SolidColorBrush(Color.FromRgb(0x1F, 0x29, 0x37)))
+                txt = FrameworkElementFactory(TextBlock)
+                txt.SetBinding(TextBlock.TextProperty, Binding(w_key))
+                txt.SetBinding(TextBlock.BackgroundProperty, Binding(c_key))
+                txt.SetValue(TextBlock.TextAlignmentProperty, System.Windows.TextAlignment.Center)
+                txt.SetValue(TextBlock.PaddingProperty, Thickness(4, 2, 4, 2))
+                txt.SetValue(TextBlock.ForegroundProperty, SolidColorBrush(Color.FromRgb(0x00, 0x00, 0x00)))
 
-            border_fac.AppendChild(text_fac)
+                cell_border = FrameworkElementFactory(Border)
+                cell_border.SetValue(Border.PaddingProperty, Thickness(0))
+                cell_border.AppendChild(txt)
 
-            cell_template             = DataTemplate()
-            cell_template.VisualTree  = border_fac
-            template_col.CellTemplate = cell_template
+                template = DataTemplate()
+                template.VisualTree = cell_border
 
-            args.Column = template_col
+                col = DataGridTemplateColumn()
+                col.Header = str(width_mm)
+                col.Width = DataGridLength(62)
+                col.CellTemplate = template
+                self.SquareGrid.Columns.Add(col)
         except Exception:
-            # Never let an exception escape into WPF layout – that crashes Revit
+            # Keep the tool alive even if custom columns fail in a given host.
             pass
 
     def _seed_legend(self):
@@ -189,26 +182,10 @@ class DuctulatorWindow(forms.WPFWindow):
             ('4.0 - 5.0', 'High',      4.5),
             ('> 5.0',     'Very High', 5.5),
         ]
-        if DataTable is not None:
-            table = DataTable()
-            table.Columns.Add('Range')
-            table.Columns.Add('Status')
-            if _WPF_COLOR_OK:
-                table.Columns.Add('BgColor')
-            for rng, status, v in bands:
-                row = table.NewRow()
-                row['Range']  = rng
-                row['Status'] = status
-                if _WPF_COLOR_OK:
-                    row['BgColor'] = _vel_bg_brush(v)
-                table.Rows.Add(row)
-            self.LegendGrid.ItemsSource = table.DefaultView
-        else:
-            # Fallback – plain list (no binding, values won't show colours)
-            rows = []
-            for rng, status, v in bands:
-                rows.append({'Range': rng, 'Status': status})
-            self.LegendGrid.ItemsSource = rows
+        rows = []
+        for rng, status, v in bands:
+            rows.append(_GridRow(Range=rng, Status=status, BgColor=_vel_bg_value(v)))
+        self.LegendGrid.ItemsSource = rows
 
     def _set_summary_text(self, airflow_lps, velocity_mps, width_mm):
         self.TxtFlowrate.Text = '{0:.1f}'.format(airflow_lps * 3.6)
@@ -216,7 +193,10 @@ class DuctulatorWindow(forms.WPFWindow):
         self.TxtRoundDia.Text = '{0:.0f}'.format(round_dia)
 
         height_mm = _suggest_height(airflow_lps, velocity_mps, width_mm)
-        self.TxtRect.Text = '{0:.0f} x {1}'.format(width_mm, height_mm)
+        # Always present rectangular size as W x H where W is the larger dimension.
+        width_out = max(width_mm, height_mm)
+        height_out = min(width_mm, height_mm)
+        self.TxtRect.Text = '{0} x {1}'.format(int(round(width_out)), int(round(height_out)))
 
         self.TxtHeader.Text = (
             'Airflow {0:.1f} L/s  |  Velocity {1:.2f} m/s  |  Known width {2:.0f} mm'
@@ -224,54 +204,33 @@ class DuctulatorWindow(forms.WPFWindow):
         )
 
     def _set_round_table(self, airflow_lps):
-        if DataTable is not None:
-            table = DataTable()
-            table.Columns.Add('Diameter')
-            table.Columns.Add('Velocity')
-            if _WPF_COLOR_OK:
-                table.Columns.Add('BgColor')
-            for d_mm in ROUND_DIAMETERS_MM:
-                v   = _velocity_from_round(airflow_lps, d_mm)
-                row = table.NewRow()
-                row['Diameter'] = str(d_mm)
-                row['Velocity'] = '{0:.2f}'.format(v)
-                if _WPF_COLOR_OK:
-                    row['BgColor'] = _vel_bg_brush(v)
-                table.Rows.Add(row)
-            self.RoundGrid.ItemsSource = table.DefaultView
-        else:
-            rows = []
-            for d_mm in ROUND_DIAMETERS_MM:
-                v = _velocity_from_round(airflow_lps, d_mm)
-                rows.append({'Diameter': str(d_mm), 'Velocity': '{0:.2f}'.format(v)})
-            self.RoundGrid.ItemsSource = rows
+        rows = []
+        for d_mm in ROUND_DIAMETERS_MM:
+            v = _velocity_from_round(airflow_lps, d_mm)
+            rows.append(
+                _GridRow(
+                    Diameter=str(d_mm),
+                    Velocity='{0:.2f}'.format(v),
+                    BgColor=_vel_bg_value(v)
+                )
+            )
+        self.RoundGrid.ItemsSource = rows
 
     def _set_square_table(self, airflow_lps):
-        if DataTable is not None:
-            table = DataTable()
-            table.Columns.Add('h x w')
-
-            for width_mm in DISPLAY_WIDTHS_MM:
-                table.Columns.Add(str(width_mm))
-
-            for height_mm in SQUARE_SIZES_MM:
-                row = table.NewRow()
-                row['h x w'] = str(height_mm)
-                for width_mm in DISPLAY_WIDTHS_MM:
-                    v = _velocity_from_rect(airflow_lps, width_mm, height_mm)
-                    row[str(width_mm)] = '{0:.2f}'.format(v)
-                table.Rows.Add(row)
-
-            self.SquareGrid.ItemsSource = table.DefaultView
-            return
+        # Only clear ItemsSource on refresh; columns are created once at init.
+        try:
+            self.SquareGrid.ItemsSource = None
+        except Exception:
+            pass
 
         rows = []
         for height_mm in SQUARE_SIZES_MM:
-            row = {'h x w': str(height_mm)}
+            row_data = {'HxW': str(height_mm)}
             for width_mm in DISPLAY_WIDTHS_MM:
                 v = _velocity_from_rect(airflow_lps, width_mm, height_mm)
-                row[str(width_mm)] = '{0:.2f}'.format(v)
-            rows.append(row)
+                row_data['W{0}'.format(width_mm)] = '{0:.2f}'.format(v)
+                row_data['C{0}'.format(width_mm)] = _vel_bg_value(v)
+            rows.append(_GridRow(**row_data))
         self.SquareGrid.ItemsSource = rows
 
     def _recalculate(self):
@@ -295,13 +254,25 @@ class DuctulatorWindow(forms.WPFWindow):
         self._set_square_table(airflow_lps)
 
     def calculate_click(self, sender, args):
-        self._recalculate()
+        try:
+            self._recalculate()
+        except Exception as ex:
+            forms.alert(
+                'Calculation failed and was safely stopped.\n\n{0}'.format(str(ex)),
+                title='MHT Ductolator by GM'
+            )
 
     def reset_click(self, sender, args):
-        self.InpAirflow.Text = '240'
-        self.InpVelocity.Text = '4'
-        self.InpWidth.Text = '250'
-        self._recalculate()
+        try:
+            self.InpAirflow.Text = '240'
+            self.InpVelocity.Text = '4'
+            self.InpWidth.Text = '250'
+            self._recalculate()
+        except Exception as ex:
+            forms.alert(
+                'Reset failed and was safely stopped.\n\n{0}'.format(str(ex)),
+                title='MHT Ductolator by GM'
+            )
 
     def help_click(self, sender, args):
         forms.alert(
@@ -320,9 +291,19 @@ class DuctulatorWindow(forms.WPFWindow):
 
 
 def main():
+    global _DUCTULATOR_WINDOW
     xaml_path = script.get_bundle_file('Ductulator.xaml')
-    window = DuctulatorWindow(xaml_path)
-    window.ShowDialog()
+    if _DUCTULATOR_WINDOW is not None:
+        try:
+            _DUCTULATOR_WINDOW.Close()
+        except Exception:
+            pass
+    _DUCTULATOR_WINDOW = DuctulatorWindow(xaml_path)
+    _DUCTULATOR_WINDOW.Show()
+    try:
+        _DUCTULATOR_WINDOW.Activate()
+    except Exception:
+        pass
 
 
 if __name__ == '__main__':
