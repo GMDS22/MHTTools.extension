@@ -27,36 +27,45 @@ def _open_in_browser(path_obj):
     (which may be VS Code on developer machines).
     """
     uri = path_obj.resolve().as_uri()
+    # First try Python's browser resolver. This prefers real browsers and avoids
+    # opening local files in editor file associations.
+    try:
+        if webbrowser.open(uri, new=2):
+            return True
+    except Exception:
+        pass
+
     if sys.platform.startswith("win"):
         try:
             subprocess.Popen(
                 ["rundll32", "url.dll,FileProtocolHandler", uri],
                 shell=False,
             )
-            return
+            return True
         except Exception:
             pass
-        # Second fallback: cmd /c start
+        # Second fallback: use the URL protocol handler via cmd start.
         try:
             subprocess.Popen(
                 'start "" "{}"'.format(uri),
                 shell=True,
             )
-            return
+            return True
         except Exception:
             pass
-    # Non-Windows / last resort
-    webbrowser.open(uri, new=2)
+    # Non-Windows / last resort.
+    try:
+        return bool(webbrowser.open(uri, new=2))
+    except Exception:
+        return False
 
 # Open the document
 if doc_html_path.exists():
-    try:
-        _open_in_browser(doc_html_path)
-    except Exception:
-        os.system('start "" "{}"'.format(doc_html_path.resolve().as_uri()))
+    if not _open_in_browser(doc_html_path):
+        script.get_logger().error("Could not open Tools Description HTML in browser.")
 elif doc_md_path.exists():
     try:
-        with doc_md_path.open('r') as md_file:
+        with doc_md_path.open('r', encoding='utf-8', errors='replace') as md_file:
             md_content = md_file.read()
 
         html_content = (
@@ -68,11 +77,12 @@ elif doc_md_path.exists():
 
         temp_dir = Path(tempfile.gettempdir())
         temp_html_path = temp_dir / 'MHTTools_MeinhardtTabTools_preview.html'
-        with temp_html_path.open('w') as html_file:
+        with temp_html_path.open('w', encoding='utf-8') as html_file:
             html_file.write(html_content)
 
-        _open_in_browser(temp_html_path)
+        if not _open_in_browser(temp_html_path):
+            script.get_logger().error("Could not open generated Tools Description preview in browser.")
     except Exception:
-        _open_in_browser(doc_md_path)
+        script.get_logger().error("Could not render markdown preview for Tools Description.")
 else:
     script.get_logger().error("Tools description document not found.")
