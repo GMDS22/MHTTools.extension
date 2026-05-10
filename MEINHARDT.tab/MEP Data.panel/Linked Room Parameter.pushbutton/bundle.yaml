@@ -1,0 +1,10 @@
+title:
+  en_us: Linked Rooms
+tooltip:
+  en_us: |
+    Select a room from a linked model and transfer matching room parameter values
+    into selected host model elements across MEP categories.
+    
+author: GM
+engine:
+  persistent: true

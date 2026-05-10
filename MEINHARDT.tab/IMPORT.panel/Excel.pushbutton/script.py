@@ -89,12 +89,19 @@ MAX_TABLE_ROWS = 400
 MAX_TABLE_COLS = 120
 MAX_TABLE_CELLS = 20000
 MAX_CELL_TEXT_LENGTH = 500
+MAX_DRAFTING_TEXT_NOTES = 3500
+MAX_DRAFTING_BORDER_SEGMENTS = 7000
+MAX_DRAFTING_FILLED_REGIONS = 3500
 
-EXCEL_WIDTH_SCALE = 0.12
-EXCEL_HEIGHT_SCALE = 0.01
-CELL_PADDING_X = 0.05
-CELL_PADDING_Y = 0.04
-MIN_TEXT_WIDTH = 0.10
+# Excel geometry conversion (to Revit feet)
+# RowHeight is points in Excel. 1 pt = 1/72 in = 1/864 ft.
+# ColumnWidth is character-based; approximate using Excel's pixel mapping.
+TABLE_GEOMETRY_SCALE = 1.0
+CELL_PADDING_X = 0.003
+CELL_PADDING_Y = 0.003
+MIN_TEXT_WIDTH = 0.02
+MIN_CELL_WIDTH = 0.02
+MIN_CELL_HEIGHT = 0.008
 
 XL_COLOR_INDEX_NONE = -4142
 XL_LINESTYLE_NONE = -4142
@@ -718,6 +725,19 @@ def _safe_int(value, default_value=0):
         return default_value
 
 
+def _excel_points_to_feet(points_value):
+    return max(0.0, _safe_float(points_value, 0.0) / 864.0) * TABLE_GEOMETRY_SCALE
+
+
+def _excel_column_width_to_feet(column_width_value):
+    # Excel column width is based on number of 0 characters in the default font.
+    # A practical approximation for visible width is: pixels ~= 7 * width + 5.
+    width_chars = max(0.0, _safe_float(column_width_value, 8.43))
+    pixels = (7.0 * width_chars) + 5.0
+    feet = (pixels / 96.0) / 12.0
+    return max(0.0, feet) * TABLE_GEOMETRY_SCALE
+
+
 def _clamp255(value):
     try:
         value = int(round(float(value)))
@@ -802,9 +822,9 @@ def _excel_border_weight_to_revit(weight_value, line_style):
     if weight_value == 2:
         return 2
     if weight_value == 4:
-        return 6
-    if weight_value == -4138:
         return 4
+    if weight_value == -4138:
+        return 3
     return 2
 
 
@@ -995,7 +1015,7 @@ def _read_excel_table(file_path, sheet_name):
             try:
                 row_obj = _com_item(worksheet_rows, start_row + row_index)
                 hidden = bool(_com_get(row_obj, "Hidden"))
-                height = 0.0 if hidden else _safe_float(_com_get(row_obj, "RowHeight"), 15.0) * EXCEL_HEIGHT_SCALE
+                height = 0.0 if hidden else max(MIN_CELL_HEIGHT, _excel_points_to_feet(_com_get(row_obj, "RowHeight")))
                 row_heights.append(height)
                 row_hidden.append(hidden)
             finally:
@@ -1008,7 +1028,7 @@ def _read_excel_table(file_path, sheet_name):
             try:
                 col_obj = _com_item(worksheet_columns, start_col + col_index)
                 hidden = bool(_com_get(col_obj, "Hidden"))
-                width = 0.0 if hidden else _safe_float(_com_get(col_obj, "ColumnWidth"), 8.43) * EXCEL_WIDTH_SCALE
+                width = 0.0 if hidden else max(MIN_CELL_WIDTH, _excel_column_width_to_feet(_com_get(col_obj, "ColumnWidth")))
                 col_widths.append(width)
                 col_hidden.append(hidden)
             finally:
@@ -1250,12 +1270,12 @@ def _create_rectangle_loop(x1, y1, x2, y2):
     p2 = XYZ(x2, y1, 0)
     p3 = XYZ(x2, y2, 0)
     p4 = XYZ(x1, y2, 0)
-    return CurveLoop.Create(List[Line]([
-        Line.CreateBound(p1, p2),
-        Line.CreateBound(p2, p3),
-        Line.CreateBound(p3, p4),
-        Line.CreateBound(p4, p1),
-    ]))
+    loop = CurveLoop()
+    loop.Append(Line.CreateBound(p1, p2))
+    loop.Append(Line.CreateBound(p2, p3))
+    loop.Append(Line.CreateBound(p3, p4))
+    loop.Append(Line.CreateBound(p4, p1))
+    return loop
 
 
 def _apply_region_fill_override(view, region, fill_color, line_color=None, line_weight=None):
@@ -1301,17 +1321,17 @@ def _set_string_parameter(element, bip, value):
 
 
 def _points_to_feet(points_value):
-    return float(points_value) / 864.0
+    return _excel_points_to_feet(points_value)
 
 
 def _estimate_text_top_offset(cell_height, font_size_points, vertical_alignment):
-    font_height = max(_points_to_feet(font_size_points), 0.03)
-    top_padding = min(max(CELL_PADDING_Y, font_height * 0.3), max(cell_height * 0.35, CELL_PADDING_Y))
+    font_height = max(_points_to_feet(font_size_points), 0.008)
+    top_padding = min(max(CELL_PADDING_Y, font_height * 0.25), max(cell_height * 0.25, CELL_PADDING_Y))
     if vertical_alignment == "middle":
-        return max(top_padding, (cell_height * 0.5) - (font_height * 0.6))
+        return max(top_padding, (cell_height * 0.5) - (font_height * 0.55))
     if vertical_alignment == "bottom":
-        return max(top_padding, cell_height - (font_height * 1.2))
-    return top_padding
+        return max(top_padding, cell_height - (font_height * 1.05))
+    return min(top_padding, max(CELL_PADDING_Y, cell_height - (font_height * 0.6)))
 
 
 def _get_text_type_name(base_type_name, style_key, style_index):
@@ -1375,6 +1395,53 @@ def _build_layout_positions(widths, heights):
     return x_positions, y_positions
 
 
+def _estimate_drafting_workload(table_model):
+    text_notes = 0
+    filled_regions = 0
+    cells = table_model["cells"]
+    rows = table_model["rows"]
+    cols = table_model["cols"]
+
+    for row_index in range(rows):
+        for col_index in range(cols):
+            cell = cells[row_index][col_index]
+            if not cell.get("is_merge_root") or cell.get("hidden"):
+                continue
+            if cell.get("text"):
+                text_notes += 1
+            if cell.get("has_fill"):
+                filled_regions += 1
+
+    x_positions, y_positions = _build_layout_positions(table_model["col_widths"], table_model["row_heights"])
+    border_segments = _collect_border_segments(table_model, x_positions, y_positions)
+    return {
+        "text_notes": text_notes,
+        "filled_regions": filled_regions,
+        "border_segments": len(border_segments),
+    }
+
+
+def _validate_drafting_workload(table_model):
+    workload = _estimate_drafting_workload(table_model)
+    if (
+        workload["text_notes"] > MAX_DRAFTING_TEXT_NOTES
+        or workload["filled_regions"] > MAX_DRAFTING_FILLED_REGIONS
+        or workload["border_segments"] > MAX_DRAFTING_BORDER_SEGMENTS
+    ):
+        raise RuntimeError(
+            "Drafting import aborted to prevent Revit freeze. "
+            "Detected workload is too high: {0} text notes, {1} filled regions, {2} border segments. "
+            "Current safety limits are {3}/{4}/{5}. Reduce Excel range, split table, or simplify formatting and retry.".format(
+                workload["text_notes"],
+                workload["filled_regions"],
+                workload["border_segments"],
+                MAX_DRAFTING_TEXT_NOTES,
+                MAX_DRAFTING_FILLED_REGIONS,
+                MAX_DRAFTING_BORDER_SEGMENTS,
+            )
+        )
+
+
 def _collect_border_segments(table_model, x_positions, y_positions):
     segment_map = {}
     cells = table_model["cells"]
@@ -1424,6 +1491,8 @@ def _build_drafting_table(view, table_model):
     if not table_model:
         return
 
+    _validate_drafting_workload(table_model)
+
     rows = table_model["rows"]
     cols = table_model["cols"]
     if rows == 0 or cols == 0:
@@ -1437,6 +1506,7 @@ def _build_drafting_table(view, table_model):
     invisible_line_style = _get_invisible_line_style()
     x_positions, y_positions = _build_layout_positions(table_model["col_widths"], table_model["row_heights"])
     text_type_cache = {}
+    pending_text_notes = []
 
     for row_index in range(rows):
         for col_index in range(cols):
@@ -1459,7 +1529,9 @@ def _build_drafting_table(view, table_model):
 
             if cell.get("has_fill") and region_type_id is not None:
                 loop = _create_rectangle_loop(x1, y1, x2, y2)
-                region = FilledRegion.Create(doc, region_type_id, view.Id, [loop])
+                curve_loops = List[CurveLoop]()
+                curve_loops.Add(loop)
+                region = FilledRegion.Create(doc, region_type_id, view.Id, curve_loops)
                 if invisible_line_style is not None:
                     try:
                         region.SetLineStyleId(invisible_line_style.Id)
@@ -1468,30 +1540,7 @@ def _build_drafting_table(view, table_model):
                 _apply_region_fill_override(view, region, _rgb_to_revit_color(cell.get("bg_color") or _rgb_tuple(255, 255, 255)))
 
             if cell.get("text"):
-                style_type = _get_or_create_text_type(text_type, cell, text_type_cache)
-                note_options = TextNoteOptions(style_type.Id)
-                if cell.get("h_align") == "center":
-                    note_options.HorizontalAlignment = HorizontalTextAlignment.Center
-                    anchor_x = x1 + (cell_width * 0.5)
-                elif cell.get("h_align") == "right":
-                    note_options.HorizontalAlignment = HorizontalTextAlignment.Right
-                    anchor_x = x2 - CELL_PADDING_X
-                else:
-                    note_options.HorizontalAlignment = HorizontalTextAlignment.Left
-                    anchor_x = x1 + CELL_PADDING_X
-
-                top_offset = _estimate_text_top_offset(cell_height, cell.get("font_size", 9.0), cell.get("v_align"))
-                anchor_y = y1 - top_offset
-                text_point = XYZ(anchor_x, anchor_y, 0)
-                text_width = max(MIN_TEXT_WIDTH, cell_width - (CELL_PADDING_X * 2.0))
-
-                try:
-                    if cell.get("wrap"):
-                        TextNote.Create(doc, view.Id, text_point, text_width, cell.get("text"), note_options)
-                    else:
-                        TextNote.Create(doc, view.Id, text_point, cell.get("text"), note_options)
-                except Exception:
-                    TextNote.Create(doc, view.Id, text_point, text_width, cell.get("text"), note_options)
+                pending_text_notes.append((cell, x1, x2, y1, y2, cell_width, cell_height))
 
     border_segments = _collect_border_segments(table_model, x_positions, y_positions)
     for border_segment in border_segments.values():
@@ -1502,6 +1551,34 @@ def _build_drafting_table(view, table_model):
         if border_segment.get("weight"):
             overrides.SetProjectionLineWeight(border_segment["weight"])
         view.SetElementOverrides(detail_line.Id, overrides)
+
+    # Draw text after fills and lines so it remains readable.
+    for text_payload in pending_text_notes:
+        cell, x1, x2, y1, y2, cell_width, cell_height = text_payload
+        style_type = _get_or_create_text_type(text_type, cell, text_type_cache)
+        note_options = TextNoteOptions(style_type.Id)
+        if cell.get("h_align") == "center":
+            note_options.HorizontalAlignment = HorizontalTextAlignment.Center
+            anchor_x = x1 + (cell_width * 0.5)
+        elif cell.get("h_align") == "right":
+            note_options.HorizontalAlignment = HorizontalTextAlignment.Right
+            anchor_x = x2 - min(CELL_PADDING_X, max(0.001, cell_width * 0.12))
+        else:
+            note_options.HorizontalAlignment = HorizontalTextAlignment.Left
+            anchor_x = x1 + min(CELL_PADDING_X, max(0.001, cell_width * 0.12))
+
+        top_offset = _estimate_text_top_offset(cell_height, cell.get("font_size", 9.0), cell.get("v_align"))
+        anchor_y = y1 - top_offset
+        text_point = XYZ(anchor_x, anchor_y, 0)
+        text_width = max(MIN_TEXT_WIDTH, cell_width - (min(CELL_PADDING_X, max(0.001, cell_width * 0.12)) * 2.0))
+
+        try:
+            if cell.get("wrap"):
+                TextNote.Create(doc, view.Id, text_point, text_width, cell.get("text"), note_options)
+            else:
+                TextNote.Create(doc, view.Id, text_point, cell.get("text"), note_options)
+        except Exception:
+            TextNote.Create(doc, view.Id, text_point, text_width, cell.get("text"), note_options)
 
 
 def _activate_view(view):
@@ -1516,6 +1593,7 @@ class ExcelLinkWindow(WPFWindow):
         WPFWindow.__init__(self, "WPFWindow.xaml")
         self.rb_drafting.IsChecked = True
         self._update_notes_text()
+        self.pending_action = None
 
     def _selected_target_type(self):
         if getattr(self, "rb_schedule", None) is not None and self.rb_schedule.IsChecked:
@@ -1578,105 +1656,122 @@ class ExcelLinkWindow(WPFWindow):
         self._update_notes_text()
 
     def import_click(self, sender, e):
-        self._run_import(update_only=False)
+        self.pending_action = {
+            "update_only": False,
+            "file_path": str(self.tb_excel_path.Text).strip(),
+            "sheet_name": self._selected_sheet_name(),
+            "target_type": self._selected_target_type(),
+            "target_name": str(self.tb_target_name.Text).strip(),
+            "category_name": "",
+        }
+        self.Close()
 
     def update_click(self, sender, e):
-        self._run_import(update_only=True)
-
-    def _run_import(self, update_only=False):
-        try:
-            output_view = None
-            output_mode = ""
-            if update_only:
-                file_path = _get_project_info_value(LINK_PARAM_PATH)
-                sheet_name = _get_project_info_value(LINK_PARAM_SHEET)
-                target_type = _get_project_info_value(LINK_PARAM_TARGET_TYPE)
-                target_name = _get_project_info_value(LINK_PARAM_TARGET_NAME)
-                category_name = _get_project_info_value(LINK_PARAM_CATEGORY) or ""
-            else:
-                file_path = str(self.tb_excel_path.Text).strip()
-                sheet_name = self._selected_sheet_name()
-                target_type = self._selected_target_type()
-                target_name = str(self.tb_target_name.Text).strip()
-                category_name = ""
-
-            if update_only and not file_path:
-                forms.alert("No stored Excel link found. Run Import first.", title="Excel Import")
-                return
-            if not file_path or not os.path.exists(file_path):
-                forms.alert("Select a valid Excel file.", title="Excel Import")
-                return
-            if not sheet_name:
-                forms.alert("Select a sheet.", title="Excel Import")
-                return
-            if not target_name:
-                forms.alert("Enter a target name.", title="Excel Import")
-                return
-
-            table_model = _read_excel_table(file_path, sheet_name)
-            table_model = _prepare_table_model(table_model)
-            if not table_model:
-                forms.alert("No data or visible formatting found in the selected sheet.", title="Excel Import")
-                return
-
-            transaction_name = "Excel to Schedule View" if target_type == "Schedule" else "Excel to Drafting View"
-            transaction = Transaction(doc, transaction_name)
-            transaction.Start()
-            try:
-                if target_type == "Schedule":
-                    category = _get_schedule_target_category(category_name)
-                    schedule_data = _prepare_schedule_data(table_model)
-                    if not schedule_data:
-                        raise RuntimeError("Schedule mode requires at least one visible header row.")
-                    view = _get_or_create_key_schedule(target_name, category)
-                    _build_key_schedule(view, schedule_data, category)
-                    category_name = category.Name
-                    output_mode = "Schedule View"
-                else:
-                    view = _get_or_create_drafting_view(target_name)
-                    _clear_view_contents(view)
-                    _build_drafting_table(view, table_model)
-                    output_mode = "Drafting View"
-                transaction.Commit()
-                output_view = view
-            except Exception as first_error:
-                try:
-                    if target_type == "Schedule":
-                        raise first_error
-                    view = _create_new_drafting_view(target_name)
-                    _build_drafting_table(view, table_model)
-                    transaction.Commit()
-                    output_view = view
-                    output_mode = "Drafting View"
-                except Exception:
-                    transaction.RollBack()
-                    raise first_error
-
-            transaction = Transaction(doc, "Store Excel link")
-            transaction.Start()
-            _ensure_project_info_params()
-            _set_project_info_value(LINK_PARAM_PATH, file_path)
-            _set_project_info_value(LINK_PARAM_SHEET, sheet_name)
-            _set_project_info_value(LINK_PARAM_TARGET_TYPE, target_type)
-            _set_project_info_value(LINK_PARAM_TARGET_NAME, target_name)
-            _set_project_info_value(LINK_PARAM_CATEGORY, category_name or "")
-            _set_project_info_value(LINK_PARAM_LAST_UPDATED, datetime.now().strftime("%Y-%m-%d %H:%M"))
-            transaction.Commit()
-
-            if output_view is not None:
-                _activate_view(output_view)
-                forms.alert(
-                    "Import complete. {} created/updated: {}".format(output_mode, output_view.Name),
-                    title="Excel Import",
-                )
-            else:
-                forms.alert("Import complete.", title="Excel Import")
-        except Exception as err:
-            logger.error(traceback.format_exc())
-            forms.alert("Import failed: {}".format(err), title="Excel Import")
+        self.pending_action = {"update_only": True}
+        self.Close()
 
     def close_click(self, sender, e):
         self.Close()
 
 
-ExcelLinkWindow().ShowDialog()
+def _run_pending_action(action):
+    if not action:
+        return
+
+    try:
+        output_view = None
+        output_mode = ""
+        update_only = bool(action.get("update_only"))
+        if update_only:
+            file_path = _get_project_info_value(LINK_PARAM_PATH)
+            sheet_name = _get_project_info_value(LINK_PARAM_SHEET)
+            target_type = _get_project_info_value(LINK_PARAM_TARGET_TYPE)
+            target_name = _get_project_info_value(LINK_PARAM_TARGET_NAME)
+            category_name = _get_project_info_value(LINK_PARAM_CATEGORY) or ""
+        else:
+            file_path = str(action.get("file_path") or "").strip()
+            sheet_name = str(action.get("sheet_name") or "").strip()
+            target_type = str(action.get("target_type") or "Drafting").strip()
+            target_name = str(action.get("target_name") or "").strip()
+            category_name = str(action.get("category_name") or "").strip()
+
+        if update_only and not file_path:
+            forms.alert("No stored Excel link found. Run Import first.", title="Excel Import")
+            return
+        if not file_path or not os.path.exists(file_path):
+            forms.alert("Select a valid Excel file.", title="Excel Import")
+            return
+        if not sheet_name:
+            forms.alert("Select a sheet.", title="Excel Import")
+            return
+        if not target_name:
+            forms.alert("Enter a target name.", title="Excel Import")
+            return
+
+        table_model = _read_excel_table(file_path, sheet_name)
+        table_model = _prepare_table_model(table_model)
+        if not table_model:
+            forms.alert("No data or visible formatting found in the selected sheet.", title="Excel Import")
+            return
+
+        transaction_name = "Excel to Schedule View" if target_type == "Schedule" else "Excel to Drafting View"
+        transaction = Transaction(doc, transaction_name)
+        transaction.Start()
+        try:
+            if target_type == "Schedule":
+                category = _get_schedule_target_category(category_name)
+                schedule_data = _prepare_schedule_data(table_model)
+                if not schedule_data:
+                    raise RuntimeError("Schedule mode requires at least one visible header row.")
+                view = _get_or_create_key_schedule(target_name, category)
+                _build_key_schedule(view, schedule_data, category)
+                category_name = category.Name
+                output_mode = "Schedule View"
+            else:
+                view = _get_or_create_drafting_view(target_name)
+                _clear_view_contents(view)
+                _build_drafting_table(view, table_model)
+                output_mode = "Drafting View"
+            transaction.Commit()
+            output_view = view
+        except Exception as first_error:
+            try:
+                if target_type == "Schedule":
+                    raise first_error
+                view = _create_new_drafting_view(target_name)
+                _build_drafting_table(view, table_model)
+                transaction.Commit()
+                output_view = view
+                output_mode = "Drafting View"
+            except Exception:
+                transaction.RollBack()
+                raise first_error
+
+        transaction = Transaction(doc, "Store Excel link")
+        transaction.Start()
+        _ensure_project_info_params()
+        _set_project_info_value(LINK_PARAM_PATH, file_path)
+        _set_project_info_value(LINK_PARAM_SHEET, sheet_name)
+        _set_project_info_value(LINK_PARAM_TARGET_TYPE, target_type)
+        _set_project_info_value(LINK_PARAM_TARGET_NAME, target_name)
+        _set_project_info_value(LINK_PARAM_CATEGORY, category_name or "")
+        _set_project_info_value(LINK_PARAM_LAST_UPDATED, datetime.now().strftime("%Y-%m-%d %H:%M"))
+        transaction.Commit()
+
+        if output_view is not None:
+            _activate_view(output_view)
+            forms.alert(
+                "Import complete. {} created/updated: {}".format(output_mode, output_view.Name),
+                title="Excel Import",
+            )
+        else:
+            forms.alert("Import complete.", title="Excel Import")
+    except Exception as err:
+        logger.error(traceback.format_exc())
+        forms.alert("Import failed: {}".format(err), title="Excel Import")
+
+
+_window = ExcelLinkWindow()
+_window.ShowDialog()
+if _window.pending_action:
+    _run_pending_action(_window.pending_action)

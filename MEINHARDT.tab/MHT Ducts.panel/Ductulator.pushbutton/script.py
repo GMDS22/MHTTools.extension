@@ -128,6 +128,40 @@ def _suggest_height(airflow_lps, velocity_mps, width_mm):
     return _round_to_nearest_50(h_mm)
 
 
+def _pa_per_m_rect(airflow_lps, width_mm, height_mm,
+                   roughness_m=0.0001, rho=1.2, nu=1.5e-5):
+    """Darcy-Weisbach friction pressure gradient (Pa/m) for a rectangular duct.
+
+    Args:
+        airflow_lps  : airflow in L/s
+        width_mm     : duct width in mm  (cross-section dimension)
+        height_mm    : duct height in mm (cross-section dimension, "Duct Length")
+        roughness_m  : absolute roughness in m (0.1 mm default for sheet metal)
+        rho          : air density kg/m³ (1.2 at ~20°C sea level)
+        nu           : kinematic viscosity m²/s (1.5e-5 at ~20°C)
+
+    Returns:
+        pressure gradient in Pa/m
+    """
+    if width_mm <= 0 or height_mm <= 0 or airflow_lps <= 0:
+        return 0.0
+    W = width_mm / 1000.0
+    H = height_mm / 1000.0
+    A = W * H
+    D_h = 4.0 * A / (2.0 * (W + H))          # hydraulic diameter
+    V = (airflow_lps / 1000.0) / A            # mean velocity m/s
+    Re = V * D_h / nu
+    if Re < 1.0:
+        return 0.0
+    # Haaland (1983) explicit approximation of Colebrook-White — valid Re > 3000
+    # Falls back gracefully for laminar-transitional range
+    inner = (roughness_m / D_h / 3.7) ** 1.11 + 6.9 / Re
+    if inner <= 0:
+        return 0.0
+    f = (1.0 / (-1.8 * math.log10(inner))) ** 2
+    return f * rho * V ** 2 / (2.0 * D_h)
+
+
 class DuctulatorWindow(forms.WPFWindow):
     def __init__(self, xaml_path):
         forms.WPFWindow.__init__(self, xaml_path)
@@ -187,20 +221,36 @@ class DuctulatorWindow(forms.WPFWindow):
             rows.append(_GridRow(Range=rng, Status=status, BgColor=_vel_bg_value(v)))
         self.LegendGrid.ItemsSource = rows
 
-    def _set_summary_text(self, airflow_lps, velocity_mps, width_mm):
+    def _set_summary_text(self, airflow_lps, velocity_mps, width_mm, duct_length_mm):
         self.TxtFlowrate.Text = '{0:.1f}'.format(airflow_lps * 3.6)
         round_dia = _round_diameter_for_velocity(airflow_lps, velocity_mps)
         self.TxtRoundDia.Text = '{0:.0f}'.format(round_dia)
 
-        height_mm = _suggest_height(airflow_lps, velocity_mps, width_mm)
+        # Use explicit duct length (height) if provided, otherwise suggest from velocity+width.
+        if duct_length_mm > 0:
+            height_mm = duct_length_mm
+        else:
+            height_mm = _suggest_height(airflow_lps, velocity_mps, width_mm)
         # Always present rectangular size as W x H where W is the larger dimension.
         width_out = max(width_mm, height_mm)
         height_out = min(width_mm, height_mm)
         self.TxtRect.Text = '{0} x {1}'.format(int(round(width_out)), int(round(height_out)))
 
+        # Pa/m Loss — only meaningful when both cross-section dimensions are known.
+        if duct_length_mm > 0:
+            pa_m = _pa_per_m_rect(airflow_lps, width_mm, duct_length_mm)
+            self.TxtPaPerM.Text = '{0:.2f}'.format(pa_m)
+        else:
+            self.TxtPaPerM.Text = '—'
+
         self.TxtHeader.Text = (
-            'Airflow {0:.1f} L/s  |  Velocity {1:.2f} m/s  |  Known width {2:.0f} mm'
-            .format(airflow_lps, velocity_mps, width_mm)
+            'Airflow {0:.1f} L/s  |  Velocity {1:.2f} m/s  |  Width {2:.0f} mm  |  Duct Length {3}'
+            .format(
+                airflow_lps,
+                velocity_mps,
+                width_mm,
+                '{0:.0f} mm'.format(duct_length_mm) if duct_length_mm > 0 else 'not set',
+            )
         )
 
     def _set_round_table(self, airflow_lps):
@@ -237,6 +287,10 @@ class DuctulatorWindow(forms.WPFWindow):
         airflow_lps = _to_float(self.InpAirflow.Text, 240.0)
         velocity_mps = _to_float(self.InpVelocity.Text, 4.0)
         width_mm = _to_float(self.InpWidth.Text, 250.0)
+        # Duct Length = second cross-section dimension (height). 0 means 'not set'.
+        duct_length_mm = _to_float(self.InpDuctLength.Text, 0.0)
+        if duct_length_mm < 0:
+            duct_length_mm = 0.0
 
         if airflow_lps <= 0:
             airflow_lps = 240.0
@@ -248,8 +302,11 @@ class DuctulatorWindow(forms.WPFWindow):
         self.InpAirflow.Text = '{0:g}'.format(airflow_lps)
         self.InpVelocity.Text = '{0:g}'.format(velocity_mps)
         self.InpWidth.Text = '{0:g}'.format(width_mm)
+        # Leave InpDuctLength blank when zero so the placeholder hint shows.
+        if duct_length_mm > 0:
+            self.InpDuctLength.Text = '{0:g}'.format(duct_length_mm)
 
-        self._set_summary_text(airflow_lps, velocity_mps, width_mm)
+        self._set_summary_text(airflow_lps, velocity_mps, width_mm, duct_length_mm)
         self._set_round_table(airflow_lps)
         self._set_square_table(airflow_lps)
 
@@ -267,6 +324,7 @@ class DuctulatorWindow(forms.WPFWindow):
             self.InpAirflow.Text = '240'
             self.InpVelocity.Text = '4'
             self.InpWidth.Text = '250'
+            self.InpDuctLength.Text = ''
             self._recalculate()
         except Exception as ex:
             forms.alert(
@@ -279,13 +337,19 @@ class DuctulatorWindow(forms.WPFWindow):
             'How to use Ductulator:\n\n'
             '1) Enter Airflow in L/s.\n'
             '2) Enter a target velocity in m/s.\n'
-            '3) Enter known duct width in mm.\n'
-            '4) Click Calculate.\n\n'
+            '3) Enter known Duct Width in mm.\n'
+            '4) (Optional) Enter Duct Length in mm \u2014 the second cross-section\n'
+            '   dimension (height of the duct face). When provided, Pa/m Loss\n'
+            '   is calculated using Darcy-Weisbach with the Haaland friction\n'
+            '   factor (sheet-metal roughness 0.1 mm, air at 20\u00b0C).\n'
+            '5) Click Calculate.\n\n'
             'The tool updates:\n'
-            '- Flowrate in m3/h\n'
+            '- Flowrate in m\u00b3/h\n'
             '- Round equivalent diameter\n'
             '- Suggested rectangular size\n'
-            '- Round and square velocity tables for quick checks.\n',
+            '- Pa/m Loss (friction pressure gradient) \u2014 requires both Duct\n'
+            '  Width and Duct Length to be set\n'
+            '- Round and rectangular velocity tables for quick checks.\n',
             title='Ductulator Instructions'
         )
 

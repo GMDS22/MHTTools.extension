@@ -174,6 +174,10 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="4"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="8"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="4"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="12"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
@@ -193,7 +197,13 @@
                                        Foreground="#4A5568"/>
                             <TextBox x:Name="InpWidth" Grid.Row="12" Style="{StaticResource InputBox}" Text="250"/>
 
-                            <Grid Grid.Row="14">
+                            <TextBlock Grid.Row="14" Text="Duct Length (mm)" FontSize="11" FontWeight="SemiBold"
+                                       Foreground="#4A5568"
+                                       ToolTip="Second cross-section dimension (duct height). Required for Pa/m Loss calculation."/>
+                            <TextBox x:Name="InpDuctLength" Grid.Row="16" Style="{StaticResource InputBox}"
+                                     ToolTip="Enter the duct height in mm to calculate Pa/m Loss (Darcy-Weisbach)"/>
+
+                            <Grid Grid.Row="18">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="6"/>
@@ -222,6 +232,8 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="6"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="6"/>
                                 <RowDefinition Height="Auto"/>
@@ -288,8 +300,27 @@
                                 </Grid>
                             </Border>
 
+                            <!-- Pa/m Loss card — amber/gold -->
+                            <Border Grid.Row="8" CornerRadius="6" Background="#FFFBEB"
+                                    BorderBrush="#F6E05E" BorderThickness="1" Padding="10,7">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="Pa/m LOSS" FontSize="9" FontWeight="Bold" Foreground="#744210"
+                                                   ToolTip="Friction pressure gradient — Darcy-Weisbach (Haaland). Requires Duct Width + Duct Length."/>
+                                        <TextBlock x:Name="TxtPaPerM" Text="—"
+                                                   FontSize="20" FontWeight="Bold" Foreground="#7B341E"/>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Text="Pa/m" FontSize="11"
+                                               Foreground="#D69E2E" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
+                                </Grid>
+                            </Border>
+
                             <!-- Tip -->
-                            <TextBlock Grid.Row="8"
+                            <TextBlock Grid.Row="10"
                                        Text="Tip: Use the tables as a fast check against your design intent."
                                        Foreground="#A0AEC0" FontSize="9" TextWrapping="Wrap" Margin="0,6,0,0"/>
                         </Grid>

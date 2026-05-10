@@ -1,0 +1,44 @@
+Linked Room Parameter Transfer copies room data from a linked Revit model into selected host-model elements (MEP/Electrical/General categories).
+It can run in two ways:
+
+Manual mode: one selected linked room drives all selected elements.
+Fully automated mode: the tool auto-finds elements by category and detects the linked room per element (best for ceiling lights/equipment above room volume).
+How to use (quick guide)
+
+Open the tool.
+Choose target categories in Step 2a (for example Lighting Fixtures, Mechanical Equipment, etc.).
+Choose how to select target elements:
+Fully automated: keep Fully automate: auto-detect room for each element enabled, then click Auto Detect.
+Manual: disable automation and select elements with Use Current Selection or Pick from View.
+Choose source room behavior:
+Manual mode: click Pick Linked Room and pick one room in the linked model.
+Automated mode: this is optional; Auto Detect will find room per element automatically.
+Review mappings in Step 3:
+Check auto-matched parameter pairs (Room Parameter → Target Parameter).
+Adjust with Add / Update, Remove, Auto Match, or Clear All if needed.
+Set transfer options in Step 4:
+Skip empty values (recommended ON).
+Duplicate handling:
+Overwrite = replace existing values.
+Skip = keep existing values.
+Append = add text to existing string values.
+Click Transfer Parameters.
+Review summary and log path shown at the end.
+Recommended defaults for most users
+
+Keep Fully automate enabled.
+Keep Skip empty values enabled.
+Start with Overwrite unless your team requires preserving existing text.
+Use Auto Detect after category selection before transferring.
+Important notes
+
+Auto room detection is based on room footprint (plan/XY), so ceiling devices and above-ceiling equipment can still be assigned to the correct room.
+If few/no elements are detected:
+Check selected categories.
+Confirm linked model is loaded and rooms have valid boundaries.
+Run Auto Detect again from the correct view.
+Short message version (you can paste in chat/email)
+
+Linked Room Parameter Transfer pushes room parameter values from linked-model rooms into host-model MEP elements.
+Use it by selecting categories, running Auto Detect (or manually selecting room/elements), reviewing parameter mappings, choosing duplicate/empty-value options, and clicking Transfer Parameters.
+For fastest reliable results, keep Fully automate + Skip empty enabled and use Auto Detect in the active view.

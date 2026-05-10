@@ -6,4 +6,4 @@ layout:
   - RoomToSpace
   - ElevationUnder
   - MaterialsDB
-  - ParameterTransfer
+  - Linked Room Parameter

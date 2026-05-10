@@ -1,0 +1,651 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Linked Room Parameter by GM"
+        Height="820"
+        Width="1100"
+        MinWidth="900"
+        MinHeight="700"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="#1A1A1C"
+        Foreground="#E8E8E8">
+    <Window.Resources>
+
+        <!-- Brushes -->
+        <SolidColorBrush x:Key="SurfaceBrush"   Color="#232327"/>
+        <SolidColorBrush x:Key="SurfaceAltBrush" Color="#2A2A2E"/>
+        <SolidColorBrush x:Key="BorderBrush"     Color="#3A3A40"/>
+        <SolidColorBrush x:Key="AccentBrush"     Color="#0E639C"/>
+        <SolidColorBrush x:Key="AccentHoverBrush" Color="#1177BB"/>
+        <SolidColorBrush x:Key="StepNumBrush"    Color="#0E639C"/>
+        <SolidColorBrush x:Key="MutedTextBrush"  Color="#8A8A9A"/>
+        <SolidColorBrush x:Key="SuccessBrush"    Color="#4CAF7D"/>
+
+        <!-- Step badge label -->
+        <Style x:Key="StepBadge" TargetType="Border">
+            <Setter Property="Background"       Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Width"            Value="24"/>
+            <Setter Property="Height"           Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin"           Value="0,0,8,0"/>
+        </Style>
+        <Style x:Key="StepNum" TargetType="TextBlock">
+            <Setter Property="Foreground"       Value="#FFFFFF"/>
+            <Setter Property="FontWeight"       Value="Bold"/>
+            <Setter Property="FontSize"         Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment"   Value="Center"/>
+        </Style>
+        <Style x:Key="StepTitle" TargetType="TextBlock">
+            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="FontSize"     Value="13"/>
+            <Setter Property="FontWeight"   Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="Hint" TargetType="TextBlock">
+            <Setter Property="Foreground"   Value="{StaticResource MutedTextBrush}"/>
+            <Setter Property="FontSize"     Value="11"/>
+            <Setter Property="FontStyle"    Value="Italic"/>
+            <Setter Property="Margin"       Value="0,2,0,0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="InfoValue" TargetType="TextBlock">
+            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="FontSize"     Value="12"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="SectionCard" TargetType="Border">
+            <Setter Property="Background"       Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush"      Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness"  Value="1"/>
+            <Setter Property="Padding"          Value="12"/>
+            <Setter Property="Margin"           Value="0,0,0,8"/>
+        </Style>
+        <Style x:Key="ListLabel" TargetType="TextBlock">
+            <Setter Property="Foreground"   Value="{StaticResource MutedTextBrush}"/>
+            <Setter Property="FontSize"     Value="11"/>
+            <Setter Property="FontWeight"   Value="SemiBold"/>
+            <Setter Property="Margin"       Value="0,0,0,4"/>
+        </Style>
+
+        <!-- Buttons -->
+        <Style TargetType="Button">
+            <Setter Property="Margin"       Value="0,0,6,0"/>
+            <Setter Property="Padding"      Value="12,5"/>
+            <Setter Property="Background"   Value="#3A3A40"/>
+            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="BorderBrush"  Value="#505058"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor"       Value="Hand"/>
+        </Style>
+        <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background"   Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground"   Value="#FFFFFF"/>
+            <Setter Property="BorderBrush"  Value="{StaticResource AccentHoverBrush}"/>
+            <Setter Property="FontWeight"   Value="SemiBold"/>
+            <Setter Property="FontSize"     Value="13"/>
+            <Setter Property="Padding"      Value="20,7"/>
+        </Style>
+        <Style x:Key="PrimaryAction" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background"   Value="#2D4A2D"/>
+            <Setter Property="Foreground"   Value="#8EE8A0"/>
+            <Setter Property="BorderBrush"  Value="#3E6E3E"/>
+            <Setter Property="FontWeight"   Value="SemiBold"/>
+        </Style>
+
+        <!-- Inputs -->
+        <Style TargetType="TextBox">
+            <Setter Property="Margin"       Value="0,0,6,0"/>
+            <Setter Property="Padding"      Value="7,4"/>
+            <Setter Property="Background"   Value="#1E1E22"/>
+            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="BorderBrush"  Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CaretBrush"   Value="#E8E8E8"/>
+        </Style>
+        <ControlTemplate x:Key="DarkComboBoxToggleButtonTemplate" TargetType="ToggleButton">
+            <Border x:Name="BtnBorder"
+                    Background="#2A2A2E"
+                    BorderBrush="{StaticResource BorderBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="22"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1" Background="#33333A" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1,0,0,0"/>
+                    <Path Grid.Column="1"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Fill="#E8E8E8"
+                          Data="M 0 0 L 4 4 L 8 0 Z"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="BtnBorder" Property="Background" Value="#303036"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="BtnBorder" Property="Background" Value="#303036"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="BtnBorder" Property="Opacity" Value="0.65"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin"       Value="0,0,6,0"/>
+            <Setter Property="Padding"      Value="6,4"/>
+            <Setter Property="Background"   Value="#1E1E22"/>
+            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="BorderBrush"  Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                          Grid.Column="2"
+                                          Focusable="False"
+                                          ClickMode="Press"
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Template="{StaticResource DarkComboBoxToggleButtonTemplate}"/>
+                            <ContentPresenter x:Name="ContentSite"
+                                              IsHitTestVisible="False"
+                                              Margin="8,2,28,2"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="#E8E8E8"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="#1E1E22" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"/>
+                                    <ScrollViewer Margin="2" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="24"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.65"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background"   Value="#252528"/>
+            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="Padding"      Value="8,4"/>
+            <Style.Triggers>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Background" Value="#094771"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0E639C"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin"       Value="0,0,12,0"/>
+            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- ListBox / rows -->
+        <Style TargetType="ListBox">
+            <Setter Property="Background"       Value="#1E1E22"/>
+            <Setter Property="Foreground"       Value="#E8E8E8"/>
+            <Setter Property="BorderBrush"      Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness"  Value="1"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        </Style>
+        <Style x:Key="RowStyle" TargetType="ListBoxItem">
+            <Setter Property="Padding"      Value="6,3"/>
+            <Setter Property="Background"   Value="#1E1E22"/>
+            <Setter Property="Foreground"   Value="#D8D8D8"/>
+            <Setter Property="FontSize"     Value="11.5"/>
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#232327"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#094771"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Separator line -->
+        <Style x:Key="Divider" TargetType="Separator">
+            <Setter Property="Background" Value="#3A3A40"/>
+            <Setter Property="Margin"     Value="0,6,0,6"/>
+        </Style>
+    </Window.Resources>
+
+    <!-- ========================================================
+         OUTER SCROLL so window content survives small screens
+    ======================================================== -->
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Margin="14,12,14,14">
+
+        <!-- ── HEADER ── -->
+        <TextBlock Text="Linked Room Parameter Transfer"
+                   FontSize="18" FontWeight="Bold" Foreground="#E8E8E8"
+                   Margin="0,0,0,2"/>
+        <TextBlock Style="{StaticResource Hint}"
+                   Text="Follow steps 1 → 2 → 3 → 4 in order, then click Transfer."
+                   Margin="0,0,0,10"/>
+
+        <!-- ══════════════════════════════════════════════════════
+             STEP 1  –  Source Room
+        ══════════════════════════════════════════════════════ -->
+        <Border Style="{StaticResource SectionCard}">
+            <DockPanel>
+                <!-- step header -->
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,12">
+                    <Border Style="{StaticResource StepBadge}">
+                        <TextBlock Style="{StaticResource StepNum}" Text="1"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Style="{StaticResource StepTitle}"
+                                   Text="Select Source Room  (from a linked model)"/>
+                        <TextBlock Style="{StaticResource Hint}"
+                                   Text="Choose a linked model, select a room detection mode, then pick or auto-detect the room."/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Link selector and Room mode in a grid row -->
+                <Grid DockPanel.Dock="Top" Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Link selector -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Style="{StaticResource ListLabel}" Text="Select Linked Model:"/>
+                        <ComboBox x:Name="cmbSelectLink" 
+                                  Height="26"
+                                  SelectedIndex="0"
+                                  ToolTip="Optional: choose one linked model, or keep All Linked Models.">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" Foreground="#E8E8E8"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                                    <Setter Property="Background" Value="#252528"/>
+                                    <Setter Property="Foreground" Value="#E8E8E8"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Room detection mode -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Style="{StaticResource ListLabel}" Text="Room Detection Mode:"/>
+                        <ComboBox x:Name="cmbRoomDetectionMode"
+                                  Height="26"
+                                  SelectedIndex="0"
+                                  ToolTip="Choose how to select the source room.">
+                            <ComboBoxItem Content="Auto-Detect Rooms In Current View"/>
+                            <ComboBoxItem Content="Manual Pick (current view)"/>
+                            <ComboBoxItem Content="Auto-Detect Per Level"/>
+                            <ComboBoxItem Content="Auto-Detect Entire Project"/>
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                                    <Setter Property="Background" Value="#252528"/>
+                                    <Setter Property="Foreground" Value="#E8E8E8"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Action buttons -->
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <Button x:Name="btnDetectRooms"
+                        Content="Detect Rooms"
+                        Click="detect_rooms_click"
+                        Style="{StaticResource PrimaryAction}"
+                        Padding="20,7"
+                        Width="180" HorizontalAlignment="Left"
+                        ToolTip="Auto-detect rooms using the selected detection mode."/>
+                    <Button x:Name="btnPickRooms"
+                        Content="Pick Room(s) In Current View"
+                        Click="pick_linked_rooms_click"
+                        Style="{StaticResource PrimaryAction}"
+                        Padding="20,7"
+                        Width="220" HorizontalAlignment="Left"
+                        ToolTip="Manually pick one or more linked rooms visible in the current view."/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Room info card – hidden until room selected -->
+        <Border x:Name="pnlRoomInfo" Visibility="Collapsed"
+                Style="{StaticResource SectionCard}"
+                BorderBrush="#1D5A36" Background="#192920"
+                Margin="0,-4,0,8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Width="6" Background="{StaticResource SuccessBrush}"
+                        Margin="0,0,12,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Selected Room" Foreground="#8EE8A0"
+                               FontWeight="SemiBold" FontSize="11" Margin="0,0,0,4"/>
+                    <TextBlock x:Name="txtRoomInfo"
+                               Style="{StaticResource InfoValue}"
+                               Text="No room selected."
+                               Foreground="#B8D8B8"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ══════════════════════════════════════════════════════
+             STEP 2  –  Target Categories + Elements  (side by side)
+        ══════════════════════════════════════════════════════ -->
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 2a  Categories -->
+            <Border Grid.Column="0" Style="{StaticResource SectionCard}" Margin="0">
+                <DockPanel>
+                    <!-- step header -->
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                        <Border Style="{StaticResource StepBadge}">
+                            <TextBlock Style="{StaticResource StepNum}" Text="2a"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Style="{StaticResource StepTitle}" Text="Filter Element Types"/>
+                            <TextBlock Style="{StaticResource Hint}"
+                                       Text="Tick the categories you want to assign room data to."/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- search + bulk -->
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBox x:Name="txtCategorySearch" Width="150"
+                                 TextChanged="category_search_changed"
+                                 ToolTip="Type a keyword to filter the category list"/>
+                        <Button Content="All"   Click="select_all_categories_click"   MinWidth="44" ToolTip="Check all categories"/>
+                        <Button Content="None"  Click="deselect_all_categories_click" MinWidth="44" Margin="0" ToolTip="Uncheck all categories"/>
+                    </StackPanel>
+
+                    <ListBox x:Name="lstCategories" Height="200"
+                             AlternationCount="2"
+                             ItemContainerStyle="{StaticResource RowStyle}"/>
+                </DockPanel>
+            </Border>
+
+            <!-- 2b  Elements -->
+            <Border Grid.Column="2" Style="{StaticResource SectionCard}" Margin="0">
+                <DockPanel>
+                    <!-- step header -->
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                        <Border Style="{StaticResource StepBadge}">
+                            <TextBlock Style="{StaticResource StepNum}" Text="2b"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Style="{StaticResource StepTitle}" Text="Select Target Elements"/>
+                            <TextBlock Style="{StaticResource Hint}"
+                                       Text="Choose elements in the host model that will receive the room data."/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- pick buttons -->
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                        <Button Content="Use Current Selection"
+                                Click="use_current_selection_click"
+                                ToolTip="Use the elements you already selected in the Revit view"/>
+                        <Button Content="Pick from View"
+                                Click="select_elements_click"
+                                ToolTip="Interactively click elements in the view to select them"/>
+                        <Button Content="Auto Detect"
+                            Click="auto_detect_elements_click"
+                            ToolTip="Automatically collect selected-category elements and match each element to a linked room footprint in the current view."/>
+                    </StackPanel>
+
+                    <!-- element summary -->
+                    <Border DockPanel.Dock="Top"
+                            Background="#1E1E22" BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1" Padding="8,6" Margin="0,0,0,8">
+                        <TextBlock x:Name="txtElementSummary"
+                                   Style="{StaticResource InfoValue}"
+                                   Text="No elements selected yet."
+                                   Foreground="{StaticResource MutedTextBrush}"/>
+                    </Border>
+
+                    <!-- options -->
+                    <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="Auto-detect scope:"
+                                       VerticalAlignment="Center"
+                                       Foreground="#B0B0B8"
+                                       Margin="0,0,8,0"/>
+                            <ComboBox x:Name="cmbAutoDetectScope" Width="180" SelectedIndex="0"
+                                      ToolTip="Choose whether auto-detect searches only the active view level or the entire project.">
+                                <ComboBoxItem Content="Active View Level"/>
+                                <ComboBoxItem Content="Entire Project"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <CheckBox x:Name="chkAutoRoomByElement"
+                                  Content="Fully automate: auto-detect room for each element"
+                                  IsChecked="True"
+                                  ToolTip="When enabled, transfer uses the linked room detected per element (recommended for ceiling lights/equipment not fully inside room volume)."
+                                  Margin="0,0,0,4"/>
+                        <CheckBox x:Name="chkShowNonCommon"
+                                  Content="Show non-common parameters (union mode)"
+                                  ToolTip="By default only parameters shared by all selected elements are shown. Enable this to see all writable parameters across the selection."/>
+                    </StackPanel>
+                    <!-- fills remaining height -->
+                    <Border/>
+                </DockPanel>
+            </Border>
+        </Grid>
+
+        <!-- ══════════════════════════════════════════════════════
+             STEP 3  –  Review and Edit Mappings
+        ══════════════════════════════════════════════════════ -->
+        <Border Style="{StaticResource SectionCard}">
+            <DockPanel>
+
+                <!-- step header -->
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                    <Border Style="{StaticResource StepBadge}">
+                        <TextBlock Style="{StaticResource StepNum}" Text="3"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Style="{StaticResource StepTitle}" Text="Review &amp; Edit Parameter Mappings"/>
+                        <TextBlock Style="{StaticResource Hint}"
+                                   Text="Mappings are auto-generated from step 1 and 2.  You can manually add, override, or remove any row."/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- three columns: room params | target params | mapping list -->
+                <Grid DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Room params -->
+                    <DockPanel Grid.Column="0">
+                        <TextBlock DockPanel.Dock="Top" Style="{StaticResource ListLabel}"
+                                   Text="Room Parameters  (source values)"/>
+                        <CheckBox x:Name="chkShowEmpty" DockPanel.Dock="Top"
+                                  Content="Show empty parameters"
+                                  Checked="refresh_click" Unchecked="refresh_click"
+                                  Margin="0,0,0,4"/>
+                        <ListBox x:Name="lstRoomParameters" Height="180"
+                                 AlternationCount="2"
+                                 ItemContainerStyle="{StaticResource RowStyle}"/>
+                    </DockPanel>
+
+                    <!-- Target params -->
+                    <DockPanel Grid.Column="2">
+                        <TextBlock DockPanel.Dock="Top" Style="{StaticResource ListLabel}"
+                                   Text="Available Target Parameters"/>
+                        <TextBlock DockPanel.Dock="Top" Style="{StaticResource Hint}"
+                                   Text="Writable parameters found on selected elements."
+                                   Margin="0,0,0,4"/>
+                        <ListBox x:Name="lstCommonParams" Height="180"
+                                 AlternationCount="2"
+                                 ItemContainerStyle="{StaticResource RowStyle}"/>
+                    </DockPanel>
+
+                    <!-- Mapping list + controls -->
+                    <DockPanel Grid.Column="4">
+                        <TextBlock DockPanel.Dock="Top" Style="{StaticResource ListLabel}"
+                                   Text="Active Mappings  (room param → target param)"/>
+
+                        <!-- manual override row -->
+                        <Grid DockPanel.Dock="Top" Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox x:Name="cmbMappingRoom"   Grid.Column="0"
+                                      Background="#1E1E22"
+                                      Foreground="#E8E8E8"
+                                      ToolTip="Room parameter to map FROM">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Foreground="#E8E8E8"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                                        <Setter Property="Background" Value="#252528"/>
+                                        <Setter Property="Foreground" Value="#E8E8E8"/>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
+                            <ComboBox x:Name="cmbMappingTarget" Grid.Column="1"
+                                      Background="#1E1E22"
+                                      Foreground="#E8E8E8"
+                                      ToolTip="Target parameter to map TO">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Foreground="#E8E8E8"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                                        <Setter Property="Background" Value="#252528"/>
+                                        <Setter Property="Foreground" Value="#E8E8E8"/>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
+                        </Grid>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="Auto-map strictness:"
+                                       VerticalAlignment="Center"
+                                       Foreground="#B0B0B8"
+                                       Margin="0,0,8,0"/>
+                            <ComboBox x:Name="cmbAutoMapStrictness"
+                                      Width="210"
+                                      SelectedIndex="2"
+                                      SelectionChanged="mapping_strictness_changed"
+                                      ToolTip="Choose how strict auto-matching should be, or disable it entirely.">
+                                <ComboBoxItem Content="Disabled (manual only)"/>
+                                <ComboBoxItem Content="Strict (exact name)"/>
+                                <ComboBoxItem Content="Balanced (normalized exact)"/>
+                                <ComboBoxItem Content="Loose (contains similarity)"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                            <Button Content="Add / Update" Click="add_update_mapping_click" MinWidth="100"/>
+                            <Button Content="Remove"       Click="remove_mapping_click"      MinWidth="80"/>
+                            <Button Content="Auto Match"   Click="auto_match_click"          MinWidth="90"/>
+                            <Button Content="Clear All"    Click="clear_mappings_click"      MinWidth="80" Margin="0"/>
+                        </StackPanel>
+
+                        <ListBox x:Name="lstMappings" Height="120"
+                                 AlternationCount="2"
+                                 ItemContainerStyle="{StaticResource RowStyle}"/>
+                    </DockPanel>
+                </Grid>
+            </DockPanel>
+        </Border>
+
+        <!-- ══════════════════════════════════════════════════════
+             STEP 4  –  Transfer Options + Execute
+        ══════════════════════════════════════════════════════ -->
+        <Border Style="{StaticResource SectionCard}" Margin="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- badge -->
+                <Border Grid.Column="0" Style="{StaticResource StepBadge}">
+                    <TextBlock Style="{StaticResource StepNum}" Text="4"/>
+                </Border>
+
+                <!-- options -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource StepTitle}" Text="Transfer Options:"
+                               Margin="0,0,16,0"/>
+                    <CheckBox x:Name="chkSkipEmpty" Content="Skip empty values"
+                              IsChecked="True"
+                              ToolTip="When ticked, room parameters with no value will not overwrite existing data."/>
+                    <TextBlock Text="If target already has value:" VerticalAlignment="Center"
+                               Margin="16,0,8,0" Foreground="#B0B0B8"/>
+                    <ComboBox x:Name="cmbDuplicateMode" Width="110" SelectedIndex="0">
+                        <ComboBoxItem Content="Overwrite"/>
+                        <ComboBoxItem Content="Skip"/>
+                        <ComboBoxItem Content="Append"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- action buttons -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="Refresh" Click="refresh_click" ToolTip="Re-read room parameters and re-run auto-match"/>
+                    <Button Content="✔  Transfer Parameters"
+                            Click="transfer_click"
+                            Style="{StaticResource AccentButton}"
+                            ToolTip="Write mapped room values to selected elements"/>
+                    <Button Content="Cancel" Click="cancel_click" Margin="0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+    </StackPanel>
+    </ScrollViewer>
+</Window>
