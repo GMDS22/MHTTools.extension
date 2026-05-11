@@ -314,7 +314,7 @@
                             <ComboBoxItem Content="Auto-Detect Rooms In Current View"/>
                             <ComboBoxItem Content="Manual Pick (current view)"/>
                             <ComboBoxItem Content="Auto-Detect Per Level"/>
-                            <ComboBoxItem Content="Auto-Detect Entire Project"/>
+                                <ComboBoxItem Content="Auto-Detect Entire Project (disabled)" IsEnabled="False" ToolTip="Entire project scope is temporarily disabled for stability. Use Active View Level or Per Level mode instead."/>
                             <ComboBox.ItemContainerStyle>
                                 <Style TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
                                     <Setter Property="Background" Value="#252528"/>
@@ -456,7 +456,7 @@
                             <ComboBox x:Name="cmbAutoDetectScope" Width="180" SelectedIndex="0"
                                       ToolTip="Choose whether auto-detect searches only the active view level or the entire project.">
                                 <ComboBoxItem Content="Active View Level"/>
-                                <ComboBoxItem Content="Entire Project"/>
+                                  <ComboBoxItem Content="Entire Project (disabled)" IsEnabled="False" ToolTip="Entire project scope is temporarily disabled for stability. Use Active View Level scope instead."/>
                             </ComboBox>
                         </StackPanel>
                         <CheckBox x:Name="chkAutoRoomByElement"
