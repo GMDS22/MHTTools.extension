@@ -3,6 +3,8 @@ import os
 import re
 import codecs
 
+import clr
+clr.AddReference('WindowsBase')
 from System.ComponentModel import ListSortDirection, SortDescription
 from System.Collections.ObjectModel import ObservableCollection
 
