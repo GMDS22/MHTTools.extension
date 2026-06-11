@@ -1,0 +1,251 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Linked Room Region"
+        Width="640"
+    Height="880"
+    MinHeight="820"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="#1A1A1C"
+        Foreground="#E8E8E8"
+        FontFamily="Segoe UI"
+        FontSize="12">
+    <Window.Resources>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#232327" />
+        <SolidColorBrush x:Key="SurfaceAltBrush" Color="#2A2A2E" />
+        <SolidColorBrush x:Key="BorderBrush" Color="#3A3A40" />
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#0E639C" />
+        <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#1177BB" />
+        <SolidColorBrush x:Key="SecondaryBrush" Color="#1FA6A6" />
+        <SolidColorBrush x:Key="SecondaryHoverBrush" Color="#22B8B8" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#F2B134" />
+        <SolidColorBrush x:Key="TextMainBrush" Color="#E8E8E8" />
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#8A8A9A" />
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource TextMainBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="CaretBrush" Value="{StaticResource TextMainBrush}" />
+            <Setter Property="SelectionBrush" Value="{StaticResource PrimaryHoverBrush}" />
+        </Style>
+
+        <ControlTemplate x:Key="DarkComboBoxToggleButtonTemplate" TargetType="ToggleButton">
+            <Border x:Name="BtnBorder"
+                    Background="{StaticResource SurfaceAltBrush}"
+                    BorderBrush="{StaticResource BorderBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="22"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1" Background="#33333A" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1,0,0,0"/>
+                    <Path Grid.Column="1"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Fill="{StaticResource TextMainBrush}"
+                          Data="M 0 0 L 4 4 L 8 0 Z"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="BtnBorder" Property="Background" Value="#303036"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="BtnBorder" Property="Background" Value="#303036"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="BtnBorder" Property="Opacity" Value="0.65"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource TextMainBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                          Grid.Column="2"
+                                          Focusable="False"
+                                          ClickMode="Press"
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Template="{StaticResource DarkComboBoxToggleButtonTemplate}"/>
+                            <ContentPresenter x:Name="ContentSite"
+                                              IsHitTestVisible="False"
+                                              Margin="8,2,28,2"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{StaticResource TextMainBrush}"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="#1E1E22" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"/>
+                                    <ScrollViewer Margin="2" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="24"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.65"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource TextMainBrush}" />
+            <Setter Property="Padding" Value="4,2" />
+            <Style.Triggers>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+                    <Setter Property="Foreground" Value="#FFFFFF" />
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimaryHoverBrush}" />
+                    <Setter Property="Foreground" Value="#FFFFFF" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#232327" />
+            <Setter Property="Foreground" Value="#E8E8E8" />
+            <Setter Property="BorderBrush" Value="#3A3A40" />
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Background" Value="#232327" />
+            <Setter Property="Foreground" Value="#E8E8E8" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0E639C" />
+                    <Setter Property="Foreground" Value="#FFFFFF" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1F4F73" />
+                    <Setter Property="Foreground" Value="#FFFFFF" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#232327" BorderBrush="#3A3A40" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,8">
+            <StackPanel>
+                <TextBlock FontWeight="Bold" FontSize="14" Foreground="#1177BB" Text="Linked Room Region" />
+                <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Foreground="#8A8A9A" Text="Pick rooms from loaded linked models and create filled regions from merged connected room boundaries. Disjoint room groups become separate regions. Secondary inner loops are ignored for stability." />
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,8">
+            <TextBlock Text="Rooms From Loaded Links (Current View Level)" Margin="0,0,0,4" />
+            <TextBlock Foreground="#8A8A9A" TextWrapping="Wrap" Text="Use search and multi-select to choose linked rooms. Select Rooms lets you pick linked rooms directly in the model." />
+        </StackPanel>
+
+        <DockPanel Grid.Row="2" Margin="0,0,0,8">
+            <TextBox x:Name="txtRoomFilter" Width="300" Height="28" TextChanged="on_filter_text_changed" VerticalContentAlignment="Center" Text="" ToolTip="Type to filter rooms by number, name, or level." />
+            <Button x:Name="btnSelectRooms" Content="Select Rooms" Width="110" Height="28" Margin="8,0,0,0" Click="on_select_rooms" Background="#0E639C" Foreground="#FFFFFF" BorderBrush="#1177BB" ToolTip="Pick linked rooms directly in the active view." />
+            <Button x:Name="btnRefreshRooms" Content="Refresh" Width="90" Height="28" Margin="8,0,0,0" Click="on_refresh_rooms" Background="#1FA6A6" Foreground="#1A1A1C" BorderBrush="#22B8B8" ToolTip="Reload room list from active view." />
+        </DockPanel>
+
+        <Border Grid.Row="3" BorderBrush="#3A3A40" BorderThickness="1" CornerRadius="6" Background="#232327" Padding="8" Margin="0,0,0,8">
+            <ListBox x:Name="lstRooms" SelectionMode="Extended" SelectionChanged="on_rooms_selection_changed" BorderThickness="0" />
+        </Border>
+
+        <StackPanel Grid.Row="4" Margin="0,0,0,8">
+            <TextBlock Text="Filled Region Type" Margin="0,0,0,4" />
+            <ComboBox x:Name="cmbRegionTypes" SelectionChanged="on_region_type_changed" />
+            <CheckBox x:Name="chkMasking" Content="Masking Filled Region Type" Margin="0,8,0,0" Click="on_masking_changed" Foreground="#F2B134" />
+            <TextBlock Text="Boundary Line Type" Margin="0,8,0,4" />
+            <ComboBox x:Name="cmbBoundaryLineStyle" SelectionChanged="on_boundary_line_style_changed" />
+        </StackPanel>
+
+        <Border Grid.Row="5" Background="#232327" BorderBrush="#3A3A40" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,8">
+            <StackPanel>
+                <CheckBox x:Name="chkReplaceExisting" Content="Replace Existing Filled Regions In Active View" Click="on_replace_existing_changed" Foreground="#F2B134" />
+                <DockPanel Margin="0,8,0,0">
+                    <Button x:Name="btnSelectExistingRegions" Content="Select Existing Regions" Width="160" Height="28" Click="on_select_existing_regions" IsEnabled="False" Background="#2A2A2E" Foreground="#E8E8E8" BorderBrush="#3A3A40" />
+                    <TextBlock x:Name="txtExistingRegionsSummary" Margin="10,6,0,0" Foreground="#8A8A9A" TextWrapping="Wrap" Text="Create new filled regions from the selected linked rooms." />
+                </DockPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="6" Background="#232327" BorderBrush="#3A3A40" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,8">
+            <StackPanel>
+                <CheckBox x:Name="chkCreateNewType" Content="Create New Filled Region Type" IsChecked="True" Foreground="#F2B134" />
+                <TextBlock Margin="0,8,0,4" Text="New Type Name (type here)" />
+                <TextBox x:Name="txtNewTypeName" Height="28" VerticalContentAlignment="Center" ToolTip="When Create New Filled Region Type is checked, enter the new type name here." />
+                <TextBlock Margin="0,6,0,0" Foreground="#8A8A9A" TextWrapping="Wrap" Text="The last name you used is remembered for quick edits." />
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="7" Background="#232327" BorderBrush="#3A3A40" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,8">
+            <StackPanel>
+                <CheckBox x:Name="chkApplyColors" Content="Apply Selected Colors And Patterns To Target Type" IsChecked="True" Foreground="#1FA6A6" Click="on_apply_graphics_changed" />
+
+                <CheckBox x:Name="chkShowForeground" Content="Show Foreground Pattern" IsChecked="True" Foreground="#E8E8E8" Margin="0,8,0,0" Click="on_show_foreground_changed" />
+                <DockPanel Margin="0,6,0,0">
+                    <Border x:Name="brdForegroundPreview" Width="28" Height="28" Background="#1177BB" BorderBrush="#3A3A40" BorderThickness="1" CornerRadius="4" Margin="0,0,8,0" />
+                    <TextBox x:Name="txtForegroundColor" Width="120" Height="28" VerticalContentAlignment="Center" Text="#1177BB" TextChanged="on_foreground_text_changed" ToolTip="Enter #RRGGBB or R,G,B." />
+                    <Button x:Name="btnPickForeground" Content="Set Foreground" Width="130" Height="28" Margin="8,0,0,0" Click="on_pick_foreground" Background="#0E639C" Foreground="#FFFFFF" BorderBrush="#1177BB" />
+                </DockPanel>
+                <ComboBox x:Name="cmbForegroundPattern" Height="28" Margin="0,6,0,0" SelectionChanged="on_foreground_pattern_changed" />
+
+                <CheckBox x:Name="chkShowBackground" Content="Show Background Pattern" IsChecked="True" Foreground="#E8E8E8" Margin="0,10,0,0" Click="on_show_background_changed" />
+                <DockPanel Margin="0,6,0,0">
+                    <Border x:Name="brdBackgroundPreview" Width="28" Height="28" Background="#2A2A2E" BorderBrush="#3A3A40" BorderThickness="1" CornerRadius="4" Margin="0,0,8,0" />
+                    <TextBox x:Name="txtBackgroundColor" Width="120" Height="28" VerticalContentAlignment="Center" Text="#2A2A2E" TextChanged="on_background_text_changed" ToolTip="Enter #RRGGBB or R,G,B." />
+                    <Button x:Name="btnPickBackground" Content="Set Background" Width="130" Height="28" Margin="8,0,0,0" Click="on_pick_background" Background="#1FA6A6" Foreground="#1A1A1C" BorderBrush="#22B8B8" />
+                </DockPanel>
+                <ComboBox x:Name="cmbBackgroundPattern" Height="28" Margin="0,6,0,0" SelectionChanged="on_background_pattern_changed" />
+            </StackPanel>
+        </Border>
+
+        <TextBlock Grid.Row="8" x:Name="txtSummary" Foreground="#8A8A9A" TextWrapping="Wrap" Margin="0,0,0,8" Text="Select rooms to begin." />
+
+        <DockPanel Grid.Row="9" LastChildFill="False">
+            <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="32" Click="on_cancel" Background="#2A2A2E" Foreground="#E8E8E8" BorderBrush="#3A3A40" DockPanel.Dock="Right" Margin="8,0,0,0" />
+            <Button x:Name="btnCreate" Content="Create Filled Regions" Width="190" Height="32" Click="on_create" Background="#0E639C" Foreground="#FFFFFF" BorderBrush="#1177BB" DockPanel.Dock="Right" />
+        </DockPanel>
+    </Grid>
+</Window>

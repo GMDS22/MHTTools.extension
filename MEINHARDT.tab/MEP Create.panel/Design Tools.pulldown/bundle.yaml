@@ -3,8 +3,7 @@ layout:
   - QuickDimension
   - HOST
   - LINK
+  - Linked Room Region
+  - CombineFilledRegions
   - S2A
-  - BatchCreateSystems
-  - BatchDependentViewCreation
-  - BatchWorksetCreation
   - PipeTypeFromCSV
