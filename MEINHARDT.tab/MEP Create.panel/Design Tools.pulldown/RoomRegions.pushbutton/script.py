@@ -18,8 +18,6 @@ from System.Windows.Media import BrushConverter
 from Autodesk.Revit.UI.Selection import ISelectionFilter, ObjectType
 
 from Autodesk.Revit.DB import (
-    BooleanOperationsType,
-    BooleanOperationsUtils,
     Color,
     BuiltInParameter,
     BuiltInCategory,
@@ -36,6 +34,7 @@ from Autodesk.Revit.DB import (
     GraphicsStyleType,
     Line,
     RevitLinkInstance,
+    Solid,
     SpatialElementBoundaryLocation,
     SpatialElementBoundaryOptions,
     SubTransaction,
@@ -54,8 +53,11 @@ logger = script.get_logger()
 config = script.get_config()
 _BRUSH_CONVERTER = BrushConverter()
 MIN_CURVE_LEN_FT = 0.005
-_LAST_SUCCESS_STATE_KEY = "linked_room_region_last_success_state_json"
-_LATEST_DEBUG_LOG_FILE_NAME = "LinkedRoomRegionDebug_latest.txt"
+TOOL_TITLE = "Room Regions"
+_LAST_TYPE_NAME_KEY = "room_regions_last_type_name"
+_LAST_SUCCESS_STATE_KEY = "room_regions_last_success_state_json"
+_DEBUG_LOG_FILE_NAME = "RoomRegionsDebug.txt"
+_LATEST_DEBUG_LOG_FILE_NAME = "RoomRegionsDebug_latest.txt"
 
 
 class RoomSelectionFilter(ISelectionFilter):
@@ -288,19 +290,6 @@ class RoomItem(object):
         self.display = display
 
 
-def _room_diagnostic_key(room_item):
-    if room_item is None:
-        return "unknown"
-
-    if room_item.link_inst is not None:
-        try:
-            return "link:{0}|room:{1}".format(room_item.link_inst.Id.IntegerValue, room_item.room_id)
-        except Exception:
-            return "link:?|room:{0}".format(room_item.room_id)
-
-    return "host:{0}".format(room_item.room_id)
-
-
 class RegionTypeItem(object):
     def __init__(self, fr_type):
         self.fr_type = fr_type
@@ -354,7 +343,7 @@ class LinkedRoomRegionWindow(WPFWindow):
         self._apply_initial_state(initial_state)
 
     def _load_defaults(self):
-        last_name = getattr(config, "linked_room_region_last_type_name", "Linked Room Region")
+        last_name = getattr(config, _LAST_TYPE_NAME_KEY, TOOL_TITLE)
         self.txtNewTypeName.Text = last_name
 
     def _apply_initial_state(self, state):
@@ -580,7 +569,7 @@ class LinkedRoomRegionWindow(WPFWindow):
         self.btnSelectExistingRegions.IsEnabled = replace_existing
 
         if not replace_existing:
-            self.txtExistingRegionsSummary.Text = "Create new filled regions from the selected linked rooms."
+            self.txtExistingRegionsSummary.Text = "Create new filled regions from the selected rooms."
             return
 
         count = len(self._existing_region_ids)
@@ -606,7 +595,7 @@ class LinkedRoomRegionWindow(WPFWindow):
         self.cmbRegionTypes.DisplayMemberPath = "name"
 
         if self._region_type_items:
-            remembered = getattr(config, "linked_room_region_last_type_name", "")
+            remembered = getattr(config, _LAST_TYPE_NAME_KEY, "")
             found_index = -1
             if remembered:
                 for idx, item in enumerate(self._region_type_items):
@@ -774,7 +763,7 @@ class LinkedRoomRegionWindow(WPFWindow):
 
         parsed_rgb = _parse_rgb_text(color_value)
         if parsed_rgb is None:
-            forms.alert("Invalid color value. Use #RRGGBB or R,G,B.", title="Linked Room Region")
+            forms.alert("Invalid color value. Use #RRGGBB or R,G,B.", title=TOOL_TITLE)
             return None
 
         return parsed_rgb
@@ -845,7 +834,6 @@ class LinkedRoomRegionWindow(WPFWindow):
         self._room_items = []
         active_view = doc.ActiveView
 
-        # Primary: rooms from all loaded links filtered to current view level.
         link_instances = list(FilteredElementCollector(doc).OfClass(RevitLinkInstance).ToElements())
         for link_inst in link_instances:
             link_doc = None
@@ -891,25 +879,50 @@ class LinkedRoomRegionWindow(WPFWindow):
             else:
                 self._room_items.extend(all_items)
 
-        # Fallback: include host rooms if no linked rooms are found.
-        if not self._room_items:
-            host_rooms = (
-                FilteredElementCollector(doc)
-                .OfCategory(BuiltInCategory.OST_Rooms)
-                .WhereElementIsNotElementType()
-                .ToElements()
-            )
-            for room in host_rooms:
-                try:
-                    if hasattr(room, "Area") and room.Area <= 0:
-                        continue
-                except Exception:
-                    pass
+        host_rooms = (
+            FilteredElementCollector(doc)
+            .OfCategory(BuiltInCategory.OST_Rooms)
+            .WhereElementIsNotElementType()
+            .ToElements()
+        )
 
-                item = RoomItem(room, doc, None)
-                host_pt = _room_host_probe_point(room, doc, None, active_view)
-                if _point_inside_active_view_crop(host_pt, active_view):
-                    self._room_items.append(item)
+        visible_items = []
+        level_items = []
+        all_items = []
+
+        for room in host_rooms:
+            try:
+                if hasattr(room, "Area") and room.Area <= 0:
+                    continue
+            except Exception:
+                pass
+
+            item = RoomItem(room, doc, None)
+            all_items.append(item)
+
+            host_pt = _room_host_probe_point(room, doc, None, active_view)
+            if _point_inside_active_view_crop(host_pt, active_view):
+                visible_items.append(item)
+
+            if _is_room_on_active_view_level(room, doc, None, active_view):
+                level_items.append(item)
+
+        if visible_items:
+            self._room_items.extend(visible_items)
+        elif level_items:
+            self._room_items.extend(level_items)
+        else:
+            self._room_items.extend(all_items)
+
+        deduped = []
+        seen = set()
+        for item in self._room_items:
+            key = (item.link_inst.Id.IntegerValue, item.room_id) if item.link_inst is not None else (None, item.room_id)
+            if key in seen:
+                continue
+            seen.add(key)
+            deduped.append(item)
+        self._room_items = deduped
 
         self._room_items.sort(key=lambda r: (r.level_name.lower(), r.number.lower(), r.name.lower()))
         self._apply_room_filter()
@@ -1045,25 +1058,25 @@ class LinkedRoomRegionWindow(WPFWindow):
             selected_type_item = self.cmbRegionTypes.SelectedItem
 
             if selected_type_item is None:
-                forms.alert("No Filled Region Type is available.", title="Linked Room Region")
+                forms.alert("No Filled Region Type is available.", title=TOOL_TITLE)
                 return
 
             room_items = self._selected_room_items()
 
             if not room_items:
-                forms.alert("Select at least one linked room.", title="Linked Room Region")
+                forms.alert("Select at least one room.", title=TOOL_TITLE)
                 return
 
             create_new = bool(self.chkCreateNewType.IsChecked)
             new_name = (self.txtNewTypeName.Text or "").strip()
 
             if create_new and not new_name:
-                forms.alert("Enter a new Filled Region Type name.", title="Linked Room Region")
+                forms.alert("Enter a new Filled Region Type name.", title=TOOL_TITLE)
                 return
 
             replace_existing = bool(self.chkReplaceExisting.IsChecked)
             if replace_existing and not self._existing_region_ids:
-                forms.alert("Select at least one existing filled region to replace.", title="Linked Room Region")
+                forms.alert("Select at least one existing filled region to replace.", title=TOOL_TITLE)
                 return
 
             self.result = {
@@ -1096,7 +1109,7 @@ class LinkedRoomRegionWindow(WPFWindow):
             self.Close()
         except Exception as ex:
             logger.debug("Create button failed: {0}".format(ex))
-            forms.alert("Failed to prepare the filled region request.\n\n{0}".format(ex), title="Linked Room Region")
+            forms.alert("Failed to prepare the filled region request.\n\n{0}".format(ex), title=TOOL_TITLE)
 
 
 def _rgb_to_hex(rgb):
@@ -1176,7 +1189,7 @@ def _load_persisted_success_state(current_view_id=None):
     try:
         state = json.loads(raw_value)
     except Exception as ex:
-        logger.debug("Failed to parse Linked Room Region saved state: {0}".format(ex))
+        logger.debug("Failed to parse {0} saved state: {1}".format(TOOL_TITLE, ex))
         return {}
 
     if not isinstance(state, dict):
@@ -1194,10 +1207,10 @@ def _save_persisted_success_state(state):
     try:
         setattr(config, _LAST_SUCCESS_STATE_KEY, json.dumps(sanitized))
         if sanitized.get("new_type_name"):
-            config.linked_room_region_last_type_name = sanitized.get("new_type_name")
+            setattr(config, _LAST_TYPE_NAME_KEY, sanitized.get("new_type_name"))
         script.save_config()
     except Exception as ex:
-        logger.debug("Failed to save Linked Room Region state: {0}".format(ex))
+        logger.debug("Failed to save {0} state: {1}".format(TOOL_TITLE, ex))
 
 
 def _parse_rgb_text(value):
@@ -1851,6 +1864,132 @@ def _boundary_segment_to_host_curve(seg, link_inst=None):
         return None
 
 
+def _curve_to_host_curve(curve, link_inst=None):
+    if curve is None:
+        return None
+
+    if link_inst is None:
+        return curve
+
+    try:
+        trf = link_inst.GetTotalTransform() if hasattr(link_inst, "GetTotalTransform") else link_inst.GetTransform()
+        return curve.CreateTransformed(trf)
+    except Exception:
+        return None
+
+
+def _build_planar_loop_candidate(raw_curves, target_elevation, tol=0.02, link_inst=None):
+    planar_curves = []
+
+    for raw_curve in raw_curves or []:
+        host_curve = _curve_to_host_curve(raw_curve, link_inst)
+        if host_curve is None:
+            continue
+
+        flat_curve = _flatten_curve_to_elevation(host_curve, target_elevation)
+        if flat_curve is not None:
+            planar_curves.append(flat_curve)
+            continue
+
+        planar_segments = _curve_to_planar_segments(host_curve, target_elevation)
+        if planar_segments:
+            planar_curves.extend(planar_segments)
+
+    if len(planar_curves) < 3:
+        return None, planar_curves
+
+    loop = _build_ordered_curve_loop(planar_curves, tol)
+    if loop is None:
+        fallback_loops = _build_closed_loops(planar_curves, tol)
+        if fallback_loops:
+            loop = fallback_loops[0]
+    if loop is None:
+        normalized_segments = _curve_collection_to_overlap_segments(planar_curves)
+        if normalized_segments:
+            normalized_loops = _build_closed_loops(normalized_segments, tol)
+            if normalized_loops:
+                loop = normalized_loops[0]
+
+    return loop, planar_curves
+
+
+def _find_horizontal_faces(solid):
+    upward_faces = []
+    downward_faces = []
+    if solid is None:
+        return upward_faces
+
+    for face in solid.Faces:
+        if isinstance(face, CylindricalFace):
+            continue
+
+        try:
+            if face.FaceNormal.IsAlmostEqualTo(XYZ.BasisZ):
+                upward_faces.append(face)
+                continue
+        except Exception:
+            pass
+
+        try:
+            if face.FaceNormal.IsAlmostEqualTo(XYZ(0, 0, -1)):
+                downward_faces.append(face)
+        except Exception:
+            continue
+
+    return upward_faces or downward_faces
+
+
+def _collect_room_shell_loop_candidates(room, link_inst, target_elevation, tol=0.02):
+    candidates = []
+
+    try:
+        closed_shell = room.ClosedShell
+    except Exception:
+        closed_shell = None
+
+    if closed_shell is None:
+        return candidates
+
+    try:
+        geometry_objects = list(closed_shell)
+    except Exception:
+        geometry_objects = []
+
+    for geom_obj in geometry_objects:
+        if not isinstance(geom_obj, Solid):
+            continue
+
+        try:
+            if geom_obj.Faces is None or geom_obj.Faces.Size == 0:
+                continue
+        except Exception:
+            continue
+
+        try:
+            if geom_obj.Volume <= 1e-9:
+                continue
+        except Exception:
+            pass
+
+        for face in _find_horizontal_faces(geom_obj):
+            try:
+                face_loops = list(face.GetEdgesAsCurveLoops())
+            except Exception:
+                continue
+
+            for face_loop in face_loops:
+                try:
+                    raw_curves = list(face_loop)
+                except Exception:
+                    raw_curves = []
+
+                loop, planar_curves = _build_planar_loop_candidate(raw_curves, target_elevation, tol, link_inst)
+                if loop is not None:
+                    candidates.append((loop, planar_curves))
+
+    return candidates
+
+
 def _build_ordered_curve_loop(curves, tol=0.02):
     if not curves or len(curves) < 3:
         return None
@@ -1882,21 +2021,11 @@ def _collect_selected_room_loops(room_items, target_elevation, tol=0.02):
     all_curves = []
     room_loop_records = []
     skipped_loops = 0
-    room_diagnostics = []
 
     for item in room_items:
         room = item.room
         link_inst = item.link_inst
         room_loop_candidates = []
-        room_diag = {
-            "room_key": _room_diagnostic_key(item),
-            "display": getattr(item, "display", "Room {0}".format(getattr(item, "room_id", "?"))),
-            "source": "linked" if link_inst is not None else "host",
-            "boundary_attempts": [],
-            "candidate_count": 0,
-            "selected_loop_area": 0.0,
-            "status": "pending",
-        }
 
         boundary_locations = []
         for location_name in ("Center", "Finish"):
@@ -1908,22 +2037,6 @@ def _collect_selected_room_loops(room_items, target_elevation, tol=0.02):
             boundary_locations.append(None)
 
         for boundary_location in boundary_locations:
-            location_label = "Default"
-            if boundary_location is not None:
-                try:
-                    location_label = str(boundary_location)
-                except Exception:
-                    location_label = "BoundaryLocation"
-
-            attempt_info = {
-                "location": location_label,
-                "segment_list_count": 0,
-                "candidate_count": 0,
-                "short_segment_lists": 0,
-                "loop_build_failures": 0,
-                "transform_failures": 0,
-            }
-
             opts = SpatialElementBoundaryOptions()
             if boundary_location is not None:
                 try:
@@ -1937,54 +2050,32 @@ def _collect_selected_room_loops(room_items, target_elevation, tol=0.02):
                 seglists = None
 
             if not seglists:
-                room_diag["boundary_attempts"].append(attempt_info)
                 continue
 
-            attempt_info["segment_list_count"] = len(seglists)
-
             for seglist in seglists:
-                planar_curves = []
+                raw_curves = []
                 for seg in seglist:
                     host_curve = _boundary_segment_to_host_curve(seg, link_inst)
-                    if host_curve is None:
-                        attempt_info["transform_failures"] += 1
-                        continue
+                    if host_curve is not None:
+                        raw_curves.append(host_curve)
 
-                    flat_curve = _flatten_curve_to_elevation(host_curve, target_elevation)
-                    if flat_curve is not None:
-                        planar_curves.append(flat_curve)
-                        continue
-
-                    planar_segments = _curve_to_planar_segments(host_curve, target_elevation)
-                    if planar_segments:
-                        planar_curves.extend(planar_segments)
-
+                loop, planar_curves = _build_planar_loop_candidate(raw_curves, target_elevation, tol)
                 if len(planar_curves) < 3:
                     skipped_loops += 1
-                    attempt_info["short_segment_lists"] += 1
                     continue
-
-                loop = _build_ordered_curve_loop(planar_curves, tol)
-                if loop is None:
-                    fallback_loops = _build_closed_loops(planar_curves, tol)
-                    if fallback_loops:
-                        loop = fallback_loops[0]
                 if loop is None:
                     skipped_loops += 1
-                    attempt_info["loop_build_failures"] += 1
                     continue
 
                 room_loop_candidates.append((loop, planar_curves))
-
-            attempt_info["candidate_count"] = len(room_loop_candidates)
-            room_diag["boundary_attempts"].append(attempt_info)
 
             if room_loop_candidates:
                 break
 
         if not room_loop_candidates:
-            room_diag["status"] = "skipped_no_valid_loop"
-            room_diagnostics.append(room_diag)
+            room_loop_candidates.extend(_collect_room_shell_loop_candidates(room, link_inst, target_elevation, tol))
+
+        if not room_loop_candidates:
             continue
 
         room_loop_candidates.sort(key=lambda data: _curve_loop_area_xy(data[0]), reverse=True)
@@ -1995,17 +2086,10 @@ def _collect_selected_room_loops(room_items, target_elevation, tol=0.02):
             "loop": selected_loop,
             "curves": selected_curves,
         })
-        room_diag["candidate_count"] = len(room_loop_candidates)
-        try:
-            room_diag["selected_loop_area"] = _curve_loop_area_xy(selected_loop)
-        except Exception:
-            room_diag["selected_loop_area"] = 0.0
-        room_diag["status"] = "loop_built"
-        room_diagnostics.append(room_diag)
         if len(room_loop_candidates) > 1:
             skipped_loops += len(room_loop_candidates) - 1
 
-    return all_curves, room_loop_records, skipped_loops, room_diagnostics
+    return all_curves, room_loop_records, skipped_loops
 
 
 def _collect_center_boundary_curves(room_items, target_elevation):
@@ -2718,14 +2802,7 @@ def _group_connected_room_loop_records(room_loop_records, tol=0.01):
     segment_data = []
     for idx, record in enumerate(room_loop_records):
         adjacency[idx] = set()
-        overlap_curves = _curve_collection_to_overlap_segments(record.get("curves", []))
-        if not overlap_curves:
-            try:
-                overlap_curves = _curve_collection_to_overlap_segments(list(record.get("loop") or []))
-            except Exception:
-                overlap_curves = []
-
-        for curve in overlap_curves:
+        for curve in record.get("curves", []):
             key = _curve_key_undirected(curve, tol)
             if key is None:
                 continue
@@ -2835,14 +2912,6 @@ def _merge_connected_room_loops(room_loop_records, tol=0.02):
 
         outer_group_curves = _remove_shared_interior_segments(group_curves, tol)
         group_loops = _build_closed_loops(outer_group_curves, tol)
-        if not group_loops:
-            normalized_group_curves = []
-            for record in group:
-                normalized_group_curves.extend(_curve_collection_to_overlap_segments(record.get("curves", [])))
-            if normalized_group_curves:
-                # Retry merge against line-normalized loop geometry when linked boundaries disagree on segmentation.
-                outer_group_curves = _remove_shared_interior_segments(normalized_group_curves, tol)
-                group_loops = _build_closed_loops(outer_group_curves, tol)
         if group_loops:
             merged_curves.extend(outer_group_curves)
             merged_loops.extend(group_loops)
@@ -2888,7 +2957,7 @@ def _resolve_region_type(base_type, create_new_type, new_type_name):
         except Exception:
             return duplicate_result
     except Exception as ex:
-        forms.alert("Failed to create Filled Region Type: {0}".format(ex), title="Linked Room Region")
+        forms.alert("Failed to create Filled Region Type: {0}".format(ex), title=TOOL_TITLE)
         return None
 
 
@@ -2989,14 +3058,14 @@ def _pick_rooms_for_state(state):
                 if (not extracted_pairs) and rejection_notes:
                     forms.alert(
                         "No linked rooms were accepted from the selection.\n\n{0}".format("\n".join(rejection_notes[:8])),
-                        title="Linked Room Region",
+                        title=TOOL_TITLE,
                     )
         else:
             with forms.WarningBar(title='Select rooms and click "Finish"'):
                 refs = uidoc.Selection.PickObjects(
                     ObjectType.Element,
                     RoomSelectionFilter(),
-                    "Pick host room(s) in active view"
+                    "Pick room(s) in active view"
                 )
             if refs:
                 for rf in refs:
@@ -3007,10 +3076,7 @@ def _pick_rooms_for_state(state):
     except Exception as ex:
         if "cancel" not in ex.__class__.__name__.lower():
             logger.debug("Room selection failed: {0}".format(ex))
-            forms.alert(
-                "Room selection failed:\n\n{0}".format(ex),
-                title="Linked Room Region",
-            )
+            forms.alert("Room selection failed:\n\n{0}".format(ex), title=TOOL_TITLE)
         return state
 
     if new_host_ids or new_link_pairs:
@@ -3097,7 +3163,7 @@ def _pick_color_for_state(state, state_key, title):
 
     parsed_rgb = _parse_rgb_text(color_value)
     if parsed_rgb is None:
-        forms.alert("Invalid color value. Use #RRGGBB or R,G,B.", title="Linked Room Region")
+        forms.alert("Invalid color value. Use #RRGGBB or R,G,B.", title=TOOL_TITLE)
         return state
 
     state[state_key] = parsed_rgb
@@ -3113,40 +3179,14 @@ def _create_filled_regions(view, region_type, loops, hole_map=None, line_style_i
     hole_map = hole_map or {}
 
     if loops and not hole_map:
-        # First try a single FilledRegion using all merged closed loops.
-        ok_all_loops, err_all_loops = _try_create_region_boundaries(view, region_type, loops, line_style_id)
-        if ok_all_loops:
-            try:
-                region = _commit_region_with_boundaries(view, region_type, loops, line_style_id)
-                created += 1
-                if region is not None:
-                    created_region_ids.append(region.Id)
-                return created, failed, errors, created_region_ids
-            except Exception as ex:
-                failed += 1
-                errors.append({
-                    "loop_index": 0,
-                    "boundary_count": len(loops),
-                    "hole_count": max(0, len(loops) - 1),
-                    "message": "Single multi-loop region commit failed: {0}".format(ex),
-                })
-
         boundary_sets = _group_loops_into_boundary_sets(loops)
         if not boundary_sets:
             return 0, 1, [{
                 "loop_index": 0,
                 "boundary_count": 0,
                 "hole_count": 0,
-                "message": "No valid boundary sets were resolved from the merged room loops. Single multi-loop attempt: {0}".format(err_all_loops),
+                "message": "No valid boundary sets were resolved from the merged room loops.",
             }], created_region_ids
-
-        if err_all_loops is not None:
-            errors.append({
-                "loop_index": 0,
-                "boundary_count": len(loops),
-                "hole_count": max(0, len(loops) - 1),
-                "message": "Single multi-loop region rejected by Revit: {0}".format(err_all_loops),
-            })
 
         for set_index, boundary_set in enumerate(boundary_sets):
             ok_set, err_set = _try_create_region_boundaries(view, region_type, boundary_set, line_style_id)
@@ -3350,8 +3390,10 @@ def _extract_curves_from_loops(curve_loops):
     return curves
 
 
-def _build_boolean_merged_room_loops(room_loop_records):
-    solids = []
+def _build_room_boundary_sets_from_top_faces(room_loop_records):
+    outer_curves = []
+    top_face_loops = []
+    boundary_sets = []
     errors = []
 
     for idx, record in enumerate(room_loop_records or []):
@@ -3361,7 +3403,6 @@ def _build_boolean_merged_room_loops(room_loop_records):
 
         try:
             solid = GeometryCreationUtilities.CreateExtrusionGeometry(_curve_loop_list([loop]), XYZ(0, 0, 1), 10.0)
-            solids.append(solid)
         except Exception as ex:
             errors.append({
                 "loop_index": idx,
@@ -3369,46 +3410,25 @@ def _build_boolean_merged_room_loops(room_loop_records):
                 "hole_count": 0,
                 "message": "Room-loop extrusion failed: {0}".format(ex),
             })
+            continue
 
-    if not solids:
-        return [], [], errors
-
-    merged_solids = []
-    for solid in solids:
-        merged = False
-        for solid_index, existing_solid in enumerate(merged_solids):
-            try:
-                merged_solids[solid_index] = BooleanOperationsUtils.ExecuteBooleanOperation(
-                    existing_solid,
-                    solid,
-                    BooleanOperationsType.Union,
-                )
-                merged = True
-                break
-            except Exception:
-                continue
-
-        if not merged:
-            merged_solids.append(solid)
-
-    loops = []
-    for solid_index, solid in enumerate(merged_solids):
+        room_face_loops = []
         top_faces = _find_top_faces(solid)
         if not top_faces:
             errors.append({
-                "loop_index": solid_index,
+                "loop_index": idx,
                 "boundary_count": 0,
                 "hole_count": 0,
-                "message": "Merged room solid did not produce a top face.",
+                "message": "Room solid did not produce a top face.",
             })
             continue
 
         for face in top_faces:
             try:
-                face_loops = face.GetEdgesAsCurveLoops()
+                face_loops = list(face.GetEdgesAsCurveLoops())
             except Exception as ex:
                 errors.append({
-                    "loop_index": solid_index,
+                    "loop_index": idx,
                     "boundary_count": 0,
                     "hole_count": 0,
                     "message": "Top-face boundary extraction failed: {0}".format(ex),
@@ -3417,9 +3437,121 @@ def _build_boolean_merged_room_loops(room_loop_records):
 
             for face_loop in face_loops:
                 if face_loop is not None:
-                    loops.append(face_loop)
+                    room_face_loops.append(face_loop)
 
-    return _extract_curves_from_loops(loops), loops, errors
+        if not room_face_loops:
+            errors.append({
+                "loop_index": idx,
+                "boundary_count": 0,
+                "hole_count": 0,
+                "message": "No top-face loops were extracted for the room.",
+            })
+            continue
+
+        top_face_loops.extend(room_face_loops)
+        outer_curves.extend(_extract_curves_from_loops(room_face_loops))
+
+        room_boundary_sets = _group_loops_into_boundary_sets(room_face_loops)
+        if not room_boundary_sets:
+            room_boundary_sets = [[loop]]
+
+        boundary_sets.extend(room_boundary_sets)
+
+    return outer_curves, top_face_loops, boundary_sets, errors
+
+
+def _create_filled_regions_from_boundary_sets(view, region_type, boundary_sets, line_style_id=None):
+    created = 0
+    failed = 0
+    errors = []
+    created_region_ids = []
+
+    for set_index, boundary_set in enumerate(boundary_sets or []):
+        ok_set, err_set = _try_create_region_boundaries(view, region_type, boundary_set, line_style_id)
+        if ok_set:
+            try:
+                region = _commit_region_with_boundaries(view, region_type, boundary_set, line_style_id)
+                created += 1
+                if region is not None:
+                    created_region_ids.append(region.Id)
+            except Exception as ex:
+                failed += 1
+                errors.append({
+                    "loop_index": set_index,
+                    "boundary_count": len(boundary_set),
+                    "hole_count": max(0, len(boundary_set) - 1),
+                    "message": str(ex),
+                })
+            continue
+
+        if not boundary_set:
+            failed += 1
+            errors.append({
+                "loop_index": set_index,
+                "boundary_count": 0,
+                "hole_count": 0,
+                "message": "Boundary set create failed: {0}".format(err_set),
+            })
+            continue
+
+        outer_only = [boundary_set[0]]
+        ok_outer, err_outer = _try_create_region_boundaries(view, region_type, outer_only, line_style_id)
+        if not ok_outer:
+            failed += 1
+            errors.append({
+                "loop_index": set_index,
+                "boundary_count": len(boundary_set),
+                "hole_count": max(0, len(boundary_set) - 1),
+                "message": "Boundary set create failed: {0}".format(err_set),
+            })
+            errors.append({
+                "loop_index": set_index,
+                "boundary_count": 1,
+                "hole_count": 0,
+                "message": "Outer boundary recovery failed: {0}".format(err_outer),
+            })
+            continue
+
+        accepted_holes = []
+        rejected_holes = []
+        for hole_index, hole_loop in enumerate(boundary_set[1:]):
+            candidate = outer_only + accepted_holes + [hole_loop]
+            ok_hole, err_hole = _try_create_region_boundaries(view, region_type, candidate, line_style_id)
+            if ok_hole:
+                accepted_holes.append(hole_loop)
+            else:
+                rejected_holes.append({
+                    "hole_index": hole_index,
+                    "message": str(err_hole),
+                })
+
+        final_boundaries = outer_only + accepted_holes
+        try:
+            region = _commit_region_with_boundaries(view, region_type, final_boundaries, line_style_id)
+            created += 1
+            if region is not None:
+                created_region_ids.append(region.Id)
+            errors.append({
+                "loop_index": set_index,
+                "boundary_count": len(final_boundaries),
+                "hole_count": len(accepted_holes),
+                "message": "Recovered boundary set by excluding {0} invalid hole loop(s). Initial error: {1}".format(
+                    len(rejected_holes),
+                    err_set,
+                ),
+                "rejected_holes": rejected_holes,
+            })
+        except Exception as ex:
+            failed += 1
+            errors.append({
+                "loop_index": set_index,
+                "boundary_count": len(final_boundaries),
+                "hole_count": len(accepted_holes),
+                "message": str(ex),
+                "rejected_holes": rejected_holes,
+            })
+
+    return created, failed, errors, created_region_ids
 
 
 def _try_create_region_boundaries(view, region_type, curve_loops, line_style_id=None):
@@ -3452,8 +3584,7 @@ def _commit_region_with_boundaries(view, region_type, curve_loops, line_style_id
     return region
 
 
-def _build_operation_log_lines(view, data, region_type, curves, outer_curves, loops, column_hole_loops, created, failed, errors, skipped_loops=0, room_diagnostics=None):
-    room_diagnostics = room_diagnostics or []
+def _build_operation_log_lines(view, data, region_type, curves, outer_curves, loops, column_hole_loops, created, failed, errors, skipped_loops=0):
     resolved_fg_pattern_id, resolved_bg_pattern_id, resolved_show_foreground, resolved_show_background = _resolve_visible_region_graphics(
         data.get("foreground_pattern_id"),
         data.get("background_pattern_id"),
@@ -3462,14 +3593,14 @@ def _build_operation_log_lines(view, data, region_type, curves, outer_curves, lo
         data.get("boundary_line_style_id"),
     )
     lines = [
-        "Linked Room Region Debug",
-        "Geometry mode: projected room loops -> extrusion solids -> boolean union -> top-face loops",
-        "Boundary mode: EF-style merged top-face boundaries from linked rooms (column holes disabled)",
+        "{0} Debug".format(TOOL_TITLE),
+        "Geometry mode: projected room loops -> extrusion solids -> top-face loops",
+        "Boundary mode: one filled region per selected host room using EF-style top-face boundaries (column holes disabled)",
         "View: {0}".format(getattr(view, "Name", "Active View")),
         "Selected rooms: {0}".format(len(data.get("room_items", []))),
         "Boundary curves collected: {0}".format(len(curves)),
         "Boundary segments used: {0}".format(len(outer_curves)),
-        "Closed loops built: {0}".format(len(loops)),
+        "Top-face loops built: {0}".format(len(loops)),
         "Secondary/invalid loops skipped: {0}".format(skipped_loops),
         "Column hole loops: disabled",
         "Filled region type: {0}".format(_safe_elem_name(region_type, "Filled Region Type") if region_type else "None"),
@@ -3480,40 +3611,8 @@ def _build_operation_log_lines(view, data, region_type, curves, outer_curves, lo
         "Replace existing mode: {0}".format(bool(data.get("replace_existing", False))),
         "Result: created {0} | failed {1}".format(created, failed),
         "",
-        "Per-Room Diagnostics",
-    ]
-
-    if not room_diagnostics:
-        lines.append("No room diagnostics captured.")
-    else:
-        for idx, room_diag in enumerate(room_diagnostics):
-            lines.append(
-                "Room {0} | Key {1} | Source {2} | Status {3} | Candidates {4} | SelectedArea {5:.4f} | {6}".format(
-                    idx + 1,
-                    room_diag.get("room_key", "?"),
-                    room_diag.get("source", "?"),
-                    room_diag.get("status", "?"),
-                    room_diag.get("candidate_count", 0),
-                    float(room_diag.get("selected_loop_area", 0.0) or 0.0),
-                    room_diag.get("display", ""),
-                )
-            )
-            for attempt in room_diag.get("boundary_attempts", []):
-                lines.append(
-                    "  Attempt {0} | SegLists {1} | Candidates {2} | ShortLists {3} | LoopBuildFails {4} | TransformFails {5}".format(
-                        attempt.get("location", "?"),
-                        attempt.get("segment_list_count", 0),
-                        attempt.get("candidate_count", 0),
-                        attempt.get("short_segment_lists", 0),
-                        attempt.get("loop_build_failures", 0),
-                        attempt.get("transform_failures", 0),
-                    )
-                )
-
-    lines.extend([
-        "",
         "FilledRegion.Create Errors",
-    ])
+    ]
 
     if not errors:
         lines.append("No create errors were recorded.")
@@ -3541,11 +3640,7 @@ def _build_operation_log_lines(view, data, region_type, curves, outer_curves, lo
 
 def _write_operation_log_file(lines):
     temp_dir = os.environ.get("TEMP") or os.environ.get("TMP") or script.get_bundle_file(".")
-    try:
-        stamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss_fff")
-    except Exception:
-        stamp = "latest"
-    log_path = os.path.join(temp_dir, "LinkedRoomRegionDebug_{0}.txt".format(stamp))
+    log_path = os.path.join(temp_dir, _DEBUG_LOG_FILE_NAME)
     try:
         with open(log_path, "w") as log_file:
             log_file.write("\n".join(lines))
@@ -3557,7 +3652,7 @@ def _write_operation_log_file(lines):
             pass
         return log_path
     except Exception as ex:
-        logger.debug("Failed to write Linked Room Region log file: {0}".format(ex))
+        logger.debug("Failed to write {0} log file: {1}".format(TOOL_TITLE, ex))
         return None
 
 
@@ -3568,10 +3663,10 @@ def _show_result_alert(lines, log_path=None):
 
     message = "\n".join([line for line in message_lines if line is not None])
     try:
-        forms.alert(message, title="Linked Room Region")
+        forms.alert(message, title=TOOL_TITLE)
         return
     except Exception as ex:
-        logger.debug("Failed to show Linked Room Region alert: {0}".format(ex))
+        logger.debug("Failed to show {0} alert: {1}".format(TOOL_TITLE, ex))
 
     try:
         logger.error(message)
@@ -3579,21 +3674,8 @@ def _show_result_alert(lines, log_path=None):
         pass
 
 
-def _write_operation_output(view, data, region_type, curves, outer_curves, loops, column_hole_loops, hole_map, created, failed, errors, skipped_loops=0, room_diagnostics=None):
-    log_lines = _build_operation_log_lines(
-        view,
-        data,
-        region_type,
-        curves,
-        outer_curves,
-        loops,
-        column_hole_loops,
-        created,
-        failed,
-        errors,
-        skipped_loops,
-        room_diagnostics,
-    )
+def _write_operation_output(view, data, region_type, curves, outer_curves, loops, column_hole_loops, hole_map, created, failed, errors, skipped_loops=0):
+    log_lines = _build_operation_log_lines(view, data, region_type, curves, outer_curves, loops, column_hole_loops, created, failed, errors, skipped_loops)
     should_write_debug_log = True
     log_path = _write_operation_log_file(log_lines)
     first_error = errors[0].get("message", "") if errors else ""
@@ -3620,67 +3702,36 @@ def _execute_room_region_operation(view, data):
     target_elev = _active_view_plane_elevation(view)
     room_items = data["room_items"]
 
-    curves, room_loop_records, skipped_loops, room_diagnostics = _collect_selected_room_loops(room_items, target_elev)
+    curves, room_loop_records, skipped_loops = _collect_selected_room_loops(room_items, target_elev)
     if not curves:
-        temp_log_lines = _build_operation_log_lines(
-            view,
-            data,
-            None,
-            [],
-            [],
-            [],
-            [],
-            0,
-            0,
-            [{"loop_index": 0, "boundary_count": 0, "hole_count": 0, "message": "No room boundary curves were found for selected rooms."}],
-            skipped_loops,
-            room_diagnostics,
-        )
-        log_path = _write_operation_log_file(temp_log_lines)
-        _show_result_alert(["No room boundary curves were found for selected rooms."], log_path)
+        _show_result_alert(["No room boundary curves were found for selected rooms."])
         return False
     if not room_loop_records:
-        temp_log_lines = _build_operation_log_lines(
-            view,
-            data,
-            None,
-            curves,
-            [],
-            [],
-            [],
-            0,
-            0,
-            [{"loop_index": 0, "boundary_count": 0, "hole_count": 0, "message": "Failed to build closed boundaries from selected rooms."}],
-            skipped_loops,
-            room_diagnostics,
-        )
-        log_path = _write_operation_log_file(temp_log_lines)
-        _show_result_alert(["Failed to build closed boundaries from selected rooms."], log_path)
+        _show_result_alert(["Failed to build closed boundaries from selected rooms."])
         return False
 
-    outer_curves, loops, preprocess_errors = _build_boolean_merged_room_loops(room_loop_records)
-    loops.sort(key=_curve_loop_area_xy, reverse=True)
-    if not loops:
+    outer_curves, loops, boundary_sets, preprocess_errors = _build_room_boundary_sets_from_top_faces(room_loop_records)
+
+    if not boundary_sets:
         temp_log_lines = _build_operation_log_lines(
             view,
             data,
             None,
             curves,
             outer_curves,
-            [],
+            loops,
             [],
             0,
             0,
-            preprocess_errors + [{"loop_index": 0, "boundary_count": 0, "hole_count": 0, "message": "Failed to build merged top-face boundaries from selected linked rooms."}],
+            preprocess_errors + [{"loop_index": 0, "boundary_count": 0, "hole_count": 0, "message": "Failed to build per-room top-face boundaries from selected rooms."}],
             skipped_loops,
-            room_diagnostics,
         )
         log_path = _write_operation_log_file(temp_log_lines)
-        _show_result_alert(["Failed to build merged top-face boundaries from selected linked rooms."], log_path)
+        _show_result_alert(["Failed to build per-room top-face boundaries from selected rooms."], log_path)
         return False
 
-    column_hole_loops = []
     hole_map = {}
+    column_hole_loops = []
     replace_existing = bool(data.get("replace_existing", False))
     existing_region_ids = data.get("existing_region_ids", []) or []
     existing_line_style_id = data.get("existing_line_style_id")
@@ -3694,7 +3745,7 @@ def _execute_room_region_operation(view, data):
     )
     created_region_ids = []
 
-    t = Transaction(doc, "Create or Update Filled Regions from Linked Rooms")
+    t = Transaction(doc, "Create or Update Filled Regions from Rooms")
     try:
         t.Start()
         region_type = _resolve_region_type(
@@ -3704,22 +3755,7 @@ def _execute_room_region_operation(view, data):
         )
         if region_type is None:
             t.RollBack()
-            temp_log_lines = _build_operation_log_lines(
-                view,
-                data,
-                None,
-                curves,
-                outer_curves,
-                loops,
-                column_hole_loops,
-                0,
-                0,
-                [{"loop_index": 0, "boundary_count": 0, "hole_count": 0, "message": "Filled region type resolution returned None."}],
-                skipped_loops,
-                room_diagnostics,
-            )
-            log_path = _write_operation_log_file(temp_log_lines)
-            _show_result_alert(["Failed to resolve the Filled Region Type."], log_path)
+            _show_result_alert(["Failed to resolve the Filled Region Type."])
             return False
 
         _set_region_type_is_masking(region_type, data.get("is_masking", False))
@@ -3735,23 +3771,19 @@ def _execute_room_region_operation(view, data):
                 resolved_show_background,
             )
 
-        created, failed, errors, created_region_ids = _create_filled_regions(view, region_type, loops, hole_map, boundary_line_style_id)
+        if replace_existing and existing_region_ids:
+            try:
+                doc.Delete(List[ElementId](existing_region_ids))
+            except Exception:
+                for region_id in existing_region_ids:
+                    try:
+                        doc.Delete(region_id)
+                    except Exception:
+                        pass
+
+        created, failed, errors, created_region_ids = _create_filled_regions_from_boundary_sets(view, region_type, boundary_sets, boundary_line_style_id)
         errors = list(preprocess_errors or []) + list(errors or [])
-        debug_result = _write_operation_output(
-            view,
-            data,
-            region_type,
-            curves,
-            outer_curves,
-            loops,
-            column_hole_loops,
-            hole_map,
-            created,
-            failed,
-            errors,
-            skipped_loops,
-            room_diagnostics,
-        )
+        debug_result = _write_operation_output(view, data, region_type, curves, outer_curves, loops, column_hole_loops, hole_map, created, failed, errors, skipped_loops)
 
         if created == 0:
             t.RollBack()
@@ -3769,38 +3801,13 @@ def _execute_room_region_operation(view, data):
             _show_result_alert(message_lines)
             return False
 
-        if replace_existing and existing_region_ids:
-            try:
-                doc.Delete(List[ElementId](existing_region_ids))
-            except Exception:
-                for region_id in existing_region_ids:
-                    try:
-                        doc.Delete(region_id)
-                    except Exception:
-                        pass
-
         t.Commit()
     except Exception as ex:
         try:
             t.RollBack()
         except Exception:
             pass
-        temp_log_lines = _build_operation_log_lines(
-            view,
-            data,
-            None,
-            curves,
-            outer_curves,
-            loops,
-            column_hole_loops,
-            0,
-            1,
-            [{"loop_index": 0, "boundary_count": len(loops or []), "hole_count": 0, "message": "Unhandled exception: {0}".format(ex)}],
-            skipped_loops,
-            room_diagnostics,
-        )
-        log_path = _write_operation_log_file(temp_log_lines)
-        _show_result_alert(["Failed while creating regions:", str(ex)], log_path)
+        _show_result_alert(["Failed while creating regions:", str(ex)])
         return False
 
     if created_region_ids:
@@ -3816,20 +3823,17 @@ def _execute_room_region_operation(view, data):
             created,
             failed,
         ),
-        "Selected rooms requested: {0}. Rooms with valid loops: {1}.".format(len(room_items), len(room_loop_records)),
-        "Merged top-face loops detected: {0}.".format(len(loops)),
+        "Per-room boundary sets detected: {0}.".format(len(boundary_sets)),
         "Column boundaries detected: 0.",
     ]
-    if debug_result and debug_result.get("log_path"):
-        message_lines.extend(["", "Debug log file:", debug_result.get("log_path")])
-    _show_result_alert(message_lines)
+    _show_result_alert(message_lines, debug_result.get("log_path") if debug_result else None)
     return True
 
 
 def main():
     view = doc.ActiveView
     if view is None:
-        forms.alert("No active view found.", title="Linked Room Region")
+        forms.alert("No active view found.", title=TOOL_TITLE)
         return
 
     current_view_id = _serialize_element_id(view.Id)
@@ -3853,11 +3857,11 @@ def main():
     while True:
         active_view = doc.ActiveView
         if active_view is None:
-            forms.alert("No active view found.", title="Linked Room Region")
+            forms.alert("No active view found.", title=TOOL_TITLE)
             return
 
         if state.get("view_id") and _serialize_element_id(active_view.Id) != state.get("view_id"):
-            forms.alert("Active view changed while using Linked Room Region. Reopen the tool from the target view.", title="Linked Room Region")
+            forms.alert("Active view changed while using Room Regions. Reopen the tool from the target view.", title=TOOL_TITLE)
             return
 
         win = None
@@ -3865,7 +3869,7 @@ def main():
             win = LinkedRoomRegionWindow(xaml_file, state)
             win.ShowDialog()
         except Exception as ex:
-            forms.alert("Failed to open Linked Room Region window: {0}".format(ex), title="Linked Room Region")
+            forms.alert("Failed to open Room Regions window: {0}".format(ex), title=TOOL_TITLE)
             return
 
         if win is None or not win.result:

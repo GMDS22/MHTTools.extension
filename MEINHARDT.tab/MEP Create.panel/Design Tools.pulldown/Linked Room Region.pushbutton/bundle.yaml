@@ -1,3 +1,3 @@
 title: Linked Room Region
-tooltip: Create filled regions from linked rooms using wall center boundaries.
+tooltip: Create filled regions from linked rooms using EF-style solid-union top-face boundaries.
 author: GM

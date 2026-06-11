@@ -173,7 +173,7 @@
         <Border Grid.Row="0" Background="#232327" BorderBrush="#3A3A40" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,8">
             <StackPanel>
                 <TextBlock FontWeight="Bold" FontSize="14" Foreground="#1177BB" Text="Linked Room Region" />
-                <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Foreground="#8A8A9A" Text="Pick rooms from loaded linked models and create filled regions from merged connected room boundaries. Disjoint room groups become separate regions. Secondary inner loops are ignored for stability." />
+                <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" Foreground="#8A8A9A" Text="Pick rooms from loaded linked models and build filled regions from EF-style merged top-face boundaries. Adjacent rooms merge automatically; disjoint groups stay separate when Revit requires multiple regions." />
             </StackPanel>
         </Border>
 
@@ -184,7 +184,8 @@
 
         <DockPanel Grid.Row="2" Margin="0,0,0,8">
             <TextBox x:Name="txtRoomFilter" Width="300" Height="28" TextChanged="on_filter_text_changed" VerticalContentAlignment="Center" Text="" ToolTip="Type to filter rooms by number, name, or level." />
-            <Button x:Name="btnSelectRooms" Content="Select Rooms" Width="110" Height="28" Margin="8,0,0,0" Click="on_select_rooms" Background="#0E639C" Foreground="#FFFFFF" BorderBrush="#1177BB" ToolTip="Pick linked rooms directly in the active view." />
+            <Button x:Name="btnSelectRooms" Content="Select Rooms" Width="110" Height="28" Margin="8,0,0,0" Click="on_select_rooms" Background="#0E639C" Foreground="#FFFFFF" BorderBrush="#1177BB" ToolTip="Pick linked rooms directly in the active view and add them to the current room batch." />
+            <Button x:Name="btnClearRooms" Content="Clear Rooms" Width="100" Height="28" Margin="8,0,0,0" Click="on_clear_rooms" Background="#2A2A2E" Foreground="#E8E8E8" BorderBrush="#3A3A40" ToolTip="Clear the current room batch so the next run starts from an empty selection." />
             <Button x:Name="btnRefreshRooms" Content="Refresh" Width="90" Height="28" Margin="8,0,0,0" Click="on_refresh_rooms" Background="#1FA6A6" Foreground="#1A1A1C" BorderBrush="#22B8B8" ToolTip="Reload room list from active view." />
         </DockPanel>
 
