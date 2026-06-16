@@ -17,8 +17,8 @@
         <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#1177BB"/>
         <SolidColorBrush x:Key="SecondaryBrush" Color="#1FA6A6"/>
         <SolidColorBrush x:Key="SecondaryHoverBrush" Color="#22B8B8"/>
-        <SolidColorBrush x:Key="AccentBrush" Color="#F2B134"/>
-        <SolidColorBrush x:Key="AccentStrongBrush" Color="#D99A20"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#1FA6A6"/>
+        <SolidColorBrush x:Key="AccentStrongBrush" Color="#1177BB"/>
         <SolidColorBrush x:Key="MutedTextBrush" Color="#8A8A9A"/>
         <SolidColorBrush x:Key="SuccessBrush" Color="#4CAF7D"/>
 

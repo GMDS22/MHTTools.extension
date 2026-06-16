@@ -4,10 +4,10 @@
         Height="400" Width="500" WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="#1c1c1c" AllowsTransparency="True"
-        BorderBrush="#ff9a2e" BorderThickness="1" CornerRadius="10">
+        BorderBrush="#1FA6A6" BorderThickness="1" CornerRadius="10">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="accent" Color="#ff9a2e"/>
+        <SolidColorBrush x:Key="accent" Color="#1FA6A6"/>
         <SolidColorBrush x:Key="white" Color="#f2f2f2"/>
         <SolidColorBrush x:Key="bg1" Color="#1c1c1c"/>
         <SolidColorBrush x:Key="bg2" Color="#2b2b2b"/>
@@ -23,7 +23,7 @@
         <Border Grid.Row="0" Background="#2c2c2c" CornerRadius="10,10,0,0">
             <Grid>
                 <TextBlock Text="Generated Sheets & Views" Foreground="#f2f2f2" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                <Button Content="X" Width="30" Height="30" HorizontalAlignment="Right" Margin="0,0,10,0" Background="#1c1c1c" Foreground="White" BorderBrush="#ff9a2e" Click="UIe_close"/>
+                <Button Content="X" Width="30" Height="30" HorizontalAlignment="Right" Margin="0,0,10,0" Background="#1c1c1c" Foreground="White" BorderBrush="#1FA6A6" Click="UIe_close"/>
             </Grid>
         </Border>
 

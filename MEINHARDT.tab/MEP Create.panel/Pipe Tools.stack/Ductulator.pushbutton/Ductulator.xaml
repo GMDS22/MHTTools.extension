@@ -283,39 +283,39 @@
                             </Border>
 
                             <!-- Rect Size card — purple -->
-                            <Border Grid.Row="6" CornerRadius="6" Background="#FAF5FF"
-                                    BorderBrush="#E9D8FD" BorderThickness="1" Padding="10,7">
+                            <Border Grid.Row="6" CornerRadius="6" Background="#EEF6FF"
+                                    BorderBrush="#A8D4F5" BorderThickness="1" Padding="10,7">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel>
-                                        <TextBlock Text="RECT. SIZE (W × H)" FontSize="9" FontWeight="Bold" Foreground="#553C9A"/>
+                                        <TextBlock Text="RECT. SIZE (W × H)" FontSize="9" FontWeight="Bold" Foreground="#0E639C"/>
                                         <TextBlock x:Name="TxtRect" Text="250 x 250"
-                                                   FontSize="18" FontWeight="Bold" Foreground="#322659"/>
+                                                   FontSize="18" FontWeight="Bold" Foreground="#0C3F63"/>
                                     </StackPanel>
                                     <TextBlock Grid.Column="1" Text="mm" FontSize="11"
-                                               Foreground="#805AD5" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
+                                               Foreground="#1FA6A6" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
                                 </Grid>
                             </Border>
 
                             <!-- Pa/m Loss card — amber/gold -->
-                            <Border Grid.Row="8" CornerRadius="6" Background="#FFFBEB"
-                                    BorderBrush="#F6E05E" BorderThickness="1" Padding="10,7">
+                            <Border Grid.Row="8" CornerRadius="6" Background="#EEF6FF"
+                                    BorderBrush="#5FA8D3" BorderThickness="1" Padding="10,7">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel>
-                                        <TextBlock Text="Pa/m LOSS" FontSize="9" FontWeight="Bold" Foreground="#744210"
+                                        <TextBlock Text="Pa/m LOSS" FontSize="9" FontWeight="Bold" Foreground="#0E639C"
                                                    ToolTip="Friction pressure gradient — Darcy-Weisbach (Haaland). Requires Duct Width + Duct Length."/>
                                         <TextBlock x:Name="TxtPaPerM" Text="—"
-                                                   FontSize="20" FontWeight="Bold" Foreground="#7B341E"/>
+                                                   FontSize="20" FontWeight="Bold" Foreground="#0C3F63"/>
                                     </StackPanel>
                                     <TextBlock Grid.Column="1" Text="Pa/m" FontSize="11"
-                                               Foreground="#D69E2E" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
+                                               Foreground="#1FA6A6" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
                                 </Grid>
                             </Border>
 
@@ -431,8 +431,8 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                <Border CornerRadius="3" Background="#FAF5FF" Padding="6,2" Margin="0,0,8,0">
-                                    <TextBlock Text="LEGEND" FontSize="9" FontWeight="Bold" Foreground="#805AD5"/>
+                                <Border CornerRadius="3" Background="#EEF6FF" Padding="6,2" Margin="0,0,8,0">
+                                    <TextBlock Text="LEGEND" FontSize="9" FontWeight="Bold" Foreground="#1FA6A6"/>
                                 </Border>
                                 <TextBlock Text="m/s bands" FontSize="11"
                                            Foreground="#718096" VerticalAlignment="Center"/>
@@ -493,8 +493,8 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0">
-                            <Border CornerRadius="3" Background="#FFF5F5" Padding="6,2" Margin="0,0,8,0">
-                                <TextBlock Text="RECTANGULAR DUCT" FontSize="9" FontWeight="Bold" Foreground="#C53030"/>
+                            <Border CornerRadius="3" Background="#EEF6FF" Padding="6,2" Margin="0,0,8,0">
+                                <TextBlock Text="RECTANGULAR DUCT" FontSize="9" FontWeight="Bold" Foreground="#0E639C"/>
                             </Border>
                             <TextBlock Text="Velocity (m/s) · Height rows × Width columns"
                                        FontSize="11" Foreground="#718096" VerticalAlignment="Center"/>

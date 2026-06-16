@@ -15,7 +15,7 @@
         <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#1177BB"/>
         <SolidColorBrush x:Key="SecondaryBrush" Color="#1FA6A6"/>
         <SolidColorBrush x:Key="SecondaryHoverBrush" Color="#22B8B8"/>
-        <SolidColorBrush x:Key="AccentBrush" Color="#F2B134"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#1FA6A6"/>
         <SolidColorBrush x:Key="SurfaceBrush" Color="#232327"/>
         <SolidColorBrush x:Key="SurfaceAltBrush" Color="#2A2A2E"/>
         <SolidColorBrush x:Key="BorderBrush" Color="#3A3A40"/>
@@ -160,7 +160,7 @@
 
         <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
-            <Setter Property="BorderBrush" Value="#D99A20"/>
+            <Setter Property="BorderBrush" Value="#1177BB"/>
             <Setter Property="Foreground" Value="#1A1A1C"/>
         </Style>
 

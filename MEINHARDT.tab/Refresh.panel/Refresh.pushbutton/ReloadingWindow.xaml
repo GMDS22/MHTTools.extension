@@ -10,7 +10,7 @@
   <Window.Resources>
     <SolidColorBrush x:Key="PrimaryBrush" Color="#0E639C"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="#1FA6A6"/>
-    <SolidColorBrush x:Key="AccentBrush" Color="#F2B134"/>
+    <SolidColorBrush x:Key="AccentBrush" Color="#1FA6A6"/>
     <SolidColorBrush x:Key="SurfaceBrush" Color="#E81A1A1C"/>
     <SolidColorBrush x:Key="BorderBrush" Color="#553A3A40"/>
 
@@ -66,7 +66,7 @@
 
       <Grid Width="120" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Ellipse Width="94" Height="94" Stroke="#3322B8B8" StrokeThickness="2"/>
-        <Ellipse Width="94" Height="94" Stroke="#99F2B134" StrokeThickness="3" StrokeDashArray="5,7">
+        <Ellipse Width="94" Height="94" Stroke="#991FA6A6" StrokeThickness="3" StrokeDashArray="5,7">
           <Ellipse.RenderTransform>
             <RotateTransform x:Name="RingRotate" CenterX="47" CenterY="47"/>
           </Ellipse.RenderTransform>

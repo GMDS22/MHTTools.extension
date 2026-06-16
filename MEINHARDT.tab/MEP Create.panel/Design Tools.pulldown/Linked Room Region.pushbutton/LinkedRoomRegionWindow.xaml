@@ -18,7 +18,7 @@
         <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#1177BB" />
         <SolidColorBrush x:Key="SecondaryBrush" Color="#1FA6A6" />
         <SolidColorBrush x:Key="SecondaryHoverBrush" Color="#22B8B8" />
-        <SolidColorBrush x:Key="AccentBrush" Color="#F2B134" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#1FA6A6" />
         <SolidColorBrush x:Key="TextMainBrush" Color="#E8E8E8" />
         <SolidColorBrush x:Key="TextMutedBrush" Color="#8A8A9A" />
 
@@ -196,14 +196,14 @@
         <StackPanel Grid.Row="4" Margin="0,0,0,8">
             <TextBlock Text="Filled Region Type" Margin="0,0,0,4" />
             <ComboBox x:Name="cmbRegionTypes" SelectionChanged="on_region_type_changed" />
-            <CheckBox x:Name="chkMasking" Content="Masking Filled Region Type" Margin="0,8,0,0" Click="on_masking_changed" Foreground="#F2B134" />
+            <CheckBox x:Name="chkMasking" Content="Masking Filled Region Type" Margin="0,8,0,0" Click="on_masking_changed" Foreground="#1FA6A6" />
             <TextBlock Text="Boundary Line Type" Margin="0,8,0,4" />
             <ComboBox x:Name="cmbBoundaryLineStyle" SelectionChanged="on_boundary_line_style_changed" />
         </StackPanel>
 
         <Border Grid.Row="5" Background="#232327" BorderBrush="#3A3A40" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,8">
             <StackPanel>
-                <CheckBox x:Name="chkReplaceExisting" Content="Replace Existing Filled Regions In Active View" Click="on_replace_existing_changed" Foreground="#F2B134" />
+                <CheckBox x:Name="chkReplaceExisting" Content="Replace Existing Filled Regions In Active View" Click="on_replace_existing_changed" Foreground="#1FA6A6" />
                 <DockPanel Margin="0,8,0,0">
                     <Button x:Name="btnSelectExistingRegions" Content="Select Existing Regions" Width="160" Height="28" Click="on_select_existing_regions" IsEnabled="False" Background="#2A2A2E" Foreground="#E8E8E8" BorderBrush="#3A3A40" />
                     <TextBlock x:Name="txtExistingRegionsSummary" Margin="10,6,0,0" Foreground="#8A8A9A" TextWrapping="Wrap" Text="Create new filled regions from the selected linked rooms." />
@@ -213,7 +213,7 @@
 
         <Border Grid.Row="6" Background="#232327" BorderBrush="#3A3A40" BorderThickness="1" CornerRadius="6" Padding="10" Margin="0,0,0,8">
             <StackPanel>
-                <CheckBox x:Name="chkCreateNewType" Content="Create New Filled Region Type" IsChecked="True" Foreground="#F2B134" />
+                <CheckBox x:Name="chkCreateNewType" Content="Create New Filled Region Type" IsChecked="True" Foreground="#1FA6A6" />
                 <TextBlock Margin="0,8,0,4" Text="New Type Name (type here)" />
                 <TextBox x:Name="txtNewTypeName" Height="28" VerticalContentAlignment="Center" ToolTip="When Create New Filled Region Type is checked, enter the new type name here." />
                 <TextBlock Margin="0,6,0,0" Foreground="#8A8A9A" TextWrapping="Wrap" Text="The last name you used is remembered for quick edits." />

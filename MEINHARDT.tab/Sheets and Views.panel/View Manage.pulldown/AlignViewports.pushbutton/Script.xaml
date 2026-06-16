@@ -27,10 +27,10 @@
 
 
             <SolidColorBrush x:Key="header_background"  Color="#0f0f2d" />
-            <SolidColorBrush x:Key="main_background"    Color="Aqua" />
+            <SolidColorBrush x:Key="main_background"    Color="#2A2A2E" />
 
-            <SolidColorBrush x:Key="checkbox_checked_colour"    Color="#FE6584" />
-            <SolidColorBrush x:Key="checkbox_unchecked_colour"    Color="Aqua" />
+            <SolidColorBrush x:Key="checkbox_checked_colour"    Color="#1FA6A6" />
+            <SolidColorBrush x:Key="checkbox_unchecked_colour"    Color="#2A2A2E" />
 
 
             <SolidColorBrush x:Key="text_header_title"  Color="White" />
@@ -38,20 +38,20 @@
 
             <SolidColorBrush x:Key="text_white"         Color="White" />
             <SolidColorBrush x:Key="text_darkblue"      Color="#383660" />
-            <SolidColorBrush x:Key="text_red"           Color="#FE6584" />
-            <SolidColorBrush x:Key="text_magenta"       Color="#EE82EE" />
+            <SolidColorBrush x:Key="text_red"           Color="#1FA6A6" />
+            <SolidColorBrush x:Key="text_magenta"       Color="#1FA6A6" />
 
 
             <SolidColorBrush x:Key="input_box_darkblue"       Color="#383660" />
 
 
 
-            <SolidColorBrush x:Key="border_main"        Color="DodgerBlue" />
-            <SolidColorBrush x:Key="border_secondary"     Color="#EE82EE" />
+            <SolidColorBrush x:Key="border_main"        Color="#0E639C" />
+            <SolidColorBrush x:Key="border_secondary"     Color="#1FA6A6" />
 
 
-            <SolidColorBrush x:Key="button_01_background_normal"     Color="#EE82EE" />
-            <SolidColorBrush x:Key="button_01_background_hover"     Color="#EE82EE" />
+            <SolidColorBrush x:Key="button_01_background_normal"     Color="#1FA6A6" />
+            <SolidColorBrush x:Key="button_01_background_hover"     Color="#1FA6A6" />
 
             <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
                 <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -166,7 +166,7 @@
                         <Setter Property="Cursor" Value="Hand"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF4C70"/>
+                                <Setter Property="Background" Value="#1177BB"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -282,7 +282,7 @@
 
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <RadioButton GroupName="One" Background="#EE82EE" Foreground="{StaticResource text_white}" Content="{Binding Name}" IsChecked="{Binding IsChecked}" />
+                            <RadioButton GroupName="One" Background="#1FA6A6" Foreground="{StaticResource text_white}" Content="{Binding Name}" IsChecked="{Binding IsChecked}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
 
@@ -319,7 +319,7 @@
                                     Content="Apply same CropBox/ScopeBox"
                                     IsChecked="True"
                                     Foreground="{DynamicResource text_white}"
-                                    Background="#EE82EE"
+                                    Background="#1FA6A6"
                                     VerticalAlignment="Center"
                                     FontSize="12"
                                     FontWeight="Medium"
@@ -333,7 +333,7 @@
                                     Content="Overlap multiple ViewPlans (same scale)"
                                     IsChecked="True"
                                     Foreground="{DynamicResource text_white}"
-                                    Background="#EE82EE"
+                                    Background="#1FA6A6"
                                     VerticalAlignment="Center"
                                     FontSize="12"
                                     FontWeight="Medium"
@@ -352,7 +352,7 @@
                                     Content="Align Legend(if same)"
                                     IsChecked="True"
                                     Foreground="{DynamicResource text_white}"
-                                    Background="#EE82EE"
+                                    Background="#1FA6A6"
                                     VerticalAlignment="Center"
                                     FontSize="12"
                                     FontWeight="Medium"
@@ -364,7 +364,7 @@
                                     Content="Apply same TitleBlock"
                                     IsChecked="False"
                                     Foreground="{DynamicResource text_white}"
-                                    Background="#EE82EE"
+                                    Background="#1FA6A6"
                                     VerticalAlignment="Center"
                                     FontSize="12"
                                     FontWeight="Medium"
@@ -406,7 +406,7 @@
                         <Setter Property="Cursor" Value="Hand"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF4C70"/>
+                                <Setter Property="Background" Value="#1177BB"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
