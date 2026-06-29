@@ -85,6 +85,7 @@ def _load_persistent_settings():
     settings = {
         "selected_categories": getattr(config, "selected_categories", []),
         "probe_offset_mm": getattr(config, "probe_offset_mm", 2000),
+        "use_selected_room_fallback": getattr(config, "use_selected_room_fallback", False),
     }
     return settings
 
@@ -94,6 +95,7 @@ def _save_persistent_settings(settings):
     try:
         config.selected_categories = settings.get("selected_categories", [])
         config.probe_offset_mm = settings.get("probe_offset_mm", 2000)
+        config.use_selected_room_fallback = settings.get("use_selected_room_fallback", False)
         script.save_config()
     except Exception:
         pass
@@ -540,12 +542,18 @@ class LinkedRoomTransferWindow(WPFWindow):
             except Exception:
                 pass
 
+        try:
+            self.chkUseSelectedRoomFallback.IsChecked = bool(settings.get("use_selected_room_fallback", False))
+        except Exception:
+            pass
+
     def _save_persistent_settings_now(self):
         settings = {
             "selected_categories": [
                 item["name"] for item in self.category_items if item["cb"].IsChecked
             ],
             "probe_offset_mm": self._get_probe_offset_mm(),
+            "use_selected_room_fallback": bool(getattr(self, "chkUseSelectedRoomFallback", None) and self.chkUseSelectedRoomFallback.IsChecked),
         }
         _save_persistent_settings(settings)
 
@@ -1719,43 +1727,37 @@ class LinkedRoomTransferWindow(WPFWindow):
         self._refresh_preview_list()
 
     def _write_transfer_log(self, lines):
-            ts = datetime.now().strftime("%Y%m%d-%H%M%S")
-            base = os.path.join(tempfile.gettempdir(), "LinkedRoomTransfer-{0}".format(ts))
-            path = base + ".log"
-            with io.open(path, "w", encoding="utf-8") as fp:
-                fp.write("\n".join(lines))
+        ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+        base = os.path.join(tempfile.gettempdir(), "LinkedRoomTransfer-{0}".format(ts))
+        path = base + ".log"
+        with io.open(path, "w", encoding="utf-8") as fp:
+            fp.write("\n".join(lines))
 
-            # Optional detailed CSV (if a detailed rows list was provided as last element)
+        csv_path = None
+        try:
+            detail_rows = getattr(self, "_last_transfer_detail_rows", None)
+            if detail_rows:
+                csv_path = base + ".csv"
+                with io.open(csv_path, "w", encoding="utf-8") as cf:
+                    cf.write("timestamp,element_id,room_param,target_param,storage,attempted_value,result,message\n")
+                    for r in detail_rows:
+                        cf.write(r + "\n")
+        except Exception:
+            csv_path = None
+
+        try:
+            if hasattr(self, "_last_transfer_detail_rows"):
+                del self._last_transfer_detail_rows
+        except Exception:
             try:
-                # If caller appended a detail_rows list as an attribute on self, write it too.
-                detail_rows = getattr(self, "_last_transfer_detail_rows", None)
-                if detail_rows:
-                    csv_path = base + ".csv"
-                    with io.open(csv_path, "w", encoding="utf-8") as cf:
-                        cf.write("timestamp,element_id,room_param,target_param,storage,attempted_value,result,message\n")
-                        for r in detail_rows:
-                            cf.write(r + "\n")
-                    path = path + "; CSV: {0}".format(csv_path)
+                del self._last_transfer_detail_rows
             except Exception:
                 pass
 
-            # Clear any cached detail rows
-            try:
-                if hasattr(self, "_last_transfer_detail_rows"):
-                    delattr(self, "_last_transfer_detail_rows")
-            except Exception:
-                try:
-                    del self._last_transfer_detail_rows
-                except Exception:
-                    pass
-
-            return path
+        return path, csv_path
 
     def transfer_click(self, sender, e):
         auto_room_mode = bool(getattr(self, "chkAutoRoomByElement", None) and self.chkAutoRoomByElement.IsChecked)
-
-        if auto_room_mode and not self.selected_elements:
-            self.auto_detect_elements_click(sender, e)
 
         if not auto_room_mode and self.selected_room is None:
             forms.alert("Select a linked room first.")
@@ -2077,8 +2079,10 @@ class LinkedRoomTransferWindow(WPFWindow):
             self._last_transfer_detail_rows = detail_rows
         except Exception:
             pass
-        log_path = self._write_transfer_log(summary)
+        log_path, csv_path = self._write_transfer_log(summary)
         summary.append("\nLog file: {0}".format(log_path))
+        if csv_path:
+            summary.append("Detailed CSV file: {0}".format(csv_path))
         self.last_transfer_summary = list(summary)
         self._save_persistent_settings_now()
 
