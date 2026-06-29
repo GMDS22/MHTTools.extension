@@ -125,14 +125,15 @@ def read_parameter_value(param, source_doc=None):
             return param.AsDouble()
         if st == StorageType.ElementId:
             eid = param.AsElementId()
-            if eid and eid.IntegerValue > 0:
-                e = src_doc.GetElement(eid)
-                if e is not None:
-                    try:
-                        return e.Name
-                    except Exception:
-                        return eid.IntegerValue
-            return None
+            if eid is None:
+                return None
+            try:
+                return eid.IntegerValue
+            except Exception:
+                try:
+                    return int(eid)
+                except Exception:
+                    return None
     except Exception:
         return None
     return None
@@ -190,6 +191,11 @@ def values_equal(left, right, storage_type):
         except Exception:
             return False
     if storage_type == StorageType.Integer:
+        try:
+            return int(left) == int(right)
+        except Exception:
+            return False
+    if storage_type == StorageType.ElementId:
         try:
             return int(left) == int(right)
         except Exception:
@@ -1811,9 +1817,8 @@ class LinkedRoomTransferWindow(WPFWindow):
         log_lines.append("Mappings:")
         for room_pname, target_pname in self.mapping.items():
             log_lines.append("  {0} -> {1}".format(room_pname, target_pname))
-
-        # Allow user to opt-out of falling back to the manually selected linked room
         allow_selected_room_fallback = bool(getattr(self, "chkUseSelectedRoomFallback", None) and self.chkUseSelectedRoomFallback.IsChecked)
+        log_lines.append("Selected-room fallback enabled: {0}".format(allow_selected_room_fallback))
 
         # Detailed CSV-style rows for per-attempt analysis
         detail_rows = []
