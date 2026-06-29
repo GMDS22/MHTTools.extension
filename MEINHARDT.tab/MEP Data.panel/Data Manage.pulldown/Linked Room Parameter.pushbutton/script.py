@@ -2015,6 +2015,13 @@ class LinkedRoomTransferWindow(WPFWindow):
         self.last_transfer_summary = list(summary)
         self._save_persistent_settings_now()
 
+        # Inform user if fallback to the manually selected linked room was used
+        try:
+            if fallback_used_count:
+                forms.alert("Selected-room fallback used for {0} element(s).\nResults summary will be shown next.".format(fallback_used_count), title="Linked Room Parameter Transfer")
+        except Exception:
+            pass
+
         forms.alert("\n".join(summary), title="Linked Room Parameter Transfer")
 
     def cancel_click(self, sender, e):
