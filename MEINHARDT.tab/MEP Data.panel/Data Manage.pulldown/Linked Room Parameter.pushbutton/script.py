@@ -36,6 +36,7 @@ __doc__ = "Select a room from a linked model and transfer room parameter values 
 TARGET_CATEGORIES = [
     # MEP Spaces & Zones
     ("Spaces", BuiltInCategory.OST_MEPSpaces),
+    ("Rooms", BuiltInCategory.OST_Rooms),
     ("HVAC Zones", BuiltInCategory.OST_HVAC_Zones),
     # Ducts
     ("Ducts", BuiltInCategory.OST_DuctCurves),
@@ -1180,6 +1181,7 @@ class LinkedRoomTransferWindow(WPFWindow):
     _VIEW_UNSAFE_CATEGORIES = {
         int(BuiltInCategory.OST_HVAC_Zones),
         int(BuiltInCategory.OST_MEPSpaces),
+        int(BuiltInCategory.OST_Rooms),
     }
 
     def _collect_category_elements(self, bic, scope_mode):
