@@ -639,6 +639,10 @@
                         <CheckBox x:Name="chkSkipEmpty" Content="Skip empty values"
                                   IsChecked="True"
                                   ToolTip="When ticked, room parameters with no value will not overwrite existing data."/>
+                        <CheckBox x:Name="chkUseSelectedRoomFallback" Content="Allow fallback to selected room"
+                                  IsChecked="True"
+                                  ToolTip="When enabled, elements without an auto-detected linked room will fall back to the manually selected room (use with caution)."
+                                  Margin="12,0,0,0"/>
                         <TextBlock Text="If target has value:" VerticalAlignment="Center"
                                    Margin="16,0,8,0" Foreground="#B0B0B8"/>
                         <ComboBox x:Name="cmbDuplicateMode" Width="110" SelectedIndex="0">

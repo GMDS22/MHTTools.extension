@@ -254,6 +254,23 @@ def set_parameter_value(param, value, duplicate_mode):
                 success = param.Set(float(value))
             except Exception:
                 return False, "invalid double value"
+        elif st == StorageType.ElementId:
+            # Best-effort handling: accept integer ids or numeric strings.
+            try:
+                if value is None:
+                    return False, "empty element id value"
+                if isinstance(value, (int, long)) if 'long' in globals() else isinstance(value, int):
+                    eid = ElementId(int(value))
+                    success = param.Set(eid)
+                else:
+                    sval = str(value).strip()
+                    if sval.isdigit():
+                        eid = ElementId(int(sval))
+                        success = param.Set(eid)
+                    else:
+                        return False, "unsupported ElementId value"
+            except Exception:
+                return False, "invalid element id value"
         else:
             return False, "unsupported storage type"
 
@@ -1702,11 +1719,37 @@ class LinkedRoomTransferWindow(WPFWindow):
         self._refresh_preview_list()
 
     def _write_transfer_log(self, lines):
-        ts = datetime.now().strftime("%Y%m%d-%H%M%S")
-        path = os.path.join(tempfile.gettempdir(), "LinkedRoomTransfer-{0}.log".format(ts))
-        with io.open(path, "w", encoding="utf-8") as fp:
-            fp.write("\n".join(lines))
-        return path
+            ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+            base = os.path.join(tempfile.gettempdir(), "LinkedRoomTransfer-{0}".format(ts))
+            path = base + ".log"
+            with io.open(path, "w", encoding="utf-8") as fp:
+                fp.write("\n".join(lines))
+
+            # Optional detailed CSV (if a detailed rows list was provided as last element)
+            try:
+                # If caller appended a detail_rows list as an attribute on self, write it too.
+                detail_rows = getattr(self, "_last_transfer_detail_rows", None)
+                if detail_rows:
+                    csv_path = base + ".csv"
+                    with io.open(csv_path, "w", encoding="utf-8") as cf:
+                        cf.write("timestamp,element_id,room_param,target_param,storage,attempted_value,result,message\n")
+                        for r in detail_rows:
+                            cf.write(r + "\n")
+                    path = path + "; CSV: {0}".format(csv_path)
+            except Exception:
+                pass
+
+            # Clear any cached detail rows
+            try:
+                if hasattr(self, "_last_transfer_detail_rows"):
+                    delattr(self, "_last_transfer_detail_rows")
+            except Exception:
+                try:
+                    del self._last_transfer_detail_rows
+                except Exception:
+                    pass
+
+            return path
 
     def transfer_click(self, sender, e):
         auto_room_mode = bool(getattr(self, "chkAutoRoomByElement", None) and self.chkAutoRoomByElement.IsChecked)
@@ -1767,6 +1810,12 @@ class LinkedRoomTransferWindow(WPFWindow):
         for room_pname, target_pname in self.mapping.items():
             log_lines.append("  {0} -> {1}".format(room_pname, target_pname))
 
+        # Allow user to opt-out of falling back to the manually selected linked room
+        allow_selected_room_fallback = bool(getattr(self, "chkUseSelectedRoomFallback", None) and self.chkUseSelectedRoomFallback.IsChecked)
+
+        # Detailed CSV-style rows for per-attempt analysis
+        detail_rows = []
+
         updated_elements = set()
         transferred = 0
         failed = 0
@@ -1797,7 +1846,7 @@ class LinkedRoomTransferWindow(WPFWindow):
                             if room_item is not None:
                                 self.element_room_map[el.Id.IntegerValue] = room_item
 
-                        if room_item is None and self.selected_room is not None:
+                        if room_item is None and allow_selected_room_fallback and self.selected_room is not None:
                             # Fallback to manually selected linked room when auto-room detection fails.
                             room_item = {
                                 "link_id": self.selected_room_link_inst.Id.IntegerValue,
@@ -1931,6 +1980,20 @@ class LinkedRoomTransferWindow(WPFWindow):
                                 type_write_keys.add(write_key)
 
                         ok, msg = set_parameter_value(target_param, value, duplicate_mode)
+
+                        # Add a CSV-safe detailed row for this attempt
+                        try:
+                            tsnow = datetime.now().isoformat()
+                            storage = str(target_param.StorageType)
+                            attempted = str(value) if value is not None else ""
+                            # escape double quotes
+                            attempted_safe = '"' + attempted.replace('"', '""') + '"'
+                            result = "SUCCESS" if ok else "FAIL"
+                            msg_safe = '"' + str(msg).replace('"', '""') + '"'
+                            row = ",".join([tsnow, str(el.Id.IntegerValue), str(room_pname), str(target_pname), storage, attempted_safe, result, msg_safe])
+                            detail_rows.append(row)
+                        except Exception:
+                            pass
                         if ok:
                             transferred += 1
                             updated_elements.add(el.Id.IntegerValue)
@@ -2010,6 +2073,10 @@ class LinkedRoomTransferWindow(WPFWindow):
             summary.append("\nSample failures:")
             summary.extend(fail_messages)
 
+        try:
+            self._last_transfer_detail_rows = detail_rows
+        except Exception:
+            pass
         log_path = self._write_transfer_log(summary)
         summary.append("\nLog file: {0}".format(log_path))
         self.last_transfer_summary = list(summary)
