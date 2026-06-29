@@ -28,15 +28,37 @@ _PREFERRED_LABEL_PARAM = None
 
 BIC = DB.BuiltInCategory
 
+_SCOPE_ALL_MODEL = "All types/elements in Model"
+_SCOPE_USED_MODEL = "Only used in Model"
+_SCOPE_USED_ACTIVE_VIEW = "Only used in Active View"
+_TARGET_SELECTED_VIEWS = "Selected Views"
+_LABEL_MODE_CUSTOM = "Custom Text"
+_LABEL_MODE_TAG = "Tag / Mark Value"
+_TAG_FIELD_AUTO = "Auto"
+_TAG_FIELD_TYPE_MARK = "Type Mark"
+_TAG_FIELD_MARK = "Mark"
+_TAG_FIELD_TYPE_NAME = "Type Name"
+_TAG_FIELD_FAMILY_NAME = "Family Name"
+_TAG_FIELD_NUMBER = "Number"
+_TAG_FIELD_NAME = "Name"
+
 _UI_XAML_PATH = os.path.join(os.path.dirname(__file__), "LegendCreatorUI.xaml")
 _DEFAULT_SETTINGS = {
     "mode": "Family Legend (single category)",
     "target": "Current View",
-    "used": "All (ignore view usage)",
+    "used": _SCOPE_ALL_MODEL,
     "legend_title": "",
+    "name_filter": "",
+    "views_filter": "",
+    "label_mode": _LABEL_MODE_CUSTOM,
+    "tag_field": _TAG_FIELD_AUTO,
     "textstyle": "",
+    "title_textstyle": "",
+    "label_textstyle": "",
     "cat": "",
     "scheme": "",
+    "boundary_line_style": "Invisible Lines",
+    "selected_view_ids": "",
     "box_w": "1000",
     "box_h": "240",
     "box_off": "80",
@@ -52,6 +74,12 @@ def _load_settings():
         except Exception:
             val = default_value
         settings[key] = str(val) if val is not None else default_value
+
+    legacy_text_style = settings.get("textstyle")
+    if not settings.get("title_textstyle") and legacy_text_style:
+        settings["title_textstyle"] = legacy_text_style
+    if not settings.get("label_textstyle") and legacy_text_style:
+        settings["label_textstyle"] = legacy_text_style
     return settings
 
 
@@ -63,6 +91,16 @@ def _save_settings(values):
         except Exception:
             continue
     script.save_config()
+
+
+def _normalize_scope_mode(value):
+    if value == "All (ignore view usage)":
+        return _SCOPE_ALL_MODEL
+    if value == _SCOPE_USED_MODEL:
+        return _SCOPE_USED_MODEL
+    if value == _SCOPE_USED_ACTIVE_VIEW:
+        return _SCOPE_USED_ACTIVE_VIEW
+    return _SCOPE_ALL_MODEL
 
 
 # -----------------------------
@@ -100,6 +138,46 @@ def _invis_style():
     except Exception:
         pass
     return None
+
+
+def _invisible_line_style_id():
+    style = _invis_style()
+    return style.Id if style else DB.ElementId.InvalidElementId
+
+
+def _line_style_name(graphics_style):
+    try:
+        category = graphics_style.GraphicsStyleCategory
+        if category and category.Name:
+            return _single_line_text(category.Name)
+    except Exception:
+        pass
+    try:
+        return _single_line_text(graphics_style.Name)
+    except Exception:
+        return "Line Style"
+
+
+class LineStyleItem(object):
+    def __init__(self, graphics_style):
+        self.graphics_style = graphics_style
+        self.style_id = graphics_style.Id
+        self.name = _line_style_name(graphics_style)
+
+    def __str__(self):
+        return self.name
+
+
+class ViewTargetItem(object):
+    def __init__(self, view):
+        self.view = view
+        self.name = _single_line_text(getattr(view, 'Name', None) or 'View')
+        self.view_type = _single_line_text(str(getattr(view, 'ViewType', 'View')))
+        self.is_checked = False
+
+    @property
+    def display_name(self):
+        return "{} | {}".format(self.name, self.view_type)
 
 
 def _any_filled_region_type():
@@ -173,6 +251,104 @@ def _single_line_text(value):
     except Exception:
         txt = ""
     return " ".join(txt.replace("\r", " ").replace("\n", " ").replace("\t", " ").split())
+
+
+def _get_bip_value(element, bip_names):
+    for bip_name in bip_names:
+        try:
+            bip = getattr(DB.BuiltInParameter, bip_name)
+        except Exception:
+            bip = None
+        if bip is None:
+            continue
+        try:
+            param = element.get_Parameter(bip)
+            if param is None:
+                continue
+            value = param.AsString() or param.AsValueString()
+            if value:
+                return _single_line_text(value)
+        except Exception:
+            continue
+    return None
+
+
+def _get_named_param_value(element, param_names):
+    for param_name in param_names:
+        try:
+            param = element.LookupParameter(param_name)
+            if param is None:
+                continue
+            value = param.AsString() or param.AsValueString()
+            if value:
+                return _single_line_text(value)
+        except Exception:
+            continue
+    return None
+
+
+def _parameter_definition_name(param):
+    try:
+        definition = param.Definition
+        if definition and definition.Name:
+            return _single_line_text(definition.Name)
+    except Exception:
+        pass
+    return None
+
+
+def _parameter_string_value(param):
+    if param is None:
+        return None
+    try:
+        value = param.AsString()
+        if value:
+            return _single_line_text(value)
+    except Exception:
+        pass
+    try:
+        value = param.AsValueString()
+        if value:
+            return _single_line_text(value)
+    except Exception:
+        pass
+    return None
+
+
+def _element_parameter_names(element):
+    names = set()
+    if element is None:
+        return names
+    try:
+        for param in element.Parameters:
+            name = _parameter_definition_name(param)
+            if name:
+                names.add(name)
+    except Exception:
+        pass
+    return names
+
+
+def _get_parameter_value_by_name(element, param_name):
+    param_name = _single_line_text(param_name)
+    if not param_name or param_name == _TAG_FIELD_AUTO:
+        return None
+
+    value = _get_named_param_value(element, [param_name])
+    if value:
+        return value
+
+    needle = param_name.lower()
+    try:
+        for param in element.Parameters:
+            name = _parameter_definition_name(param)
+            if name and name.lower() == needle:
+                value = _parameter_string_value(param)
+                if value:
+                    return value
+    except Exception:
+        pass
+    return None
 
 
 def _scale_vec(vec, factor):
@@ -292,6 +468,65 @@ def _ensure_unique_view_name(name):
         i += 1
 
 
+def _view_is_selectable_target(view):
+    try:
+        if view is None or view.IsTemplate:
+            return False
+    except Exception:
+        return False
+
+    blocked = [
+        DB.ViewType.ProjectBrowser,
+        DB.ViewType.SystemBrowser,
+        DB.ViewType.Internal,
+        DB.ViewType.DrawingSheet,
+        DB.ViewType.Schedule,
+        DB.ViewType.CostReport,
+        DB.ViewType.LoadsReport,
+        DB.ViewType.PresureLossReport,
+        DB.ViewType.Rendering,
+        DB.ViewType.Walkthrough,
+    ]
+    try:
+        return view.ViewType not in blocked
+    except Exception:
+        return True
+
+
+def _collect_selectable_views():
+    views = []
+    for view in DB.FilteredElementCollector(doc).OfClass(DB.View).WhereElementIsNotElementType():
+        if _view_is_selectable_target(view):
+            views.append(view)
+    return sorted(views, key=lambda x: (_single_line_text(str(x.ViewType)), _single_line_text(x.Name).lower()))
+
+
+def _view_list_anchor_point(view, margin_right_mm=20.0, margin_up_mm=20.0):
+    scale_factor = float(view.Scale) / 100.0
+    offset_right = _mm_to_internal(margin_right_mm) * scale_factor
+    offset_up = _mm_to_internal(margin_up_mm) * scale_factor
+
+    try:
+        outline = view.Outline
+        origin = DB.XYZ(outline.Min.U, outline.Max.V, 0)
+        return _pt_in_view_basis(view, origin, right=offset_right, up=-offset_up)
+    except Exception:
+        pass
+
+    try:
+        crop = view.CropBox
+        origin = DB.XYZ(crop.Min.X, crop.Max.Y, crop.Min.Z)
+        return _pt_in_view_basis(view, origin, right=offset_right, up=-offset_up)
+    except Exception:
+        pass
+
+    try:
+        origin = view.Origin
+        return _pt_in_view_basis(view, origin, right=offset_right, up=-offset_up)
+    except Exception:
+        return DB.XYZ.Zero
+
+
 # -----------------------------
 # View creation/targeting
 # -----------------------------
@@ -401,6 +636,18 @@ def _get_target_view(target_mode, base_name):
     return lv
 
 
+def _resolve_target_views(target_mode, base_name, selected_view_items=None):
+    if target_mode != _TARGET_SELECTED_VIEWS:
+        return [_get_target_view(target_mode, base_name)]
+
+    selected_views = []
+    for item in selected_view_items or []:
+        if bool(getattr(item, 'is_checked', False)) and getattr(item, 'view', None) is not None:
+            selected_views.append(item.view)
+    forms.alert_ifnot(selected_views, "Select at least one target view.", exitscript=True)
+    return selected_views
+
+
 # -----------------------------
 # Data collection
 # -----------------------------
@@ -412,7 +659,44 @@ def _get_category_name(bic):
         return str(bic)
 
 
-def _collect_symbols_for_category(bic, only_used, used_scope_view):
+def _normalized_name_filter(name_filter):
+    return _single_line_text(name_filter).strip().lower()
+
+
+def _matches_name_filter(value, name_filter):
+    needle = _normalized_name_filter(name_filter)
+    if not needle:
+        return True
+    return needle in _single_line_text(value).lower()
+
+
+def _symbol_matches_name_filter(symbol, name_filter):
+    needle = _normalized_name_filter(name_filter)
+    if not needle:
+        return True
+
+    label_parts = []
+    try:
+        label_parts.append(symbol.get_Parameter(DB.BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM).AsString())
+    except Exception:
+        pass
+    try:
+        label_parts.append(symbol.get_Parameter(DB.BuiltInParameter.SYMBOL_NAME_PARAM).AsString())
+    except Exception:
+        pass
+    try:
+        label_parts.append(getattr(symbol, 'FamilyName', None))
+    except Exception:
+        pass
+    try:
+        label_parts.append(getattr(symbol, 'Name', None))
+    except Exception:
+        pass
+
+    return any(_matches_name_filter(part, needle) for part in label_parts if part)
+
+
+def _collect_symbols_for_category(bic, scope_mode, used_scope_view, name_filter=None):
     # Types
     syms = list(
         DB.FilteredElementCollector(doc)
@@ -421,11 +705,10 @@ def _collect_symbols_for_category(bic, only_used, used_scope_view):
         .ToElements()
     )
 
-    if not only_used:
-        return syms
+    if scope_mode == _SCOPE_ALL_MODEL:
+        return [sym for sym in syms if _symbol_matches_name_filter(sym, name_filter)]
 
-    # Used scope: active view only, else entire model
-    if used_scope_view is not None:
+    if scope_mode == _SCOPE_USED_ACTIVE_VIEW and used_scope_view is not None:
         insts = DB.FilteredElementCollector(doc, used_scope_view.Id).OfCategory(bic).WhereElementIsNotElementType()
     else:
         insts = DB.FilteredElementCollector(doc).OfCategory(bic).WhereElementIsNotElementType()
@@ -439,7 +722,7 @@ def _collect_symbols_for_category(bic, only_used, used_scope_view):
         except Exception:
             continue
 
-    return [s for s in syms if s.Id in used_type_ids]
+    return [s for s in syms if s.Id in used_type_ids and _symbol_matches_name_filter(s, name_filter)]
 
 
 def _group_symbols_by_family(symbols):
@@ -586,7 +869,77 @@ def _family_label(symbol):
         return None
 
 
-def _populate_legend_components(view, bic, ordered_symbols, view_direction, pt, spacing_internal, text_type_id):
+def _collect_tag_field_source_elements(mode, category_bic=None):
+    if mode == "Family Legend (single category)":
+        if category_bic is None:
+            return []
+        return _collect_symbols_for_category(category_bic, _SCOPE_ALL_MODEL, None)
+
+    if mode == "Family Legend (All MEP categories)":
+        source_elements = []
+        for bic in _family_legend_mep_categories():
+            try:
+                source_elements.extend(_collect_symbols_for_category(bic, _SCOPE_ALL_MODEL, None))
+            except Exception:
+                continue
+        return source_elements
+
+    if mode == "Legend from Filled Regions":
+        return _collect_filled_region_types(_SCOPE_ALL_MODEL, None)
+
+    if mode == "Legend from Spaces":
+        return _collect_spaces(_SCOPE_ALL_MODEL, None)
+
+    return []
+
+
+def _tag_field_options_for_mode(mode, category_bic=None):
+    names = set()
+    source_elements = _collect_tag_field_source_elements(mode, category_bic)
+    for element in list(source_elements)[:80]:
+        names.update(_element_parameter_names(element))
+
+    if not names:
+        return [_TAG_FIELD_AUTO]
+
+    return [_TAG_FIELD_AUTO] + sorted(names, key=lambda value: value.lower())
+
+
+def _selectable_tag_field(preferred_value, options):
+    if preferred_value in options:
+        return preferred_value
+    return options[0] if options else _TAG_FIELD_AUTO
+
+
+def _symbol_tag_label(symbol, tag_field):
+    label = _get_parameter_value_by_name(symbol, tag_field)
+    if label:
+        return label
+
+    label = _get_bip_value(symbol, ['ALL_MODEL_TYPE_MARK', 'TYPE_MARK', 'ALL_MODEL_MARK'])
+    if label:
+        return label
+
+    label = _get_named_param_value(symbol, ['Type Mark', 'Mark', 'Type Name'])
+    if label:
+        return label
+
+    try:
+        label = symbol.get_Parameter(DB.BuiltInParameter.SYMBOL_NAME_PARAM).AsString()
+        if label:
+            return _single_line_text(label)
+    except Exception:
+        pass
+    return _family_label(symbol)
+
+
+def _symbol_display_label(symbol, label_mode, tag_field):
+    if label_mode == _LABEL_MODE_TAG:
+        return _symbol_tag_label(symbol, tag_field)
+    return _family_label(symbol)
+
+
+def _populate_legend_components(view, bic, ordered_symbols, view_direction, pt, spacing_internal, text_type_id, label_mode, tag_field):
     # Need at least one source legend component in view to copy
     source_lc = DB.FilteredElementCollector(doc, view.Id).OfCategory(BIC.OST_LegendComponents).FirstElement()
     forms.alert_ifnot(
@@ -630,7 +983,7 @@ def _populate_legend_components(view, bic, ordered_symbols, view_direction, pt, 
 
                 bb = new_lc.get_BoundingBox(view)
                 if bb and ttype_id and ttype_id != DB.ElementId.InvalidElementId:
-                    label = _family_label(symbol)
+                    label = _symbol_display_label(symbol, label_mode, tag_field)
                     if label:
                         bb_anchor = _bbox_anchor_point_in_view(bb, view)
                         label_pos = _pt_in_view_basis(view, bb_anchor, right=text_offset)
@@ -674,11 +1027,29 @@ def _filled_region_type_name(fr_type):
         return "Filled Region"
 
 
-def _collect_filled_region_types(only_used, used_scope_view):
-    if only_used and used_scope_view is not None:
+def _filled_region_display_label(fr_type, label_mode, tag_field):
+    if label_mode == _LABEL_MODE_TAG:
+        label = _get_parameter_value_by_name(fr_type, tag_field)
+        if label:
+            return label
+
+        label = _get_bip_value(fr_type, ['ALL_MODEL_TYPE_MARK', 'TYPE_MARK'])
+        if label:
+            return label
+        label = _get_named_param_value(fr_type, ['Type Mark', 'Mark'])
+        if label:
+            return label
+    return _filled_region_type_name(fr_type)
+
+
+def _collect_filled_region_types(scope_mode, used_scope_view, name_filter=None):
+    if scope_mode in [_SCOPE_USED_MODEL, _SCOPE_USED_ACTIVE_VIEW]:
         used_type_ids = set()
         try:
-            regs = DB.FilteredElementCollector(doc, used_scope_view.Id).OfClass(DB.FilledRegion).ToElements()
+            if scope_mode == _SCOPE_USED_ACTIVE_VIEW and used_scope_view is not None:
+                regs = DB.FilteredElementCollector(doc, used_scope_view.Id).OfClass(DB.FilledRegion).ToElements()
+            else:
+                regs = DB.FilteredElementCollector(doc).OfClass(DB.FilledRegion).ToElements()
         except Exception:
             regs = []
 
@@ -698,14 +1069,20 @@ def _collect_filled_region_types(only_used, used_scope_view):
                     out.append(fr_type)
             except Exception:
                 continue
-        return sorted(out, key=lambda x: _filled_region_type_name(x))
+        return sorted(
+            [fr_type for fr_type in out if _matches_name_filter(_filled_region_type_name(fr_type), name_filter)],
+            key=lambda x: _filled_region_type_name(x),
+        )
 
     try:
         fr_types = list(DB.FilteredElementCollector(doc).OfClass(DB.FilledRegionType).ToElements())
     except Exception:
         fr_types = []
 
-    return sorted(fr_types, key=lambda x: _filled_region_type_name(x))
+    return sorted(
+        [fr_type for fr_type in fr_types if _matches_name_filter(_filled_region_type_name(fr_type), name_filter)],
+        key=lambda x: _filled_region_type_name(x),
+    )
 
 
 def _scheme_category_name(scheme):
@@ -739,6 +1116,10 @@ def _entry_label(entry, idx):
     return "Entry {}".format(idx + 1)
 
 
+def _scheme_entry_display_label(entry, idx, label_mode):
+    return _entry_label(entry, idx)
+
+
 def _entry_color(entry):
     try:
         return entry.Color
@@ -756,10 +1137,13 @@ def _entry_visible(entry):
     return True
 
 
-def _draw_color_scheme_legend(view, pt, scheme, only_visible=True, box_w_mm=1000, box_h_mm=240, box_off_mm=80):
+def _draw_color_scheme_legend(view, pt, scheme, only_visible=True, box_w_mm=1000, box_h_mm=240, box_off_mm=80, text_type_id=None, name_filter=None, label_mode=_LABEL_MODE_CUSTOM, tag_field=_TAG_FIELD_AUTO):
     entries = _scheme_entries(scheme)
     if only_visible:
         entries = [e for e in entries if _entry_visible(e)]
+
+    if _normalized_name_filter(name_filter):
+        entries = [e for idx, e in enumerate(entries) if _matches_name_filter(_entry_label(e, idx), name_filter)]
 
     if not entries:
         forms.alert("No entries found for the selected Color Fill Scheme.", exitscript=True)
@@ -781,13 +1165,13 @@ def _draw_color_scheme_legend(view, pt, scheme, only_visible=True, box_w_mm=1000
         # still draw, but pattern might be missing in very unusual templates
         solid_pat_id = fr_type.ForegroundPatternId
 
-    ttype_id = _default_text_type_id()
+    ttype_id = text_type_id or _default_text_type_id()
 
     with revit.Transaction("Draw Color Scheme Legend"):
         offset = 0.0
         for idx, entry in enumerate(entries):
             color = _entry_color(entry)
-            label = _entry_label(entry, idx)
+            label = _scheme_entry_display_label(entry, idx, label_mode)
 
             row_pt = _pt_in_view_basis(view, pt, up=-offset)
             reg = _draw_filled_box_in_view(view, row_pt, w, h, fr_type.Id, line_style_id)
@@ -804,7 +1188,7 @@ def _draw_color_scheme_legend(view, pt, scheme, only_visible=True, box_w_mm=1000
             offset += shift
 
 
-def _draw_filled_region_legend(view, pt, region_types, box_w_mm=1000, box_h_mm=240, box_off_mm=80, text_type_id=None):
+def _draw_filled_region_legend(view, pt, region_types, box_w_mm=1000, box_h_mm=240, box_off_mm=80, text_type_id=None, line_style_id=None, label_mode=_LABEL_MODE_CUSTOM, tag_field=_TAG_FIELD_AUTO):
     if not region_types:
         forms.alert("No Filled Region types found (with the selected scope).", exitscript=True)
 
@@ -814,19 +1198,71 @@ def _draw_filled_region_legend(view, pt, region_types, box_w_mm=1000, box_h_mm=2
     text_offset = 1 * scale
     shift = _mm_to_internal(box_off_mm + box_h_mm) * scale
 
-    line_style = _invis_style()
-    line_style_id = line_style.Id if line_style else DB.ElementId.InvalidElementId
+    if line_style_id is None:
+        line_style = _invis_style()
+        line_style_id = line_style.Id if line_style else DB.ElementId.InvalidElementId
     ttype_id = text_type_id or _default_text_type_id()
 
     with revit.Transaction("Draw Filled Region Legend"):
         offset = 0.0
         for fr_type in region_types:
-            label = _filled_region_type_name(fr_type)
+            label = _filled_region_display_label(fr_type, label_mode, tag_field)
             row_pt = _pt_in_view_basis(view, pt, up=-offset)
             _draw_filled_box_in_view(view, row_pt, w, h, fr_type.Id, line_style_id)
             label_pos = _pt_in_view_basis(view, row_pt, right=w + text_offset, up=-(h * 0.5))
             DB.TextNote.Create(doc, view.Id, label_pos, label, ttype_id)
             offset += shift
+
+
+def _collect_line_style_items():
+    items = []
+    try:
+        styles = list(DB.FilteredElementCollector(doc).OfClass(DB.GraphicsStyle).ToElements())
+    except Exception:
+        styles = []
+
+    try:
+        lines_parent_id = doc.Settings.Categories.get_Item(BIC.OST_Lines).Id.IntegerValue
+    except Exception:
+        lines_parent_id = None
+
+    invisible_id = _invisible_line_style_id().IntegerValue
+    seen = set()
+    visible_styles = []
+    for style in styles:
+        try:
+            if style.GraphicsStyleType != DB.GraphicsStyleType.Projection:
+                continue
+        except Exception:
+            continue
+
+        try:
+            category = style.GraphicsStyleCategory
+        except Exception:
+            category = None
+
+        include = False
+        try:
+            if category is not None and category.Id.IntegerValue == -2000064:
+                include = True
+            elif category is not None and category.Parent is not None and lines_parent_id is not None:
+                include = category.Parent.Id.IntegerValue == lines_parent_id
+        except Exception:
+            include = False
+
+        if not include:
+            continue
+
+        key = style.Id.IntegerValue
+        if key in seen:
+            continue
+        seen.add(key)
+        visible_styles.append(style)
+
+    visible_styles.sort(key=lambda style: ((0 if style.Id.IntegerValue == invisible_id else 1), _line_style_name(style).lower()))
+    for style in visible_styles:
+        items.append(LineStyleItem(style))
+    return items
 
 
 # -----------------------------
@@ -898,15 +1334,39 @@ def _space_label(space):
         return "Space"
 
 
-def _collect_spaces(only_used, used_scope_view):
+def _space_tag_label(space, tag_field):
+    label = _get_parameter_value_by_name(space, tag_field)
+    if label:
+        return label
+
+    label = _get_bip_value(space, ['ROOM_NUMBER', 'SPACE_NUMBER', 'ELEM_ROOM_NUMBER'])
+    if label:
+        return label
+
+    label = _get_named_param_value(space, ['Number', 'Mark'])
+    if label:
+        return label
+    return _space_label(space)
+
+
+def _space_display_label(space, label_mode, tag_field):
+    if label_mode == _LABEL_MODE_TAG:
+        return _space_tag_label(space, tag_field)
+    return _space_label(space)
+
+
+def _collect_spaces(scope_mode, used_scope_view, name_filter=None):
     bic_spaces = BIC.OST_MEPSpaces
 
-    if only_used and used_scope_view is not None:
+    if scope_mode == _SCOPE_USED_ACTIVE_VIEW and used_scope_view is not None:
         col = DB.FilteredElementCollector(doc, used_scope_view.Id).OfCategory(bic_spaces).WhereElementIsNotElementType()
     else:
         col = DB.FilteredElementCollector(doc).OfCategory(bic_spaces).WhereElementIsNotElementType()
 
-    return list(col.ToElements())
+    spaces = list(col.ToElements())
+    if not _normalized_name_filter(name_filter):
+        return spaces
+    return [space for space in spaces if _matches_name_filter(_space_label(space), name_filter)]
 
 
 # -----------------------------
@@ -953,31 +1413,68 @@ def _common_categories():
     return out
 
 
+def _family_legend_mep_categories():
+    return [
+        BIC.OST_MechanicalEquipment,
+        BIC.OST_DuctTerminal,
+        BIC.OST_DuctFitting,
+        BIC.OST_DuctAccessory,
+        BIC.OST_PipeFitting,
+        BIC.OST_PipeAccessory,
+        BIC.OST_PlumbingFixtures,
+        BIC.OST_Sprinklers,
+        BIC.OST_ElectricalEquipment,
+        BIC.OST_ElectricalFixtures,
+        BIC.OST_LightingFixtures,
+        BIC.OST_CommunicationDevices,
+        BIC.OST_DataDevices,
+        BIC.OST_SecurityDevices,
+        BIC.OST_FireAlarmDevices,
+        BIC.OST_CableTrayFitting,
+        BIC.OST_ConduitFitting,
+    ]
+
+
 class LegendCreatorWindow(forms.WPFWindow):
-    def __init__(self, modes, target_modes, used_modes, text_styles, categories, schemes, defaults):
+    def __init__(self, modes, target_modes, used_modes, label_modes, text_styles, categories, category_lookup, schemes, line_styles, view_items, defaults):
         forms.WPFWindow.__init__(self, _UI_XAML_PATH)
         self.result = None
 
         self._modes = list(modes)
         self._target_modes = list(target_modes)
         self._used_modes = list(used_modes)
+        self._label_modes = list(label_modes)
         self._text_styles = list(text_styles)
         self._categories = list(categories)
+        self._category_lookup = dict(category_lookup)
         self._schemes = list(schemes)
+        self._line_styles = list(line_styles)
+        self._view_items = list(view_items)
+        self._filtered_view_items = list(view_items)
 
         self.cmbMode.ItemsSource = self._modes
         self.cmbTarget.ItemsSource = self._target_modes
         self.cmbUsed.ItemsSource = self._used_modes
-        self.cmbTextStyle.ItemsSource = self._text_styles
+        self.cmbLabelMode.ItemsSource = self._label_modes
+        self.cmbTitleTextStyle.ItemsSource = self._text_styles
+        self.cmbLabelTextStyle.ItemsSource = self._text_styles
         self.cmbCategory.ItemsSource = self._categories
         self.cmbScheme.ItemsSource = self._schemes
+        self.cmbBoundaryLineStyle.ItemsSource = self._line_styles
+        self.cmbBoundaryLineStyle.DisplayMemberPath = "name"
+        self.lstTargetViews.ItemsSource = self._filtered_view_items
 
         self.cmbMode.SelectedItem = defaults.get("mode") if defaults.get("mode") in self._modes else self._modes[0]
         self.cmbTarget.SelectedItem = defaults.get("target") if defaults.get("target") in self._target_modes else self._target_modes[0]
-        self.cmbUsed.SelectedItem = defaults.get("used") if defaults.get("used") in self._used_modes else self._used_modes[0]
+        normalized_scope = _normalize_scope_mode(defaults.get("used"))
+        self.cmbUsed.SelectedItem = normalized_scope if normalized_scope in self._used_modes else self._used_modes[0]
+        self.cmbLabelMode.SelectedItem = defaults.get("label_mode") if defaults.get("label_mode") in self._label_modes else self._label_modes[0]
 
-        ds_text = defaults.get("textstyle")
-        self.cmbTextStyle.SelectedItem = ds_text if ds_text in self._text_styles else (self._text_styles[0] if self._text_styles else None)
+        default_title_style = defaults.get("title_textstyle") or defaults.get("textstyle")
+        self.cmbTitleTextStyle.SelectedItem = default_title_style if default_title_style in self._text_styles else (self._text_styles[0] if self._text_styles else None)
+
+        default_label_style = defaults.get("label_textstyle") or defaults.get("textstyle")
+        self.cmbLabelTextStyle.SelectedItem = default_label_style if default_label_style in self._text_styles else (self._text_styles[0] if self._text_styles else None)
 
         ds_cat = defaults.get("cat")
         self.cmbCategory.SelectedItem = ds_cat if ds_cat in self._categories else (self._categories[0] if self._categories else None)
@@ -985,11 +1482,24 @@ class LegendCreatorWindow(forms.WPFWindow):
         ds_scheme = defaults.get("scheme")
         self.cmbScheme.SelectedItem = ds_scheme if ds_scheme in self._schemes else (self._schemes[0] if self._schemes else None)
 
+        saved_boundary_style = defaults.get("boundary_line_style")
+        if self._line_styles:
+            selected_boundary_item = None
+            for item in self._line_styles:
+                if item.name == saved_boundary_style:
+                    selected_boundary_item = item
+                    break
+            self.cmbBoundaryLineStyle.SelectedItem = selected_boundary_item if selected_boundary_item else self._line_styles[0]
+
         self.txtLegendTitle.Text = defaults.get("legend_title", "")
+        self.txtNameFilter.Text = defaults.get("name_filter", "")
+        self.txtViewsFilter.Text = defaults.get("views_filter", "")
         self.txtBoxW.Text = defaults.get("box_w", "1000")
         self.txtBoxH.Text = defaults.get("box_h", "240")
         self.txtBoxOff.Text = defaults.get("box_off", "80")
 
+        self._refresh_tag_field_options(defaults.get("tag_field"))
+        self._apply_view_filter(self.txtViewsFilter.Text)
         self._update_visibility()
 
     def _show(self, show):
@@ -1001,24 +1511,89 @@ class LegendCreatorWindow(forms.WPFWindow):
         is_scheme = mode == "Legend from Color Fill Scheme"
         is_filled_regions = mode == "Legend from Filled Regions"
         show_box = is_scheme or is_filled_regions
+        target_mode = self.cmbTarget.SelectedItem
+        show_selected_views = target_mode == _TARGET_SELECTED_VIEWS and not is_single_family
+        show_tag_field = self.cmbLabelMode.SelectedItem == _LABEL_MODE_TAG and mode != "Legend from Color Fill Scheme"
 
         self.rowCategory.Visibility = self._show(is_single_family)
         self.rowScheme.Visibility = self._show(is_scheme)
         self.rowBoxW.Visibility = self._show(show_box)
         self.rowBoxH.Visibility = self._show(show_box)
         self.rowBoxOff.Visibility = self._show(show_box)
+        self.rowBoundaryLineStyle.Visibility = self._show(is_filled_regions)
+        self.rowSelectedViews.Visibility = self._show(show_selected_views)
+        self.rowTagField.Visibility = self._show(show_tag_field)
 
     def mode_changed(self, sender, args):
+        self._refresh_tag_field_options(self.cmbTagField.SelectedItem)
         self._update_visibility()
 
+    def category_changed(self, sender, args):
+        self._refresh_tag_field_options(self.cmbTagField.SelectedItem)
+
+    def target_changed(self, sender, args):
+        self._update_visibility()
+
+    def label_mode_changed(self, sender, args):
+        self._refresh_tag_field_options(self.cmbTagField.SelectedItem)
+        self._update_visibility()
+
+    def _selected_category_bic(self):
+        return self._category_lookup.get(self.cmbCategory.SelectedItem)
+
+    def _refresh_tag_field_options(self, preferred_value=None):
+        mode = self.cmbMode.SelectedItem or self._modes[0]
+        options = _tag_field_options_for_mode(mode, self._selected_category_bic())
+        self.cmbTagField.ItemsSource = options
+        self.cmbTagField.SelectedItem = _selectable_tag_field(preferred_value, options)
+
+    def _apply_view_filter(self, filter_text):
+        needle = _single_line_text(filter_text).strip().lower()
+        if not needle:
+            self._filtered_view_items = list(self._view_items)
+        else:
+            self._filtered_view_items = [item for item in self._view_items if needle in item.display_name.lower()]
+        self.lstTargetViews.ItemsSource = self._filtered_view_items
+        try:
+            self.lstTargetViews.Items.Refresh()
+        except Exception:
+            pass
+
+    def views_filter_changed(self, sender, args):
+        self._apply_view_filter(self.txtViewsFilter.Text)
+
+    def view_checkbox_click(self, sender, args):
+        item = getattr(sender, 'Tag', None)
+        if item is not None:
+            item.is_checked = bool(getattr(sender, 'IsChecked', False))
+
+    def select_all_views_click(self, sender, args):
+        for item in self._filtered_view_items:
+            item.is_checked = True
+        self.lstTargetViews.Items.Refresh()
+
+    def clear_all_views_click(self, sender, args):
+        for item in self._filtered_view_items:
+            item.is_checked = False
+        self.lstTargetViews.Items.Refresh()
+
     def create_click(self, sender, args):
+        boundary_item = self.cmbBoundaryLineStyle.SelectedItem
         self.result = {
             "mode": self.cmbMode.SelectedItem,
             "target": self.cmbTarget.SelectedItem,
             "used": self.cmbUsed.SelectedItem,
-            "textstyle": self.cmbTextStyle.SelectedItem,
+            "name_filter": self.txtNameFilter.Text,
+            "views_filter": self.txtViewsFilter.Text,
+            "label_mode": self.cmbLabelMode.SelectedItem,
+            "tag_field": self.cmbTagField.SelectedItem,
+            "textstyle": self.cmbLabelTextStyle.SelectedItem,
+            "title_textstyle": self.cmbTitleTextStyle.SelectedItem,
+            "label_textstyle": self.cmbLabelTextStyle.SelectedItem,
             "cat": self.cmbCategory.SelectedItem,
             "scheme": self.cmbScheme.SelectedItem,
+            "boundary_line_style": boundary_item.name if boundary_item else "",
+            "selected_view_ids": [item.view.Id.IntegerValue for item in self._view_items if item.is_checked and item.view is not None],
             "legend_title": self.txtLegendTitle.Text,
             "box_w": self.txtBoxW.Text,
             "box_h": self.txtBoxH.Text,
@@ -1042,13 +1617,19 @@ def main():
 
     target_modes = [
         "Current View",
+        _TARGET_SELECTED_VIEWS,
         "New Drafting View",
         "New Legend View",
     ]
 
     used_modes = [
-        "All (ignore view usage)",
-        "Only used in Active View",
+        _SCOPE_ALL_MODEL,
+        _SCOPE_USED_MODEL,
+        _SCOPE_USED_ACTIVE_VIEW,
+    ]
+    label_modes = [
+        _LABEL_MODE_CUSTOM,
+        _LABEL_MODE_TAG,
     ]
 
     cat_dict = _common_categories()
@@ -1063,39 +1644,77 @@ def main():
 
     text_types = _text_note_types_dict()
     forms.alert_ifnot(text_types, "No TextNoteTypes found in this model.", exitscript=True)
+    line_style_items = _collect_line_style_items()
+    view_items = [ViewTargetItem(view) for view in _collect_selectable_views()]
 
     settings = _load_settings()
     text_style_names = sorted(text_types.keys())
     category_names = sorted(cat_dict.keys())
     scheme_names = sorted(scheme_dict.keys())
+    selected_view_ids = set()
+    for raw_id in (settings.get("selected_view_ids") or "").split('|'):
+        raw_id = raw_id.strip()
+        if not raw_id:
+            continue
+        try:
+            selected_view_ids.add(int(raw_id))
+        except Exception:
+            continue
+    for item in view_items:
+        try:
+            item.is_checked = item.view.Id.IntegerValue in selected_view_ids
+        except Exception:
+            item.is_checked = False
 
-    win = LegendCreatorWindow(
-        modes=modes,
-        target_modes=target_modes,
-        used_modes=used_modes,
-        text_styles=text_style_names,
-        categories=category_names,
-        schemes=scheme_names,
-        defaults=settings,
-    )
-    win.ShowDialog()
+    try:
+        win = LegendCreatorWindow(
+            modes=modes,
+            target_modes=target_modes,
+            used_modes=used_modes,
+            label_modes=label_modes,
+            text_styles=text_style_names,
+            categories=category_names,
+            category_lookup=cat_dict,
+            schemes=scheme_names,
+            line_styles=line_style_items,
+            view_items=view_items,
+            defaults=settings,
+        )
+        win.ShowDialog()
+    except Exception as ex:
+        forms.alert(
+            "Legend Creator could not open due to a UI error.\n\n{}".format(ex),
+            exitscript=True,
+        )
 
     values = win.result
     if not values:
         return
 
+    values["used"] = _normalize_scope_mode(values.get("used"))
+    selected_view_ids_raw = list(values.get("selected_view_ids", []))
+    values["selected_view_ids"] = "|".join(str(view_id) for view_id in selected_view_ids_raw)
     _save_settings(values)
 
     mode = values.get("mode")
     target_mode = values.get("target")
-    used_mode = values.get("used")
+    scope_mode = _normalize_scope_mode(values.get("used"))
     legend_title = values.get("legend_title") or ""
+    name_filter = values.get("name_filter") or ""
+    label_mode = values.get("label_mode") or _LABEL_MODE_CUSTOM
+    tag_field = values.get("tag_field") or _TAG_FIELD_AUTO
+    selected_view_id_values = set(selected_view_ids_raw)
+    selected_view_items = [item for item in view_items if item.view is not None and item.view.Id.IntegerValue in selected_view_id_values]
+    selected_boundary_item = win.cmbBoundaryLineStyle.SelectedItem
+    selected_boundary_style_id = selected_boundary_item.style_id if selected_boundary_item else _invisible_line_style_id()
 
-    only_used = used_mode == "Only used in Active View"
-    used_scope_view = revit.active_view if only_used else None
+    used_scope_view = revit.active_view if scope_mode == _SCOPE_USED_ACTIVE_VIEW else None
 
-    chosen_text_type = text_types.get(values.get("textstyle"))
-    chosen_text_type_id = chosen_text_type.Id if chosen_text_type else _default_text_type_id()
+    legacy_text_style = values.get("textstyle")
+    chosen_title_text_type = text_types.get(values.get("title_textstyle")) or text_types.get(legacy_text_style)
+    chosen_label_text_type = text_types.get(values.get("label_textstyle")) or text_types.get(legacy_text_style)
+    chosen_title_text_type_id = chosen_title_text_type.Id if chosen_title_text_type else _default_text_type_id()
+    chosen_label_text_type_id = chosen_label_text_type.Id if chosen_label_text_type else _default_text_type_id()
 
     base_name = "GM - Legend"
     if mode == "Family Legend (single category)":
@@ -1110,11 +1729,16 @@ def main():
         _apply_legend_title_to_view(target_view, legend_title, rename_view=(target_mode != "Current View"))
         _activate_view(target_view)
         pt = _pick_point_in_active_view("Pick Placement Point", restore_view=orig_view)
-        pt = _place_legend_title(target_view, pt, legend_title, text_type_id=chosen_text_type_id)
+        pt = _place_legend_title(target_view, pt, legend_title, text_type_id=chosen_title_text_type_id)
 
-        symbols = _collect_symbols_for_category(bic, only_used=only_used, used_scope_view=used_scope_view)
+        symbols = _collect_symbols_for_category(
+            bic,
+            scope_mode=scope_mode,
+            used_scope_view=used_scope_view,
+            name_filter=name_filter,
+        )
         if not symbols:
-            forms.alert("No family types found for that category.", exitscript=True)
+            forms.alert("No family types found for that category with the selected scope/filter.", exitscript=True)
 
         ordered = _group_symbols_by_family(symbols)
 
@@ -1139,56 +1763,45 @@ def main():
                 dir_code,
                 pt,
                 spacing_internal=spacing_internal,
-                text_type_id=chosen_text_type_id,
+                text_type_id=chosen_label_text_type_id,
+                label_mode=label_mode,
+                tag_field=tag_field,
             )
         else:
             # Drafting/current view: text-only (legend components are legend-only)
             lines = []
             for fam in ordered:
-                lines.append(fam)
-                # one type per family
                 try:
-                    first_typ = next(iter(ordered[fam].keys()))
-                    lines.append("    {}".format(first_typ))
+                    first_symbol = next(iter(ordered[fam].values()))
                 except Exception:
                     continue
-            _place_text_list(target_view, pt, lines, text_type_id=chosen_text_type_id)
+                if label_mode == _LABEL_MODE_TAG:
+                    lines.append(_symbol_display_label(first_symbol, label_mode, tag_field))
+                else:
+                    lines.append(fam)
+                    try:
+                        first_typ = next(iter(ordered[fam].keys()))
+                        lines.append("    {}".format(first_typ))
+                    except Exception:
+                        continue
+            _place_text_list(target_view, pt, lines, text_type_id=chosen_label_text_type_id)
 
         return
 
     if mode == "Family Legend (All MEP categories)":
-        mep_cats = [
-            BIC.OST_MechanicalEquipment,
-            BIC.OST_DuctTerminal,
-            BIC.OST_DuctFitting,
-            BIC.OST_DuctAccessory,
-            BIC.OST_PipeFitting,
-            BIC.OST_PipeAccessory,
-            BIC.OST_PlumbingFixtures,
-            BIC.OST_Sprinklers,
-            BIC.OST_ElectricalEquipment,
-            BIC.OST_ElectricalFixtures,
-            BIC.OST_LightingFixtures,
-            BIC.OST_CommunicationDevices,
-            BIC.OST_DataDevices,
-            BIC.OST_SecurityDevices,
-            BIC.OST_FireAlarmDevices,
-            BIC.OST_CableTrayFitting,
-            BIC.OST_ConduitFitting,
-        ]
+        mep_cats = _family_legend_mep_categories()
 
         base_name = "GM - MEP Family Legend"
-        target_view = _get_target_view(target_mode, base_name)
-        _apply_legend_title_to_view(target_view, legend_title, rename_view=(target_mode != "Current View"))
-        _activate_view(target_view)
-        pt = _pick_point_in_active_view("Pick Placement Point", restore_view=orig_view)
-        pt = _place_legend_title(target_view, pt, legend_title, text_type_id=chosen_text_type_id)
-
         # Text-only for multi-category (reliable across view types)
         lines = []
         for bic in mep_cats:
             try:
-                symbols = _collect_symbols_for_category(bic, only_used=only_used, used_scope_view=used_scope_view)
+                symbols = _collect_symbols_for_category(
+                    bic,
+                    scope_mode=scope_mode,
+                    used_scope_view=used_scope_view,
+                    name_filter=name_filter,
+                )
             except Exception:
                 symbols = []
             if not symbols:
@@ -1197,13 +1810,26 @@ def main():
             ordered = _group_symbols_by_family(symbols)
             lines.append("[{}]".format(_get_category_name(bic)))
             for fam in ordered:
-                lines.append("  {}".format(fam))
-                for typ in ordered[fam]:
-                    lines.append("      {}".format(typ))
+                if label_mode == _LABEL_MODE_TAG:
+                    for symbol in ordered[fam].values():
+                        lines.append("  {}".format(_symbol_display_label(symbol, label_mode, tag_field)))
+                else:
+                    lines.append("  {}".format(fam))
+                    for typ in ordered[fam]:
+                        lines.append("      {}".format(typ))
             lines.append("")
 
-        forms.alert_ifnot(lines, "No MEP family types found (with the selected scope).", exitscript=True)
-        _place_text_list(target_view, pt, lines, text_type_id=chosen_text_type_id)
+        forms.alert_ifnot(lines, "No MEP family types found with the selected scope/filter.", exitscript=True)
+        target_views = _resolve_target_views(target_mode, base_name, selected_view_items=selected_view_items)
+        for target_view in target_views:
+            _apply_legend_title_to_view(target_view, legend_title, rename_view=(target_mode not in ["Current View", _TARGET_SELECTED_VIEWS]))
+            if target_mode == "Current View":
+                _activate_view(target_view)
+                pt = _pick_point_in_active_view("Pick Placement Point", restore_view=orig_view)
+            else:
+                pt = _view_list_anchor_point(target_view)
+            pt = _place_legend_title(target_view, pt, legend_title, text_type_id=chosen_title_text_type_id)
+            _place_text_list(target_view, pt, lines, text_type_id=chosen_label_text_type_id)
         return
 
     if mode == "Legend from Color Fill Scheme":
@@ -1215,12 +1841,6 @@ def main():
             forms.alert("Pick a Color Fill Scheme.", exitscript=True)
 
         base_name = "GM - Scheme Legend - {}".format(getattr(scheme, "Name", "Scheme"))
-        target_view = _get_target_view(target_mode, base_name)
-        _apply_legend_title_to_view(target_view, legend_title, rename_view=(target_mode != "Current View"))
-        if target_view.Id != orig_view.Id:
-            _activate_view(target_view)
-        pt = _pick_point_in_active_view("Pick Placement Point", restore_view=orig_view)
-
         try:
             box_w = float(values.get("box_w") or 1000)
             box_h = float(values.get("box_h") or 240)
@@ -1228,36 +1848,41 @@ def main():
         except Exception:
             box_w, box_h, box_off = 1000, 240, 80
 
-        pt = _place_legend_title(
-            target_view,
-            pt,
-            legend_title,
-            text_type_id=chosen_text_type_id,
-            gap_mm=(box_off + 6.0),
-        )
-
         # "Only used in views" is interpreted here as "only visible entries" (best-effort).
-        only_visible = True if only_used else False
-
-        _draw_color_scheme_legend(
-            target_view,
-            pt,
-            scheme,
-            only_visible=only_visible,
-            box_w_mm=box_w,
-            box_h_mm=box_h,
-            box_off_mm=box_off,
-        )
+        only_visible = True if scope_mode == _SCOPE_USED_ACTIVE_VIEW else False
+        target_views = _resolve_target_views(target_mode, base_name, selected_view_items=selected_view_items)
+        for target_view in target_views:
+            _apply_legend_title_to_view(target_view, legend_title, rename_view=(target_mode not in ["Current View", _TARGET_SELECTED_VIEWS]))
+            if target_mode == "Current View":
+                if target_view.Id != orig_view.Id:
+                    _activate_view(target_view)
+                pt = _pick_point_in_active_view("Pick Placement Point", restore_view=orig_view)
+            else:
+                pt = _view_list_anchor_point(target_view)
+            pt = _place_legend_title(
+                target_view,
+                pt,
+                legend_title,
+                text_type_id=chosen_title_text_type_id,
+                gap_mm=(box_off + 6.0),
+            )
+            _draw_color_scheme_legend(
+                target_view,
+                pt,
+                scheme,
+                only_visible=only_visible,
+                box_w_mm=box_w,
+                box_h_mm=box_h,
+                box_off_mm=box_off,
+                text_type_id=chosen_label_text_type_id,
+                name_filter=name_filter,
+                label_mode=label_mode,
+                tag_field=tag_field,
+            )
         return
 
     if mode == "Legend from Filled Regions":
         base_name = "GM - Filled Region Legend"
-        target_view = _get_target_view(target_mode, base_name)
-        _apply_legend_title_to_view(target_view, legend_title, rename_view=(target_mode != "Current View"))
-        if target_view.Id != orig_view.Id:
-            _activate_view(target_view)
-        pt = _pick_point_in_active_view("Pick Placement Point", restore_view=orig_view)
-
         try:
             box_w = float(values.get("box_w") or 1000)
             box_h = float(values.get("box_h") or 240)
@@ -1265,49 +1890,63 @@ def main():
         except Exception:
             box_w, box_h, box_off = 1000, 240, 80
 
-        pt = _place_legend_title(
-            target_view,
-            pt,
-            legend_title,
-            text_type_id=chosen_text_type_id,
-            gap_mm=(box_off + 6.0),
-        )
-
-        # If the user targets the current view, only use filled region types
-        # that are actually visible/placed in that active view.
-        region_scope_view = target_view if target_mode == "Current View" else used_scope_view
-        region_only_used = True if target_mode == "Current View" else only_used
-
         region_types = _collect_filled_region_types(
-            only_used=region_only_used,
-            used_scope_view=region_scope_view,
+            scope_mode=scope_mode,
+            used_scope_view=used_scope_view,
+            name_filter=name_filter,
         )
-        _draw_filled_region_legend(
-            target_view,
-            pt,
-            region_types,
-            box_w_mm=box_w,
-            box_h_mm=box_h,
-            box_off_mm=box_off,
-            text_type_id=chosen_text_type_id,
-        )
+        target_views = _resolve_target_views(target_mode, base_name, selected_view_items=selected_view_items)
+        for target_view in target_views:
+            _apply_legend_title_to_view(target_view, legend_title, rename_view=(target_mode not in ["Current View", _TARGET_SELECTED_VIEWS]))
+            if target_mode == "Current View":
+                if target_view.Id != orig_view.Id:
+                    _activate_view(target_view)
+                pt = _pick_point_in_active_view("Pick Placement Point", restore_view=orig_view)
+            else:
+                pt = _view_list_anchor_point(target_view)
+            pt = _place_legend_title(
+                target_view,
+                pt,
+                legend_title,
+                text_type_id=chosen_title_text_type_id,
+                gap_mm=(box_off + 6.0),
+            )
+            _draw_filled_region_legend(
+                target_view,
+                pt,
+                region_types,
+                box_w_mm=box_w,
+                box_h_mm=box_h,
+                box_off_mm=box_off,
+                text_type_id=chosen_label_text_type_id,
+                line_style_id=selected_boundary_style_id,
+                label_mode=label_mode,
+                tag_field=tag_field,
+            )
         return
 
     if mode == "Legend from Spaces":
         base_name = "GM - Spaces Legend"
-        target_view = _get_target_view(target_mode, base_name)
-        _apply_legend_title_to_view(target_view, legend_title, rename_view=(target_mode != "Current View"))
-        if target_view.Id != orig_view.Id:
-            _activate_view(target_view)
-        pt = _pick_point_in_active_view("Pick Placement Point", restore_view=orig_view)
-        pt = _place_legend_title(target_view, pt, legend_title, text_type_id=chosen_text_type_id)
-
-        spaces = _collect_spaces(only_used=only_used, used_scope_view=used_scope_view)
-        forms.alert_ifnot(spaces, "No Spaces found (with the selected scope).", exitscript=True)
+        spaces = _collect_spaces(
+            scope_mode=scope_mode,
+            used_scope_view=used_scope_view,
+            name_filter=name_filter,
+        )
+        forms.alert_ifnot(spaces, "No Spaces found with the selected scope/filter.", exitscript=True)
 
         # Sort by label for stable ordering
-        labels = sorted([_space_label(s) for s in spaces if s is not None])
-        _place_text_list(target_view, pt, labels, text_type_id=chosen_text_type_id)
+        labels = sorted([_space_display_label(s, label_mode, tag_field) for s in spaces if s is not None])
+        target_views = _resolve_target_views(target_mode, base_name, selected_view_items=selected_view_items)
+        for target_view in target_views:
+            _apply_legend_title_to_view(target_view, legend_title, rename_view=(target_mode not in ["Current View", _TARGET_SELECTED_VIEWS]))
+            if target_mode == "Current View":
+                if target_view.Id != orig_view.Id:
+                    _activate_view(target_view)
+                pt = _pick_point_in_active_view("Pick Placement Point", restore_view=orig_view)
+            else:
+                pt = _view_list_anchor_point(target_view)
+            pt = _place_legend_title(target_view, pt, legend_title, text_type_id=chosen_title_text_type_id)
+            _place_text_list(target_view, pt, labels, text_type_id=chosen_label_text_type_id)
         return
 
 

@@ -1,65 +1,371 @@
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Legend Creator"
-        Height="560"
-        Width="460"
+        Height="760"
+        Width="560"
+        MinHeight="680"
+        MinWidth="520"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize"
+        ResizeMode="CanResize"
         ShowInTaskbar="False"
-        Topmost="True">
-    <Grid Margin="12">
+        Topmost="True"
+        Background="#1A1A1C"
+        Foreground="#E8E8E8">
+    <Window.Resources>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#232327"/>
+        <SolidColorBrush x:Key="SurfaceAltBrush" Color="#2A2A2E"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#3A3A40"/>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#0E639C"/>
+        <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#1177BB"/>
+        <SolidColorBrush x:Key="SecondaryBrush" Color="#1FA6A6"/>
+        <SolidColorBrush x:Key="SecondaryHoverBrush" Color="#22B8B8"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#F2B134"/>
+        <SolidColorBrush x:Key="AccentStrongBrush" Color="#D99A20"/>
+        <SolidColorBrush x:Key="MutedTextBrush" Color="#8A8A9A"/>
+
+        <Style x:Key="SectionCard" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style x:Key="StepBadge" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="CornerRadius" Value="12"/>
+        </Style>
+        <Style x:Key="StepNum" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="StepTitle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="Hint" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource MutedTextBrush}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,2,0,0"/>
+        </Style>
+        <Style x:Key="FieldLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,4"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Background" Value="#3A3A40"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="#505058"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style x:Key="PrimaryAction" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryHoverBrush}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="SecondaryAction" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource SecondaryBrush}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Padding" Value="7,4"/>
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CaretBrush" Value="#E8E8E8"/>
+        </Style>
+        <ControlTemplate x:Key="DarkComboBoxToggleButtonTemplate" TargetType="ToggleButton">
+            <Border x:Name="BtnBorder"
+                    Background="#2A2A2E"
+                    BorderBrush="{StaticResource BorderBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="22"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1"
+                            Background="#33333A"
+                            BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1,0,0,0"/>
+                    <Path Grid.Column="1"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Fill="#E8E8E8"
+                          Data="M 0 0 L 4 4 L 8 0 Z"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="BtnBorder" Property="Background" Value="#303036"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="BtnBorder" Property="Background" Value="#303036"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="BtnBorder" Property="Opacity" Value="0.65"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                          Focusable="False"
+                                          ClickMode="Press"
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Template="{StaticResource DarkComboBoxToggleButtonTemplate}"/>
+                            <ContentPresenter x:Name="ContentSite"
+                                              IsHitTestVisible="False"
+                                              Margin="8,2,28,2"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="#E8E8E8"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid x:Name="DropDown"
+                                      SnapsToDevicePixels="True"
+                                      MinWidth="{TemplateBinding ActualWidth}"
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="#1E1E22"
+                                            BorderBrush="{StaticResource BorderBrush}"
+                                            BorderThickness="1"/>
+                                    <ScrollViewer Margin="2" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="24"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.65"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#252528"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Style.Triggers>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Background" Value="#094771"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0E639C"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="14">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0">
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
-                <TextBlock Text="Legend Title" Margin="0,0,0,4" />
-                <TextBox x:Name="txtLegendTitle" Margin="0,0,0,10" />
+                <TextBlock Text="Legend Creator"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="#E8E8E8"
+                           Margin="0,0,0,2"/>
+                <TextBlock Style="{StaticResource Hint}"
+                           Text="Build legends from family types, color schemes, filled regions, or spaces with model-wide scope and optional name filtering."
+                           Margin="0,0,0,12"/>
 
-                <TextBlock Text="Mode" Margin="0,0,0,4" />
-                <ComboBox x:Name="cmbMode" SelectionChanged="mode_changed" Margin="0,0,0,10" />
+                <Border Style="{StaticResource SectionCard}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Border Style="{StaticResource StepBadge}">
+                                <TextBlock Style="{StaticResource StepNum}" Text="1"/>
+                            </Border>
+                            <TextBlock Style="{StaticResource StepTitle}" Text="Legend Setup"/>
+                        </StackPanel>
 
-                <TextBlock Text="Target" Margin="0,0,0,4" />
-                <ComboBox x:Name="cmbTarget" Margin="0,0,0,10" />
+                        <TextBlock Style="{StaticResource FieldLabel}" Text="Legend Title"/>
+                        <TextBox x:Name="txtLegendTitle"/>
 
-                <TextBlock Text="Content" Margin="0,0,0,4" />
-                <ComboBox x:Name="cmbUsed" Margin="0,0,0,10" />
+                        <TextBlock Style="{StaticResource FieldLabel}" Text="Mode"/>
+                        <ComboBox x:Name="cmbMode" SelectionChanged="mode_changed"/>
 
-                <TextBlock Text="Text Style" Margin="0,0,0,4" />
-                <ComboBox x:Name="cmbTextStyle" Margin="0,0,0,10" />
+                        <TextBlock Style="{StaticResource FieldLabel}" Text="Target View"/>
+                        <ComboBox x:Name="cmbTarget" SelectionChanged="target_changed"/>
 
-                <StackPanel x:Name="rowCategory" Margin="0,0,0,10">
-                    <TextBlock Text="Category (Single-Category Family Legend)" Margin="0,0,0,4" />
-                    <ComboBox x:Name="cmbCategory" />
-                </StackPanel>
+                        <TextBlock Style="{StaticResource FieldLabel}" Text="Legend Label"/>
+                        <ComboBox x:Name="cmbLabelMode" SelectionChanged="label_mode_changed"/>
 
-                <StackPanel x:Name="rowScheme" Margin="0,0,0,10">
-                    <TextBlock Text="Color Fill Scheme" Margin="0,0,0,4" />
-                    <ComboBox x:Name="cmbScheme" />
-                </StackPanel>
+                        <StackPanel x:Name="rowTagField" Margin="0,0,0,10" Visibility="Collapsed">
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="Available Tag Field"/>
+                            <ComboBox x:Name="cmbTagField" Margin="0"/>
+                            <TextBlock Style="{StaticResource Hint}"
+                                       Text="Shows the available parameters found on the current legend element type for tag-style labels."
+                                       Margin="0,4,0,0"/>
+                        </StackPanel>
 
-                <StackPanel x:Name="rowBoxW" Margin="0,0,0,10">
-                    <TextBlock Text="Box Width [mm]" Margin="0,0,0,4" />
-                    <TextBox x:Name="txtBoxW" />
-                </StackPanel>
+                        <TextBlock Style="{StaticResource FieldLabel}" Text="Title Text Style"/>
+                        <ComboBox x:Name="cmbTitleTextStyle" Margin="0"/>
 
-                <StackPanel x:Name="rowBoxH" Margin="0,0,0,10">
-                    <TextBlock Text="Box Height [mm]" Margin="0,0,0,4" />
-                    <TextBox x:Name="txtBoxH" />
-                </StackPanel>
+                        <TextBlock Style="{StaticResource FieldLabel}" Text="Label Text Style"/>
+                        <ComboBox x:Name="cmbLabelTextStyle" Margin="0"/>
+                        <TextBlock Style="{StaticResource Hint}"
+                                   Text="Text formatting is controlled by the selected Revit Text Types for title and legend labels."
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
 
-                <StackPanel x:Name="rowBoxOff" Margin="0,0,0,10">
-                    <TextBlock Text="Offset [mm]" Margin="0,0,0,4" />
-                    <TextBox x:Name="txtBoxOff" />
-                </StackPanel>
+                <Border Style="{StaticResource SectionCard}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Border Style="{StaticResource StepBadge}">
+                                <TextBlock Style="{StaticResource StepNum}" Text="2"/>
+                            </Border>
+                            <TextBlock Style="{StaticResource StepTitle}" Text="Source Scope and Filter"/>
+                        </StackPanel>
+
+                        <TextBlock Style="{StaticResource FieldLabel}" Text="Source Scope"/>
+                        <ComboBox x:Name="cmbUsed"/>
+                        <TextBlock Style="{StaticResource Hint}"
+                                   Text="Choose all available types/elements in the model, only items used anywhere in the model, or only items used in the active view."
+                                   Margin="0,-6,0,10"/>
+
+                        <TextBlock Style="{StaticResource FieldLabel}" Text="Name Contains"/>
+                        <TextBox x:Name="txtNameFilter"/>
+                        <TextBlock Style="{StaticResource Hint}"
+                                   Text="Optional. Example: type MHT to keep only family/type, region, scheme-entry, or space labels that contain that text."
+                                   Margin="0,-6,0,0"/>
+
+                        <StackPanel x:Name="rowSelectedViews" Margin="0,12,0,0" Visibility="Collapsed">
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="Target Views Filter"/>
+                            <TextBox x:Name="txtViewsFilter" TextChanged="views_filter_changed"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <Button Content="Select Shown" Width="110" Click="select_all_views_click" Style="{StaticResource SecondaryAction}"/>
+                                <Button Content="Clear Shown" Width="110" Click="clear_all_views_click" Style="{StaticResource SecondaryAction}"/>
+                            </StackPanel>
+                            <ListBox x:Name="lstTargetViews" Height="180">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding display_name}"
+                                                  IsChecked="{Binding is_checked}"
+                                                  Tag="{Binding}"
+                                                  Click="view_checkbox_click"
+                                                  Margin="6,3,6,3"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <TextBlock Style="{StaticResource Hint}"
+                                       Text="Selected Views places the same legend content into each checked view using a consistent top-left offset."
+                                       Margin="0,6,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SectionCard}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Border Style="{StaticResource StepBadge}">
+                                <TextBlock Style="{StaticResource StepNum}" Text="3"/>
+                            </Border>
+                            <TextBlock Style="{StaticResource StepTitle}" Text="Mode Options"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="rowCategory" Margin="0,0,0,10">
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="Category for Single-Category Family Legend"/>
+                            <ComboBox x:Name="cmbCategory" Margin="0" SelectionChanged="category_changed"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="rowScheme" Margin="0,0,0,10">
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="Color Fill Scheme"/>
+                            <ComboBox x:Name="cmbScheme" Margin="0"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="rowBoundaryLineStyle" Margin="0,0,0,10" Visibility="Collapsed">
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="Boundary Line Type"/>
+                            <ComboBox x:Name="cmbBoundaryLineStyle" Margin="0"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="rowBoxW" Margin="0,0,0,10">
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="Sample Box Width [mm]"/>
+                            <TextBox x:Name="txtBoxW" Margin="0"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="rowBoxH" Margin="0,0,0,10">
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="Sample Box Height [mm]"/>
+                            <TextBox x:Name="txtBoxH" Margin="0"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="rowBoxOff">
+                            <TextBlock Style="{StaticResource FieldLabel}" Text="Row Offset [mm]"/>
+                            <TextBox x:Name="txtBoxOff" Margin="0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
             </StackPanel>
         </ScrollViewer>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
-            <Button Content="Create" Width="90" Margin="0,0,8,0" Click="create_click" />
-            <Button Content="Cancel" Width="90" Click="cancel_click" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+            <Button Content="Create Legend" Width="130" Margin="0,0,8,0" Click="create_click" Style="{StaticResource PrimaryAction}"/>
+            <Button Content="Cancel" Width="100" Click="cancel_click" Style="{StaticResource SecondaryAction}"/>
         </StackPanel>
     </Grid>
 </Window>

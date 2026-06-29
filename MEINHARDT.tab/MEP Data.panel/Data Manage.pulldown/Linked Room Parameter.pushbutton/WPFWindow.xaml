@@ -466,7 +466,19 @@
                                   Margin="0,0,0,4"/>
                         <CheckBox x:Name="chkShowNonCommon"
                                   Content="Show non-common parameters (union mode)"
-                                  ToolTip="By default only parameters shared by all selected elements are shown. Enable this to see all writable parameters across the selection."/>
+                                  ToolTip="By default only parameters shared by all selected elements are shown. Enable this to see all writable parameters across the selection."
+                                  Margin="0,0,0,8"/>
+                        <Border Background="#1E1E22" BorderBrush="{StaticResource BorderBrush}"
+                                BorderThickness="1" Padding="8,6" Margin="0,0,0,0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="Vertical Probe Offset:" VerticalAlignment="Center" Foreground="#B0B0B8" Margin="0,0,8,0"/>
+                                <TextBox x:Name="txtProbeOffset" Width="80" Height="26" Padding="6,4"
+                                         Text="2000"
+                                         ToolTip="Vertical offset in mm used during room detection. Raises and lowers the probe point for ceiling/above-room devices."/>
+                                <TextBlock Text="mm  (default: 2000)" VerticalAlignment="Center" Foreground="#8A8A9A" FontSize="11" Margin="8,0,0,0"/>
+                                <TextBlock Text="Zero = no offset (original behavior)" VerticalAlignment="Center" Foreground="#8A8A9A" FontSize="11" FontStyle="Italic" Margin="16,0,0,0"/>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                     <!-- fills remaining height -->
                     <Border/>
@@ -606,44 +618,53 @@
              STEP 4  –  Transfer Options + Execute
         ══════════════════════════════════════════════════════ -->
         <Border Style="{StaticResource SectionCard}" Margin="0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+            <StackPanel>
+                <!-- Main options row -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- badge -->
-                <Border Grid.Column="0" Style="{StaticResource StepBadge}">
-                    <TextBlock Style="{StaticResource StepNum}" Text="4"/>
-                </Border>
+                    <!-- badge -->
+                    <Border Grid.Column="0" Style="{StaticResource StepBadge}">
+                        <TextBlock Style="{StaticResource StepNum}" Text="4"/>
+                    </Border>
 
-                <!-- options -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Style="{StaticResource StepTitle}" Text="Transfer Options:"
-                               Margin="0,0,16,0"/>
-                    <CheckBox x:Name="chkSkipEmpty" Content="Skip empty values"
-                              IsChecked="True"
-                              ToolTip="When ticked, room parameters with no value will not overwrite existing data."/>
-                    <TextBlock Text="If target already has value:" VerticalAlignment="Center"
-                               Margin="16,0,8,0" Foreground="#B0B0B8"/>
-                    <ComboBox x:Name="cmbDuplicateMode" Width="110" SelectedIndex="0">
-                        <ComboBoxItem Content="Overwrite"/>
-                        <ComboBoxItem Content="Skip"/>
-                        <ComboBoxItem Content="Append"/>
-                    </ComboBox>
-                </StackPanel>
+                    <!-- options -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Style="{StaticResource StepTitle}" Text="Transfer Options:"
+                                   Margin="0,0,16,0"/>
+                        <CheckBox x:Name="chkSkipEmpty" Content="Skip empty values"
+                                  IsChecked="True"
+                                  ToolTip="When ticked, room parameters with no value will not overwrite existing data."/>
+                        <TextBlock Text="If target has value:" VerticalAlignment="Center"
+                                   Margin="16,0,8,0" Foreground="#B0B0B8"/>
+                        <ComboBox x:Name="cmbDuplicateMode" Width="110" SelectedIndex="0">
+                            <ComboBoxItem Content="Overwrite"/>
+                            <ComboBoxItem Content="Skip"/>
+                            <ComboBoxItem Content="Append"/>
+                        </ComboBox>
+                    </StackPanel>
 
-                <!-- action buttons -->
-                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Content="Refresh" Click="refresh_click" ToolTip="Re-read room parameters and re-run auto-match"/>
-                    <Button Content="✔  Transfer Parameters"
-                            Click="transfer_click"
-                            Style="{StaticResource AccentButton}"
-                            ToolTip="Write mapped room values to selected elements"/>
-                    <Button Content="Cancel" Click="cancel_click" Margin="0"/>
-                </StackPanel>
-            </Grid>
+                    <!-- action buttons -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Content="Refresh" Click="refresh_click" ToolTip="Re-read room parameters and clear auto-generated mappings"/>
+                        <Button Content="Preview Mapped Writes" Click="preview_click" MinWidth="140" ToolTip="Show a preview of the mapped room values before transferring"/>
+                        <Button Content="✔  Transfer Parameters"
+                                Click="transfer_click"
+                                Style="{StaticResource AccentButton}"
+                                ToolTip="Write mapped room values to selected elements"/>
+                        <Button Content="Cancel" Click="cancel_click" Margin="0"/>
+                    </StackPanel>
+                </Grid>
+                <TextBlock Style="{StaticResource ListLabel}" Text="Preview Mapped Writes" Margin="0,8,0,4"/>
+                <ListBox x:Name="lstPreview" Height="160"
+                         AlternationCount="2"
+                         ItemContainerStyle="{StaticResource RowStyle}"/>
+
+</StackPanel>
         </Border>
 
     </StackPanel>

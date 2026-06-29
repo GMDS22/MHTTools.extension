@@ -6,6 +6,6 @@ tooltip: |
   - Color Fill Schemes
   - Spaces
 
-  Options include restricting to items used in the active view and choosing where to create/place the legend (Legend view, Drafting view, or Current view).
+  Options include model-wide or active-view source scope, optional name filtering, selected target views, and a boundary line type setting for filled region legends.
 
   Author: GM
