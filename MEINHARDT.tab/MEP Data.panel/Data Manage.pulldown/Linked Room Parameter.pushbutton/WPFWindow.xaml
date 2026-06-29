@@ -659,6 +659,7 @@
                         <Button Content="Cancel" Click="cancel_click" Margin="0"/>
                     </StackPanel>
                 </Grid>
+                <TextBlock Style="{StaticResource Hint}" Text="Supported write targets: Rooms, MEP Spaces, HVAC Zones, and selected MEP/MEP-related elements." Margin="0,8,0,0"/>
                 <TextBlock Style="{StaticResource ListLabel}" Text="Preview Mapped Writes" Margin="0,8,0,4"/>
                 <ListBox x:Name="lstPreview" Height="160"
                          AlternationCount="2"
