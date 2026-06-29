@@ -1777,6 +1777,7 @@ class LinkedRoomTransferWindow(WPFWindow):
         used_rooms = set()
         room_value_cache = {}
         type_write_keys = set()
+        fallback_used_count = 0
 
         tx = Transaction(doc, "Linked Room Parameter Transfer")
         tx.Start()
@@ -1809,6 +1810,7 @@ class LinkedRoomTransferWindow(WPFWindow):
                                     el.Id.IntegerValue
                                 )
                             )
+                            fallback_used_count += 1
 
                         if room_item is None:
                             skipped += len(self.mapping)
@@ -1995,6 +1997,9 @@ class LinkedRoomTransferWindow(WPFWindow):
             "Failed writes: {0}".format(failed),
             "Skipped: {0}".format(skipped),
         ]
+
+        if fallback_used_count:
+            summary.append("Fallback used for {0} element(s)".format(fallback_used_count))
 
         if blocked_type_auto:
             summary.append("Type-parameter writes blocked in auto-room mode: {0}".format(blocked_type_auto))
