@@ -643,6 +643,10 @@
                                   IsChecked="True"
                                   ToolTip="When enabled, elements without an auto-detected linked room will fall back to the manually selected room (use with caution)."
                                   Margin="12,0,0,0"/>
+                        <CheckBox x:Name="chkAllowTypeWritesInAutoRoomMode" Content="Allow type parameter writes in auto-room mode"
+                                  IsChecked="False"
+                                  ToolTip="If checked, the tool will attempt to write parameters defined on the element type during auto-room transfer. Use only when you understand type writes affect all elements of the same family/type."
+                                  Margin="12,2,0,0"/>
                         <TextBlock Text="If target has value:" VerticalAlignment="Center"
                                    Margin="16,0,8,0" Foreground="#B0B0B8"/>
                         <ComboBox x:Name="cmbDuplicateMode" Width="110" SelectedIndex="0">

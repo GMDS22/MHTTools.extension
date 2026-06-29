@@ -86,6 +86,7 @@ def _load_persistent_settings():
         "selected_categories": getattr(config, "selected_categories", []),
         "probe_offset_mm": getattr(config, "probe_offset_mm", 2000),
         "use_selected_room_fallback": getattr(config, "use_selected_room_fallback", False),
+        "allow_type_writes_in_auto_room": getattr(config, "allow_type_writes_in_auto_room", False),
     }
     return settings
 
@@ -96,6 +97,7 @@ def _save_persistent_settings(settings):
         config.selected_categories = settings.get("selected_categories", [])
         config.probe_offset_mm = settings.get("probe_offset_mm", 2000)
         config.use_selected_room_fallback = settings.get("use_selected_room_fallback", False)
+        config.allow_type_writes_in_auto_room = settings.get("allow_type_writes_in_auto_room", False)
         script.save_config()
     except Exception:
         pass
@@ -552,6 +554,10 @@ class LinkedRoomTransferWindow(WPFWindow):
             self.chkUseSelectedRoomFallback.IsChecked = bool(settings.get("use_selected_room_fallback", False))
         except Exception:
             pass
+        try:
+            self.chkAllowTypeWritesInAutoRoomMode.IsChecked = bool(settings.get("allow_type_writes_in_auto_room", False))
+        except Exception:
+            pass
 
     def _save_persistent_settings_now(self):
         settings = {
@@ -560,6 +566,7 @@ class LinkedRoomTransferWindow(WPFWindow):
             ],
             "probe_offset_mm": self._get_probe_offset_mm(),
             "use_selected_room_fallback": bool(getattr(self, "chkUseSelectedRoomFallback", None) and self.chkUseSelectedRoomFallback.IsChecked),
+            "allow_type_writes_in_auto_room": bool(getattr(self, "chkAllowTypeWritesInAutoRoomMode", None) and self.chkAllowTypeWritesInAutoRoomMode.IsChecked),
         }
         _save_persistent_settings(settings)
 
@@ -1950,21 +1957,27 @@ class LinkedRoomTransferWindow(WPFWindow):
 
                         if target_source == "type":
                             if auto_room_mode:
-                                blocked_type_auto += 1
-                                skipped += 1
-                                if len(fail_messages) < 8:
-                                    fail_messages.append(
-                                        "{0} -> {1}: skipped because target is a TYPE parameter in auto-room mode".format(
-                                            room_pname, target_pname
+                                allow_type_writes = bool(getattr(self, "chkAllowTypeWritesInAutoRoomMode", None) and self.chkAllowTypeWritesInAutoRoomMode.IsChecked)
+                                if not allow_type_writes:
+                                    blocked_type_auto += 1
+                                    skipped += 1
+                                    if len(fail_messages) < 8:
+                                        fail_messages.append(
+                                            "{0} -> {1}: skipped because target is a TYPE parameter in auto-room mode".format(
+                                                room_pname, target_pname
+                                            )
+                                        )
+                                    log_lines.append(
+                                        "  Element {0}: skipping type parameter {1} in auto-room mode.".format(
+                                            el.Id.IntegerValue, target_pname
                                         )
                                     )
+                                    continue
                                 log_lines.append(
-                                    "  Element {0}: skipping type parameter {1} in auto-room mode.".format(
+                                    "  Element {0}: allowing type parameter {1} in auto-room mode because user enabled the option.".format(
                                         el.Id.IntegerValue, target_pname
                                     )
                                 )
-                                continue
-
                             try:
                                 owner_id = target_param.Element.Id.IntegerValue
                             except Exception:
