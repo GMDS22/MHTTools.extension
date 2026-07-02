@@ -1,9 +1,9 @@
 # MHTTools UI Screenshot Audit
 
-Updated: 2026-05-20
+Updated: 2026-07-02
 
 This audit tracks the UI screenshot coverage required by the tool-description standard.
-It compares the current MeinhardtTabTools.html entries against confirmed XAML-backed tool interfaces and the screenshot assets currently available in MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/.
+It compares the current MeinhardtTabTools.html entries against confirmed XAML-backed tool interfaces and the screenshot assets currently available in MEINHARDT.tab/Documentation.panel/Docs.stack/ToolsDescription.pushbutton/.
 
 ## Completed In This Pass
 
@@ -54,6 +54,9 @@ It compares the current MeinhardtTabTools.html entries against confirmed XAML-ba
 - MEP Data Panel: Parameter Transfer
   - UI evidence: MEINHARDT.tab/MEP Data.panel/ParameterTransfer.pushbutton/ParameterTransfer.xaml
   - Gap: tool card is now documented, but no UI screenshot asset is currently referenced.
+- Audit and Exchange Panel: Copy From Link
+  - UI evidence: pyRevit command dialogs in MEINHARDT.tab/Audit and Exchange.panel/Audit.stack/Copy From Link.pushbutton/script.py
+  - Gap: tool card is now documented, but no UI screenshot asset is currently referenced.
 
 ## Recommended Capture Order
 
@@ -71,7 +74,8 @@ It compares the current MeinhardtTabTools.html entries against confirmed XAML-ba
 12. Linked Room Parameter
 13. Linked Elements Parameter
 14. Parameter Transfer
+15. Copy From Link
 
 ## Capture Notes
 
-Use scripts/capture-tool-ui.ps1 and save new assets into MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/ with the naming rules from docs/MHTTools-Tool-Description-Standard.md.
+Use scripts/capture-tool-ui.ps1 and save new assets into MEINHARDT.tab/Documentation.panel/Docs.stack/ToolsDescription.pushbutton/ with the naming rules from docs/MHTTools-Tool-Description-Standard.md.
