@@ -1,4 +1,3 @@
-import os
 import subprocess
 import sys
 import tempfile
@@ -13,8 +12,18 @@ except Exception:
 
 from pyrevit import script
 
-# Get the extension directory
-extension_dir = Path(__file__).parent.parent.parent.parent
+def _find_extension_root(script_file):
+    """Resolve extension root by looking for the canonical docs files."""
+    script_path = Path(script_file).resolve()
+    search_roots = [script_path.parent] + list(script_path.parents)
+    for candidate in search_roots:
+        if (candidate / "MeinhardtTabTools.html").exists() or (candidate / "MeinhardtTabTools.md").exists():
+            return candidate
+    # Fallback keeps previous behavior if documents are relocated.
+    return Path(__file__).parent.parent.parent.parent
+
+
+extension_dir = _find_extension_root(__file__)
 doc_html_path = extension_dir / "MeinhardtTabTools.html"
 doc_md_path = extension_dir / "MeinhardtTabTools.md"
 

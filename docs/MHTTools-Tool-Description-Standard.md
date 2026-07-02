@@ -148,7 +148,7 @@ Theme rules for tool descriptions:
 
 Store tool-description screenshots here:
 
-- `MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/`
+- `MEINHARDT.tab/Documentation.panel/Docs.stack/ToolsDescription.pushbutton/`
 
 ## Screenshot Naming Rules
 

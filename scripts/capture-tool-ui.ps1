@@ -8,7 +8,7 @@ param(
 
     [string]$WindowTitleContains,
 
-    [string]$OutputDirectory = 'MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton'
+    [string]$OutputDirectory = 'MEINHARDT.tab/Documentation.panel/Docs.stack/ToolsDescription.pushbutton'
 )
 
 Set-StrictMode -Version Latest

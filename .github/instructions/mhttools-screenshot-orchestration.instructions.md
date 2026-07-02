@@ -1,6 +1,6 @@
 ---
 description: "Use when capturing, updating, or auditing tool screenshots so UI documentation assets stay standardized and complete."
-applyTo: "MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/**,scripts/capture-tool-ui.ps1,docs/MHTTools-UI-Screenshot-Audit.md,MeinhardtTabTools.html"
+applyTo: "MEINHARDT.tab/Documentation.panel/Docs.stack/ToolsDescription.pushbutton/**,scripts/capture-tool-ui.ps1,docs/MHTTools-UI-Screenshot-Audit.md,MeinhardtTabTools.html"
 ---
 # MHTTools Screenshot Orchestration Rules
 
@@ -20,7 +20,7 @@ Always load these references:
 - Keep naming lowercase kebab-case.
 
 ## Placement Rules
-- Store assets only in Documentation.panel/ToolsDescription.pushbutton unless explicitly required elsewhere.
+- Store assets only in Documentation.panel/Docs.stack/ToolsDescription.pushbutton unless explicitly required elsewhere.
 - Update MeinhardtTabTools.html references in the same change when asset names change.
 - Keep screenshot type aligned to UI complexity (compact, LargeUI, or multi-step).
 

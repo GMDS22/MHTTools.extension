@@ -1,5 +1,5 @@
 ---
-applyTo: "MEINHARDT.tab/Documentation.panel/ToolsDescription.pushbutton/**"
+applyTo: "MEINHARDT.tab/Documentation.panel/Docs.stack/ToolsDescription.pushbutton/**"
 description: "Use when adding, renaming, or replacing screenshot assets for Meinhardt tool descriptions so naming, placement, and screenshot type remain standardized."
 ---
 Store tool-description screenshots in this folder and follow the standard naming rules from docs/MHTTools-Tool-Description-Standard.md.
