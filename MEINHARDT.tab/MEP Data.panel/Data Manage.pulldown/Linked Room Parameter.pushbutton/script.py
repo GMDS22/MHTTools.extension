@@ -114,30 +114,82 @@ def get_link_instances(active_doc):
 
 
 def read_parameter_value(param, source_doc=None):
-    if param is None or not param.HasValue:
+    if param is None:
         return None
     src_doc = source_doc or doc
     st = param.StorageType
     try:
+        has_value = bool(param.HasValue)
+    except Exception:
+        has_value = False
+
+    raw_value = None
+    try:
         if st == StorageType.String:
-            return param.AsString()
+            raw_value = param.AsString()
         if st == StorageType.Integer:
-            return param.AsInteger()
+            raw_value = param.AsInteger()
+            if not has_value and raw_value == 0:
+                raw_value = None
         if st == StorageType.Double:
-            return param.AsDouble()
+            raw_value = param.AsDouble()
+            if not has_value and abs(float(raw_value)) <= 1e-12:
+                raw_value = None
         if st == StorageType.ElementId:
             eid = param.AsElementId()
             if eid is None:
-                return None
-            try:
-                return eid.IntegerValue
-            except Exception:
+                raw_value = None
+            else:
                 try:
-                    return int(eid)
+                    val = eid.IntegerValue
+                    raw_value = None if val < 0 else val
                 except Exception:
-                    return None
+                    try:
+                        raw_value = int(eid)
+                    except Exception:
+                        raw_value = None
     except Exception:
-        return None
+        raw_value = None
+
+    if raw_value not in (None, ""):
+        return raw_value
+
+    # Some linked-room parameters can present values in the Properties UI while
+    # HasValue is false or storage readers return empty. Fall back to display text.
+    try:
+        value_string = param.AsValueString()
+        if value_string is not None:
+            value_string = str(value_string).strip()
+            if value_string:
+                return value_string
+    except Exception:
+        pass
+
+    try:
+        text_value = param.AsString()
+        if text_value is not None:
+            text_value = str(text_value).strip()
+            if text_value:
+                return text_value
+    except Exception:
+        pass
+
+    return None
+
+
+def _display_room_param_value(param, raw_value):
+    if raw_value not in (None, ""):
+        return raw_value
+
+    try:
+        value_string = param.AsValueString()
+        if value_string is not None:
+            value_string = str(value_string).strip()
+            if value_string:
+                return value_string
+    except Exception:
+        pass
+
     return None
 
 
@@ -816,12 +868,14 @@ class LinkedRoomTransferWindow(WPFWindow):
             name = p.Definition.Name
             st = p.StorageType
             value = read_parameter_value(p, self.selected_room_doc)
+            display_value = _display_room_param_value(p, value)
 
-            if not show_empty and (value is None or value == ""):
+            if not show_empty and (display_value is None or display_value == ""):
                 continue
 
             self.selected_room_params[name] = {
                 "value": value,
+                "display": display_value,
                 "storage": st,
                 "has_value": p.HasValue,
             }
@@ -831,7 +885,7 @@ class LinkedRoomTransferWindow(WPFWindow):
             self.lstRoomParameters.Items.Add(
                 "{0} | {1} | {2}".format(
                     pname,
-                    data["value"] if data["value"] is not None else "<empty>",
+                    data.get("display") if data.get("display") is not None else "<empty>",
                     str(data["storage"]),
                 )
             )
@@ -1906,6 +1960,8 @@ class LinkedRoomTransferWindow(WPFWindow):
                                 )
                                 continue
                             value = room_data.get("value")
+                            if value in (None, ""):
+                                value = room_data.get("display")
 
                         if skip_empty and (value is None or value == ""):
                             skipped += 1

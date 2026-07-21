@@ -1,0 +1,9 @@
+title:
+  en_us: Category Instance Params
+tooltip:
+  en_us: |
+    Batch update instance parameter values for multiple categories at once.
+    Collect elements by category, choose a common instance parameter, and apply.
+author: GM
+engine:
+  persistent: true

@@ -1,0 +1,331 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Category Instance Parameters"
+        Height="780"
+        Width="1060"
+        MinWidth="920"
+        MinHeight="700"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="#1A1A1C"
+        Foreground="#E8E8E8">
+    <Window.Resources>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#232327"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#3A3A40"/>
+        <SolidColorBrush x:Key="MutedTextBrush" Color="#8A8A9A"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#0E639C"/>
+        <SolidColorBrush x:Key="SecondaryBrush" Color="#1FA6A6"/>
+        <SolidColorBrush x:Key="AccentAmberBrush" Color="#D19A00"/>
+
+        <Style x:Key="SectionCard" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Padding" Value="12,5"/>
+            <Setter Property="Background" Value="#3A3A40"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="#505058"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource SecondaryBrush}"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#22B8B8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="ApplyButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#1177BB"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="20,8"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Padding" Value="7,4"/>
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CaretBrush" Value="#E8E8E8"/>
+        </Style>
+
+        <ControlTemplate x:Key="DarkComboBoxToggleButtonTemplate" TargetType="ToggleButton">
+            <Border x:Name="BtnBorder"
+                    Background="#2A2A2E"
+                    BorderBrush="{StaticResource BorderBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="22"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1" Background="#33333A" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1,0,0,0"/>
+                    <Path Grid.Column="1"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Fill="#E8E8E8"
+                          Data="M 0 0 L 4 4 L 8 0 Z"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="BtnBorder" Property="Background" Value="#303036"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="BtnBorder" Property="Background" Value="#303036"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="BtnBorder" Property="Opacity" Value="0.65"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                          Grid.Column="2"
+                                          Focusable="False"
+                                          ClickMode="Press"
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Template="{StaticResource DarkComboBoxToggleButtonTemplate}"/>
+                            <ContentPresenter x:Name="ContentSite"
+                                              IsHitTestVisible="False"
+                                              Margin="8,2,28,2"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="#E8E8E8"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="#1E1E22" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"/>
+                                    <ScrollViewer Margin="2" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="24"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.65"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#252528"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Style.Triggers>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Background" Value="#094771"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0E639C"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="0,0,12,0"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        </Style>
+
+        <Style x:Key="Hint" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource MutedTextBrush}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Window.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="14,12,14,14">
+            <TextBlock Text="Category Instance Parameter Update"
+                       FontSize="18" FontWeight="Bold" Foreground="#E8E8E8"
+                       Margin="0,0,0,2"/>
+            <TextBlock Style="{StaticResource Hint}"
+                       Text="Select categories, collect elements, choose a common instance parameter, then apply one value to all collected elements."
+                       Margin="0,0,0,10"/>
+
+            <Grid Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="340"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource SectionCard}">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+                            <TextBlock Text="1. Select Categories" FontSize="13" FontWeight="SemiBold"/>
+                            <TextBlock Style="{StaticResource Hint}" Text="Filter and tick categories to include in this batch."/>
+                        </StackPanel>
+
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBox x:Name="txtCategorySearch" Width="150"
+                                     TextChanged="category_search_changed"
+                                     ToolTip="Type a keyword to filter categories"/>
+                            <Button Content="All" Click="select_all_categories_click" MinWidth="44"/>
+                            <Button Content="None" Click="deselect_all_categories_click" MinWidth="44" Margin="0"/>
+                        </StackPanel>
+
+                        <ListBox x:Name="lstCategories" Height="430"/>
+                    </DockPanel>
+                </Border>
+
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Style="{StaticResource SectionCard}">
+                        <StackPanel>
+                            <TextBlock Text="2. Collect Elements" FontSize="13" FontWeight="SemiBold"/>
+                            <TextBlock Style="{StaticResource Hint}"
+                                       Text="Collect by selected categories from active view or entire model. Use current Revit selection if preferred."
+                                       Margin="0,2,0,8"/>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <TextBlock Text="Scope:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                <ComboBox x:Name="cmbCollectScope" Width="200" SelectedIndex="0" SelectionChanged="collect_scope_changed">
+                                    <ComboBoxItem Content="Active View Only"/>
+                                    <ComboBoxItem Content="Selected Level"/>
+                                    <ComboBoxItem Content="Entire Model"/>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel x:Name="pnlSelectedLevel" Orientation="Horizontal" Margin="0,0,0,8" Visibility="Collapsed">
+                                <TextBlock Text="Level:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                <ComboBox x:Name="cmbSelectLevel" Width="280" ToolTip="Choose the level used when Scope is set to Selected Level."/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <Button Content="Collect Elements" Click="collect_elements_click" Style="{StaticResource PrimaryButton}" Width="160"/>
+                                <Button Content="Use Current Selection" Click="use_current_selection_click" Width="170"/>
+                            </StackPanel>
+
+                            <Border Background="#1E1E22" BorderBrush="{StaticResource BorderBrush}"
+                                    BorderThickness="1" Padding="8,6">
+                                <TextBlock x:Name="txtElementSummary" Style="{StaticResource Hint}"
+                                           Foreground="#D8D8D8"
+                                           Text="No elements collected yet."/>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="1" Style="{StaticResource SectionCard}">
+                        <StackPanel>
+                            <TextBlock Text="3. Choose Instance Parameter" FontSize="13" FontWeight="SemiBold"/>
+                            <TextBlock Style="{StaticResource Hint}" Text="Only writable instance parameters common to all collected elements are shown." Margin="0,2,0,8"/>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="12"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ListBox x:Name="lstCommonParams" Grid.Column="0" Height="140"/>
+
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="Parameter to update:" Margin="0,0,0,4"/>
+                                    <ComboBox x:Name="cmbParameter" Height="26" SelectionChanged="parameter_selection_changed"/>
+                                    <Border Margin="0,8,0,0" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="8,6" Background="#1E1E22">
+                                        <TextBlock x:Name="txtSelectedParameterInfo" Style="{StaticResource Hint}"
+                                                   Foreground="#D8D8D8"
+                                                   Text="No parameter selected."/>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="2" Style="{StaticResource SectionCard}">
+                        <StackPanel>
+                            <TextBlock Text="4. Set Value and Apply" FontSize="13" FontWeight="SemiBold"/>
+                            <TextBlock Style="{StaticResource Hint}" Text="For String parameters, duplicate mode can append or skip when a value already exists." Margin="0,2,0,8"/>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <TextBlock Text="New value:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                <TextBox x:Name="txtValue" Width="300" ToolTip="For ElementId, enter the integer ElementId value."/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <CheckBox x:Name="chkClearValue" Content="Clear value instead of writing new value"
+                                          Checked="clear_value_changed" Unchecked="clear_value_changed"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <TextBlock Text="Duplicate mode:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                <ComboBox x:Name="cmbDuplicateMode" Width="220" SelectedIndex="0">
+                                    <ComboBoxItem Content="Overwrite"/>
+                                    <ComboBoxItem Content="Skip Existing"/>
+                                    <ComboBoxItem Content="Append (String only)"/>
+                                </ComboBox>
+                                <TextBlock Text="Non-string parameters always overwrite." VerticalAlignment="Center" Style="{StaticResource Hint}" Foreground="#B0B0B8"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                        <Button Content="Close" Click="close_click" Width="100"/>
+                        <Button Content="Apply Update" Click="apply_update_click" Width="150" Style="{StaticResource ApplyButton}"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

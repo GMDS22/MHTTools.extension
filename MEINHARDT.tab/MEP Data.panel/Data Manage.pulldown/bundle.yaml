@@ -2,6 +2,7 @@ layout:
   - RenumberBySpline
   - ElementChangeLevel
   - ElevationUnder
+  - Category Instance Parameters
   - Linked Elements Parameter
   - Linked Room Parameter
   - Linked Type Overlay
