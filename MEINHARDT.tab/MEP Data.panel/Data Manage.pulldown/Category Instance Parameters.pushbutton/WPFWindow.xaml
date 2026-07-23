@@ -5,7 +5,10 @@
         Width="1060"
         MinWidth="920"
         MinHeight="700"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
+        Loaded="window_loaded"
+        SizeChanged="window_size_changed"
         ResizeMode="CanResize"
         Background="#1A1A1C"
         Foreground="#E8E8E8">
@@ -15,7 +18,6 @@
         <SolidColorBrush x:Key="MutedTextBrush" Color="#8A8A9A"/>
         <SolidColorBrush x:Key="AccentBrush" Color="#0E639C"/>
         <SolidColorBrush x:Key="SecondaryBrush" Color="#1FA6A6"/>
-        <SolidColorBrush x:Key="AccentAmberBrush" Color="#D19A00"/>
 
         <Style x:Key="SectionCard" TargetType="Border">
             <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
@@ -98,6 +100,7 @@
             <Setter Property="Foreground" Value="#E8E8E8"/>
             <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="MaxDropDownHeight" Value="300"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -178,6 +181,8 @@
             <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
         </Style>
 
         <Style x:Key="Hint" TargetType="TextBlock">
@@ -188,19 +193,25 @@
     </Window.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <StackPanel Margin="14,12,14,14">
-            <TextBlock Text="Category Instance Parameter Update"
+        <Grid Margin="14,12,14,14">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Category Instance Parameter Update"
                        FontSize="18" FontWeight="Bold" Foreground="#E8E8E8"
                        Margin="0,0,0,2"/>
-            <TextBlock Style="{StaticResource Hint}"
-                       Text="Select categories, collect elements, choose a common instance parameter, then apply one value to all collected elements."
+            <TextBlock Grid.Row="1" Style="{StaticResource Hint}"
+                       Text="Select categories, collect elements, choose target parameter, then apply direct value or source processing mode."
                        Margin="0,0,0,10"/>
 
-            <Grid Margin="0,0,0,8">
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="340"/>
+                    <ColumnDefinition Width="0.34*"/>
                     <ColumnDefinition Width="12"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.66*"/>
                 </Grid.ColumnDefinitions>
 
                 <Border Grid.Column="0" Style="{StaticResource SectionCard}">
@@ -218,7 +229,7 @@
                             <Button Content="None" Click="deselect_all_categories_click" MinWidth="44" Margin="0"/>
                         </StackPanel>
 
-                        <ListBox x:Name="lstCategories" Height="430"/>
+                        <ListBox x:Name="lstCategories" MinHeight="240" MaxHeight="420"/>
                     </DockPanel>
                 </Border>
 
@@ -232,6 +243,17 @@
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0" Style="{StaticResource SectionCard}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Operation Mode:" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="#B0B0B8"/>
+                            <ComboBox x:Name="cmbOperationMode" Width="360" SelectionChanged="operation_mode_changed" SelectedIndex="0">
+                                <ComboBoxItem Content="Direct Set Value (Current Mode)"/>
+                                <ComboBoxItem Content="Copy/Process Source Parameter (New Mode)"/>
+                                <ComboBoxItem Content="Copy/Process From Matched Element (Mode 3)"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="1" Style="{StaticResource SectionCard}">
                         <StackPanel>
                             <TextBlock Text="2. Collect Elements" FontSize="13" FontWeight="SemiBold"/>
                             <TextBlock Style="{StaticResource Hint}"
@@ -266,7 +288,7 @@
                         </StackPanel>
                     </Border>
 
-                    <Border Grid.Row="1" Style="{StaticResource SectionCard}">
+                    <Border Grid.Row="2" Style="{StaticResource SectionCard}">
                         <StackPanel>
                             <TextBlock Text="3. Choose Instance Parameter" FontSize="13" FontWeight="SemiBold"/>
                             <TextBlock Style="{StaticResource Hint}" Text="Only writable instance parameters common to all collected elements are shown." Margin="0,2,0,8"/>
@@ -278,7 +300,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <ListBox x:Name="lstCommonParams" Grid.Column="0" Height="140"/>
+                                <ListBox x:Name="lstCommonParams" Grid.Column="0" MinHeight="120" MaxHeight="260"/>
 
                                 <StackPanel Grid.Column="2">
                                     <TextBlock Text="Parameter to update:" Margin="0,0,0,4"/>
@@ -293,7 +315,7 @@
                         </StackPanel>
                     </Border>
 
-                    <Border Grid.Row="2" Style="{StaticResource SectionCard}">
+                    <Border x:Name="pnlDirectValueMode" Grid.Row="3" Style="{StaticResource SectionCard}">
                         <StackPanel>
                             <TextBlock Text="4. Set Value and Apply" FontSize="13" FontWeight="SemiBold"/>
                             <TextBlock Style="{StaticResource Hint}" Text="For String parameters, duplicate mode can append or skip when a value already exists." Margin="0,2,0,8"/>
@@ -320,12 +342,138 @@
                         </StackPanel>
                     </Border>
 
-                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                        <Button Content="Close" Click="close_click" Width="100"/>
-                        <Button Content="Apply Update" Click="apply_update_click" Width="150" Style="{StaticResource ApplyButton}"/>
-                    </StackPanel>
+                    <Border x:Name="pnlSourceProcessMode" Grid.Row="3" Style="{StaticResource SectionCard}" Visibility="Collapsed">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="4. Source to Target Processing Mode" FontSize="13" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Row="1" Style="{StaticResource Hint}" Text="Mode flow: 1) get source values, 2) manipulate or keep values, 3) write to selected target parameter." Margin="0,2,0,8"/>
+
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="12"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <Border x:Name="pnlMode3SourceOptions" Margin="0,0,0,8" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="8,6" Background="#1E1E22" Visibility="Collapsed">
+                                        <StackPanel>
+                                            <TextBlock Text="Mode 3: Source from other element" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Text="Source model:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                                <ComboBox x:Name="cmbMode3SourceLocation" Width="210" SelectionChanged="mode3_source_options_changed" SelectedIndex="0">
+                                                    <ComboBoxItem Content="Current Model"/>
+                                                    <ComboBoxItem Content="Linked Model"/>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel x:Name="pnlMode3LinkSelection" Orientation="Horizontal" Margin="0,0,0,6" Visibility="Collapsed">
+                                                <TextBlock Text="Linked source:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                                <ComboBox x:Name="cmbMode3LinkInstance" Width="280" SelectionChanged="mode3_source_options_changed"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Text="Target match key:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                                <ComboBox x:Name="cmbMode3TargetMatchParameter" Width="260" SelectionChanged="mode3_source_options_changed"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Text="Source match key:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                                <ComboBox x:Name="cmbMode3SourceMatchParameter" Width="260" SelectionChanged="mode3_source_options_changed"/>
+                                            </StackPanel>
+                                            <TextBlock x:Name="txtMode3Status" Style="{StaticResource Hint}" Foreground="#D8D8D8"
+                                                       Text="Mode 3 not configured yet."/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <TextBlock Text="Step 1: Source parameter" Margin="0,0,0,4" FontWeight="SemiBold"/>
+                                    <ComboBox x:Name="cmbSourceParameter" Height="26" SelectionChanged="source_parameter_changed"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,8,0,6">
+                                        <Button Content="Preview Source Values" Click="preview_source_values_click" Width="170"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                        <CheckBox x:Name="chkExportMappedPreviewCsv"
+                                                  Content="Export mapped preview to CSV"
+                                                  Checked="persist_inputs_changed"
+                                                  Unchecked="persist_inputs_changed"/>
+                                    </StackPanel>
+                                    <ListBox x:Name="lstSourcePreview" MinHeight="120" MaxHeight="260"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="Step 2: Manipulate value" Margin="0,0,0,4" FontWeight="SemiBold"/>
+                                    <ComboBox x:Name="cmbValueTransform" Height="26" SelectionChanged="value_transform_changed">
+                                        <ComboBoxItem Content="Keep Original"/>
+                                        <ComboBoxItem Content="Convert To String"/>
+                                        <ComboBoxItem Content="Digits Only"/>
+                                        <ComboBoxItem Content="Pad Number (Width)"/>
+                                        <ComboBoxItem Content="Digits + Pad Number"/>
+                                        <ComboBoxItem Content="Level Number (2-digit)"/>
+                                        <ComboBoxItem Content="Level Number (3-digit)"/>
+                                        <ComboBoxItem Content="Uppercase"/>
+                                        <ComboBoxItem Content="Lowercase"/>
+                                        <ComboBoxItem Content="Title Case"/>
+                                        <ComboBoxItem Content="Trim Spaces"/>
+                                        <ComboBoxItem Content="Remove Spaces"/>
+                                        <ComboBoxItem Content="Left 3 Characters"/>
+                                        <ComboBoxItem Content="Dictionary (Translate)"/>
+                                        <ComboBoxItem Content="Template (Tokens)"/>
+                                        <ComboBoxItem Content="Formula (Safe Numeric)"/>
+                                    </ComboBox>
+                                    <StackPanel Orientation="Horizontal" Margin="0,8,0,6">
+                                        <TextBlock Text="Pad Width:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                        <TextBox x:Name="txtPadWidth" Width="80" Text="2" TextChanged="persist_inputs_changed"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                        <TextBlock Text="Prefix:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                        <TextBox x:Name="txtPrefix" Width="110" TextChanged="persist_inputs_changed"/>
+                                        <TextBlock Text="Suffix:" VerticalAlignment="Center" Margin="8,0,6,0" Foreground="#B0B0B8"/>
+                                        <TextBox x:Name="txtSuffix" Width="110" TextChanged="persist_inputs_changed"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                        <TextBlock Text="Replace:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                        <TextBox x:Name="txtReplaceFrom" Width="110" TextChanged="persist_inputs_changed"/>
+                                        <TextBlock Text="With:" VerticalAlignment="Center" Margin="8,0,6,0" Foreground="#B0B0B8"/>
+                                        <TextBox x:Name="txtReplaceTo" Width="110" TextChanged="persist_inputs_changed"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                        <TextBlock Text="Expression:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                        <TextBox x:Name="txtExpression" Width="236" Height="68" AcceptsReturn="True"
+                                                 VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"
+                                                 TextChanged="persist_inputs_changed"
+                                                 ToolTip="Template: {value}-{level_number}. Formula: value*10 + level. Dictionary: key=value per line."/>
+                                    </StackPanel>
+                                    <Border Margin="0,4,0,0" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="8,6" Background="#1E1E22">
+                                        <TextBlock x:Name="txtTransformHint" Style="{StaticResource Hint}" Foreground="#D8D8D8"
+                                                   Text="Step 3: Click Apply Update to write processed source values into the selected target parameter."/>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <Grid Grid.Row="4" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Existing value handling:" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="#B0B0B8"/>
+                            <ComboBox x:Name="cmbExistingValueHandling" Width="270" SelectionChanged="persist_inputs_changed" SelectedIndex="0">
+                                <ComboBoxItem Content="Override Existing Values"/>
+                                <ComboBoxItem Content="Skip Elements With Existing Value"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="Close" Click="close_click" Width="100"/>
+                            <Button Content="Apply Update" Click="apply_update_click" Width="150" Style="{StaticResource ApplyButton}"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </Grid>
-        </StackPanel>
+        </Grid>
     </ScrollViewer>
 </Window>

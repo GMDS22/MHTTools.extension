@@ -6,4 +6,4 @@ tooltip:
     Collect elements by category, choose a common instance parameter, and apply.
 author: GM
 engine:
-  persistent: true
+  persistent: false
