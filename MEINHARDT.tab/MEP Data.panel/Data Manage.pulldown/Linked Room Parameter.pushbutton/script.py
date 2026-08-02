@@ -34,6 +34,15 @@ uidoc = revit.uidoc
 logger = script.get_logger()
 config = script.get_config()
 
+PARAMETER_TARGET_MODES = [
+    "SharedOnly",
+    "FamilyOnly",
+    "Both",
+    "FirstMatch",
+]
+
+DEFAULT_PARAMETER_TARGET_MODE = "SharedOnly"
+
 __title__ = "Linked Room\nParameter Transfer"
 __doc__ = "Select a room from a linked model and transfer room parameter values into selected host elements."
 
@@ -130,6 +139,7 @@ def _load_persistent_settings():
         "last_preview_export_dir": getattr(config, "last_preview_export_dir", ""),
         "preview_height": getattr(config, "preview_height", 220),
         "mapped_target_params": getattr(config, "mapped_target_params", []),
+        "parameter_target_mode": getattr(config, "parameter_target_mode", DEFAULT_PARAMETER_TARGET_MODE),
     }
     return settings
 
@@ -147,6 +157,7 @@ def _save_persistent_settings(settings):
         config.last_preview_export_dir = settings.get("last_preview_export_dir", "")
         config.preview_height = settings.get("preview_height", 220)
         config.mapped_target_params = settings.get("mapped_target_params", [])
+        config.parameter_target_mode = settings.get("parameter_target_mode", DEFAULT_PARAMETER_TARGET_MODE)
         script.save_config()
     except Exception:
         pass
@@ -167,6 +178,146 @@ def normalize_name(name):
     if not name:
         return ""
     return "".join(ch for ch in name.lower() if ch.isalnum())
+
+
+def _iter_param_owners(element):
+    if element is None:
+        return
+
+    yield ("instance", element)
+
+    try:
+        symbol = getattr(element, "Symbol", None)
+        if symbol is not None:
+            yield ("type", symbol)
+            return
+    except Exception:
+        pass
+
+    try:
+        type_id = getattr(element, "GetTypeId", lambda: None)()
+        if type_id is not None and type_id != ElementId.InvalidElementId:
+            type_el = doc.GetElement(type_id)
+            if type_el is not None:
+                yield ("type", type_el)
+    except Exception:
+        pass
+
+
+def _param_is_shared(param):
+    try:
+        return bool(getattr(param, "IsShared", False))
+    except Exception:
+        return False
+
+
+def _param_candidate_sort_key(candidate):
+    scope_priority = 0 if candidate.get("scope") == "instance" else 1
+    shared_priority = 0 if candidate.get("is_shared") else 1
+    return (
+        scope_priority,
+        shared_priority,
+        _safe_str(getattr(candidate.get("param"), "StorageType", "")),
+        _safe_str(getattr(getattr(candidate.get("param"), "Definition", None), "Name", "")),
+    )
+
+
+def _collect_param_candidates(target_element, target_param_name):
+    if target_element is None or not target_param_name:
+        return []
+
+    normalized_target_name = normalize_name(target_param_name.strip())
+    storage_none = getattr(StorageType, "None")
+    candidates = []
+
+    for source_name, owner in _iter_param_owners(target_element):
+        seen = set()
+
+        try:
+            param = owner.LookupParameter(target_param_name)
+            if param is not None:
+                seen.add(id(param))
+                if param.StorageType != storage_none:
+                    candidates.append({
+                        "param": param,
+                        "scope": source_name,
+                        "is_shared": _param_is_shared(param),
+                    })
+        except Exception:
+            pass
+
+        try:
+            params = list(owner.GetParameters(target_param_name))
+        except Exception:
+            params = []
+
+        for param in params:
+            if param is None or id(param) in seen:
+                continue
+            seen.add(id(param))
+            try:
+                if param.StorageType != storage_none:
+                    candidates.append({
+                        "param": param,
+                        "scope": source_name,
+                        "is_shared": _param_is_shared(param),
+                    })
+            except Exception:
+                continue
+
+        if not normalized_target_name:
+            continue
+
+        try:
+            for param in owner.Parameters:
+                if param is None or id(param) in seen:
+                    continue
+                definition = getattr(param, "Definition", None)
+                if definition is None:
+                    continue
+                if normalize_name(getattr(definition, "Name", "")) != normalized_target_name:
+                    continue
+                seen.add(id(param))
+                if param.StorageType != storage_none:
+                    candidates.append({
+                        "param": param,
+                        "scope": source_name,
+                        "is_shared": _param_is_shared(param),
+                    })
+        except Exception:
+            pass
+
+    return sorted(candidates, key=_param_candidate_sort_key)
+
+
+def _resolve_param_candidate(candidates, target_mode):
+    if not candidates:
+        return None, "missing"
+
+    writable = [candidate for candidate in candidates if not candidate["param"].IsReadOnly]
+    if not writable:
+        return None, "read-only"
+
+    shared = [candidate for candidate in writable if candidate.get("is_shared")]
+    nonshared = [candidate for candidate in writable if not candidate.get("is_shared")]
+
+    mode = target_mode if target_mode in PARAMETER_TARGET_MODES else DEFAULT_PARAMETER_TARGET_MODE
+    if mode == "FamilyOnly":
+        if nonshared:
+            return nonshared[0], "family-only"
+        return None, "no-family"
+
+    if mode == "Both":
+        if shared:
+            return shared[0], "both"
+        return writable[0], "both"
+
+    if mode == "FirstMatch":
+        return writable[0], "first-match"
+
+    if shared:
+        return shared[0], "shared-only"
+    return None, "no-shared"
 
 
 def get_link_instances(active_doc):
@@ -536,68 +687,31 @@ def get_best_match(room_param_name, target_param_names, strictness_mode="balance
     return None
 
 
-def _find_writable_parameter(target_element, target_param_name):
+def _find_writable_parameter(target_element, target_param_name, target_mode=DEFAULT_PARAMETER_TARGET_MODE, lookup_cache=None):
     if target_element is None or not target_param_name:
         return None, None
 
-    name = target_param_name.strip()
-    normalized_target_name = normalize_name(name)
-    search_sources = []
-
-    try:
-        search_sources.append(("instance", target_element))
-    except Exception:
-        pass
-
-    try:
-        symbol = getattr(target_element, "Symbol", None)
-        if symbol is not None:
-            search_sources.append(("type", symbol))
-    except Exception:
-        pass
-
-    read_only_found = False
-    storage_none = getattr(StorageType, "None")
-
-    for source_name, owner in search_sources:
+    cache_key = None
+    if lookup_cache is not None:
         try:
-            param = owner.LookupParameter(name)
-            if param is not None:
-                if not param.IsReadOnly and param.StorageType != storage_none:
-                    return param, source_name
-                read_only_found = True
+            cache_key = (
+                int(target_element.Id.IntegerValue),
+                normalize_name(target_param_name.strip()),
+                target_mode,
+            )
+            if cache_key in lookup_cache:
+                return lookup_cache[cache_key]
         except Exception:
-            pass
+            cache_key = None
 
-        try:
-            params = list(owner.GetParameters(name))
-        except Exception:
-            params = []
+    candidates = _collect_param_candidates(target_element, target_param_name)
+    chosen, reason = _resolve_param_candidate(candidates, target_mode)
+    result = (chosen["param"], chosen["scope"]) if chosen is not None else (None, reason)
 
-        for param in params:
-            if param is None:
-                continue
-            if not param.IsReadOnly and param.StorageType != storage_none:
-                return param, source_name
-            read_only_found = True
+    if lookup_cache is not None and cache_key is not None:
+        lookup_cache[cache_key] = result
 
-    if normalized_target_name:
-        for source_name, owner in search_sources:
-            try:
-                for param in owner.Parameters:
-                    if param is None or param.Definition is None:
-                        continue
-                    if normalize_name(param.Definition.Name) != normalized_target_name:
-                        continue
-                    if not param.IsReadOnly and param.StorageType != storage_none:
-                        return param, source_name
-                    read_only_found = True
-            except Exception:
-                pass
-
-    if read_only_found:
-        return None, "read-only"
-    return None, None
+    return result
 
 
 def _find_parameter_for_verification(target_element, target_param_name, target_source=None):
@@ -975,6 +1089,14 @@ class LinkedRoomTransferWindow(WPFWindow):
         except Exception:
             self.mapped_target_params_history = set()
 
+        try:
+            self._select_combo_item_by_tag_or_content(
+                getattr(self, "cmbParameterTargetMode", None),
+                settings.get("parameter_target_mode", DEFAULT_PARAMETER_TARGET_MODE),
+            )
+        except Exception:
+            pass
+
     def _save_persistent_settings_now(self):
         mapped_target_params = []
         try:
@@ -1008,8 +1130,54 @@ class LinkedRoomTransferWindow(WPFWindow):
             "last_preview_export_dir": str(getattr(config, "last_preview_export_dir", "") or ""),
             "preview_height": int(float(getattr(getattr(self, "sldPreviewHeight", None), "Value", 220) or 220)),
             "mapped_target_params": mapped_target_params,
+            "parameter_target_mode": self._get_parameter_target_mode(),
         }
         _save_persistent_settings(settings)
+
+    def _select_combo_item_by_tag_or_content(self, combo, desired_value):
+        if combo is None:
+            return
+
+        desired = _safe_str(desired_value).strip()
+        if not desired:
+            desired = DEFAULT_PARAMETER_TARGET_MODE
+
+        try:
+            for idx in range(combo.Items.Count):
+                item = combo.Items[idx]
+                raw = getattr(item, "Tag", None)
+                if raw in (None, ""):
+                    raw = getattr(item, "Content", None)
+                value = _safe_str(raw).strip()
+                if value == desired:
+                    combo.SelectedIndex = idx
+                    return
+        except Exception:
+            pass
+
+        try:
+            combo.SelectedIndex = 0
+        except Exception:
+            pass
+
+    def _get_parameter_target_mode(self):
+        combo = getattr(self, "cmbParameterTargetMode", None)
+        if combo is not None:
+            try:
+                item = combo.SelectedItem
+                if item is not None:
+                    raw = getattr(item, "Tag", None)
+                    if raw in (None, ""):
+                        raw = getattr(item, "Content", None)
+                    value = _safe_str(raw).strip()
+                    if value in PARAMETER_TARGET_MODES:
+                        return value
+            except Exception:
+                pass
+        return DEFAULT_PARAMETER_TARGET_MODE
+
+    def parameter_target_mode_changed(self, sender, e):
+        self._save_persistent_settings_now()
 
     def _get_probe_offset_mm(self):
         try:
@@ -3186,13 +3354,15 @@ class LinkedRoomTransferWindow(WPFWindow):
         # Preflight: coverage check per mapped target parameter across selected elements.
         coverage_lines = []
         has_coverage_gaps = False
+        parameter_target_mode = self._get_parameter_target_mode()
+        coverage_lookup_cache = {}
         try:
             for _, target_pname in sorted(self.mapping.items()):
                 found = 0
                 missing = 0
                 readonly = 0
                 for el in self.selected_elements:
-                    p, source_state = _find_writable_parameter(el, target_pname)
+                    p, source_state = _find_writable_parameter(el, target_pname, parameter_target_mode, coverage_lookup_cache)
                     if p is None:
                         if source_state == "read-only":
                             readonly += 1
@@ -3218,7 +3388,7 @@ class LinkedRoomTransferWindow(WPFWindow):
         if has_coverage_gaps and coverage_lines:
             msg = [
                 "Parameter coverage warning across selected elements/categories:",
-                "Some selected elements do not expose mapped target parameters as writable instance parameters.",
+                "Some selected elements do not expose mapped target parameters as writable under the current target mode.",
                 "Those rows will be skipped.",
                 "",
             ]
@@ -3257,11 +3427,13 @@ class LinkedRoomTransferWindow(WPFWindow):
             pass
 
         skip_empty = bool(self.chkSkipEmpty.IsChecked)
+        target_lookup_cache = {}
 
         log_lines = []
         log_lines.append("Linked Room Parameter Transfer started")
         log_lines.append("Selected room mode: {0}".format("auto-room" if auto_room_mode else "single-room"))
         log_lines.append("Selected elements: {0}".format(len(self.selected_elements)))
+        log_lines.append("Parameter target mode: {0}".format(parameter_target_mode))
         log_lines.append("Mappings:")
         for room_pname, target_pname in self.mapping.items():
             log_lines.append("  {0} -> {1}".format(room_pname, target_pname))
@@ -3403,7 +3575,7 @@ class LinkedRoomTransferWindow(WPFWindow):
                                         )
                                         continue
 
-                                    target_param, target_source = _find_writable_parameter(el, target_pname)
+                                    target_param, target_source = _find_writable_parameter(el, target_pname, parameter_target_mode, target_lookup_cache)
                                     log_lines.append(
                                         "Element {0}: trying {1} -> {2} (target_source={3})".format(
                                             el.Id.IntegerValue, room_pname, target_pname, target_source or "none"
@@ -3415,8 +3587,12 @@ class LinkedRoomTransferWindow(WPFWindow):
                                         if len(fail_messages) < 8:
                                             if target_source == "read-only":
                                                 msg_desc = "target parameter exists but is read-only"
+                                            elif target_source == "no-shared":
+                                                msg_desc = "no shared writable target matched the current target mode"
+                                            elif target_source == "no-family":
+                                                msg_desc = "no family/non-shared writable target matched the current target mode"
                                             else:
-                                                msg_desc = "target parameter not found or not writable"
+                                                msg_desc = "target parameter not found or not writable under the current target mode"
                                             fail_messages.append(
                                                 "{0} -> {1}: {2} on element {3}".format(
                                                     room_pname, target_pname, msg_desc, el.Id.IntegerValue

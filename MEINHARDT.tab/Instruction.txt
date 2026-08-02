@@ -1,0 +1,40 @@
+01. Locate Extension Folder
+You need to access the PyRevit extension directory where MHTTools is installed.
+
+Navigate to your PyRevit extensions folder (commonly under %AppData%\pyRevit\Extensions)
+
+Open MHTTools.extension/Meinhardt.tab
+
+02. Backup Existing MEP Data
+Backup First
+Ensure you don’t lose any existing work by saving the current MEP Data folder.
+
+Copy the existing MEP Data folder
+
+Paste it into a safe backup location outside the extension directory
+
+Alternatively, rename it to MEP Data_backup inside the same tab folder
+
+03. Remove Old MEP Data
+Clear out the outdated folder to avoid conflicts with the new version.
+
+Delete the original MEP Data folder from Meinhardt.tab
+
+Confirm the folder is no longer present
+
+04. Add New Folders
+Update
+Place the downloaded folders into the correct tab directory.
+
+Copy the two new folders (NWB and updated MEP Data)
+
+Paste them into MHTTools.extension/Meinhardt.tab
+
+Verify both folders are now visible inside the tab
+
+05. Reload PyRevit
+Apply the changes so the new panels appear in Revit.
+
+Restart Revit or reload PyRevit from the PyRevit menu
+
+Check that the new NWB panel and updated MEP Data panel are available under the Meinhardt tab

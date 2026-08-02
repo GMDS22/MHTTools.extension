@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-MHT Family Namer - pyRevit tool
+Family Renamer - pyRevit tool
 
 Scans loaded families and suggests standardized names based on templates in "naming_rules.json".
 
@@ -132,6 +132,164 @@ def load_rules(path):
         except Exception:
             continue
     return {}
+
+
+def _company_code(rules):
+    """Return the configured project prefix in a safe, consistent form."""
+    try:
+        value = (rules.get('COMPANY') or '').strip().upper()
+    except Exception:
+        value = ''
+    return value or 'MHT'
+
+
+def _discipline_key_for_category(category):
+    category_text = (category or '').lower()
+    if 'plumb' in category_text or 'pipe' in category_text:
+        return 'Plumbing'
+    if 'elect' in category_text or 'light' in category_text:
+        return 'Electrical'
+    if 'annotation' in category_text or 'tag' in category_text:
+        return 'Annotation'
+    return 'Mechanical'
+
+
+def _duct_fitting_prefix(rules):
+    discipline_code = (rules.get('DISCIPLINE', {}) or {}).get('Mechanical', 'ME')
+    return '%s-%s-DF' % (_company_code(rules), discipline_code)
+
+
+def _is_incomplete_duct_suggestion(suggestion, rules):
+    if not suggestion or '---' in suggestion:
+        return True
+    try:
+        import re
+        prefix = _duct_fitting_prefix(rules)
+        if suggestion.upper() == prefix.upper():
+            return True
+        if re.match(r'^%s(-DN\d+(-DN\d+)*)?(-\d{2})?$' % re.escape(prefix), suggestion, flags=re.I):
+            return True
+        core = re.sub(r'^%s-?' % re.escape(prefix), '', suggestion, flags=re.I)
+        return bool(core) and not re.search(r'[A-Za-z]', core)
+    except Exception:
+        return False
+
+
+def _save_rules(rules):
+    try:
+        with open(RULES_FILE, 'w') as rules_file:
+            json.dump(rules, rules_file, indent=2, sort_keys=True)
+        return True
+    except Exception as error:
+        logger.warning('Could not save Family Renamer settings: {}'.format(error))
+        return False
+
+
+def configure_project_settings(rules):
+    """Collect reusable project naming settings before generating suggestions."""
+    if Form is None or TextBox is None or ComboBox is None:
+        return True
+
+    try:
+        from System.Windows.Forms import FlowLayoutPanel, Padding
+
+        class SettingsForm(Form):
+            def __init__(self, configured_rules):
+                self.Text = 'Family Renamer Settings'
+                self.Width = 430
+                self.Height = 250
+                self.MinimumSize = Size(380, 220)
+                self.StartPosition = FormStartPosition.CenterParent
+                self.BackColor = Color.FromArgb(30, 30, 30)
+                self.ForeColor = Color.FromArgb(220, 220, 220)
+                self._rules = configured_rules
+
+                panel = FlowLayoutPanel()
+                panel.Dock = DockStyle.Fill
+                panel.FlowDirection = FlowDirection.TopDown
+                panel.WrapContents = False
+                panel.Padding = Padding(18)
+                panel.BackColor = self.BackColor
+
+                prefix_label = Label()
+                prefix_label.Text = 'Company / project prefix'
+                prefix_label.AutoSize = True
+                panel.Controls.Add(prefix_label)
+
+                self.prefix = TextBox()
+                self.prefix.Width = 360
+                self.prefix.Text = _company_code(configured_rules)
+                self.prefix.BackColor = Color.FromArgb(45, 45, 45)
+                self.prefix.ForeColor = self.ForeColor
+                panel.Controls.Add(self.prefix)
+
+                casing_label = Label()
+                casing_label.Text = 'Suggested-name casing'
+                casing_label.AutoSize = True
+                panel.Controls.Add(casing_label)
+
+                self.casing = ComboBox()
+                self.casing.Width = 180
+                self.casing.DropDownStyle = 2
+                for option in ['UPPER', 'TITLE', 'ASIS']:
+                    self.casing.Items.Add(option)
+                current_casing = (configured_rules.get('DEFAULT_CASING') or 'UPPER').upper()
+                self.casing.SelectedItem = current_casing if current_casing in ['UPPER', 'TITLE', 'ASIS'] else 'UPPER'
+                panel.Controls.Add(self.casing)
+
+                conflict_label = Label()
+                conflict_label.Text = 'Name conflict handling'
+                conflict_label.AutoSize = True
+                panel.Controls.Add(conflict_label)
+
+                self.conflict = ComboBox()
+                self.conflict.Width = 180
+                self.conflict.DropDownStyle = 2
+                for option in ['Auto-suffix', 'Skip', 'Apply']:
+                    self.conflict.Items.Add(option)
+                current_conflict = configured_rules.get('DEFAULT_CONFLICT_ACTION') or 'Auto-suffix'
+                self.conflict.SelectedItem = current_conflict if current_conflict in ['Auto-suffix', 'Skip', 'Apply'] else 'Auto-suffix'
+                panel.Controls.Add(self.conflict)
+
+                self.generate = Button()
+                self.generate.Text = 'Generate Suggestions'
+                self.generate.Width = 180
+                self.generate.Height = 30
+                self.generate.BackColor = Color.FromArgb(14, 99, 156)
+                self.generate.ForeColor = Color.White
+                self.generate.FlatStyle = FlatStyle.Flat
+                self.generate.Click += self.on_generate
+                panel.Controls.Add(self.generate)
+
+                self.cancel = Button()
+                self.cancel.Text = 'Cancel'
+                self.cancel.Width = 100
+                self.cancel.Click += self.on_cancel
+                panel.Controls.Add(self.cancel)
+                self.Controls.Add(panel)
+
+            def on_generate(self, sender, args):
+                import re
+                prefix = (self.prefix.Text or '').strip().upper()
+                if not re.match(r'^[A-Z0-9]{2,12}$', prefix):
+                    _show_error_dialog('Use 2-12 letters or digits only for the company / project prefix.', 'Invalid Prefix')
+                    return
+                self._rules['COMPANY'] = prefix
+                self._rules['DEFAULT_CASING'] = str(self.casing.SelectedItem or 'UPPER')
+                self._rules['DEFAULT_CONFLICT_ACTION'] = str(self.conflict.SelectedItem or 'Auto-suffix')
+                _save_rules(self._rules)
+                self.DialogResult = DialogResult.OK
+                self.Close()
+
+            def on_cancel(self, sender, args):
+                self.DialogResult = DialogResult.Cancel
+                self.Close()
+
+        form = SettingsForm(rules)
+        return form.ShowDialog() == DialogResult.OK
+    except Exception as error:
+        logger.warning('Could not show Family Renamer settings: {}'.format(error))
+        return True
 
 
 def get_families(doc):
@@ -381,7 +539,7 @@ def _write_export_files(csv_text, results, rules, script_dir, open_file=False):
                         reasons.append('missing_shape')
                 if 'duct' in cat:
                     s = (r.get('suggested') or '').strip()
-                    if not s or s.upper() == 'MHT-ME-DF' or '---' in s:
+                    if _is_incomplete_duct_suggestion(s, rules):
                         is_problem = True
                         reasons.append('incomplete_df_template')
                     if not info.get('_classified_shape'):
@@ -524,7 +682,7 @@ def export_results_now(rows, rules=None, script_dir=None, open_file=False):
                         reasons.append('missing_shape')
                 if 'duct' in cat_l:
                     s = (sug or '').strip()
-                    if not s or s.upper() == 'MHT-ME-DF' or '---' in s:
+                    if _is_incomplete_duct_suggestion(s, rules):
                         reasons.append('incomplete_df_template')
                     if not info.get('_classified_shape'):
                         reasons.append('missing_shape')
@@ -1589,6 +1747,8 @@ def apply_template(template, info, rules):
 def main():
     doc = revit.doc
     rules = load_rules(RULES_FILE)
+    if not configure_project_settings(rules):
+        return
     families = get_families(doc)
     instance_params_cache = _build_first_instance_params_cache(doc, families)
 
@@ -1627,7 +1787,7 @@ def main():
             # Only fall back to the current family name when no canonical suggestion was produced.
             try:
                 if not suggestion:
-                    company = (rules.get('COMPANY') or 'MHT')
+                    company = _company_code(rules)
                     # heuristic: pick Mechanical discipline for mechanical categories
                     cat = (info.get('category') or '').lower()
                     disc_key = 'Mechanical'
@@ -1646,7 +1806,7 @@ def main():
             # <COMPANY>-<DISC> + cleaned current family name so CSVs always have a value.
             try:
                 if not suggestion:
-                    company = (rules.get('COMPANY') or 'MHT')
+                    company = _company_code(rules)
                     cat = (info.get('category') or '').lower()
                     disc_key = 'Mechanical'
                     if 'plumb' in cat or 'pipe' in cat:
@@ -1687,7 +1847,7 @@ def main():
                 orig = suggestion or ''
                 # If template produced three or more consecutive hyphens, fallback
                 if '---' in orig:
-                    company = (rules.get('COMPANY') or 'MHT')
+                    company = _company_code(rules)
                     cat = (info.get('category') or '').lower()
                     disc_key = 'Mechanical'
                     if 'plumb' in cat or 'pipe' in cat:
@@ -1723,7 +1883,7 @@ def main():
             # current family name when the generated suggestion is clearly missing
             # discriminating tokens (many consecutive hyphens, only prefix+DN, or
             # missing classified tokens). This prevents outputs such as
-            # 'MHT-ME-DF---DN23' or 'MHT-ME-DF' when the family name itself is
+            # '<PREFIX>-ME-DF---DN23' or '<PREFIX>-ME-DF' when the family name itself is
             # informative (e.g., 'Rectangular Union').
             try:
                 cat_l = (info.get('category') or '').lower()
@@ -1734,17 +1894,7 @@ def main():
                     if not s:
                         bad = True
                     else:
-                        if s.upper() == 'MHT-ME-DF' or '---' in s:
-                            bad = True
-                        # pattern: prefix optionally followed only by DN numbers and numeric suffixes
-                        import re as _re
-                        # matches strings like MHT-ME-DF-DN23 or MHT-ME-DF--DN23 or MHT-ME-DF-DN23-DN23
-                        if _re.match(r'^MHT-ME-DF(-DN\d+(-DN\d+)*)?(-\d{2})?$', s, flags=_re.I):
-                            bad = True
-                        # Also treat suggestions with very short descriptive parts (no letters) as bad
-                        core = _re.sub(r'^MHT-ME-DF-?', '', s, flags=_re.I)
-                        if core and not _re.search(r'[A-Za-z]', core):
-                            bad = True
+                        bad = _is_incomplete_duct_suggestion(s, rules)
 
                     # if classified tokens missing, prefer family name too
                     cls_shape = info.get('_classified_shape')
@@ -1752,10 +1902,8 @@ def main():
                     cls_size = info.get('_classified_size')
                     if bad or not cls_shape or not cls_fit or not cls_size:
                         try:
-                            # For duct fallbacks keep the DF prefix (MHT-ME-DF-<FamilyClean>)
-                            company = (rules.get('COMPANY') or 'MHT')
-                            disc_code = rules.get('DISCIPLINE', {}).get('Mechanical', 'ME')
-                            df_prefix = "%s-%s-DF" % (company, disc_code)
+                            # For duct fallbacks keep the configured DF prefix.
+                            df_prefix = _duct_fitting_prefix(rules)
                             cur = info.get('family_name') or ''
                             try:
                                 base = remove_existing_prefixes(cur, rules) if rules else cur
@@ -1853,7 +2001,7 @@ def main():
             # Duct fitting specific checks
             if 'duct' in cat_l:
                 s = (sug or '').strip()
-                if not s or s.upper() == 'MHT-ME-DF' or '---' in s:
+                if _is_incomplete_duct_suggestion(s, rules):
                     reasons.append('incomplete_df_template')
                 # missing classified tokens
                 if not info.get('_classified_shape'):
@@ -1994,7 +2142,7 @@ def main():
 
         class ReviewForm(Form):
             def __init__(self, rows, rules=None):
-                self.Text = 'MHT Family Namer - Review Suggestions'
+                self.Text = 'Family Renamer - Review Suggestions'
                 self.Width = 1200
                 self.Height = 800
                 self.MinimumSize = Size(800, 600)
@@ -2349,7 +2497,7 @@ def main():
                             """
                             opts = []
                             try:
-                                company = (rules.get('COMPANY') or 'MHT')
+                                company = _company_code(rules)
                                 # choose discipline key heuristically based on category
                                 cat = (info_local.get('category') or '').lower()
                                 disc_key = 'Mechanical'
@@ -2787,7 +2935,7 @@ def main():
                 # prevent concurrent apply operations
                 try:
                     if globals().get('_mht_is_applying'):
-                        _show_error_dialog('An apply operation is already in progress. Please wait until it finishes.', 'MHT Family Namer')
+                        _show_error_dialog('An apply operation is already in progress. Please wait until it finishes.', 'Family Renamer')
                         return
                 except Exception:
                     pass
@@ -2799,7 +2947,7 @@ def main():
                         try:
                             res = _maybe_dialog(
                                 'There are open Type Renamer windows. It is safer to close them before applying family renames. Continue anyway?',
-                                'MHT Family Namer',
+                                'Family Renamer',
                                 MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Warning,
                                 default_result=DialogResult.Yes
@@ -3080,7 +3228,7 @@ def main():
                             # fallback to global choice if dialog fails
                             res = _maybe_dialog(
                                 'Detected %d potential name conflicts. Yes=Auto-suffix all, No=Skip conflicts, Cancel=Abort' % len(conflicts),
-                                'MHT Family Namer - Conflicts',
+                                'Family Renamer - Conflicts',
                                 MessageBoxButtons.YesNoCancel,
                                 MessageBoxIcon.Warning,
                                 default_result=DialogResult.No
@@ -3098,7 +3246,7 @@ def main():
                     auto_suffix = False
 
                 # attempt rename inside transaction
-                t = DB.Transaction(doc, 'MHT Family Namer - Apply Names')
+                t = DB.Transaction(doc, 'Family Renamer - Apply Names')
                 try:
                     # mark as applying so other UI actions can be blocked
                     globals()['_mht_is_applying'] = True
@@ -3238,7 +3386,7 @@ def main():
                         summary_text = '\n'.join(summary_lines)
                         res = _maybe_dialog(
                             summary_text + '\n\nClose all tool windows now?',
-                            'MHT Family Namer - Summary',
+                            'Family Renamer - Summary',
                             MessageBoxButtons.YesNo,
                             MessageBoxIcon.Information,
                             default_result=DialogResult.No
@@ -3271,7 +3419,7 @@ def main():
                     try:
                         result = _maybe_dialog(
                             "Family rename complete.\n\nDo you also want to rename the sub-types (family types)?",
-                            "MHT Family Namer",
+                            "Family Renamer",
                             MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question,
                             default_result=DialogResult.No
@@ -3294,7 +3442,7 @@ def main():
                         else:
                             _maybe_dialog(
                                 "Family renaming complete.\n\nYou can close the tool.",
-                                "MHT Family Namer",
+                                "Family Renamer",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information,
                                 default_result=None

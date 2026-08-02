@@ -1,0 +1,11 @@
+title:
+  en_us: 'Arch Rooms\nExport'
+tooltip:
+  en_us: |
+    Shortcut to export room information from linked architectural models to Excel.
+
+    Uses the same exporter as Data Manage and saves a timestamped
+    .xlsx file for NWB mapping and QA.
+author: GM
+engine:
+  persistent: false

@@ -1,0 +1,302 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Parameter Flow Processor - By GM"
+        Height="860"
+        Width="1200"
+        MinWidth="1000"
+        MinHeight="760"
+        WindowStartupLocation="CenterScreen"
+        Background="#1A1A1C"
+        Foreground="#E8E8E8"
+        Loaded="window_loaded">
+    <Window.Resources>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#232327"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#3A3A40"/>
+        <SolidColorBrush x:Key="MutedTextBrush" Color="#8A8A9A"/>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#0E639C"/>
+        <SolidColorBrush x:Key="SecondaryBrush" Color="#1FA6A6"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#F2B134"/>
+
+        <Style x:Key="SectionCard" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Background" Value="#3A3A40"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="#505058"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#1177BB"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource SecondaryBrush}"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#22B8B8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="WarnButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground" Value="#1A1A1C"/>
+            <Setter Property="BorderBrush" Value="#D99A20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Padding" Value="7,4"/>
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CaretBrush" Value="#E8E8E8"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="MaxDropDownHeight" Value="280"/>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Background" Value="#2E5D84"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0E639C"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0E639C"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2E5D84"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="Hint" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource MutedTextBrush}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="14,12,14,12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Parameter Flow Processor" FontSize="19" FontWeight="Bold" Margin="0,0,0,2"/>
+        <TextBlock Grid.Row="1" Style="{StaticResource Hint}" Margin="0,0,0,10"
+                   Text="Auto-collects all current-view elements. Filter values like Selection Filter, then process target parameters with verified writes."/>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.42*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="0.58*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource SectionCard}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="1. Filter Elements" FontSize="14" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Style="{StaticResource Hint}" Margin="0,2,0,8"
+                               Text="Base scope is all elements in active view. Choose parameter, select value rows, and keep or unselect matches."/>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,8">
+                        <Button Content="Reload Active View" Click="reload_active_view_click" Width="150" Style="{StaticResource SecondaryButton}"/>
+                        <Button Content="Use All View Elements" Click="use_all_view_click" Width="160"/>
+                        <Button Content="Use Unprocessed" Click="use_unprocessed_click" Width="130"/>
+                    </StackPanel>
+
+                    <Grid Grid.Row="3" Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="110"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="txtFilterSearch" Grid.Column="0" TextChanged="filter_search_changed" ToolTip="Filter parameter names"/>
+                        <ComboBox x:Name="cmbFilterParameter" Grid.Column="1" SelectionChanged="filter_parameter_changed"/>
+                        <Button Grid.Column="2" Content="Load Values" Click="load_filter_values_click" Margin="0"/>
+                    </Grid>
+
+                    <ListBox x:Name="lstFilterValues" Grid.Row="4" SelectionMode="Extended"/>
+
+                    <StackPanel Grid.Row="5" Margin="0,8,0,0">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <Button Content="Keep Checked" Click="keep_checked_click" Width="130" Style="{StaticResource PrimaryButton}"/>
+                            <Button Content="Unselect Checked" Click="unselect_checked_click" Width="130"/>
+                            <Button Content="Clear Filter" Click="clear_filter_click" Width="100" Margin="0"/>
+                        </StackPanel>
+                        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="8,6" Background="#1E1E22">
+                            <TextBlock x:Name="txtFilterSummary" Style="{StaticResource Hint}" Foreground="#D8D8D8"
+                                       Text="No filter applied yet."/>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource SectionCard}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="2. Process Filtered Elements" FontSize="14" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Style="{StaticResource Hint}" Margin="0,2,0,8"
+                               Text="Process runs on the current filtered set. Cancel can rollback all or keep already committed chunks."/>
+
+                    <Grid Grid.Row="2" Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Process mode:" VerticalAlignment="Center" Foreground="#B0B0B8"/>
+                        <ComboBox x:Name="cmbProcessMode" Grid.Column="1" SelectionChanged="process_mode_changed">
+                            <ComboBoxItem Content="Direct Set Value"/>
+                            <ComboBoxItem Content="Copy Source Parameter"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <Grid Grid.Row="3" Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Target parameter:" VerticalAlignment="Center" Foreground="#B0B0B8"/>
+                        <ComboBox x:Name="cmbTargetParameter" Grid.Column="1"/>
+                    </Grid>
+
+                    <Grid x:Name="pnlDirectMode" Grid.Row="4" Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Direct value:" VerticalAlignment="Center" Foreground="#B0B0B8"/>
+                        <TextBox x:Name="txtDirectValue" Grid.Column="1"/>
+                    </Grid>
+
+                    <Grid x:Name="pnlSourceMode" Grid.Row="4" Margin="0,0,0,8" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Source parameter:" VerticalAlignment="Center" Foreground="#B0B0B8"/>
+                        <ComboBox x:Name="cmbSourceParameter" Grid.Row="0" Grid.Column="1"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Transform:" VerticalAlignment="Center" Foreground="#B0B0B8" Margin="0,6,0,0"/>
+                        <ComboBox x:Name="cmbTransform" Grid.Row="1" Grid.Column="1" Margin="0,6,6,0" SelectedIndex="0">
+                            <ComboBoxItem Content="Keep Original"/>
+                            <ComboBoxItem Content="Uppercase"/>
+                            <ComboBoxItem Content="Lowercase"/>
+                            <ComboBoxItem Content="Trim Spaces"/>
+                            <ComboBoxItem Content="Digits Only"/>
+                            <ComboBoxItem Content="Dictionary Translate"/>
+                        </ComboBox>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Dictionary map:" VerticalAlignment="Top" Foreground="#B0B0B8" Margin="0,6,0,0"/>
+                        <TextBox x:Name="txtDictionary" Grid.Row="2" Grid.Column="1" Margin="0,6,6,0" Height="84" AcceptsReturn="True" TextWrapping="Wrap"
+                                 ToolTip="Used only for Dictionary Translate mode. Format: key=value (one per line)."/>
+
+                        <CheckBox x:Name="chkSkipExisting" Grid.Row="3" Grid.ColumnSpan="2" Margin="0,8,0,0" Foreground="#E8E8E8"
+                                  Content="Skip target elements that already contain an effective value"/>
+                    </Grid>
+
+                    <Border Grid.Row="5" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="8" Background="#1E1E22">
+                        <StackPanel>
+                            <TextBlock x:Name="txtRunStatus" Text="Idle" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                            <ProgressBar x:Name="prgRun" Height="16" Minimum="0" Maximum="100" Value="0"/>
+                            <TextBlock x:Name="txtRunCounts" Style="{StaticResource Hint}" Foreground="#D8D8D8" Margin="0,6,0,0"
+                                       Text="Processed: 0 | Written: 0 | Skipped: 0 | Failed: 0"/>
+                            <TextBlock x:Name="txtRunDetail" Style="{StaticResource Hint}" Foreground="#D8D8D8" Margin="0,4,0,0"
+                                       Text="Current item: -"/>
+                            <TextBlock x:Name="txtPoolSummary" Style="{StaticResource Hint}" Foreground="#D8D8D8" Margin="0,6,0,0"
+                                       Text="Pool: 0 | Filtered: 0 | Written this session: 0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="0,8,0,0">
+                        <Button Content="Process Filtered Elements" Click="process_filtered_click" Width="190" Style="{StaticResource PrimaryButton}"/>
+                        <Button Content="Cancel Running Process" Click="cancel_run_click" Width="190" Style="{StaticResource WarnButton}"/>
+                        <Button Content="Open Processing Monitor" Click="open_monitor_click" Width="185"/>
+                        <Button Content="Close" Click="close_click" Width="90" Margin="0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="3" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="8,6" Background="#1E1E22" Margin="0,10,0,0">
+            <TextBlock x:Name="txtViewSummary" Style="{StaticResource Hint}" Foreground="#D8D8D8"
+                       Text="Loading current view elements..."/>
+        </Border>
+    </Grid>
+</Window>

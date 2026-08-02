@@ -1,10 +1,14 @@
 layout:
-  - RenumberBySpline
-  - ElementChangeLevel
-  - ElevationUnder
   - Category Instance Parameters
+  - Parameter Manager
   - Linked Elements Parameter
   - Linked Room Parameter
   - Linked Type Overlay
   - ExportMaterialsGraphics
   - UpdateMaterials
+  - Parameter Flow Processor
+  - Schedule CSV Roundtrip
+  - NWB Dim AutoFill
+  - NWB Linked Arch Rooms Export
+  - NWB_PARAMETERS AutoFill
+  - NWB Data Validator

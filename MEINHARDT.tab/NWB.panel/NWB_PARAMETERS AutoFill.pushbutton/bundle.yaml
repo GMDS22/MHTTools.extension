@@ -1,0 +1,21 @@
+title:
+  en_us: 'Param\nAutoFill'
+tooltip:
+  en_us: |
+    Auto-fill NWB asset and WBS parameters for MEP elements.
+
+    Works from:
+    - active model views (current visible MEP elements)
+    - active schedule views (scheduled elements)
+
+    Reads mapping data from:
+    - Asset Master sheet
+    - WBS sheet
+
+    Supports:
+    - Skip existing values
+    - Override existing values
+    - Live progress monitor with cancel
+author: GM
+engine:
+  persistent: false

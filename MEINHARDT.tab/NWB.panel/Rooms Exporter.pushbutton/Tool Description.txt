@@ -1,0 +1,19 @@
+Rooms Exporter extracts key room information from loaded linked architectural Revit models and saves it to a CSV file for QA, mapping, and downstream NWB parameter workflows.
+
+The tool is intended as a reference export for teams who need to review linked room names, numbers, departments, site/building hints, and other room parameters outside Revit before running parameter automation.
+
+Best use cases:
+- Review linked architectural room data before or after NWB parameter mapping.
+- Export a clean room register for coordination with architecture and BIM QA.
+- Check department, room number, and other available room parameters in Excel.
+
+How it works:
+- Scans loaded Revit links and keeps only linked models that contain rooms.
+- Lets the user choose one or more architectural links to export.
+- Writes one CSV row per linked room, including core room identity fields and additional non-empty room parameters.
+- Saves the timestamped CSV into the Param AutoFill tool folder in the NWB panel.
+
+Limitations:
+- Requires at least one loaded linked Revit model that contains rooms.
+- Exports currently available linked-room parameter values only; it does not modify the model.
+- Output structure depends on which room parameters are populated in the linked architectural model.

@@ -1,0 +1,22 @@
+title:
+  en_us: Validator
+tooltip:
+  en_us: |
+    Validate MEP NWB parameter data against NWB-WAL-GEN-DE-REG-0003.xlsx.
+
+    This tool is read-only. It does not change the Revit model.
+
+    Choose validation scope, parameter-binding policy, and architectural room link in the themed setup window.
+
+    Exports a CSV or Excel report showing:
+    - model values matching or differing from workbook-derived values
+    - missing or read-only NWB parameter bindings
+    - missing model source data and linked-room context
+    - asset rows that could not be matched with confidence
+
+    Uses a reusable template in the tool directory:
+    - templates/NWB_Data_Validator_Template.csv
+    - templates/NWB_Data_Validator_Template.xlsx (auto-created on first Excel export)
+author: GM
+engine:
+  persistent: false

@@ -1,0 +1,213 @@
+START | Tool=NWB_PARAMETERS AutoFill
+START | View=LEVEL 10 RISER LAYOUT - ZONE 110
+START | ViewMode=model
+START | WriteMode=smart
+START | ParameterTargetMode=Both
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=selection
+WORKBOOK | C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB Dim AutoFill.pushbutton\NWB-WAL-GEN-DE-REG-0003.xlsx
+READY | Elements=5 | AssetRows=1299 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB_PARAMETERS AutoFill.pushbutton\logs\NWB_PARAMETERS_AutoFill_20260728_142839.log
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 12388504 | Category=Duct Fittings | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU, AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Building_No, COMPLETE Y/N, Classification.OmniClass.21.Description_INSTANCE, Classification.OmniClass.21.Number_INSTANCE, Classification.OmniClass.22.Description_INSTANCE, Classification.OmniClass.22.Number_INSTANCE, Classification.OmniClass.23.Description_INSTANCE, Classification.OmniClass.23.Number_INSTANCE, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Description BOM Suffix, Duct Length 1, Ductwork Insulation - Lining, Elevation from Level
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+ELEMENT | 12388504 | Cat=Duct Fittings | AssetScore=45 | AssetTypeCode=MDUC | AssetType=Ductwork | AssetCategory=Ductwork | Targets=NWB_AssetTypeCode=MDUC; NWB_AssetType=Ductwork; NWB_Discipline=ME; NWB_Category=Ductwork; NWB_Material=; NWB_System=Exhaust Air; NWB_UniclassCode=Pr_65_65_25; NWB_UniclassDescription=Ductwork and fittings; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=10; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=WBH-HO-10-Z00-ME
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 13888087 | Category=Duct Fittings | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU, AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Building_No, COMPLETE Y/N, Classification.OmniClass.21.Description_INSTANCE, Classification.OmniClass.21.Number_INSTANCE, Classification.OmniClass.22.Description_INSTANCE, Classification.OmniClass.22.Number_INSTANCE, Classification.OmniClass.23.Description_INSTANCE, Classification.OmniClass.23.Number_INSTANCE, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Description BOM Suffix, Duct Length 1, Ductwork Insulation - Lining, Elevation from Level
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+ELEMENT | 13888087 | Cat=Duct Fittings | AssetScore=45 | AssetTypeCode=MDUC | AssetType=Ductwork | AssetCategory=Ductwork | Targets=NWB_AssetTypeCode=MDUC; NWB_AssetType=Ductwork; NWB_Discipline=ME; NWB_Category=Ductwork; NWB_Material=; NWB_System=Supply Air; NWB_UniclassCode=Pr_65_65_25; NWB_UniclassDescription=Ductwork and fittings; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=10; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=WBH-HO-10-Z00-ME
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Writing INSTANCE parameter 'NWB_AssetTypeCode' on element 15104828
+INFO | Element 15104828 | NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='MDUC'
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Writing INSTANCE parameter 'NWB_AssetType' on element 15104828
+INFO | Element 15104828 | NWB_AssetType | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Ductwork'
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Writing INSTANCE parameter 'NWB_Discipline' on element 15104828
+INFO | Element 15104828 | NWB_Discipline | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Mechanical' | New='ME'
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Writing INSTANCE parameter 'NWB_Category' on element 15104828
+INFO | Element 15104828 | NWB_Category | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Ductwork'
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Writing INSTANCE parameter 'NWB_UniclassCode' on element 15104828
+INFO | Element 15104828 | NWB_UniclassCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Pr_65_65_25'
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Writing INSTANCE parameter 'NWB_UniclassDescription' on element 15104828
+INFO | Element 15104828 | NWB_UniclassDescription | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Ductwork and fittings'
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+INFO | Writing INSTANCE parameter 'NWB_DesignPkg' on element 15104828
+INFO | Element 15104828 | NWB_DesignPkg | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='NWB-GEN-ME-SCM-1091-A'
+ERROR | Element 15104828 | Category=Duct Fittings | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU, AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Building_No, COMPLETE Y/N, Classification.OmniClass.21.Description_INSTANCE, Classification.OmniClass.21.Number_INSTANCE, Classification.OmniClass.22.Description_INSTANCE, Classification.OmniClass.22.Number_INSTANCE, Classification.OmniClass.23.Description_INSTANCE, Classification.OmniClass.23.Number_INSTANCE, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Description BOM Suffix, Duct Length 1, Ductwork Insulation - Lining, Elevation from Level
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Writing INSTANCE parameter 'NWB_WBS00' on element 15104828
+INFO | Element 15104828 | NWB_WBS00 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='WBH'
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Writing INSTANCE parameter 'NWB_WBS01' on element 15104828
+INFO | Element 15104828 | NWB_WBS01 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='HO'
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Writing INSTANCE parameter 'NWB_WBS02' on element 15104828
+INFO | Element 15104828 | NWB_WBS02 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='10'
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Writing INSTANCE parameter 'NWB_WBS03' on element 15104828
+INFO | Element 15104828 | NWB_WBS03 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Z00'
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Writing INSTANCE parameter 'NWB_WBS04' on element 15104828
+INFO | Element 15104828 | NWB_WBS04 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='ME'
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Writing INSTANCE parameter 'NWB_WBS05' on element 15104828
+INFO | Element 15104828 | NWB_WBS05 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='WBH-HO-10-Z00-ME'
+ELEMENT | 15104828 | Cat=Duct Fittings | AssetScore=45 | AssetTypeCode=MDUC | AssetType=Ductwork | AssetCategory=Ductwork | Targets=NWB_AssetTypeCode=MDUC; NWB_AssetType=Ductwork; NWB_Discipline=ME; NWB_Category=Ductwork; NWB_Material=; NWB_System=Exhaust Air; NWB_UniclassCode=Pr_65_65_25; NWB_UniclassDescription=Ductwork and fittings; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=10; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=WBH-HO-10-Z00-ME
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Writing INSTANCE parameter 'NWB_AssetTypeCode' on element 15186566
+INFO | Element 15186566 | NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='MDUC'
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Writing INSTANCE parameter 'NWB_AssetType' on element 15186566
+INFO | Element 15186566 | NWB_AssetType | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Ductwork'
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Writing INSTANCE parameter 'NWB_Discipline' on element 15186566
+INFO | Element 15186566 | NWB_Discipline | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Mechanical' | New='ME'
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Writing INSTANCE parameter 'NWB_Category' on element 15186566
+INFO | Element 15186566 | NWB_Category | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Ductwork'
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Writing INSTANCE parameter 'NWB_UniclassCode' on element 15186566
+INFO | Element 15186566 | NWB_UniclassCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Pr_65_65_25'
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Writing INSTANCE parameter 'NWB_UniclassDescription' on element 15186566
+INFO | Element 15186566 | NWB_UniclassDescription | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Ductwork and fittings'
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+INFO | Writing INSTANCE parameter 'NWB_DesignPkg' on element 15186566
+INFO | Element 15186566 | NWB_DesignPkg | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='NWB-GEN-ME-SCM-1091-A'
+ERROR | Element 15186566 | Category=Duct Fittings | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU, AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Building_No, COMPLETE Y/N, Classification.OmniClass.21.Description_INSTANCE, Classification.OmniClass.21.Number_INSTANCE, Classification.OmniClass.22.Description_INSTANCE, Classification.OmniClass.22.Number_INSTANCE, Classification.OmniClass.23.Description_INSTANCE, Classification.OmniClass.23.Number_INSTANCE, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Description BOM Suffix, Duct Length 1, Ductwork Insulation - Lining, Elevation from Level
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Writing INSTANCE parameter 'NWB_WBS00' on element 15186566
+INFO | Element 15186566 | NWB_WBS00 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='WBH'
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Writing INSTANCE parameter 'NWB_WBS01' on element 15186566
+INFO | Element 15186566 | NWB_WBS01 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='HO'
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Writing INSTANCE parameter 'NWB_WBS02' on element 15186566
+INFO | Element 15186566 | NWB_WBS02 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='10'
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Writing INSTANCE parameter 'NWB_WBS03' on element 15186566
+INFO | Element 15186566 | NWB_WBS03 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Z00'
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Writing INSTANCE parameter 'NWB_WBS04' on element 15186566
+INFO | Element 15186566 | NWB_WBS04 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='ME'
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Writing INSTANCE parameter 'NWB_WBS05' on element 15186566
+INFO | Element 15186566 | NWB_WBS05 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='WBH-HO-10-Z00-ME'
+ELEMENT | 15186566 | Cat=Duct Fittings | AssetScore=45 | AssetTypeCode=MDUC | AssetType=Ductwork | AssetCategory=Ductwork | Targets=NWB_AssetTypeCode=MDUC; NWB_AssetType=Ductwork; NWB_Discipline=ME; NWB_Category=Ductwork; NWB_Material=; NWB_System=Return Air; NWB_UniclassCode=Pr_65_65_25; NWB_UniclassDescription=Ductwork and fittings; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=10; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=WBH-HO-10-Z00-ME
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Writing INSTANCE parameter 'NWB_AssetTypeCode' on element 15191181
+INFO | Element 15191181 | NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='MDUC'
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Writing INSTANCE parameter 'NWB_AssetType' on element 15191181
+INFO | Element 15191181 | NWB_AssetType | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Ductwork'
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Writing INSTANCE parameter 'NWB_Discipline' on element 15191181
+INFO | Element 15191181 | NWB_Discipline | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Mechanical' | New='ME'
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Writing INSTANCE parameter 'NWB_Category' on element 15191181
+INFO | Element 15191181 | NWB_Category | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Ductwork'
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Writing INSTANCE parameter 'NWB_System' on element 15191181
+INFO | Element 15191181 | NWB_System | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Return Air' | New='Supply Air'
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Writing INSTANCE parameter 'NWB_UniclassCode' on element 15191181
+INFO | Element 15191181 | NWB_UniclassCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Pr_65_65_25'
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Writing INSTANCE parameter 'NWB_UniclassDescription' on element 15191181
+INFO | Element 15191181 | NWB_UniclassDescription | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Ductwork and fittings'
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+INFO | Writing INSTANCE parameter 'NWB_DesignPkg' on element 15191181
+INFO | Element 15191181 | NWB_DesignPkg | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='NWB-GEN-ME-SCM-1091-A'
+ERROR | Element 15191181 | Category=Duct Fittings | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU, AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Building_No, COMPLETE Y/N, Classification.OmniClass.21.Description_INSTANCE, Classification.OmniClass.21.Number_INSTANCE, Classification.OmniClass.22.Description_INSTANCE, Classification.OmniClass.22.Number_INSTANCE, Classification.OmniClass.23.Description_INSTANCE, Classification.OmniClass.23.Number_INSTANCE, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Description BOM Suffix, Duct Length 1, Ductwork Insulation - Lining, Elevation from Level
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Writing INSTANCE parameter 'NWB_WBS00' on element 15191181
+INFO | Element 15191181 | NWB_WBS00 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='WBH'
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Writing INSTANCE parameter 'NWB_WBS01' on element 15191181
+INFO | Element 15191181 | NWB_WBS01 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='HO'
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Writing INSTANCE parameter 'NWB_WBS02' on element 15191181
+INFO | Element 15191181 | NWB_WBS02 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='10'
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Writing INSTANCE parameter 'NWB_WBS03' on element 15191181
+INFO | Element 15191181 | NWB_WBS03 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Z00'
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Writing INSTANCE parameter 'NWB_WBS04' on element 15191181
+INFO | Element 15191181 | NWB_WBS04 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='ME'
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Writing INSTANCE parameter 'NWB_WBS05' on element 15191181
+INFO | Element 15191181 | NWB_WBS05 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='WBH-HO-10-Z00-ME'
+ELEMENT | 15191181 | Cat=Duct Fittings | AssetScore=45 | AssetTypeCode=MDUC | AssetType=Ductwork | AssetCategory=Ductwork | Targets=NWB_AssetTypeCode=MDUC; NWB_AssetType=Ductwork; NWB_Discipline=ME; NWB_Category=Ductwork; NWB_Material=; NWB_System=Supply Air; NWB_UniclassCode=Pr_65_65_25; NWB_UniclassDescription=Ductwork and fittings; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=10; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=WBH-HO-10-Z00-ME
+INFO | Transaction Status = Committed
+WARN | Regenerate after commit failed: Modification of the document is forbidden.  Typically, this is because there is no open transaction;  consult documentation for Document.IsModified for other possible causes.
+CHUNK COMMIT | Status=Committed | Processed=5
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Id=7626182 | Actual='MDUC'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_AssetType | Kind=Shared Parameter | Scope=instance | Id=7626181 | Actual='Ductwork'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_Discipline | Kind=Shared Parameter | Scope=instance | Id=7626159 | Actual='ME'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_Category | Kind=Shared Parameter | Scope=instance | Id=7626160 | Actual='Ductwork'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_UniclassCode | Kind=Shared Parameter | Scope=instance | Id=7626165 | Actual='Pr_65_65_25'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_UniclassDescription | Kind=Shared Parameter | Scope=instance | Id=7626166 | Actual='Ductwork and fittings'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_DesignPkg | Kind=Shared Parameter | Scope=instance | Id=7626167 | Actual='NWB-GEN-ME-SCM-1091-A'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_WBS00 | Kind=Shared Parameter | Scope=instance | Id=9214738 | Actual='WBH'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_WBS01 | Kind=Shared Parameter | Scope=instance | Id=9214798 | Actual='HO'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_WBS02 | Kind=Shared Parameter | Scope=instance | Id=9214786 | Actual='10'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_WBS03 | Kind=Shared Parameter | Scope=instance | Id=9214750 | Actual='Z00'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_WBS04 | Kind=Shared Parameter | Scope=instance | Id=9214762 | Actual='ME'
+INFO | VERIFY OK | Element 15104828 | Parameter=NWB_WBS05 | Kind=Shared Parameter | Scope=instance | Id=9214810 | Actual='WBH-HO-10-Z00-ME'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Id=7626182 | Actual='MDUC'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_AssetType | Kind=Shared Parameter | Scope=instance | Id=7626181 | Actual='Ductwork'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_Discipline | Kind=Shared Parameter | Scope=instance | Id=7626159 | Actual='ME'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_Category | Kind=Shared Parameter | Scope=instance | Id=7626160 | Actual='Ductwork'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_UniclassCode | Kind=Shared Parameter | Scope=instance | Id=7626165 | Actual='Pr_65_65_25'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_UniclassDescription | Kind=Shared Parameter | Scope=instance | Id=7626166 | Actual='Ductwork and fittings'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_DesignPkg | Kind=Shared Parameter | Scope=instance | Id=7626167 | Actual='NWB-GEN-ME-SCM-1091-A'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_WBS00 | Kind=Shared Parameter | Scope=instance | Id=9214738 | Actual='WBH'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_WBS01 | Kind=Shared Parameter | Scope=instance | Id=9214798 | Actual='HO'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_WBS02 | Kind=Shared Parameter | Scope=instance | Id=9214786 | Actual='10'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_WBS03 | Kind=Shared Parameter | Scope=instance | Id=9214750 | Actual='Z00'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_WBS04 | Kind=Shared Parameter | Scope=instance | Id=9214762 | Actual='ME'
+INFO | VERIFY OK | Element 15186566 | Parameter=NWB_WBS05 | Kind=Shared Parameter | Scope=instance | Id=9214810 | Actual='WBH-HO-10-Z00-ME'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Id=7626182 | Actual='MDUC'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_AssetType | Kind=Shared Parameter | Scope=instance | Id=7626181 | Actual='Ductwork'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_Discipline | Kind=Shared Parameter | Scope=instance | Id=7626159 | Actual='ME'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_Category | Kind=Shared Parameter | Scope=instance | Id=7626160 | Actual='Ductwork'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_System | Kind=Shared Parameter | Scope=instance | Id=7626163 | Actual='Supply Air'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_UniclassCode | Kind=Shared Parameter | Scope=instance | Id=7626165 | Actual='Pr_65_65_25'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_UniclassDescription | Kind=Shared Parameter | Scope=instance | Id=7626166 | Actual='Ductwork and fittings'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_DesignPkg | Kind=Shared Parameter | Scope=instance | Id=7626167 | Actual='NWB-GEN-ME-SCM-1091-A'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_WBS00 | Kind=Shared Parameter | Scope=instance | Id=9214738 | Actual='WBH'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_WBS01 | Kind=Shared Parameter | Scope=instance | Id=9214798 | Actual='HO'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_WBS02 | Kind=Shared Parameter | Scope=instance | Id=9214786 | Actual='10'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_WBS03 | Kind=Shared Parameter | Scope=instance | Id=9214750 | Actual='Z00'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_WBS04 | Kind=Shared Parameter | Scope=instance | Id=9214762 | Actual='ME'
+INFO | VERIFY OK | Element 15191181 | Parameter=NWB_WBS05 | Kind=Shared Parameter | Scope=instance | Id=9214810 | Actual='WBH-HO-10-Z00-ME'
+END | Attempted=40 | Written=40 | Skipped=40 | VerifyFailed=0 | SharedWrites=40 | FamilyWrites=0 | TypeWrites=0 | InstanceWrites=40 | ReadOnly=0 | MissingTarget=5 | SkipTargetMode=0 | DuplicateParameter=0 | SkipWorksharing=0 | Failed=0 | Cancelled=False

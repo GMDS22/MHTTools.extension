@@ -1,0 +1,167 @@
+START | Tool=NWB_PARAMETERS AutoFill
+START | View=MECHANICAL DUCTWORK LAYOUT - LEVEL 09
+START | ViewId=9423012
+START | ViewMode=model
+START | WriteMode=smart
+START | ParameterTargetMode=SharedOnly
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=selection
+START | SelectedInputCount=208
+START | ArchRoomLink=AUTO
+START | SiteOverride=OPH
+START | BuildingOverride=OPH
+START | DesignPkgOverride=
+START | BuildingPermitOverride=
+WORKBOOK | C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB Dim AutoFill.pushbutton\NWB-WAL-GEN-DE-REG-0003.xlsx
+READY | Elements=208 | AssetRows=1299 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB_PARAMETERS AutoFill.pushbutton\logs\NWB_PARAMETERS_AutoFill_20260801_142220.log
+READY | CategoryBreakdown=Air Terminals=24; Duct Accessories=10; Duct Fittings=88; Ducts=65; Flex Ducts=15; Mechanical Equipment=6
+READY | EligibleElementIds=7249637, 13022217, 13022218, 13022219, 13022220, 13023494, 13023826, 13023893, 13024657, 13025102, 13025105, 13025285, 13025291, 13025369, 13025394, 13025427, 13026204, 13026647, 13026706, 13026772, 13026914, 13027549, 13027556, 13027594, 13027596, 13028946, 13029419, 13029854, 13029902, 13029990, 13031989, 13031999, 13033613, 13035889, 13059489, 13153402, 13153405, 13248037, 13248038, 13248040, 13248041, 13248044, 13248045, 13248047, 13293462, 13293465, 13293469, 13293470, 13293472, 13370112, 13567645, 13567646, 13567650, 13567653, 13567654, 13567657, 13567659, 13567692, 13567701, 13567826, 13567827, 13567829, 13567830, 13567832, 13567835, 13567836, 13567838, 13567840, 13638961, 13638962, 13645579, 13645587, 13645589, 13645598, 13645600, 13747284, 13747288, 13747291, 13747296, 13747297, 14311738, 14670242, 14670305, 14671582, 14702986, 14840271, 14840315, 14843851, 14843867, 14844095, 14844126, 14844171, 14844375, 14844383, 14844442, 14848079, 14848080, 14848082, 14848083, 14848086, 14848088, 14848091, 14848095, 14848097, 14848100, 14849348, 14849376, 14860011, 14860146, 14860148, 14860281, 14860385, 14861153, 14861252, 14861262, 14861284, 14861417, 14861528, 14861534, 14861541, 14861542, 14861549, 14861784, 14861786, 14861830, 14861883, 14861962, 14862036, 14862166, 14862176, 14862182, 14862183, 14862302, 14862304, 14862405, 14862501, 14862525, 14862634, 14862699, 14862701, 14862724, 14862803, 14862823, 14862870, 14863035, 14863082, 14863208, 14863256, 14863312, 14863314, 14863502, 14863524, 14863537, 14863549, 14863635, 14863642, 14863686, 14863850, 14863885, 14863889, 14863929, 14863947, 14863949, 14864020, 14875863, 14875869, 14921278, 14921287, 14921292, 14921313, 14921316, 14921325, 14921641, 14921862, 14943285, 15255070, 15255212, 15255350, 15255352, 15255387, 15255485, 15255525, 15255531, 15263296, 15267708, 15474565, 15474574, 15477900, 15477901, 15477903, 15477910, 15477912, 15477978, 15479215, 15517195, 15517802, 15517803, 15517859, 15517860, 15518943 ... (+8 more)
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_Department | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626168
+INFO | Writing INSTANCE parameter 'NWB_Department' on element 7249637
+INFO | Element 7249637 | NWB_Department | Kind=Shared Parameter | Scope=instance | Storage=String | Old='ETC' | New='Engineering'
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+INFO | Writing INSTANCE parameter 'NWB_DesignPkg' on element 7249637
+INFO | Element 7249637 | NWB_DesignPkg | Kind=Shared Parameter | Scope=instance | Storage=String | Old='NWB-GEN-ME-SCM-1091-A' | New='NWB-GEN-ME-SCM-1091-B'
+ERROR | Element 7249637 | Category=Ducts | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU, AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Additional Flow, Building_No, COMPLETE Y/N, Classification.OmniClass.21.Description_INSTANCE, Classification.OmniClass.21.Number_INSTANCE, Classification.OmniClass.22.Description_INSTANCE, Classification.OmniClass.22.Number_INSTANCE, Classification.OmniClass.23.Description_INSTANCE, Classification.OmniClass.23.Number_INSTANCE, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, DUCT NUMBER, Description BOM Suffix, Duct Number
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Writing INSTANCE parameter 'NWB_WBS00' on element 7249637
+INFO | Element 7249637 | NWB_WBS00 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='WBH' | New='OPH'
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Writing INSTANCE parameter 'NWB_WBS03' on element 7249637
+INFO | Element 7249637 | NWB_WBS03 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='ETC' | New='ENG'
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Writing INSTANCE parameter 'NWB_WBS05' on element 7249637
+INFO | Element 7249637 | NWB_WBS05 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='SP' | New='SI5'
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+INFO | Writing INSTANCE parameter 'NWB_WBSCode' on element 7249637
+INFO | Element 7249637 | NWB_WBSCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='WBH-HO-09-ETC-ME-SP' | New='OPH-HO-09-ENG-ME-SI5'
+SOURCE | Element 7249637 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | System=Return Air | LinkedRoomLink=NWB-ACD-WBH-MH-MOD-0001 | LinkedRoomNumber=ENG.10.R25 | LinkedRoomName=Mechanical Riser, M1 | LinkedRoomDept=Engineering | LinkedRoomBuilding= | LinkedRoomSite= | ResolvedDept=Engineering | ResolvedBuilding= | ResolvedSite= | DisciplineHint=mechanical | AssetCandidates=ducts, ductwork | WBS00=OPH | WBS01=HO | WBS03=ENG | DesignPkg=NWB-GEN-ME-SCM-1091-B | BuildingPermitPkg=OPH - BP09
+ELEMENT | 7249637 | Cat=Ducts | AssetScore=45 | AssetTypeCode=MDUC | AssetType=Ductwork | AssetCategory=Ductwork | Targets=NWB_AssetTypeCode=MDUC; NWB_AssetType=Ductwork; NWB_Discipline=ME; NWB_Category=Ductwork; NWB_Department=Engineering; NWB_Material=; NWB_System=Return Air; NWB_UniclassCode=Pr_65_65_25; NWB_UniclassDescription=Ductwork and fittings; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-B; NWB_BuildingPermitPkg=OPH - BP09; NWB_WBS00=OPH; NWB_WBS01=HO; NWB_WBS02=09; NWB_WBS03=ENG; NWB_WBS04=ME; NWB_WBS05=SI5; NWB_WBSCode=OPH-HO-09-ENG-ME-SI5
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Writing INSTANCE parameter 'NWB_AssetTypeCode' on element 13022217
+INFO | Element 13022217 | NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='MSAG' | New='MAGS'
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Writing INSTANCE parameter 'NWB_AssetType' on element 13022217
+INFO | Element 13022217 | NWB_AssetType | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Supply Air Grill' | New='Air Grilles'
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Writing INSTANCE parameter 'NWB_Discipline' on element 13022217
+INFO | Element 13022217 | NWB_Discipline | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Mechanical' | New='ME'
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_Department | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626168
+INFO | Writing INSTANCE parameter 'NWB_Department' on element 13022217
+INFO | Element 13022217 | NWB_Department | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Education & Training Centre'
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Writing INSTANCE parameter 'NWB_UniclassDescription' on element 13022217
+INFO | Element 13022217 | NWB_UniclassDescription | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Air grilles'
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+INFO | Writing INSTANCE parameter 'NWB_DesignPkg' on element 13022217
+INFO | Element 13022217 | NWB_DesignPkg | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='NWB-GEN-ME-SCM-1091-B'
+ERROR | Element 13022217 | Category=Air Terminals | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214738
+ERROR | Element 13022217 | Category=Air Terminals | Family= | Parameter=NWB_WBS00 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214798
+ERROR | Element 13022217 | Category=Air Terminals | Family= | Parameter=NWB_WBS01 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Writing INSTANCE parameter 'NWB_WBS03' on element 13022217
+INFO | Element 13022217 | NWB_WBS03 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Labour & Birth Suite' | New='ETC'
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214762
+ERROR | Element 13022217 | Category=Air Terminals | Family= | Parameter=NWB_WBS04 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214810
+ERROR | Element 13022217 | Category=Air Terminals | Family= | Parameter=NWB_WBS05 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+INFO | Writing INSTANCE parameter 'NWB_WBSCode' on element 13022217
+INFO | Element 13022217 | NWB_WBSCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='WBH-HO-09-BIR-ME-SI5' | New='OPH-HO-09-ETC-ME-SI5'
+SOURCE | Element 13022217 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | System=Supply Air | LinkedRoomLink=NWB-ACD-WBH-MH-MOD-0001 | LinkedRoomNumber=ETC.09.008 | LinkedRoomName=Student Workroom | LinkedRoomDept=Education & Training Centre | LinkedRoomBuilding= | LinkedRoomSite= | ResolvedDept=Education & Training Centre | ResolvedBuilding= | ResolvedSite= | DisciplineHint=mechanical | AssetCandidates=air terminals, air terminal | WBS00=OPH | WBS01=HO | WBS03=ETC | DesignPkg=NWB-GEN-ME-SCM-1091-B | BuildingPermitPkg=OPH - BP09
+ELEMENT | 13022217 | Cat=Air Terminals | AssetScore=36 | AssetTypeCode=MAGS | AssetType=Air Grilles | AssetCategory=Air Terminal | Targets=NWB_AssetTypeCode=MAGS; NWB_AssetType=Air Grilles; NWB_Discipline=ME; NWB_Category=Air Terminal; NWB_Department=Education & Training Centre; NWB_Material=; NWB_System=Supply Air; NWB_UniclassCode=Pr_70_65_04_03; NWB_UniclassDescription=Air grilles; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-B; NWB_BuildingPermitPkg=OPH - BP09; NWB_WBS00=OPH; NWB_WBS01=HO; NWB_WBS02=09; NWB_WBS03=ETC; NWB_WBS04=ME; NWB_WBS05=SI5; NWB_WBSCode=OPH-HO-09-ETC-ME-SI5
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Writing INSTANCE parameter 'NWB_AssetTypeCode' on element 13022218
+INFO | Element 13022218 | NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='MSAG' | New='MAGS'
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Writing INSTANCE parameter 'NWB_AssetType' on element 13022218
+INFO | Element 13022218 | NWB_AssetType | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Supply Air Grill' | New='Air Grilles'
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Writing INSTANCE parameter 'NWB_Discipline' on element 13022218
+INFO | Element 13022218 | NWB_Discipline | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Mechanical' | New='ME'
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_Department | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626168
+INFO | Writing INSTANCE parameter 'NWB_Department' on element 13022218
+INFO | Element 13022218 | NWB_Department | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Labour & Birth Suite'
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Writing INSTANCE parameter 'NWB_UniclassDescription' on element 13022218
+INFO | Element 13022218 | NWB_UniclassDescription | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Air grilles'
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+INFO | Writing INSTANCE parameter 'NWB_DesignPkg' on element 13022218
+INFO | Element 13022218 | NWB_DesignPkg | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='NWB-GEN-ME-SCM-1091-B'
+ERROR | Element 13022218 | Category=Air Terminals | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214738
+ERROR | Element 13022218 | Category=Air Terminals | Family= | Parameter=NWB_WBS00 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214798
+ERROR | Element 13022218 | Category=Air Terminals | Family= | Parameter=NWB_WBS01 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Writing INSTANCE parameter 'NWB_WBS03' on element 13022218
+INFO | Element 13022218 | NWB_WBS03 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Labour & Birth Suite' | New='BIR'
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214762
+ERROR | Element 13022218 | Category=Air Terminals | Family= | Parameter=NWB_WBS04 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214810
+ERROR | Element 13022218 | Category=Air Terminals | Family= | Parameter=NWB_WBS05 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+INFO | Writing INSTANCE parameter 'NWB_WBSCode' on element 13022218
+INFO | Element 13022218 | NWB_WBSCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='WBH-HO-09-BIR-ME-SI5' | New='OPH-HO-09-BIR-ME-SI5'
+SOURCE | Element 13022218 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | System=Supply Air | LinkedRoomLink=NWB-ACD-WBH-MH-MOD-0001 | LinkedRoomNumber=BIR.09.431 | LinkedRoomName=Meeting Room, 30m2 | LinkedRoomDept=Labour & Birth Suite | LinkedRoomBuilding= | LinkedRoomSite= | ResolvedDept=Labour & Birth Suite | ResolvedBuilding= | ResolvedSite= | DisciplineHint=mechanical | AssetCandidates=air terminals, air terminal | WBS00=OPH | WBS01=HO | WBS03=BIR | DesignPkg=NWB-GEN-ME-SCM-1091-B | BuildingPermitPkg=OPH - BP09
+ELEMENT | 13022218 | Cat=Air Terminals | AssetScore=36 | AssetTypeCode=MAGS | AssetType=Air Grilles | AssetCategory=Air Terminal | Targets=NWB_AssetTypeCode=MAGS; NWB_AssetType=Air Grilles; NWB_Discipline=ME; NWB_Category=Air Terminal; NWB_Department=Labour & Birth Suite; NWB_Material=; NWB_System=Supply Air; NWB_UniclassCode=Pr_70_65_04_03; NWB_UniclassDescription=Air grilles; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-B; NWB_BuildingPermitPkg=OPH - BP09; NWB_WBS00=OPH; NWB_WBS01=HO; NWB_WBS02=09; NWB_WBS03=BIR; NWB_WBS04=ME; NWB_WBS05=SI5; NWB_WBSCode=OPH-HO-09-BIR-ME-SI5
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Writing INSTANCE parameter 'NWB_AssetTypeCode' on element 13022219
+INFO | Element 13022219 | NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='MHPU'
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Writing INSTANCE parameter 'NWB_AssetType' on element 13022219
+INFO | Element 13022219 | NWB_AssetType | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Heat Pump Unit'
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Writing INSTANCE parameter 'NWB_Discipline' on element 13022219
+INFO | Element 13022219 | NWB_Discipline | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Mechanical' | New='ME'
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Writing INSTANCE parameter 'NWB_Category' on element 13022219
+INFO | Element 13022219 | NWB_Category | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Equipment'
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Writing INSTANCE parameter 'NWB_System' on element 13022219
+INFO | Element 13022219 | NWB_System | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Supply Air,Return Air,Hydronic Return,Hydronic Supply,Sanitary,Hydronic Return,Hydronic Supply,Hydronic Return,Undefined,Hydronic Supply,Undefined'
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Writing INSTANCE parameter 'NWB_UniclassCode' on element 13022219
+INFO | Element 13022219 | NWB_UniclassCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Pr_70_60_37'
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Writing INSTANCE parameter 'NWB_UniclassDescription' on element 13022219
+INFO | Element 13022219 | NWB_UniclassDescription | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='Heat pumps'
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+INFO | Writing INSTANCE parameter 'NWB_DesignPkg' on element 13022219
+INFO | Element 13022219 | NWB_DesignPkg | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='NWB-GEN-ME-SCM-1091-B'
+ERROR | Element 13022219 | Category=Mechanical Equipment | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU, AHU Zone, AHU_AreaServed, AHU_EquipmentLabel, AHU_LevelServed, AHU_Location, AHU_Number, AHU_Serves, AHU_SpillFan, AHU_SystemCode, AHU_Type, AHU_UniqueID, AHU_ZoneAirQty, AHU_ZoneNumber, Air Flow, Air Flow OA, ApparentLoad_ANZRS, Building_No, CMC_Height, CMC_Width
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Writing INSTANCE parameter 'NWB_WBS00' on element 13022219
+INFO | Element 13022219 | NWB_WBS00 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='WBH' | New='OPH'
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Writing INSTANCE parameter 'NWB_WBS03' on element 13022219
+INFO | Element 13022219 | NWB_WBS03 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='BIR' | New='Z00'
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+INFO | Writing INSTANCE parameter 'NWB_WBSCode' on element 13022219
+INFO | Element 13022219 | NWB_WBSCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='WBH-HO-09-BIR-ME-SI5' | New='OPH-HO-09-Z00-ME-SI5'
+SOURCE | Element 13022219 | Cat=Mechanical Equipment | Family=MHT_ME_FCU-IMD_Standard Profile1 | Type= | Level=LEVEL 09 | System=Supply Air,Return Air,Hydronic Return,Hydronic Supply,Sanitary,Hydronic Return,Hydronic Supply,Hydronic Return,Undefined,Hydronic Supply,Undefined | LinkedRoomLink= | LinkedRoomNumber= | LinkedRoomName= | LinkedRoomDept= | LinkedRoomBuilding= | LinkedRoomSite= | ResolvedDept= | ResolvedBuilding= | ResolvedSite= | DisciplineHint=mechanical | AssetCandidates=mechanical equipment, equipment | WBS00=OPH | WBS01=HO | WBS03=Z00 | DesignPkg=NWB-GEN-ME-SCM-1091-B | BuildingPermitPkg=OPH - BP09
+CHUNK ROLLBACK | Processed=4

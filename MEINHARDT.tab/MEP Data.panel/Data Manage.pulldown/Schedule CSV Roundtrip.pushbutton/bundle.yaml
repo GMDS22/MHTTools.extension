@@ -1,0 +1,10 @@
+title:
+  en_us: 'Schedule\nManager'
+tooltip:
+  en_us: |
+    Export schedule-scoped instance parameter values to CSV,
+    edit them outside Revit, preview the changes, and reimport them with verified writes.
+    Best for itemized schedules that expose writable instance parameters.
+author: GM
+engine:
+  persistent: false

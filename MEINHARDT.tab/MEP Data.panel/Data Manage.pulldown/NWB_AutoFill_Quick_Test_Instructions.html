@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NWB AutoFill Quick Test</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; margin: 36px; color: #1f1f1f; line-height: 1.45; }
+    h1 { font-size: 24px; margin: 0 0 18px; color: #0E639C; }
+    p, li { font-size: 12pt; }
+    ol { margin: 0 0 16px 20px; }
+    ul { margin: 8px 0 0 20px; }
+    .note { margin-top: 14px; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>NWB AutoFill Quick Test</h1>
+  <ol>
+    <li>Refresh pyRevit.</li>
+    <li>Test both NWB_PARAMETERS AutoFill and NWB Dim AutoFill on a small mixed-discipline selection.</li>
+    <li>For NWB_PARAMETERS AutoFill, choose the correct Arch room link if more than one architectural link is loaded.</li>
+    <li>Check a few elements and confirm the written NWB values are correct.</li>
+    <li>If something is wrong, send the latest log file from the tool logs folder and one screenshot of the affected element.</li>
+  </ol>
+  <p class="note">Logs already capture:</p>
+  <ul>
+    <li>active view name and view ID</li>
+    <li>selected run options</li>
+    <li>selected and eligible element IDs</li>
+    <li>per-element category, family, type, level, and source details</li>
+    <li>linked-room department/building/site context for parameter autofill</li>
+    <li>parsed size, width, height, and diameter for dim autofill</li>
+  </ul>
+</body>
+</html>

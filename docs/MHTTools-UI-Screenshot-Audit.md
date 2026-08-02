@@ -12,6 +12,10 @@ It compares the current MeinhardtTabTools.html entries against confirmed XAML-ba
 
 ## Confirmed Documented Tools Still Needing Actual UI Screenshots
 
+- MEP Data Panel: NWB Data Validator
+  - UI evidence: MEINHARDT.tab/MEP Data.panel/Data Manage.pulldown/NWB Data Validator.pushbutton/ValidatorOptionsWindow.xaml
+  - Gap: the read-only validation setup window was added without a captured Revit screenshot. Capture `ui-nwb-data-validator.png` after the next in-Revit validation run, then add the image and factual caption to its documentation card.
+
 - Project Panel: 06 Legend Creator
   - UI evidence: MEINHARDT.tab/Project.panel/06 Legend Creator.pushbutton/LegendCreatorUI.xaml
   - Gap: tool card is documented, but no UI screenshot asset is currently referenced.

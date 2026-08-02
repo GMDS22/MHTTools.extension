@@ -1,0 +1,15 @@
+START | Tool=NWB_PARAMETERS AutoFill
+START | View=LEVEL 10 MECHANICAL DUCT RISER JD
+START | ViewMode=model
+START | WriteMode=smart
+START | WorksharingMode=unowned-only
+START | ProcessingScope=selection
+WORKBOOK | C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB Dim AutoFill.pushbutton\NWB-WAL-GEN-DE-REG-0003.xlsx
+READY | Elements=4 | AssetRows=1299 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB_PARAMETERS AutoFill.pushbutton\logs\NWB_PARAMETERS_AutoFill_20260728_125014.log
+SKIP | Element 14268200 | Worksharing | instance already owned by current user
+SKIP | Element 14300295 | Worksharing | instance already owned by current user
+SKIP | Element 15046921 | Worksharing | instance already owned by current user
+MISSING TARGET | Element 15528279 | Param NWB_BuildingPermitPkg | Writable sample: AHU, AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Building_No, COMPLETE Y/N, Classification.OmniClass.21.Description_INSTANCE, Classification.OmniClass.21.Number_INSTANCE, Classification.OmniClass.22.Description_INSTANCE, Classification.OmniClass.22.Number_INSTANCE, Classification.OmniClass.23.Description_INSTANCE, Classification.OmniClass.23.Number_INSTANCE, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Description BOM Suffix, Duct Height, Duct Width, Ductwork Insulation - Lining
+ELEMENT | 15528279 | Cat=Duct Fittings | AssetScore=45 | AssetTypeCode=MDUC | AssetType=Ductwork | AssetCategory=Ductwork | Targets=NWB_AssetTypeCode=MDUC; NWB_AssetType=Ductwork; NWB_Discipline=ME; NWB_Category=Ductwork; NWB_Material=; NWB_System=Supply Air; NWB_UniclassCode=Pr_65_65_25; NWB_UniclassDescription=Ductwork and fittings; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=10; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=WBH-HO-10-Z00-ME
+CHUNK COMMIT | Processed=4
+END | Written=6 | AlreadyCorrect=1 | MissingTarget=1 | SkipWorksharing=3 | Failed=7 | Cancelled=False

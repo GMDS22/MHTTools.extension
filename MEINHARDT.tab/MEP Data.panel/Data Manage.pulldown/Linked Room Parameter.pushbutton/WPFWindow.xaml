@@ -719,6 +719,15 @@
                                   IsChecked="False"
                                   ToolTip="When enabled, you will be prompted to choose a save location before transfer. The filename is prefilled with scope/view, selected categories, and timestamp."
                                   Margin="12,2,0,0"/>
+                        <TextBlock Text="Target mode:" VerticalAlignment="Center"
+                                   Margin="16,0,8,0" Foreground="#B0B0B8"/>
+                        <ComboBox x:Name="cmbParameterTargetMode" Width="200" SelectedIndex="0"
+                                  SelectionChanged="parameter_target_mode_changed">
+                            <ComboBoxItem Content="SharedOnly (recommended)" Tag="SharedOnly"/>
+                            <ComboBoxItem Content="Both (shared + legacy duplicates)" Tag="Both"/>
+                            <ComboBoxItem Content="FamilyOnly / non-shared only" Tag="FamilyOnly"/>
+                            <ComboBoxItem Content="FirstMatch (diagnostic fallback)" Tag="FirstMatch"/>
+                        </ComboBox>
                         <TextBlock Text="If target has value:" VerticalAlignment="Center"
                                    Margin="16,0,8,0" Foreground="#B0B0B8"/>
                         <ComboBox x:Name="cmbDuplicateMode" Width="110" SelectedIndex="0">

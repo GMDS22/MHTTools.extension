@@ -1,0 +1,9 @@
+title:
+  en_us: Parameter Flow Processor
+tooltip:
+  en_us: |
+    Auto-collect all elements in current view, filter by parameter values,
+    then process target parameters with verified writes and cancellable execution.
+author: GM
+engine:
+  persistent: false

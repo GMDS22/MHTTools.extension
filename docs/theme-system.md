@@ -46,6 +46,8 @@ This document is the single source of truth for UI theme tokens and usage rules 
 3. Use Accent Amber for alerts, callouts, and high-attention visual markers.
 4. Keep core identity to the 3-role palette; do not introduce additional identity colors unless explicitly approved.
 5. Preserve contrast and readability on dark surfaces.
+6. Theme-aware controls must switch foreground and background tokens together; never allow light text on light fields or dark text on dark fields.
+7. In WPF dialogs, controls that commonly ignore simple brush setters, especially ComboBox, must use explicit templates for closed state, popup state, and selected-item state when the dialog is themed.
 
 ## Component Guidance
 
@@ -57,6 +59,8 @@ This document is the single source of truth for UI theme tokens and usage rules 
   - Closed-state background must use a dark surface token such as `surface-1` or `surface-2`, never a light or white fill inside dark-theme tools.
   - Selected text and dropdown-item text must use `text-main` or another clearly contrasting foreground.
   - Dropdown popup backgrounds and item rows must use dark surface tokens distinct from the foreground text so the selected value remains readable.
+  - If a tool intentionally uses a light surface, swap the text and highlight colors to dark-on-light equivalents in the same template so OS or default-control fallback cannot produce white-on-white or light-on-light states.
+  - Do not rely on default OS ComboBox rendering in themed dialogs; template the closed control, popup container, and item states explicitly.
 - Cards/Sections:
   - Use consistent surface layering (`surface-1` and `surface-2`) and border token.
 - Typography:
@@ -76,3 +80,4 @@ This document is the single source of truth for UI theme tokens and usage rules 
 
 - 2026-05-20: Initial single-source theme system created (Blue primary, Teal secondary, Amber accent).
 - 2026-05-20: First rollout pass applied to MEP Data.panel XAML dialogs for consistent dark surfaces and blue/teal action styling.
+- 2026-08-01: Added theme protocol requiring explicit ComboBox templating and matched foreground/background adaptation to prevent white-field fallback and unreadable text in MHT tools.

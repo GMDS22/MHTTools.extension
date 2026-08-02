@@ -21,10 +21,20 @@ sys.modules['Autodesk'] = fake_autodesk
 sys.modules['Autodesk.Revit'] = fake_revit
 
 # Import the functions under test from the script
-from script import apply_template
+from script import apply_template, _duct_fitting_prefix, _is_incomplete_duct_suggestion
 
 
 class TestTokens(unittest.TestCase):
+    def test_duct_fitting_prefix_uses_configured_project_code(self):
+        rules = {'COMPANY': 'abc', 'DISCIPLINE': {'Mechanical': 'MX'}}
+        self.assertEqual('ABC-MX-DF', _duct_fitting_prefix(rules))
+
+    def test_duct_fitting_incomplete_check_uses_configured_prefix(self):
+        rules = {'COMPANY': 'ABC', 'DISCIPLINE': {'Mechanical': 'ME'}}
+        self.assertTrue(_is_incomplete_duct_suggestion('ABC-ME-DF', rules))
+        self.assertTrue(_is_incomplete_duct_suggestion('ABC-ME-DF-DN150', rules))
+        self.assertFalse(_is_incomplete_duct_suggestion('ABC-ME-DF-RECT-ELBOW-DN150', rules))
+
     def test_sys_and_size_tokens_when_classified(self):
         rules = {'COMPANY': 'MHT', 'DISCIPLINE': {'ME': 'ME'}}
         info = {

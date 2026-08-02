@@ -1,0 +1,13 @@
+Schedule Manager exports itemized schedule-scoped instance parameter values to CSV so they can be reviewed or edited outside Revit.
+
+It can then preview the imported CSV against the current model, detect missing elements, skip unsupported or read-only parameters, and apply verified writes back to the instance parameters.
+
+Best use cases:
+- Bulk editing instance text, integer, or numeric values from a schedule-driven selection.
+- Reviewing proposed changes before writing them back.
+- Reusing schedule data in spreadsheet workflows while keeping ElementId and UniqueId links for safe reimport.
+
+Limitations:
+- Best suited for itemized schedules.
+- Does not round-trip calculated fields, formula fields, grouped rows, totals, or read-only values.
+- Targets instance parameters only when they can be resolved safely on the schedule elements.

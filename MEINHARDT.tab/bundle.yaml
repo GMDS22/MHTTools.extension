@@ -6,6 +6,7 @@ layout:
   - MEP Create
   - MEP Modify
   - MEP Data
+  - NWB
   - MEP Manage
   - Audit and Exchange
   - Documentation

@@ -1,0 +1,13 @@
+title:
+  en_us: 'Dim\nAutoFill'
+tooltip:
+  en_us: |
+    Fill NWB_DimWidth / NWB_DimHeight / NWB_DimDiameter from the Size parameter
+    for elements in the active schedule view.
+
+    - Run from an open schedule view
+    - Choose skip existing values or override existing values
+    - Live progress monitor with cancel that keeps processed items
+author: GM
+engine:
+  persistent: false

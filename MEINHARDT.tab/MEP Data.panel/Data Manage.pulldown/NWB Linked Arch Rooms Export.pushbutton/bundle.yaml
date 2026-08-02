@@ -1,0 +1,11 @@
+title:
+  en_us: 'NWB Linked Arch\nRooms Export'
+tooltip:
+  en_us: |
+    Export room information from linked architectural models to Excel.
+
+    Saves a timestamped .xlsx file into the
+    NWB_PARAMETERS AutoFill tool folder for mapping and QA.
+author: GM
+engine:
+  persistent: false
