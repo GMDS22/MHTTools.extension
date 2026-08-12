@@ -13484,3 +13484,103 @@ ELEMENT | 8286553 | Cat=Pipes | AssetScore=37 | AssetTypeCode=GPIP | AssetType=P
 INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
 INFO | Writing INSTANCE parameter 'NWB_AssetTypeCode' on element 8286560
 INFO | Element 8286560 | NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='GPFI' | New='GPIP'
+INFO | Candidate: NWB_AssetID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626164
+INFO | Writing INSTANCE parameter 'NWB_AssetID' on element 8286560
+INFO | Element 8286560 | NWB_AssetID | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='GPIP-HO-12-8286560'
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Writing INSTANCE parameter 'NWB_AssetType' on element 8286560
+INFO | Element 8286560 | NWB_AssetType | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Pipe Fitting General' | New='Pipework'
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Writing INSTANCE parameter 'NWB_Discipline' on element 8286560
+INFO | Element 8286560 | NWB_Discipline | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Mechanical' | New='ME'
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Writing INSTANCE parameter 'NWB_Category' on element 8286560
+INFO | Element 8286560 | NWB_Category | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Pipe Fitting' | New='Pipework'
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Writing INSTANCE parameter 'NWB_System' on element 8286560
+INFO | Element 8286560 | NWB_System | Kind=Shared Parameter | Scope=instance | Storage=String | Old='COOLING WATER' | New='Hydronic Return'
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 8286560 | Category=Pipe Fittings | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Description BOM Suffix, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, HOST_COUNT, IFC Predefined Type, IfcGUID, Image, IsCustom, Level, Location, Loss Method, MHT_COMMENT 1
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Writing INSTANCE parameter 'NWB_WBS02' on element 8286560
+INFO | Element 8286560 | NWB_WBS02 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='RF' | New='12'
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+INFO | Writing INSTANCE parameter 'NWB_WBSCode' on element 8286560
+INFO | Element 8286560 | NWB_WBSCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='WBH-HO-RF-Z00-ME-SI5' | New='WBH-HO-12-Z00-ME-SI5'
+SOURCE | Element 8286560 | Cat=Pipe Fittings | Family=MHT-ME-GENERIC-N-02 | Type= | Level=LEVEL 12 | System=Hydronic Return | LinkedRoomLink= | LinkedRoomNumber= | LinkedRoomName= | LinkedRoomDept= | LinkedRoomBuilding= | LinkedRoomSite= | LinkedRoomSource=connected-miss:d4:visited22 | ResolvedDept= | ResolvedBuilding= | ResolvedSite= | DisciplineHint=hydraulics | AssetCandidates=pipe fittings, hydraulics, pipe fitting, pipework | WBS00=WBH | WBS01=HO | WBS03=Z00 | DesignPkg=NWB-GEN-ME-SCM-1091-A | BuildingPermitPkg=WBH - BP09
+WARN | Element 8286560 | Department unresolved | ExistingNWBDepartment= | ExistingWBS00=WBH | ExistingWBS01=HO | ExistingDiscipline=Mechanical
+ELEMENT | 8286560 | Cat=Pipe Fittings | AssetScore=37 | AssetTypeCode=GPIP | AssetType=Pipework | AssetCategory=Pipework | Targets=NWB_AssetTypeCode=GPIP; NWB_AssetID=GPIP-HO-12-8286560; NWB_AssetType=Pipework; NWB_Discipline=ME; NWB_Category=Pipework; NWB_Department=; NWB_SubDepartment=; NWB_Material=; NWB_System=Hydronic Return; NWB_UniclassCode=Pr_65_52_63; NWB_UniclassDescription=Pipes and fittings; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=12; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=SI5; NWB_WBSCode=WBH-HO-12-Z00-ME-SI5
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Writing INSTANCE parameter 'NWB_AssetTypeCode' on element 8286562
+INFO | Element 8286562 | NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='GPFI' | New='GPIP'
+INFO | Candidate: NWB_AssetID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626164
+INFO | Writing INSTANCE parameter 'NWB_AssetID' on element 8286562
+INFO | Element 8286562 | NWB_AssetID | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='GPIP-HO-12-8286562'
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Writing INSTANCE parameter 'NWB_AssetType' on element 8286562
+INFO | Element 8286562 | NWB_AssetType | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Pipe Fitting General' | New='Pipework'
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Writing INSTANCE parameter 'NWB_Discipline' on element 8286562
+INFO | Element 8286562 | NWB_Discipline | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Mechanical' | New='ME'
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Writing INSTANCE parameter 'NWB_Category' on element 8286562
+INFO | Element 8286562 | NWB_Category | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Pipe Fitting' | New='Pipework'
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Writing INSTANCE parameter 'NWB_System' on element 8286562
+INFO | Element 8286562 | NWB_System | Kind=Shared Parameter | Scope=instance | Storage=String | Old='COOLING WATER' | New='Hydronic Return'
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 8286562 | Category=Pipe Fittings | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Description BOM Suffix, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, HOST_COUNT, IFC Predefined Type, IfcGUID, Image, Insulation Thickness, IsCustom, Level, Location, Loss Method
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Writing INSTANCE parameter 'NWB_WBS02' on element 8286562
+INFO | Element 8286562 | NWB_WBS02 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='RF' | New='12'
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+INFO | Writing INSTANCE parameter 'NWB_WBSCode' on element 8286562
+INFO | Element 8286562 | NWB_WBSCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='WBH-HO-RF-Z00-ME-SI5' | New='WBH-HO-12-Z00-ME-SI5'
+SOURCE | Element 8286562 | Cat=Pipe Fittings | Family=MHT-ME-Elbow - Threaded - MI - Class 150-02 | Type= | Level=LEVEL 12 | System=Hydronic Return | LinkedRoomLink= | LinkedRoomNumber= | LinkedRoomName= | LinkedRoomDept= | LinkedRoomBuilding= | LinkedRoomSite= | LinkedRoomSource=connected-miss:d4:visited22 | ResolvedDept= | ResolvedBuilding= | ResolvedSite= | DisciplineHint=hydraulics | AssetCandidates=pipe fittings, hydraulics, pipe fitting, pipework | WBS00=WBH | WBS01=HO | WBS03=Z00 | DesignPkg=NWB-GEN-ME-SCM-1091-A | BuildingPermitPkg=WBH - BP09
+WARN | Element 8286562 | Department unresolved | ExistingNWBDepartment= | ExistingWBS00=WBH | ExistingWBS01=HO | ExistingDiscipline=Mechanical
+ELEMENT | 8286562 | Cat=Pipe Fittings | AssetScore=37 | AssetTypeCode=GPIP | AssetType=Pipework | AssetCategory=Pipework | Targets=NWB_AssetTypeCode=GPIP; NWB_AssetID=GPIP-HO-12-8286562; NWB_AssetType=Pipework; NWB_Discipline=ME; NWB_Category=Pipework; NWB_Department=; NWB_SubDepartment=; NWB_Material=; NWB_System=Hydronic Return; NWB_UniclassCode=Pr_65_52_63; NWB_UniclassDescription=Pipes and fittings; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=12; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=SI5; NWB_WBSCode=WBH-HO-12-Z00-ME-SI5
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Writing INSTANCE parameter 'NWB_AssetTypeCode' on element 8286564
+INFO | Element 8286564 | NWB_AssetTypeCode | Kind=Shared Parameter | Scope=instance | Storage=String | Old='GPFI' | New='GPIP'
+INFO | Candidate: NWB_AssetID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626164
+INFO | Writing INSTANCE parameter 'NWB_AssetID' on element 8286564
+INFO | Element 8286564 | NWB_AssetID | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='GPIP-HO-12-8286564'
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Writing INSTANCE parameter 'NWB_AssetType' on element 8286564
+INFO | Element 8286564 | NWB_AssetType | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Pipe Fitting General' | New='Pipework'
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Writing INSTANCE parameter 'NWB_Discipline' on element 8286564
+INFO | Element 8286564 | NWB_Discipline | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Mechanical' | New='ME'
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Writing INSTANCE parameter 'NWB_Category' on element 8286564
+INFO | Element 8286564 | NWB_Category | Kind=Shared Parameter | Scope=instance | Storage=String | Old='Pipe Fitting' | New='Pipework'
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Writing INSTANCE parameter 'NWB_System' on element 8286564
+INFO | Element 8286564 | NWB_System | Kind=Shared Parameter | Scope=instance | Storage=String | Old='COOLING WATER' | New='Hydronic Return'
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 8286564 | Category=Pipe Fittings | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Description BOM Suffix, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, HOST_COUNT, IFC Predefined Type, IfcGUID, Image, IsCustom, Level, Location, Loss Method, MHT_COMMENT 1
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Writing INSTANCE parameter 'NWB_WBS02' on element 8286564
+INFO | Element 8286564 | NWB_WBS02 | Kind=Shared Parameter | Scope=instance | Storage=String | Old='RF' | New='12'
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
