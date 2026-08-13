@@ -1,0 +1,9 @@
+title:
+  en_us: 'MT Types\nExport'
+tooltip:
+  en_us: |
+    Run the maintainability schedule export tool and choose the maintainability
+    types to include at runtime.
+author: GM
+engine:
+  persistent: false

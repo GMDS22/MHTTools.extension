@@ -1,0 +1,13 @@
+title:
+  en_us: 'NWB Family Shared Cleaner'
+tooltip:
+  en_us: |
+    Audit selected loadable families for NWB_ family parameters and replace
+    non-shared or wrong-GUID shared parameters with the approved shared NWB
+    definitions from the active shared parameter file.
+
+    This tool only edits loadable families. It does not remove project
+    parameter bindings.
+author: GM
+engine:
+  persistent: false

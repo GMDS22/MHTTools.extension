@@ -1,0 +1,9 @@
+title:
+  en_us: 'Family\nClean'
+tooltip:
+  en_us: |
+    Replace family-side NWB parameters with the approved shared NWB
+    definitions from the active shared parameter file and reload the families.
+author: GM
+engine:
+  persistent: false

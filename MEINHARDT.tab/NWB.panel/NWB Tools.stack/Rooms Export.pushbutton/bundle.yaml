@@ -1,0 +1,8 @@
+title:
+  en_us: 'Rooms\nExport'
+tooltip:
+  en_us: |
+    Run the NWB rooms export tool.
+author: GM
+engine:
+  persistent: false
