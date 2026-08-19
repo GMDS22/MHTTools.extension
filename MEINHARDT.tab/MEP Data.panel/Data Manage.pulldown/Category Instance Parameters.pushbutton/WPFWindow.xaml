@@ -4,7 +4,7 @@
         Height="780"
         Width="1060"
         MinWidth="920"
-        MinHeight="700"
+        MinHeight="560"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         Loaded="window_loaded"
@@ -192,8 +192,7 @@
         </Style>
     </Window.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <Grid Margin="14,12,14,14">
+    <Grid Margin="14,12,14,14">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -315,8 +314,10 @@
                         </StackPanel>
                     </Border>
 
-                    <Border x:Name="pnlDirectValueMode" Grid.Row="3" Style="{StaticResource SectionCard}">
+                    <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <StackPanel>
+                            <Border x:Name="pnlDirectValueMode" Style="{StaticResource SectionCard}">
+                                <StackPanel>
                             <TextBlock Text="4. Set Value and Apply" FontSize="13" FontWeight="SemiBold"/>
                             <TextBlock Style="{StaticResource Hint}" Text="For String parameters, duplicate mode can append or skip when a value already exists." Margin="0,2,0,8"/>
 
@@ -339,11 +340,11 @@
                                 </ComboBox>
                                 <TextBlock Text="Non-string parameters always overwrite." VerticalAlignment="Center" Style="{StaticResource Hint}" Foreground="#B0B0B8"/>
                             </StackPanel>
-                        </StackPanel>
-                    </Border>
+                                </StackPanel>
+                            </Border>
 
-                    <Border x:Name="pnlSourceProcessMode" Grid.Row="3" Style="{StaticResource SectionCard}" Visibility="Collapsed">
-                        <Grid>
+                            <Border x:Name="pnlSourceProcessMode" Style="{StaticResource SectionCard}" Visibility="Collapsed">
+                                <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -450,8 +451,10 @@
                                     </Border>
                                 </StackPanel>
                             </Grid>
-                        </Grid>
-                    </Border>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
 
                     <Grid Grid.Row="4" Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
@@ -474,6 +477,5 @@
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-    </ScrollViewer>
+    </Grid>
 </Window>
