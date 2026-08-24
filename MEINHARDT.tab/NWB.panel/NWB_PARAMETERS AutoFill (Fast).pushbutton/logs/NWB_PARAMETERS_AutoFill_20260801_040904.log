@@ -1,0 +1,9 @@
+START | Tool=NWB_PARAMETERS AutoFill
+START | View=MECHANICAL DUCTWORK LAYOUT - 0a-LOWER GROUND - SCALE 100
+START | ViewMode=model
+START | WriteMode=smart
+START | ParameterTargetMode=SharedOnly
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=view
+WORKBOOK | C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB Dim AutoFill.pushbutton\NWB-WAL-GEN-DE-REG-0003.xlsx
+ERROR | Workbook read failed | RuntimeError: Work Packages sheet is empty or unreadable.

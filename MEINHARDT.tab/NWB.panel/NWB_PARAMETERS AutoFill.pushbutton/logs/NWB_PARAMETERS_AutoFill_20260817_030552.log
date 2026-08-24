@@ -1,0 +1,48 @@
+START | Tool=NWB_PARAMETERS AutoFill
+START | View={3D - Gino.MorenoHVPST}
+START | ViewId=17447513
+START | ViewMode=model
+START | WriteMode=smart
+START | ParameterTargetMode=Both
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=selection
+START | SelectedInputCount=1
+START | ArchRoomLink=AUTO
+START | SiteOverride=WBH
+START | BuildingOverride=WBH
+START | DesignPkgOverride=
+START | BuildingPermitOverride=
+START | ExportAudit=True
+START | AuditFile=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB_PARAMETERS AutoFill.pushbutton\logs\NWB_PARAMETERS_AutoFill_20260817_030552_audit.csv
+WORKBOOK | C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB Dim AutoFill.pushbutton\NWB-WAL-GEN-DE-REG-0003.xlsx
+READY | Elements=1 | AssetRows=1464 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB_PARAMETERS AutoFill.pushbutton\logs\NWB_PARAMETERS_AutoFill_20260817_030552.log
+READY | CategoryBreakdown=Mechanical Equipment=1
+READY | EligibleElementIds=17012924
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Candidate: NWB_AssetID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626164
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 17012924 | Category=Mechanical Equipment | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU, AHU Zone, AHU_AreaServed, AHU_EquipmentLabel, AHU_LevelServed, AHU_Location, AHU_Number, AHU_Serves, AHU_SpillFan, AHU_SystemCode, AHU_Type, AHU_UniqueID, AHU_ZoneAirQty, AHU_ZoneNumber, AirFlow, AirFlowActual, AirFlowCalc, ApparentLoad_ANZRS, Building_No, CMC_Height
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+SOURCE | Element 17012924 | Cat=Mechanical Equipment | Family=Vertical Discharge Cowls | Type= | Level=LEVEL 06 | System=Power,Exhaust Air | LinkedRoomLink= | LinkedRoomNumber= | LinkedRoomName= | LinkedRoomDept= | LinkedRoomBuilding= | LinkedRoomSite= | LinkedRoomSource=connected-miss:d4:visited10 | ResolvedDept= | ResolvedBuilding= | ResolvedSite= | DisciplineHint=mechanical | AssetCandidates=mechanical equipment, equipment | WBS00=WBH | WBS01=HO | WBS03=Z00 | DesignPkg=NWB-GEN-ME-SCM-1091-A | BuildingPermitPkg=WBH - BP09
+WARN | Element 17012924 | Department unresolved | ExistingNWBDepartment= | ExistingWBS00=WBH | ExistingWBS01=HO | ExistingDiscipline=ME
+ELEMENT | 17012924 | Cat=Mechanical Equipment | AssetScore=36 | AssetTypeCode=MHPU | AssetType=Heat Pump Unit | AssetCategory=Equipment | Targets=NWB_AssetTypeCode=MHPU; NWB_AssetID=MHPU-HO-06-17012924; NWB_AssetType=Heat Pump Unit; NWB_Discipline=ME; NWB_Category=Equipment; NWB_Department=; NWB_SubDepartment=; NWB_Material=; NWB_System=Power,Exhaust Air; NWB_UniclassCode=Pr_70_60_37; NWB_UniclassDescription=Heat pumps; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=06; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=SI5; NWB_WBSCode=WBH-HO-06-Z00-ME-SI5
+INFO | Transaction Status = Committed
+CHUNK COMMIT | Status=Committed | Processed=1
+SUMMARY | Top unresolved / skipped reasons
+SUMMARY | Count=1 | Category=Mechanical Equipment | Parameter=NWB_BuildingPermitPkg | Reason=missing
+SUMMARY | Count=1 | Category=Mechanical Equipment | Parameter=NWB_Department | Reason=linked/direct room department unavailable (connected-miss:d4:visited10)
+SUMMARY | Count=1 | Category=Mechanical Equipment | Parameter=NWB_Material | Reason=workbook material blank and model material missing
+SUMMARY | Count=1 | Category=Mechanical Equipment | Parameter=NWB_SubDepartment | Reason=linked/direct room subdepartment unavailable (connected-miss:d4:visited10)
+END | Attempted=0 | Written=0 | Skipped=20 | VerifyFailed=0 | SharedWrites=0 | FamilyWrites=0 | TypeWrites=0 | InstanceWrites=0 | ReadOnly=0 | MissingTarget=1 | SkipTargetMode=0 | DuplicateParameter=0 | SkipWorksharing=0 | Failed=0 | Cancelled=False

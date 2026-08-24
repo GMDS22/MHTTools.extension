@@ -1,0 +1,33 @@
+START | Tool=NWB Dim AutoFill
+START | View=MECHANICAL DUCTWORK LAYOUT - LEVEL 01
+START | ViewId=9422932
+START | ViewMode=model
+START | WriteMode=skip
+START | ParameterTargetMode=SharedOnly
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=selection
+START | SelectedInputCount=2
+START | ExportAudit=True
+START | AuditFile=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB Dim AutoFill (Fast).pushbutton\logs\NWB_Dim_AutoFill_20260818_182948_audit.csv
+READY | Elements=2 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB Dim AutoFill (Fast).pushbutton\logs\NWB_Dim_AutoFill_20260818_182948.log
+READY | CategoryBreakdown=Ducts=2
+READY | EligibleElementIds=15437355, 15443305
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Element 15437355 | NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='400'
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Element 15437355 | NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='550'
+SOURCE | Element 15437355 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 01 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=400x550 | Width=400 | Height=550 | Diameter=
+ELEMENT | 15437355 | Size='400x550' | Width='400' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:OK; NWB_DimHeight:OK; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Element 15443305 | NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='400'
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Element 15443305 | NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='550'
+SOURCE | Element 15443305 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 01 | Name=Flanged Long Radius Elbows / Tee | System=Return Air | SizeText=400x550 | Width=400 | Height=550 | Diameter=
+ELEMENT | 15443305 | Size='400x550' | Width='400' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:OK; NWB_DimHeight:OK; NWB_DimDiameter:SKIP
+INFO | Transaction Status = Committed
+CHUNK COMMIT | Status=Committed | Processed=2
+INFO | VERIFY OK | Element 15437355 | Parameter=NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Id=7626175 | Actual='400'
+INFO | VERIFY OK | Element 15437355 | Parameter=NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Id=7626170 | Actual='550'
+INFO | VERIFY OK | Element 15443305 | Parameter=NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Id=7626175 | Actual='400'
+INFO | VERIFY OK | Element 15443305 | Parameter=NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Id=7626170 | Actual='550'
+END | Attempted=4 | Written=4 | Skipped=2 | VerifyFailed=0 | SharedWrites=4 | FamilyWrites=0 | TypeWrites=0 | InstanceWrites=4 | ReadOnly=0 | MissingTarget=0 | SkipTargetMode=0 | DuplicateParameter=0 | SkipWorksharing=0 | Failed=0 | Cancelled=False

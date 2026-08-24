@@ -1,0 +1,40 @@
+START | Tool=NWB_PARAMETERS AutoFill
+START | View=MECHANICAL DUCTWORK LAYOUT - LEVEL 09
+START | ViewId=9423012
+START | ViewMode=model
+START | WriteMode=smart
+START | ParameterTargetMode=SharedOnly
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=selection
+START | SelectedInputCount=1
+START | ArchRoomLink=AUTO
+START | SiteOverride=WBH
+START | BuildingOverride=WBH
+START | DesignPkgOverride=
+START | BuildingPermitOverride=
+WORKBOOK | C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB Dim AutoFill.pushbutton\NWB-WAL-GEN-DE-REG-0003.xlsx
+READY | Elements=1 | AssetRows=1299 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB_PARAMETERS AutoFill.pushbutton\logs\NWB_PARAMETERS_AutoFill_20260801_153157.log
+READY | CategoryBreakdown=Flex Ducts=1
+READY | EligibleElementIds=13144392
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 13144392 | Category=Flex Ducts | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Additional Flow, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Diameter, Export to IFC, Export to IFC As, Family, Family and Type, Flex Pattern, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+SOURCE | Element 13144392 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | System=Return Air | LinkedRoomLink= | LinkedRoomNumber= | LinkedRoomName= | LinkedRoomDept= | LinkedRoomBuilding= | LinkedRoomSite= | ResolvedDept= | ResolvedBuilding= | ResolvedSite= | DisciplineHint=mechanical | AssetCandidates=flex ducts, ductwork | WBS00=WBH | WBS01=HO | WBS03=Z00 | DesignPkg=NWB-GEN-ME-SCM-1091-A | BuildingPermitPkg=WBH - BP09
+WARN | Element 13144392 | Department unresolved | ExistingNWBDepartment= | ExistingWBS00=WBH | ExistingWBS01=HO | ExistingDiscipline=ME
+ELEMENT | 13144392 | Cat=Flex Ducts | AssetScore=45 | AssetTypeCode=MDUC | AssetType=Ductwork | AssetCategory=Ductwork | Targets=NWB_AssetTypeCode=MDUC; NWB_AssetType=Ductwork; NWB_Discipline=ME; NWB_Category=Ductwork; NWB_Department=; NWB_Material=; NWB_System=Return Air; NWB_UniclassCode=Pr_65_65_25; NWB_UniclassDescription=Ductwork and fittings; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=09; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=SI5; NWB_WBSCode=WBH-HO-09-Z00-ME-SI5
+INFO | Transaction Status = Committed
+CHUNK COMMIT | Status=Committed | Processed=1
+END | Attempted=0 | Written=0 | Skipped=18 | VerifyFailed=0 | SharedWrites=0 | FamilyWrites=0 | TypeWrites=0 | InstanceWrites=0 | ReadOnly=0 | MissingTarget=1 | SkipTargetMode=0 | DuplicateParameter=0 | SkipWorksharing=0 | Failed=0 | Cancelled=False

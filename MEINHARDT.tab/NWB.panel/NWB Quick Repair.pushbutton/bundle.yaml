@@ -1,0 +1,11 @@
+title:
+  en_us: 'NWB\nQuick Repair'
+tooltip:
+  en_us: |
+    Fast repair for blank or incorrect NWB parameters.
+
+    Checks selected or visible MEP elements and only updates NWB values that are missing or wrong.
+    For room-linked values, prefers the correct linked-room source before writing anything.
+author: GM
+engine:
+  persistent: false

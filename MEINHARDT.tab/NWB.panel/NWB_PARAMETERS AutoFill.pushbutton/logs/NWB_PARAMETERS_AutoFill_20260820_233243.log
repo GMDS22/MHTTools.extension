@@ -1,0 +1,107 @@
+START | Tool=NWB_PARAMETERS AutoFill
+START | View=MECHANICAL DUCTWORK LAYOUT - LEVEL 04
+START | ViewId=9422962
+START | ViewMode=model
+START | WriteMode=smart
+START | ParameterTargetMode=Both
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=selection
+START | SelectedInputCount=4
+START | ArchRoomLink=AUTO
+START | SiteOverride=WBH
+START | BuildingOverride=WBH
+START | DesignPkgOverride=
+START | BuildingPermitOverride=
+START | ExportAudit=False
+START | FastMode=True | Live monitor and per-element runtime logging disabled
+WORKBOOK | C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB Dim AutoFill.pushbutton\NWB-WAL-GEN-DE-REG-0003.xlsx
+READY | Full MEP set accepted: 4 elements in batches of 2000
+READY | Elements=4 | AssetRows=1464 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB_PARAMETERS AutoFill.pushbutton\logs\NWB_PARAMETERS_AutoFill_20260820_233243.log
+READY | CategoryBreakdown=Air Terminals=4
+READY | EligibleElementIds=14429344, 14429345, 14693227, 14693228
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Candidate: NWB_AssetID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626164
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_Department | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626168
+INFO | Candidate: NWB_SubDepartment | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626178
+INFO | Candidate: NWB_RoomID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626177
+INFO | Candidate: NWB_RoomName | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626169
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 14429344 | Category=Air Terminals | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Candidate: NWB_AssetID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626164
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 14429345 | Category=Air Terminals | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Candidate: NWB_AssetID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626164
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 14693227 | Category=Air Terminals | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Candidate: NWB_AssetID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626164
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_Department | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626168
+INFO | Candidate: NWB_SubDepartment | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626178
+INFO | Candidate: NWB_RoomID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626177
+INFO | Candidate: NWB_RoomName | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626169
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 14693228 | Category=Air Terminals | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, AQ, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Flow, IFC Predefined Type, IfcGUID, Image, Legend Description
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214738
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214798
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214762
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214810
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+INFO | Transaction Status = Committed
+CHUNK COMMIT | Status=Committed | Processed=4
+SUMMARY | Top unresolved / skipped reasons
+SUMMARY | Count=4 | Category=Air Terminals | Parameter=NWB_BuildingPermitPkg | Reason=missing
+SUMMARY | Count=4 | Category=Air Terminals | Parameter=NWB_Material | Reason=workbook material blank and model material missing
+SUMMARY | Count=2 | Category=Air Terminals | Parameter=NWB_Department | Reason=linked/direct room department unavailable (self)
+SUMMARY | Count=2 | Category=Air Terminals | Parameter=NWB_RoomID | Reason=no source value
+SUMMARY | Count=2 | Category=Air Terminals | Parameter=NWB_RoomName | Reason=no source value
+SUMMARY | Count=2 | Category=Air Terminals | Parameter=NWB_SubDepartment | Reason=linked/direct room subdepartment unavailable (self)
+END | Attempted=0 | Written=0 | Skipped=88 | VerifyFailed=0 | SharedWrites=0 | FamilyWrites=0 | TypeWrites=0 | InstanceWrites=0 | ReadOnly=0 | MissingTarget=4 | SkipTargetMode=0 | DuplicateParameter=0 | SkipWorksharing=0 | Failed=0 | Cancelled=False

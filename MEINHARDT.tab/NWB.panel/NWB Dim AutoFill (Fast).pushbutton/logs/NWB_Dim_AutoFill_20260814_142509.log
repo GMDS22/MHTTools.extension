@@ -1,0 +1,906 @@
+START | Tool=NWB Dim AutoFill
+START | View=Multi-Category Schedule 2
+START | ViewId=16056611
+START | ViewMode=schedule
+START | WriteMode=skip
+START | ParameterTargetMode=SharedOnly
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=view
+START | SelectedInputCount=0
+START | ExportAudit=True
+START | AuditFile=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB Dim AutoFill (Fast).pushbutton\logs\NWB_Dim_AutoFill_20260814_142509_audit.csv
+READY | Elements=45995 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB Dim AutoFill (Fast).pushbutton\logs\NWB_Dim_AutoFill_20260814_142509.log
+READY | CategoryBreakdown=Air Terminals=2051; Doors=27; Duct Accessories=828; Duct Fittings=7441; Duct Insulations=9248; Duct Linings=33; Duct Systems=1083; Ducts=5978; Electrical Circuits=13; Electrical Equipment=17; Flex Ducts=1428; Generic Models=676; Mechanical Equipment=904; Medical Equipment=6; Pipe Accessories=133; Pipe Fittings=3805; Pipe Insulations=6971; Pipe Placeholders=850; Pipes=3996; Piping Systems=438; Walls=69
+READY | EligibleElementIds=264298, 269814, 270499, 270634, 489601, 490749, 491064, 495147, 497104, 517135, 517136, 523732, 1283824, 1283879, 1284585, 1284758, 1284792, 1284944, 1287284, 1287673, 1380934, 1505568, 1507008, 1507095, 1507361, 1507601, 1507724, 1507923, 1508198, 1508342, 1508538, 1693032, 1693038, 1900694, 1901116, 1901486, 1952039, 1957742, 2012788, 2012841, 2012896, 2012927, 2061463, 2097886, 2140019, 2165497, 2191228, 2191510, 2192861, 2257456, 2444557, 2597858, 2598433, 2612404, 2612405, 2613423, 2613424, 2621606, 2624162, 2624911, 2641357, 2644670, 2644815, 2644823, 2645642, 2647679, 2664395, 2664396, 2664397, 2664398, 2664399, 2664400, 2664492, 2664536, 2664558, 2664632, 2664648, 2664664, 2665291, 2665295, 2665299, 2665303, 2665305, 2665307, 2665312, 2665314, 2665316, 2665318, 2665319, 2665320, 2667702, 2667703, 2896283, 2941990, 2942521, 2952812, 2952813, 2953734, 2953735, 2954954, 2954955, 2955390, 2955391, 2964088, 2964540, 3004131, 3004132, 3004257, 3004258, 3019856, 3020063, 3624278, 3624280, 3624282, 3624284, 3624286, 3624288, 3624303, 3624305, 3624307, 3775602, 3775604, 3775608, 3775611, 3775612, 3775613, 3775617, 3775621, 3775624, 3775625, 3775629, 3775633, 3775636, 3775637, 3775641, 3775645, 3775648, 3775649, 3775650, 3775651, 3775652, 3775653, 3775654, 3775655, 3775656, 3775657, 3775658, 3775659, 3775660, 3775661, 3775662, 3775663, 3775664, 3775665, 3775666, 3775667, 3775668, 3775669, 3775670, 3775671, 3775672, 3775673, 3775674, 3775675, 3775676, 3775677, 3775686, 3779781, 3779927, 3780943, 3785449, 3785884, 3785981, 3786388, 3838670, 4157210, 4253567, 4254494, 4254526, 4254555, 4256745, 4256807, 4257001, 4257073, 4257270, 4413611, 4416451, 4416890, 4417581, 4432971, 4623400, 4794853, 4794903, 5067764, 5068149, 5068246, 5068451, 5068542, 5068996, 5073257 ... (+45795 more)
+SKIP | Element 264298 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SPS 5
+SKIP | Element 269814 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SPS 3
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Element 270499 | NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='2350'
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Element 270499 | NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='1175'
+SOURCE | Element 270499 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=2350x1175 | Width=2350 | Height=1175 | Diameter=
+ELEMENT | 270499 | Size='2350x1175' | Width='2350' | Height='1175' | Diameter='' | Statuses=NWB_DimWidth:OK; NWB_DimHeight:OK; NWB_DimDiameter:SKIP
+SOURCE | Element 270634 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=2350x1175 | Width=2350 | Height=1175 | Diameter=
+ELEMENT | 270634 | Size='2350x1175' | Width='2350' | Height='1175' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 489601 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 01 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 490749 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 02 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 491064 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 03 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 495147 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 497104 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder 1
+SOURCE | Element 517135 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 06 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1200x850 | Width=1200 | Height=850 | Diameter=
+ELEMENT | 517135 | Size='1200x850' | Width='1200' | Height='850' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 517136 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=Mechanical PNEUMATIC RISER 1
+SKIP | Element 523732 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 07 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 1283824 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 1283879 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 1284585 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 1284758 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 1284792 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 1284944 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 1287284 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 1287673 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 1380934 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 1505568 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Pipe Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Pipe Zone
+SKIP | Element 1507008 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Pipe Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Pipe Zone
+SKIP | Element 1507095 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Pipe Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Pipe Zone
+SKIP | Element 1507361 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Pipe Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Pipe Zone
+SKIP | Element 1507601 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Pipe Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Pipe Zone
+SKIP | Element 1507724 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 1507923 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 1508198 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Pipe Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Pipe Zone
+SKIP | Element 1508342 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Pipe Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Pipe Zone
+SKIP | Element 1508538 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Access Zone
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 1693032 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 01 | Name=Carbon Steel | System=Domestic Hot Water | SizeText=400ø | Width= | Height= | Diameter=400
+ELEMENT | 1693032 | Size='400ø' | Width='' | Height='' | Diameter='400' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 1693038 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=HWf 5
+SKIP | Element 1900694 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 1901116 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 1901486 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 1952039 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 1957742 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Placeholder
+SKIP | Element 2012788 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 2012841 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 2012896 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 2012927 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 2061463 | Size empty | Cat=Generic Models | Family=MHT-ME-CHILLER PLINTH | Type= | Level=LEVEL 12 | Name=MHT-ME-CHILLER PLINTH
+SKIP | Element 2097886 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=LEVEL 06 | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 2140019 | Size empty | Cat=Pipe Insulations | Family=Pipe Insulation | Type= | Level= | Name=Default
+SKIP | Element 2165497 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 07 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2191228 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 03 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 2191510 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Access Zone | Type= | Level=LEVEL 03 | Name=MHT-ME-GM-Access Zone
+SKIP | Element 2192861 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 07 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2257456 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 03 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2444557 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 02 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2597858 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2598433 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder 1
+SOURCE | Element 2612404 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 06 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1200x850 | Width=1200 | Height=850 | Diameter=
+ELEMENT | 2612404 | Size='1200x850' | Width='1200' | Height='850' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 2612405 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=Mechanical PNEUMATIC RISER 2
+SOURCE | Element 2613423 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=1100x1000 | Width=1100 | Height=1000 | Diameter=
+ELEMENT | 2613423 | Size='1100x1000' | Width='1100' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 2613424 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=RA 24
+SKIP | Element 2621606 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 09 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2624162 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 07 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2624911 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 09 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2641357 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 12 | Name=Wall 1
+SOURCE | Element 2644670 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 2644670 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2644815 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 2644815 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 2644823 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SE 47
+SKIP | Element 2645642 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SE 46
+SKIP | Element 2647679 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 02 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2664395 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 1
+SKIP | Element 2664396 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 2
+SKIP | Element 2664397 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 3
+SKIP | Element 2664398 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 4
+SKIP | Element 2664399 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 5
+SKIP | Element 2664400 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 6
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 2664492 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2664492 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2664536 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2664536 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2664558 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2664558 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2664632 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2664632 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2664648 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2664648 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2664664 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2664664 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2665291 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2665291 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2665295 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2665295 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2665299 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2665299 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2665303 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2665303 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2665305 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2665305 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 2665307 | Cat=Pipes | Family=Pipe Types | Type= | Level=GROUND LOWER | Name=08_Galvanized steel pipe | System=Other | SizeText=100ø | Width= | Height= | Diameter=100
+ELEMENT | 2665307 | Size='100ø' | Width='' | Height='' | Diameter='100' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 2665312 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 7
+SKIP | Element 2665314 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 8
+SKIP | Element 2665316 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 9
+SKIP | Element 2665318 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 10
+SKIP | Element 2665319 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 11
+SKIP | Element 2665320 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=MG 12
+SOURCE | Element 2667702 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 05 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=3100x2000 | Width=3100 | Height=2000 | Diameter=
+ELEMENT | 2667702 | Size='3100x2000' | Width='3100' | Height='2000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 2667703 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 42
+SKIP | Element 2896283 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 02 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2941990 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 07 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 2942521 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 07 | Name=MHT-ME-GM-Placeholder 1
+SOURCE | Element 2952812 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 07 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=3100x2000 | Width=3100 | Height=2000 | Diameter=
+ELEMENT | 2952812 | Size='3100x2000' | Width='3100' | Height='2000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 2952813 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 54
+SOURCE | Element 2953734 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 07 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=3100x2000 | Width=3100 | Height=2000 | Diameter=
+ELEMENT | 2953734 | Size='3100x2000' | Width='3100' | Height='2000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 2953735 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 80
+SOURCE | Element 2954954 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1000x2400 | Width=1000 | Height=2400 | Diameter=
+ELEMENT | 2954954 | Size='1000x2400' | Width='1000' | Height='2400' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 2954955 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SPS 6
+SOURCE | Element 2955390 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=2800x1000 | Width=2800 | Height=1000 | Diameter=
+ELEMENT | 2955390 | Size='2800x1000' | Width='2800' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 2955391 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=GE 7
+SKIP | Element 2964088 | Size empty | Cat=Mechanical Equipment | Family=MHT_ME_Air Gas Tank | Type= | Level= | Name=Not a Type - Load Type Catalog
+SKIP | Element 2964540 | Size empty | Cat=Mechanical Equipment | Family=MHT_ME_Air Gas Tank | Type= | Level= | Name=Not a Type - Load Type Catalog
+SOURCE | Element 3004131 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 01 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1000x1100 | Width=1000 | Height=1100 | Diameter=
+ELEMENT | 3004131 | Size='1000x1100' | Width='1000' | Height='1100' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3004132 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=GE 12
+SOURCE | Element 3004257 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 01 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=2000x800 | Width=2000 | Height=800 | Diameter=
+ELEMENT | 3004257 | Size='2000x800' | Width='2000' | Height='800' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3004258 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=GE 13
+SOURCE | Element 3019856 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 01 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 3019856 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3020063 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SE 20
+SOURCE | Element 3624278 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 05 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x700 | Width=250 | Height=700 | Diameter=
+ELEMENT | 3624278 | Size='250x700' | Width='250' | Height='700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3624280 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SOURCE | Element 3624282 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 05 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x700 | Width=250 | Height=700 | Diameter=
+ELEMENT | 3624282 | Size='250x700' | Width='250' | Height='700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3624284 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SOURCE | Element 3624286 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 05 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x700 | Width=250 | Height=700 | Diameter=
+ELEMENT | 3624286 | Size='250x700' | Width='250' | Height='700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3624288 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3624303 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 373
+SKIP | Element 3624305 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 336
+SKIP | Element 3624307 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 338
+SKIP | Element 3775602 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SOURCE | Element 3775604 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x650 | Width=200 | Height=650 | Diameter=
+ELEMENT | 3775604 | Size='200x650' | Width='200' | Height='650' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 3775608 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x350 | Width=200 | Height=350 | Diameter=
+ELEMENT | 3775608 | Size='200x350' | Width='200' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 3775611 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=400x450 | Width=400 | Height=450 | Diameter=
+ELEMENT | 3775611 | Size='400x450' | Width='400' | Height='450' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3775612 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775613 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SOURCE | Element 3775617 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x650 | Width=200 | Height=650 | Diameter=
+ELEMENT | 3775617 | Size='200x650' | Width='200' | Height='650' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 3775621 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x350 | Width=200 | Height=350 | Diameter=
+ELEMENT | 3775621 | Size='200x350' | Width='200' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3775624 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775625 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SOURCE | Element 3775629 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x650 | Width=200 | Height=650 | Diameter=
+ELEMENT | 3775629 | Size='200x650' | Width='200' | Height='650' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 3775633 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x350 | Width=200 | Height=350 | Diameter=
+ELEMENT | 3775633 | Size='200x350' | Width='200' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3775636 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775637 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SOURCE | Element 3775641 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x650 | Width=200 | Height=650 | Diameter=
+ELEMENT | 3775641 | Size='200x650' | Width='200' | Height='650' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 3775645 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x350 | Width=200 | Height=350 | Diameter=
+ELEMENT | 3775645 | Size='200x350' | Width='200' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3775648 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775649 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SOURCE | Element 3775650 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1600x500 | Width=1600 | Height=500 | Diameter=
+ELEMENT | 3775650 | Size='1600x500' | Width='1600' | Height='500' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+INFO | Element 3775651 | NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='650'
+SOURCE | Element 3775651 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=200x650-200x650 | Width=200 | Height=650 | Diameter=
+ELEMENT | 3775651 | Size='200x650-200x650' | Width='200' | Height='650' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:OK; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 3775652 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=200x650-200x650 | Width=200 | Height=650 | Diameter=
+ELEMENT | 3775652 | Size='200x650-200x650' | Width='200' | Height='650' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 3775653 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=200x650-200x650 | Width=200 | Height=650 | Diameter=
+ELEMENT | 3775653 | Size='200x650-200x650' | Width='200' | Height='650' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 3775654 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=200x650-200x650 | Width=200 | Height=650 | Diameter=
+ELEMENT | 3775654 | Size='200x650-200x650' | Width='200' | Height='650' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 3775655 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=200x350-200x350 | Width=200 | Height=350 | Diameter=
+ELEMENT | 3775655 | Size='200x350-200x350' | Width='200' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 3775656 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=200x350-200x350 | Width=200 | Height=350 | Diameter=
+ELEMENT | 3775656 | Size='200x350-200x350' | Width='200' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 3775657 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=200x350-200x350 | Width=200 | Height=350 | Diameter=
+ELEMENT | 3775657 | Size='200x350-200x350' | Width='200' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 3775658 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=200x350-200x350 | Width=200 | Height=350 | Diameter=
+ELEMENT | 3775658 | Size='200x350-200x350' | Width='200' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3775659 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775660 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775661 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775662 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775663 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775664 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775665 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775666 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775667 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Element 3775668 | NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='1600'
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+INFO | Element 3775668 | NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='500'
+SOURCE | Element 3775668 | Cat=Duct Fittings | Family=Rectangular Blank End | Type= | Level=LEVEL 02 | Name=Standard | System=Supply Air | SizeText=1600x500 | Width=1600 | Height=500 | Diameter=
+ELEMENT | 3775668 | Size='1600x500' | Width='1600' | Height='500' | Diameter='' | Statuses=NWB_DimWidth:OK; NWB_DimHeight:OK; NWB_DimDiameter:SKIP
+SKIP | Element 3775669 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 3775670 | Cat=Duct Fittings | Family=Rectangular Blank End | Type= | Level=LEVEL 02 | Name=Standard | System=Supply Air | SizeText=1600x500 | Width=1600 | Height=500 | Diameter=
+ELEMENT | 3775670 | Size='1600x500' | Width='1600' | Height='500' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3775671 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SKIP | Element 3775672 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SOURCE | Element 3775673 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=400x450 | Width=400 | Height=450 | Diameter=
+ELEMENT | 3775673 | Size='400x450' | Width='400' | Height='450' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3775674 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SOURCE | Element 3775675 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=400x450 | Width=400 | Height=450 | Diameter=
+ELEMENT | 3775675 | Size='400x450' | Width='400' | Height='450' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3775676 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SOURCE | Element 3775677 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 02 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=400x450 | Width=400 | Height=450 | Diameter=
+ELEMENT | 3775677 | Size='400x450' | Width='400' | Height='450' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 3775686 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 157
+SKIP | Element 3779781 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 3779927 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 3780943 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 3785449 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 3785884 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Placeholder
+SKIP | Element 3785981 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 3786388 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Placeholder
+SKIP | Element 3838670 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Walk Zone | Type= | Level=GROUND LOWER | Name=MHT-ME-GM-Walk Zone 1
+SKIP | Element 4157210 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4253567 | Size empty | Cat=Generic Models | Family=MHT-ME-CHILLER PLINTH_SMALL | Type= | Level=LEVEL 12 | Name=MHT-ME-CHILLER PLINTH_SMALL
+SKIP | Element 4254494 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4254526 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4254555 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4256745 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4256807 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4257001 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4257073 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4257270 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4413611 | Size empty | Cat=Generic Models | Family=EGRESS PATH1 | Type= | Level= | Name=EGRESS PATH
+SKIP | Element 4416451 | Size empty | Cat=Generic Models | Family=EGRESS PATH3 | Type= | Level= | Name=EGRESS PATH
+SKIP | Element 4416890 | Size empty | Cat=Generic Models | Family=EGRESS PATH4 | Type= | Level= | Name=EGRESS PATH
+SKIP | Element 4417581 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 03 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4432971 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 03 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 4623400 | Size empty | Cat=Generic Models | Family=EGRESS PATH2 | Type= | Level= | Name=EGRESS PATH
+SKIP | Element 4794853 | Size empty | Cat=Generic Models | Family=EGRESS PATH6 | Type= | Level= | Name=EGRESS PATH
+SKIP | Element 4794903 | Size empty | Cat=Generic Models | Family=EGRESS PATH7 | Type= | Level= | Name=EGRESS PATH
+SKIP | Element 5067764 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 07 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 5068149 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 07 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 5068246 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 5068451 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 5068542 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 07 | Name=MHT-ME-GM-Placeholder 1
+SKIP | Element 5068996 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 5073257 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 5073564 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 5079689 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 5081145 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 5081419 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+SKIP | Element 5107250 | Size empty | Cat=Electrical Equipment | Family=MHT-ME-EQ-MainSwitchboard | Type= | Level=LEVEL 02 | Name=MSSB- 1500 x 450w x 2000h 3
+SKIP | Element 5116416 | Size empty | Cat=Generic Models | Family=MHT-ME-GM-Placeholder | Type= | Level=LEVEL 12 | Name=MHT-ME-GM-Placeholder
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 5120727 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 03 | Name=Butt Welded_Mech | System=Hydronic Supply | SizeText=250ø | Width= | Height= | Diameter=250
+ELEMENT | 5120727 | Size='250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 5120746 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 03 | Name=Butt Welded_Mech | System=Hydronic Return | SizeText=250ø | Width= | Height= | Diameter=250
+ELEMENT | 5120746 | Size='250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 5285077 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 5285077 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 5285088 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 5285088 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 5364828 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 5364828 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 5364984 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 5364984 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Element 5364985 | NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='1700'
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+INFO | Element 5364985 | NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='1700'
+SOURCE | Element 5364985 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Union-01 | Type= | Level=GROUND | Name=Standard | System=Exhaust Air | SizeText=1700x1700-1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 5364985 | Size='1700x1700-1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:OK; NWB_DimHeight:OK; NWB_DimDiameter:SKIP
+SKIP | Element 5365610 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SE 14
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 5367891 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=400x450-400x450 | Width=400 | Height=450 | Diameter=
+ELEMENT | 5367891 | Size='400x450-400x450' | Width='400' | Height='450' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5367893 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 5367912 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=400x450-400x450 | Width=400 | Height=450 | Diameter=
+ELEMENT | 5367912 | Size='400x450-400x450' | Width='400' | Height='450' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5367914 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 5367933 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=400x450-400x450 | Width=400 | Height=450 | Diameter=
+ELEMENT | 5367933 | Size='400x450-400x450' | Width='400' | Height='450' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5367935 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 5368015 | Cat=Duct Fittings | Family=M_Rectangular Duct Takeoff | Type= | Level=LEVEL 02 | Name=M_Standard | System=Supply Air | SizeText=400x450-400x450 | Width=400 | Height=450 | Diameter=
+ELEMENT | 5368015 | Size='400x450-400x450' | Width='400' | Height='450' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5368017 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=External Insulation
+SOURCE | Element 5523679 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1100x1000 | Width=1100 | Height=1000 | Diameter=
+ELEMENT | 5523679 | Size='1100x1000' | Width='1100' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5523680 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SPS 1
+SOURCE | Element 5523701 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1400x1200 | Width=1400 | Height=1200 | Diameter=
+ELEMENT | 5523701 | Size='1400x1200' | Width='1400' | Height='1200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5523702 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=MG 1
+SOURCE | Element 5532983 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 01 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 5532983 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5532984 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SE 12
+SOURCE | Element 5533018 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 01 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=2000x800 | Width=2000 | Height=800 | Diameter=
+ELEMENT | 5533018 | Size='2000x800' | Width='2000' | Height='800' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5533020 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=GE 11
+SOURCE | Element 5533022 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 01 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=3400x1200 | Width=3400 | Height=1200 | Diameter=
+ELEMENT | 5533022 | Size='3400x1200' | Width='3400' | Height='1200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5533023 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 226
+SOURCE | Element 5533028 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=800x1000 | Width=800 | Height=1000 | Diameter=
+ELEMENT | 5533028 | Size='800x1000' | Width='800' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5533029 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 231
+SOURCE | Element 5533032 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1000x1000 | Width=1000 | Height=1000 | Diameter=
+ELEMENT | 5533032 | Size='1000x1000' | Width='1000' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5533033 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 233
+SOURCE | Element 5533035 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=1000x1500 | Width=1000 | Height=1500 | Diameter=
+ELEMENT | 5533035 | Size='1000x1500' | Width='1000' | Height='1500' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5533036 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=RA 7
+SOURCE | Element 5533038 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1000x700 | Width=1000 | Height=700 | Diameter=
+ELEMENT | 5533038 | Size='1000x700' | Width='1000' | Height='700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5533039 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 266
+INFO | Transaction Status = Committed
+CHUNK COMMIT | Status=Committed | Processed=240
+INFO | VERIFY OK | Element 270499 | Parameter=NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Id=7626175 | Actual='2350'
+INFO | VERIFY OK | Element 270499 | Parameter=NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Id=7626170 | Actual='1175'
+INFO | VERIFY OK | Element 3775651 | Parameter=NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Id=7626170 | Actual='650'
+INFO | VERIFY OK | Element 3775668 | Parameter=NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Id=7626175 | Actual='1600'
+INFO | VERIFY OK | Element 3775668 | Parameter=NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Id=7626170 | Actual='500'
+INFO | VERIFY OK | Element 5364985 | Parameter=NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Id=7626175 | Actual='1700'
+INFO | VERIFY OK | Element 5364985 | Parameter=NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Id=7626170 | Actual='1700'
+SOURCE | Element 5533041 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=1000x2000 | Width=1000 | Height=2000 | Diameter=
+ELEMENT | 5533041 | Size='1000x2000' | Width='1000' | Height='2000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5533042 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=RA 9
+SOURCE | Element 5533044 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1000x800 | Width=1000 | Height=800 | Diameter=
+ELEMENT | 5533044 | Size='1000x800' | Width='1000' | Height='800' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5533045 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 290
+SOURCE | Element 5533047 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1000x1100 | Width=1000 | Height=1100 | Diameter=
+ELEMENT | 5533047 | Size='1000x1100' | Width='1000' | Height='1100' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5533048 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 292
+SOURCE | Element 5533090 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 06 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 5533090 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 5533091 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SE 35
+SOURCE | Element 5533099 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 06 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 5533099 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Element 6947438 | NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='1500'
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Element 6947438 | NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='1500'
+SOURCE | Element 6947438 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Undefined | SizeText=1500x1500 | Width=1500 | Height=1500 | Diameter=
+ELEMENT | 6947438 | Size='1500x1500' | Width='1500' | Height='1500' | Diameter='' | Statuses=NWB_DimWidth:OK; NWB_DimHeight:OK; NWB_DimDiameter:SKIP
+SKIP | Element 6947447 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 957
+SKIP | Element 6947456 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=GE 26
+SKIP | Element 6947469 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SPS 2
+SKIP | Element 6947484 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=KE 2
+SKIP | Element 6947490 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 1072
+SKIP | Element 6951244 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 05 | Name=Wall 190
+SKIP | Element 6951247 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 05 | Name=1510x2110mm
+SKIP | Element 6951261 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 05 | Name=Wall 90
+SKIP | Element 6951262 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 05 | Name=Wall 90
+SKIP | Element 6951263 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 05 | Name=Wall 90
+SKIP | Element 6951333 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 04 | Name=Wall 190
+SKIP | Element 6951339 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 05 | Name=Wall 90
+SKIP | Element 6951340 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 05 | Name=Wall 90
+SKIP | Element 6951341 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 05 | Name=Wall 90
+SKIP | Element 6951365 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 04 | Name=Wall 90
+SKIP | Element 6951366 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 04 | Name=Wall 90
+SKIP | Element 6951367 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 04 | Name=Wall 90
+SKIP | Element 6951368 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 04 | Name=Wall 90
+SKIP | Element 6951369 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 04 | Name=Wall 90
+SKIP | Element 6951370 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 04 | Name=Wall 90
+SKIP | Element 6954724 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 03 | Name=Wall 190
+SKIP | Element 6954726 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 03 | Name=Wall 90
+SKIP | Element 6954727 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 03 | Name=Wall 90
+SKIP | Element 6954728 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 03 | Name=Wall 90
+SKIP | Element 6954729 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 03 | Name=Wall 90
+SKIP | Element 6954730 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 03 | Name=Wall 90
+SKIP | Element 6954731 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 03 | Name=Wall 90
+SKIP | Element 6954799 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 02 | Name=Wall 90
+SKIP | Element 6954800 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 02 | Name=Wall 90
+SKIP | Element 6954801 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 02 | Name=Wall 90
+SKIP | Element 6954802 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 02 | Name=Wall 90
+SKIP | Element 6954803 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 02 | Name=Wall 90
+SKIP | Element 6954804 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 02 | Name=Wall 90
+SKIP | Element 6954811 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 02 | Name=Wall 190
+SKIP | Element 6955454 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 01 | Name=Wall 90
+SKIP | Element 6955455 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 01 | Name=Wall 90
+SKIP | Element 6955456 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 01 | Name=Wall 90
+SKIP | Element 6955457 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 01 | Name=Wall 90
+SKIP | Element 6955458 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 01 | Name=Wall 90
+SKIP | Element 6955459 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 01 | Name=Wall 90
+SKIP | Element 6955466 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 01 | Name=Wall 190
+SKIP | Element 6956220 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=GROUND | Name=Wall 190
+SKIP | Element 6956221 | Size empty | Cat=Doors | Family=M_Single-Flush | Type= | Level=GROUND | Name=0762 x 2032mm
+SKIP | Element 6956265 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=GROUND | Name=Wall 90
+SKIP | Element 6956266 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=GROUND | Name=Wall 90
+SKIP | Element 6956267 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=GROUND | Name=Wall 90
+SKIP | Element 6962411 | Size empty | Cat=Doors | Family=M_Single-Flush | Type= | Level=LEVEL 05 | Name=0762 x 2032mm
+SKIP | Element 6962555 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 05 | Name=1510x2110mm
+SKIP | Element 6962926 | Size empty | Cat=Doors | Family=M_Single-Flush | Type= | Level=LEVEL 04 | Name=0762 x 2032mm
+SKIP | Element 6962927 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 04 | Name=1510x2110mm
+SKIP | Element 6962937 | Size empty | Cat=Doors | Family=M_Single-Flush | Type= | Level=LEVEL 03 | Name=0762 x 2032mm
+SKIP | Element 6962938 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 03 | Name=1510x2110mm
+SKIP | Element 6962954 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 02 | Name=1510x2110mm
+SKIP | Element 6962969 | Size empty | Cat=Doors | Family=M_Single-Flush | Type= | Level=LEVEL 01 | Name=0762 x 2032mm
+SKIP | Element 6962970 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 01 | Name=1510x2110mm
+SKIP | Element 7062558 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 05 | Name=2500x2500
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+INFO | Element 7085443 | NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='0'
+SOURCE | Element 7085443 | Cat=Air Terminals | Family=MHT-ME-AT-13 | Type= | Level=LEVEL 04 | Name=1200X1200_HC 2 | System=Supply Air | SizeText=0x1200 | Width=0 | Height=1200 | Diameter=0
+ELEMENT | 7085443 | Size='0x1200' | Width='0' | Height='1200' | Diameter='0' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:OK
+SKIP | Element 7085445 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SPS 8
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+INFO | Element 7085648 | NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='0'
+SOURCE | Element 7085648 | Cat=Air Terminals | Family=MHT-ME-AT-13 | Type= | Level=LEVEL 02 | Name=1300X1300_HC | System=Supply Air | SizeText=0x1300 | Width=0 | Height=1300 | Diameter=0
+ELEMENT | 7085648 | Size='0x1300' | Width='0' | Height='1300' | Diameter='0' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:OK
+SOURCE | Element 7085662 | Cat=Air Terminals | Family=MHT-ME-AT-13 | Type= | Level=GROUND | Name=1300X1300_HC | System=Supply Air | SizeText=0x1300 | Width=0 | Height=1300 | Diameter=0
+ELEMENT | 7085662 | Size='0x1300' | Width='0' | Height='1300' | Diameter='0' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7086709 | Cat=Air Terminals | Family=MHT-ME-AT-13 | Type= | Level=LEVEL 02 | Name=1200X1200_HC 2 | System=Supply Air | SizeText=0x1200 | Width=0 | Height=1200 | Diameter=0
+ELEMENT | 7086709 | Size='0x1200' | Width='0' | Height='1200' | Diameter='0' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7086723 | Cat=Air Terminals | Family=MHT-ME-AT-13 | Type= | Level=GROUND | Name=1200X1200_HC 2 | System=Supply Air | SizeText=0x1200 | Width=0 | Height=1200 | Diameter=0
+ELEMENT | 7086723 | Size='0x1200' | Width='0' | Height='1200' | Diameter='0' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7086735 | Cat=Air Terminals | Family=MHT-ME-AT-13 | Type= | Level=GROUND LOWER | Name=1200X1200_HC 2 | System=Supply Air | SizeText=0x1200 | Width=0 | Height=1200 | Diameter=0
+ELEMENT | 7086735 | Size='0x1200' | Width='0' | Height='1200' | Diameter='0' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7090628 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 04 | Name=2500x2500
+SKIP | Element 7090632 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 03 | Name=2500x2500
+SOURCE | Element 7099968 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Supply Air | SizeText=1100x650 | Width=1100 | Height=650 | Diameter=
+ELEMENT | 7099968 | Size='1100x650' | Width='1100' | Height='650' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7100318 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 06 | Name=VOID RISER_PLACE HOLDER | System=Supply Air | SizeText=1150x550 | Width=1150 | Height=550 | Diameter=
+ELEMENT | 7100318 | Size='1150x550' | Width='1150' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7100387 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+SKIP | Element 7100403 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 06 | Name=Wall 90
+SKIP | Element 7100406 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 06 | Name=Wall 90
+SKIP | Element 7100437 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=AHU_CORP-INT-01
+SKIP | Element 7100439 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-CORP-INT-2
+SKIP | Element 7100441 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-CORP-N
+SKIP | Element 7100443 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-CORP-S
+SKIP | Element 7100445 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-CORP-E
+SKIP | Element 7100446 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-CORP-W
+SKIP | Element 7100448 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-MTNG-I
+SKIP | Element 7100450 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-NICU-W
+SKIP | Element 7100451 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-MTNG-W
+SKIP | Element 7100452 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-MTNG-E
+SKIP | Element 7101628 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 06 | Name=Wall 90
+SKIP | Element 7101677 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 06 | Name=Wall 90
+SKIP | Element 7101782 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 06 | Name=Wall 90
+SKIP | Element 7101856 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 06 | Name=Wall 90
+SOURCE | Element 7102683 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 06 | Name=VOID RISER_PLACE HOLDER | System=Supply Air | SizeText=10000x4000 | Width=10000 | Height=4000 | Diameter=
+ELEMENT | 7102683 | Size='10000x4000' | Width='10000' | Height='4000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7102684 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=OA 4
+SOURCE | Element 7103389 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 01 | Name=VOID RISER_PLACE HOLDER | System=Undefined | SizeText=1000x700 | Width=1000 | Height=700 | Diameter=
+ELEMENT | 7103389 | Size='1000x700' | Width='1000' | Height='700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7103413 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7103503 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 01 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Undefined | SizeText=700x1000-700x1000 | Width=700 | Height=1000 | Diameter=
+ELEMENT | 7103503 | Size='700x1000-700x1000' | Width='700' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7103505 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+SOURCE | Element 7104680 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Exhaust Air | SizeText=1000x600 | Width=1000 | Height=600 | Diameter=
+ELEMENT | 7104680 | Size='1000x600' | Width='1000' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7105144 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Supply Air | SizeText=850x600 | Width=850 | Height=600 | Diameter=
+ELEMENT | 7105144 | Size='850x600' | Width='850' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7105243 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Element 7105286 | NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='600'
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+INFO | Element 7105286 | NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='850'
+SOURCE | Element 7105286 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Square Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Square Bend - Flanged | System=Supply Air | SizeText=600x850-600x850 | Width=600 | Height=850 | Diameter=
+ELEMENT | 7105286 | Size='600x850-600x850' | Width='600' | Height='850' | Diameter='' | Statuses=NWB_DimWidth:OK; NWB_DimHeight:OK; NWB_DimDiameter:SKIP
+SKIP | Element 7105288 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+SOURCE | Element 7105320 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 06 | Name=VOID RISER_PLACE HOLDER | System=Undefined | SizeText=700x700 | Width=700 | Height=700 | Diameter=
+ELEMENT | 7105320 | Size='700x700' | Width='700' | Height='700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7105344 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7105383 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Square Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Square Bend - Flanged | System=Undefined | SizeText=600x850-600x850 | Width=600 | Height=850 | Diameter=
+ELEMENT | 7105383 | Size='600x850-600x850' | Width='600' | Height='850' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7105385 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+SOURCE | Element 7105903 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Undefined | SizeText=550x750 | Width=550 | Height=750 | Diameter=
+ELEMENT | 7105903 | Size='550x750' | Width='550' | Height='750' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7106086 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+SKIP | Element 7106105 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+SKIP | Element 7106180 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7106348 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Square Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Square Bend - Flanged | System=Undefined | SizeText=750x550-750x550 | Width=750 | Height=550 | Diameter=
+ELEMENT | 7106348 | Size='750x550-750x550' | Width='750' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7106350 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7106353 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Square Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Square Bend - Flanged | System=Undefined | SizeText=1800x1800-1800x1800 | Width=1800 | Height=1800 | Diameter=
+ELEMENT | 7106353 | Size='1800x1800-1800x1800' | Width='1800' | Height='1800' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7106356 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7106359 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Square Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Square Bend - Flanged | System=Undefined | SizeText=750x550-750x550 | Width=750 | Height=550 | Diameter=
+ELEMENT | 7106359 | Size='750x550-750x550' | Width='750' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7106361 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+SOURCE | Element 7106966 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Exhaust Air | SizeText=1200x1000 | Width=1200 | Height=1000 | Diameter=
+ELEMENT | 7106966 | Size='1200x1000' | Width='1200' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7107138 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Square Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Square Bend - Flanged | System=Exhaust Air | SizeText=1000x1200-1000x1200 | Width=1000 | Height=1200 | Diameter=
+ELEMENT | 7107138 | Size='1000x1200-1000x1200' | Width='1000' | Height='1200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7107262 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Exhaust Air | SizeText=1200x1000 | Width=1200 | Height=1000 | Diameter=
+ELEMENT | 7107262 | Size='1200x1000' | Width='1200' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7107359 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 06 | Name=VOID RISER_PLACE HOLDER | System=Supply Air | SizeText=10000x4000 | Width=10000 | Height=4000 | Diameter=
+ELEMENT | 7107359 | Size='10000x4000' | Width='10000' | Height='4000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7107360 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=OA 39
+SOURCE | Element 7107771 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Undefined | SizeText=850x1000 | Width=850 | Height=1000 | Diameter=
+ELEMENT | 7107771 | Size='850x1000' | Width='850' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7107797 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Exhaust Air | SizeText=800x700 | Width=800 | Height=700 | Diameter=
+ELEMENT | 7107797 | Size='800x700' | Width='800' | Height='700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7107866 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Exhaust Air | SizeText=1200x1000-1200x1000 | Width=1200 | Height=1000 | Diameter=
+ELEMENT | 7107866 | Size='1200x1000-1200x1000' | Width='1200' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7107871 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Exhaust Air | SizeText=1200x1000 | Width=1200 | Height=1000 | Diameter=
+ELEMENT | 7107871 | Size='1200x1000' | Width='1200' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7107878 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Exhaust Air | SizeText=1200x1000-1200x1000 | Width=1200 | Height=1000 | Diameter=
+ELEMENT | 7107878 | Size='1200x1000-1200x1000' | Width='1200' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7108022 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Supply Air | SizeText=2500x525 | Width=2500 | Height=525 | Diameter=
+ELEMENT | 7108022 | Size='2500x525' | Width='2500' | Height='525' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7108549 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Exhaust Air | SizeText=1000x600 | Width=1000 | Height=600 | Diameter=
+ELEMENT | 7108549 | Size='1000x600' | Width='1000' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7108608 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Square Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Square Bend - Flanged | System=Undefined | SizeText=1000x850-1000x850 | Width=1000 | Height=850 | Diameter=
+ELEMENT | 7108608 | Size='1000x850-1000x850' | Width='1000' | Height='850' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7108632 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Square Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Square Bend - Flanged | System=Exhaust Air | SizeText=700x800-700x800 | Width=700 | Height=800 | Diameter=
+ELEMENT | 7108632 | Size='700x800-700x800' | Width='700' | Height='800' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7109076 | Size empty | Cat=Duct Accessories | Family=DUCT ACCESS PANEL | Type= | Level= | Name=CUSTOM_2200x900
+SKIP | Element 7109331 | Size empty | Cat=Duct Accessories | Family=DUCT ACCESS PANEL | Type= | Level= | Name=CUSTOM_2200x900
+SOURCE | Element 7110664 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 03 | Name=Butt Welded_Mech | System=Hydronic Return | SizeText=150ø | Width= | Height= | Diameter=150
+ELEMENT | 7110664 | Size='150ø' | Width='' | Height='' | Diameter='150' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7110666 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=CCWR 2
+SOURCE | Element 7110668 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 06 | Name=Butt Welded_Mech | System=Hydronic Supply | SizeText=200ø | Width= | Height= | Diameter=200
+ELEMENT | 7110668 | Size='200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7110670 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=HTHWf 1
+SOURCE | Element 7110672 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 06 | Name=Butt Welded_Mech | System=Hydronic Supply | SizeText=200ø | Width= | Height= | Diameter=200
+ELEMENT | 7110672 | Size='200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7110674 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=HTHWf 2
+SOURCE | Element 7110676 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 06 | Name=Butt Welded_Mech | System=Hydronic Supply | SizeText=200ø | Width= | Height= | Diameter=200
+ELEMENT | 7110676 | Size='200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7110678 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 06 | Name=Butt Welded_Mech | System=Hydronic Supply | SizeText=200ø | Width= | Height= | Diameter=200
+ELEMENT | 7110678 | Size='200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7110680 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=CHWf 8
+SKIP | Element 7110681 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=CHWf 10
+SOURCE | Element 7110684 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 06 | Name=Butt Welded_Mech | System=Fire Protection Pre-Action | SizeText=32ø | Width= | Height= | Diameter=32
+ELEMENT | 7110684 | Size='32ø' | Width='' | Height='' | Diameter='32' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7110686 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 06 | Name=Butt Welded_Mech | System=Fire Protection Pre-Action | SizeText=32ø | Width= | Height= | Diameter=32
+ELEMENT | 7110686 | Size='32ø' | Width='' | Height='' | Diameter='32' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7110688 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 06 | Name=Butt Welded_Mech | System=Fire Protection Pre-Action | SizeText=32ø | Width= | Height= | Diameter=32
+ELEMENT | 7110688 | Size='32ø' | Width='' | Height='' | Diameter='32' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7110690 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 06 | Name=Butt Welded_Mech | System=Fire Protection Pre-Action | SizeText=32ø | Width= | Height= | Diameter=32
+ELEMENT | 7110690 | Size='32ø' | Width='' | Height='' | Diameter='32' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7110692 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=R 1
+SKIP | Element 7110693 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=R 2
+SKIP | Element 7110694 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=R 3
+SKIP | Element 7110695 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=R 4
+SOURCE | Element 7111166 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 06 | Name=Butt Welded_Mech | System=Hydronic Supply | SizeText=200ø | Width= | Height= | Diameter=200
+ELEMENT | 7111166 | Size='200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7111168 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 06 | Name=Butt Welded_Mech | System=Hydronic Supply | SizeText=200ø | Width= | Height= | Diameter=200
+ELEMENT | 7111168 | Size='200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7111170 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=CCWF 1
+SKIP | Element 7111171 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=CCWF 2
+SKIP | Element 7174096 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-PRECON
+SKIP | Element 7174214 | Size empty | Cat=Mechanical Equipment | Family=MHT-EQUIP-GENERIC | Type= | Level=LEVEL 06 | Name=MHT-ME-MEQ-AHU-L5
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7174638 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Undefined | SizeText=1000x850-1000x850 | Width=1000 | Height=850 | Diameter=
+ELEMENT | 7174638 | Size='1000x850-1000x850' | Width='1000' | Height='850' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7174767 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Undefined | SizeText=850x1000 | Width=850 | Height=1000 | Diameter=
+ELEMENT | 7174767 | Size='850x1000' | Width='850' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7174817 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Undefined | SizeText=850x1000 | Width=850 | Height=1000 | Diameter=
+ELEMENT | 7174817 | Size='850x1000' | Width='850' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7174835 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Undefined | SizeText=850x1000-850x1000 | Width=850 | Height=1000 | Diameter=
+ELEMENT | 7174835 | Size='850x1000-850x1000' | Width='850' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7174836 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Undefined | SizeText=850x1000-850x1000 | Width=850 | Height=1000 | Diameter=
+ELEMENT | 7174836 | Size='850x1000-850x1000' | Width='850' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 7174877 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=GROUND | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Exhaust Air | SizeText=600x1000-600x1000 | Width=600 | Height=1000 | Diameter=
+ELEMENT | 7174877 | Size='600x1000-600x1000' | Width='600' | Height='1000' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+INFO | Element 7175149 | NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='1200'
+SOURCE | Element 7175149 | Cat=Ducts | Family=Round Duct | Type= | Level=GROUND | Name=Taps / Short Radius | System=Exhaust Air | SizeText=1200ø | Width= | Height= | Diameter=1200
+ELEMENT | 7175149 | Size='1200ø' | Width='' | Height='' | Diameter='1200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:OK
+SOURCE | Element 7175351 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Exhaust Air | SizeText=1000x600 | Width=1000 | Height=600 | Diameter=
+ELEMENT | 7175351 | Size='1000x600' | Width='1000' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7182953 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 06 | Name=Wall 90
+SKIP | Element 7183022 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 06 | Name=1810x2110mm
+SKIP | Element 7183108 | Size empty | Cat=Walls | Family=Basic Wall | Type= | Level=LEVEL 06 | Name=Wall 90
+SKIP | Element 7183109 | Size empty | Cat=Doors | Family=Doors_SCO_ExtDbl_Flush | Type= | Level=LEVEL 06 | Name=1810x2110mm
+SOURCE | Element 7220269 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Supply Air | SizeText=850x600 | Width=850 | Height=600 | Diameter=
+ELEMENT | 7220269 | Size='850x600' | Width='850' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7220270 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+SOURCE | Element 7221246 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Exhaust Air | SizeText=900x900 | Width=900 | Height=900 | Diameter=
+ELEMENT | 7221246 | Size='900x900' | Width='900' | Height='900' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7221313 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=GROUND | Name=VOID RISER_PLACE HOLDER | System=Undefined | SizeText=550x750 | Width=550 | Height=750 | Diameter=
+ELEMENT | 7221313 | Size='550x750' | Width='550' | Height='750' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7221314 | Size empty | Cat=Duct Linings | Family=Duct Lining | Type= | Level= | Name=Internal Insulation
+SKIP | Element 7226793 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7226844 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227041 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227042 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227043 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227044 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227045 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227046 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227047 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227048 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227049 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227050 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227051 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227052 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227053 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227054 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227055 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227056 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227057 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227058 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227059 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227060 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227061 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227062 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227063 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227064 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SKIP | Element 7227065 | Size empty | Cat=Duct Insulations | Family=Duct Insulation | Type= | Level= | Name=R1.2
+SOURCE | Element 7249616 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=500x500 | Width=500 | Height=500 | Diameter=
+ELEMENT | 7249616 | Size='500x500' | Width='500' | Height='500' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7249617 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 4
+SOURCE | Element 7249619 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=500x500 | Width=500 | Height=500 | Diameter=
+ELEMENT | 7249619 | Size='500x500' | Width='500' | Height='500' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7249625 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=500x350 | Width=500 | Height=350 | Diameter=
+ELEMENT | 7249625 | Size='500x350' | Width='500' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7249637 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=500x200 | Width=500 | Height=200 | Diameter=
+ELEMENT | 7249637 | Size='500x200' | Width='500' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7249672 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=RA 80
+SOURCE | Element 7249677 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 7249677 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7249688 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=600x550 | Width=600 | Height=550 | Diameter=
+ELEMENT | 7249688 | Size='600x550' | Width='600' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7249689 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=600x550 | Width=600 | Height=550 | Diameter=
+ELEMENT | 7249689 | Size='600x550' | Width='600' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7249691 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=RA 244
+SOURCE | Element 7249695 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=650x550 | Width=650 | Height=550 | Diameter=
+ELEMENT | 7249695 | Size='650x550' | Width='650' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7249701 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=650x550 | Width=650 | Height=550 | Diameter=
+ELEMENT | 7249701 | Size='650x550' | Width='650' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7249740 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x250 | Width=200 | Height=250 | Diameter=
+ELEMENT | 7249740 | Size='200x250' | Width='200' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7249741 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=200x250 | Width=200 | Height=250 | Diameter=
+ELEMENT | 7249741 | Size='200x250' | Width='200' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7249915 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=375x350 | Width=375 | Height=350 | Diameter=
+ELEMENT | 7249915 | Size='375x350' | Width='375' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7250077 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=675x675 | Width=675 | Height=675 | Diameter=
+ELEMENT | 7250077 | Size='675x675' | Width='675' | Height='675' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7250078 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=500x500 | Width=500 | Height=500 | Diameter=
+ELEMENT | 7250078 | Size='500x500' | Width='500' | Height='500' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7252592 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 01 | Name=Carbon Steel | System=Hydronic Return | SizeText=450ø | Width= | Height= | Diameter=450
+ELEMENT | 7252592 | Size='450ø' | Width='' | Height='' | Diameter='450' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7252986 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=850x750 | Width=850 | Height=750 | Diameter=
+ELEMENT | 7252986 | Size='850x750' | Width='850' | Height='750' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7252988 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=RA 254
+SKIP | Element 7253554 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=GE 40
+SKIP | Element 7253635 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=GE 41
+SOURCE | Element 7253825 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=850x750 | Width=850 | Height=750 | Diameter=
+ELEMENT | 7253825 | Size='850x750' | Width='850' | Height='750' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7253826 | Size empty | Cat=Duct Systems | Family=Duct System | Type= | Level= | Name=SA 516
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 7254974 | Cat=Ducts | Family=Round Duct | Type= | Level=LEVEL 09 | Name=Default | System=Exhaust Air | SizeText=350ø | Width= | Height= | Diameter=350
+ELEMENT | 7254974 | Size='350ø' | Width='' | Height='' | Diameter='350' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7254985 | Cat=Ducts | Family=Round Duct | Type= | Level=LEVEL 09 | Name=Default | System=Exhaust Air | SizeText=350ø | Width= | Height= | Diameter=350
+ELEMENT | 7254985 | Size='350ø' | Width='' | Height='' | Diameter='350' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7255046 | Cat=Ducts | Family=Round Duct | Type= | Level=LEVEL 09 | Name=Default | System=Exhaust Air | SizeText=350ø | Width= | Height= | Diameter=350
+ELEMENT | 7255046 | Size='350ø' | Width='' | Height='' | Diameter='350' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7255048 | Cat=Ducts | Family=Round Duct | Type= | Level=LEVEL 09 | Name=Default | System=Exhaust Air | SizeText=350ø | Width= | Height= | Diameter=350
+ELEMENT | 7255048 | Size='350ø' | Width='' | Height='' | Diameter='350' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7255050 | Cat=Ducts | Family=Round Duct | Type= | Level=LEVEL 09 | Name=Default | System=Exhaust Air | SizeText=350ø | Width= | Height= | Diameter=350
+ELEMENT | 7255050 | Size='350ø' | Width='' | Height='' | Diameter='350' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7255237 | Cat=Ducts | Family=Round Duct | Type= | Level=LEVEL 09 | Name=Default | System=Exhaust Air | SizeText=350ø | Width= | Height= | Diameter=350
+ELEMENT | 7255237 | Size='350ø' | Width='' | Height='' | Diameter='350' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7256271 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 01 | Name=Carbon Steel | System=Hydronic Return | SizeText=300ø | Width= | Height= | Diameter=300
+ELEMENT | 7256271 | Size='300ø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7256274 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 01 | Name=Carbon Steel | System=Hydronic Supply | SizeText=300ø | Width= | Height= | Diameter=300
+ELEMENT | 7256274 | Size='300ø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 7256287 | Size empty | Cat=Piping Systems | Family=Piping System | Type= | Level= | Name=CCWR 7
+SOURCE | Element 7256300 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 01 | Name=Carbon Steel | System=Hydronic Return | SizeText=300ø | Width= | Height= | Diameter=300
+ELEMENT | 7256300 | Size='300ø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7256303 | Cat=Pipes | Family=Pipe Types | Type= | Level=LEVEL 01 | Name=Carbon Steel | System=Hydronic Supply | SizeText=300ø | Width= | Height= | Diameter=300
+ELEMENT | 7256303 | Size='300ø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7256401 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=600x600 | Width=600 | Height=600 | Diameter=
+ELEMENT | 7256401 | Size='600x600' | Width='600' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SOURCE | Element 7256402 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=600x600 | Width=600 | Height=600 | Diameter=
+ELEMENT | 7256402 | Size='600x600' | Width='600' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Transaction Status = Committed
+CHUNK COMMIT | Status=Committed | Processed=480
+INFO | VERIFY OK | Element 6947438 | Parameter=NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Id=7626175 | Actual='1500'
+INFO | VERIFY OK | Element 6947438 | Parameter=NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Id=7626170 | Actual='1500'
+INFO | VERIFY OK | Element 7085443 | Parameter=NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Id=7626172 | Actual='0'
+INFO | VERIFY OK | Element 7085648 | Parameter=NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Id=7626172 | Actual='0'
+INFO | VERIFY OK | Element 7105286 | Parameter=NWB_DimWidth | Kind=Shared Parameter | Scope=instance | Id=7626175 | Actual='600'
+INFO | VERIFY OK | Element 7105286 | Parameter=NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Id=7626170 | Actual='850'
+INFO | VERIFY OK | Element 7175149 | Parameter=NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Id=7626172 | Actual='1200'
+END | Attempted=14 | Written=14 | Skipped=478 | VerifyFailed=0 | SharedWrites=14 | FamilyWrites=0 | TypeWrites=0 | InstanceWrites=14 | ReadOnly=0 | MissingTarget=0 | SkipTargetMode=0 | DuplicateParameter=60 | SkipWorksharing=0 | Failed=0 | Cancelled=True

@@ -6,7 +6,7 @@ import os
 
 def _run_target_tool():
     target = os.path.normpath(
-        os.path.join(os.path.dirname(__file__), "..", "..", "NWB Family Shared Cleaner.pushbutton", "script.py")
+        os.path.join(os.path.dirname(__file__), "..", "..", "NWB Family Shared Cleaner.source", "script.py")
     )
     namespace = {"__name__": "__main__", "__file__": target}
     with open(target, "r") as stream:

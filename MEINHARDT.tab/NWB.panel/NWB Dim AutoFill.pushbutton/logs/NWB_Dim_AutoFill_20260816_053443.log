@@ -1,0 +1,12 @@
+START | Tool=NWB Dim AutoFill
+START | View=Project View
+START | ViewId=1414
+START | ViewMode=model
+START | WriteMode=skip
+START | ParameterTargetMode=Both
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=view
+START | SelectedInputCount=0
+START | ExportAudit=True
+START | AuditFile=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB Dim AutoFill.pushbutton\logs\NWB_Dim_AutoFill_20260816_053443_audit.csv
+END | No eligible MEP elements found

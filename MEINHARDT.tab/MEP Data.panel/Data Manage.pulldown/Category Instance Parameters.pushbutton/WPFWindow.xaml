@@ -418,6 +418,7 @@
                                         <ComboBoxItem Content="Trim Spaces"/>
                                         <ComboBoxItem Content="Remove Spaces"/>
                                         <ComboBoxItem Content="Left 3 Characters"/>
+                                        <ComboBoxItem Content="Replace String"/>
                                         <ComboBoxItem Content="Dictionary (Translate)"/>
                                         <ComboBoxItem Content="Template (Tokens)"/>
                                         <ComboBoxItem Content="Formula (Safe Numeric)"/>
@@ -433,10 +434,10 @@
                                         <TextBox x:Name="txtSuffix" Width="110" TextChanged="persist_inputs_changed"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
-                                        <TextBlock Text="Replace:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
-                                        <TextBox x:Name="txtReplaceFrom" Width="110" TextChanged="persist_inputs_changed"/>
-                                        <TextBlock Text="With:" VerticalAlignment="Center" Margin="8,0,6,0" Foreground="#B0B0B8"/>
-                                        <TextBox x:Name="txtReplaceTo" Width="110" TextChanged="persist_inputs_changed"/>
+                                        <TextBlock Text="Text to replace:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>
+                                        <TextBox x:Name="txtReplaceFrom" Width="110" TextChanged="persist_inputs_changed" ToolTip="Exact text to find in the source value."/>
+                                        <TextBlock Text="Replacement text:" VerticalAlignment="Center" Margin="8,0,6,0" Foreground="#B0B0B8"/>
+                                        <TextBox x:Name="txtReplaceTo" Width="110" TextChanged="persist_inputs_changed" ToolTip="Text to write in place of each match. Leave blank to remove the match."/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                                         <TextBlock Text="Expression:" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#B0B0B8"/>

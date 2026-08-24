@@ -1,0 +1,19 @@
+START | Tool=NWB Dim AutoFill
+START | View=MECHANICAL DUCTWORK LAYOUT - LEVEL 09
+START | ViewId=9423012
+START | ViewMode=model
+START | WriteMode=skip
+START | ParameterTargetMode=SharedOnly
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=selection
+START | SelectedInputCount=1
+READY | Elements=1 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB Dim AutoFill.pushbutton\logs\NWB_Dim_AutoFill_20260801_153131.log
+READY | CategoryBreakdown=Flex Ducts=1
+READY | EligibleElementIds=13144392
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13144392 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Return Air | SizeText=300 mmø | Width= | Height= | Diameter=300
+ELEMENT | 13144392 | Size='300 mmø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Transaction Status = Committed
+WARN | Regenerate after commit failed: Modification of the document is forbidden.  Typically, this is because there is no open transaction;  consult documentation for Document.IsModified for other possible causes.
+CHUNK COMMIT | Status=Committed | Processed=1
+END | Attempted=0 | Written=0 | Skipped=3 | VerifyFailed=0 | SharedWrites=0 | FamilyWrites=0 | TypeWrites=0 | InstanceWrites=0 | ReadOnly=0 | MissingTarget=0 | SkipTargetMode=0 | DuplicateParameter=0 | SkipWorksharing=0 | Failed=0 | Cancelled=False

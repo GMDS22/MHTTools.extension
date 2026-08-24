@@ -1174,6 +1174,7 @@ class CategoryInstanceParameterWindow(WPFWindow):
             "Trim Spaces",
             "Remove Spaces",
             "Left 3 Characters",
+            "Replace String",
             "Dictionary (Translate)",
             "Template (Tokens)",
             "Formula (Safe Numeric)",
@@ -1432,6 +1433,9 @@ class CategoryInstanceParameterWindow(WPFWindow):
             or "Level Number (2-digit)" in transform
             or "Level Number (3-digit)" in transform
         )
+        is_replace_mode = transform == "Replace String"
+        self.txtReplaceFrom.IsEnabled = is_replace_mode
+        self.txtReplaceTo.IsEnabled = is_replace_mode
         self.txtExpression.IsEnabled = (
             transform == "Dictionary (Translate)"
             or transform == "Template (Tokens)"
@@ -1440,6 +1444,7 @@ class CategoryInstanceParameterWindow(WPFWindow):
         self.txtTransformHint.Text = (
             "Step 3: Click Apply Update to write processed source values into the selected target parameter. "
             "Template tokens: {value}, {id}, {category}, {level_name}, {level_number}. "
+            "Replace String changes every exact occurrence of Replace to With. "
             "Dictionary entries: code=value per line. Formula vars: value or v (supports + - * / and abs/round/min/max)."
         )
         if transform == "Dictionary (Translate)":
@@ -2219,6 +2224,10 @@ class CategoryInstanceParameterWindow(WPFWindow):
                 result = "".join(text.split())
             elif transform == "Left 3 Characters":
                 result = text[:3]
+            elif transform == "Replace String":
+                if not replace_from:
+                    raise ValueError("Replace String requires text in the Replace field.")
+                result = text.replace(replace_from, replace_to)
             elif transform == "Dictionary (Translate)":
                 result = _translate_dictionary_value(raw_value, expression_text)
             elif transform == "Template (Tokens)":
@@ -2237,7 +2246,7 @@ class CategoryInstanceParameterWindow(WPFWindow):
             else:
                 result = text
 
-        if replace_from:
+        if replace_from and transform != "Replace String":
             result = ("" if result is None else str(result)).replace(replace_from, replace_to)
 
         if prefix or suffix:

@@ -33,6 +33,7 @@ config = script.get_config()
 
 
 TOOL_TITLE = "NWB Dim AutoFill"
+FAST_MODE_MAX_ELEMENTS = 2000
 
 TARGET_PARAMETERS = [
     "NWB_DimWidth",
@@ -322,6 +323,7 @@ def _load_run_settings(selected_count):
         "worksharing_mode": getattr(config, "nwb_dim_worksharing_mode", "skip-other-users" if getattr(doc, "IsWorkshared", False) else "all"),
         "processing_scope": getattr(config, "nwb_dim_processing_scope", "selection" if selected_count > 0 else "view"),
         "export_audit": getattr(config, "nwb_dim_export_audit", True),
+        "fast_mode": getattr(config, "nwb_dim_fast_mode", False),
     }
 
     valid_write_modes = [value for _, value in WRITE_MODE_CHOICES]
@@ -350,6 +352,7 @@ def _save_run_settings(settings):
         config.nwb_dim_worksharing_mode = settings.get("worksharing_mode", "all")
         config.nwb_dim_processing_scope = settings.get("processing_scope", "view")
         config.nwb_dim_export_audit = bool(settings.get("export_audit", True))
+        config.nwb_dim_fast_mode = bool(settings.get("fast_mode", False))
         script.save_config()
     except Exception:
         pass
@@ -372,6 +375,7 @@ class RunSetupWindow(WPFWindow):
         self._bind_combo(self.cmbWorksharingMode, self._worksharing_choices, defaults.get("worksharing_mode", "all"))
         self._bind_combo(self.cmbProcessingScope, self._scope_choices, defaults.get("processing_scope", "view"))
         self.chkExportAudit.IsChecked = bool(defaults.get("export_audit", True))
+        self.chkFastMode.IsChecked = bool(defaults.get("fast_mode", False))
 
         if len(self._worksharing_choices) == 1:
             self.cmbWorksharingMode.IsEnabled = False
@@ -402,6 +406,7 @@ class RunSetupWindow(WPFWindow):
             "worksharing_mode": self._selected_combo_value(self.cmbWorksharingMode, self._worksharing_choices),
             "processing_scope": self._selected_combo_value(self.cmbProcessingScope, self._scope_choices),
             "export_audit": bool(self.chkExportAudit.IsChecked),
+            "fast_mode": bool(self.chkFastMode.IsChecked),
         }
         self.Close()
 
@@ -2460,6 +2465,7 @@ def run():
     worksharing_mode = run_settings.get("worksharing_mode", "all")
     processing_scope = run_settings.get("processing_scope", "view")
     export_audit = bool(run_settings.get("export_audit", True))
+    fast_mode = bool(run_settings.get("fast_mode", False))
 
     logger = RunLogger(os.path.dirname(__file__), TOOL_TITLE)
     audit = RunAuditExporter(logger.logs_dir, logger.safe_title, logger.stamp, export_audit, DIM_AUDIT_COLUMNS)
@@ -2488,12 +2494,15 @@ def run():
 
     monitor = None
     try:
-        monitor = LiveMonitorWindow("MonitorWindow.xaml")
-        monitor.Show()
-        monitor.Activate()
-        _monitor_set_status(monitor, "Initializing {0}...".format(TOOL_TITLE))
-        _monitor_add_item(monitor, "Preparing run context...")
-        _pump_ui()
+        if not fast_mode:
+            monitor = LiveMonitorWindow("MonitorWindow.xaml")
+            monitor.Show()
+            monitor.Activate()
+            _monitor_set_status(monitor, "Initializing {0}...".format(TOOL_TITLE))
+            _monitor_add_item(monitor, "Preparing run context...")
+            _pump_ui()
+        else:
+            logger.write("START | FastMode=True | Live monitor and per-element runtime logging disabled")
     except Exception as ex:
         monitor = None
         forms.alert(
@@ -2541,7 +2550,9 @@ def run():
     }
 
     total = len(elements)
-    chunk_size = 240
+    batch_size = FAST_MODE_MAX_ELEMENTS
+    logger.write("READY | Full MEP set accepted: {0} elements in batches of {1}".format(total, batch_size))
+    chunk_size = 30 if fast_mode else 120
     cancelled = False
     sample_fails = []
     owner_status_cache = {}
@@ -2655,9 +2666,11 @@ def run():
                         if status in ("FAIL", "PARTIAL") and len(sample_fails) < 12:
                             sample_fails.append("Element {0} | {1} | {2}".format(eid, param_name, message))
 
-                    _log_size_runtime_context(logger, element, eid, size_text, parsed, target_values)
+                    if not fast_mode:
+                        _log_size_runtime_context(logger, element, eid, size_text, parsed, target_values)
 
-                    logger.write(
+                    if not fast_mode:
+                        logger.write(
                         "ELEMENT | {0} | Size='{1}' | Width='{2}' | Height='{3}' | Diameter='{4}' | Statuses={5}".format(
                             eid,
                             size_text,
@@ -2691,7 +2704,7 @@ def run():
                             )
                         )
 
-                    if counters["processed"] % 20 == 0:
+                    if counters["processed"] % 10 == 0:
                         _pump_ui()
 
                     if monitor is not None and monitor.has_pending_focus():
@@ -2735,6 +2748,8 @@ def run():
                 audit.flush()
 
             _pump_ui()
+            if index // batch_size != (index + processed_in_chunk) // batch_size:
+                logger.write("BATCH COMPLETE | Processed={0}/{1}".format(index + processed_in_chunk, total))
             if cancelled:
                 break
             index += processed_in_chunk

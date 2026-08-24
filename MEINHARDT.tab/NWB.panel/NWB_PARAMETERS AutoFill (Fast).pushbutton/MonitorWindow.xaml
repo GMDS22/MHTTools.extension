@@ -1,0 +1,74 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NWB_PARAMETERS AutoFill by GM - Live Monitor"
+        Width="980"
+        Height="580"
+        MinWidth="780"
+        MinHeight="430"
+        WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="False"
+        Background="#1A1A1C"
+        Foreground="#E8E8E8">
+    <Window.Resources>
+        <SolidColorBrush x:Key="PanelBg" Color="#232327"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#3A3A40"/>
+        <SolidColorBrush x:Key="MutedText" Color="#A5A7AE"/>
+        <SolidColorBrush x:Key="Primary" Color="#0E639C"/>
+        <SolidColorBrush x:Key="Secondary" Color="#0FA7A0"/>
+        <SolidColorBrush x:Key="Accent" Color="#E7A23B"/>
+
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Background" Value="#3A3A40"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="#55555E"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource Accent}"/>
+            <Setter Property="BorderBrush" Value="#C9882E"/>
+            <Setter Property="Foreground" Value="#1E1E1E"/>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{StaticResource Primary}"/>
+            <Setter Property="BorderBrush" Value="#1177BB"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#1E1E22"/>
+            <Setter Property="Foreground" Value="#E8E8E8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="NWB_PARAMETERS AutoFill - Live Processing" FontSize="16" FontWeight="Bold"/>
+        <TextBlock Grid.Row="1" x:Name="txtStatus" Margin="0,6,0,10" Foreground="{StaticResource MutedText}" TextWrapping="Wrap"
+                   Text="Preparing..."/>
+
+        <ListBox Grid.Row="2" x:Name="lstItems" SelectionChanged="monitor_selection_changed" MouseDoubleClick="list_item_double_click"/>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,0">
+            <Button Content="Show Selected" Click="show_selected_click" Width="130" Style="{StaticResource PrimaryButton}"/>
+            <Button Content="Cancel (Keep Processed)" Click="cancel_click" Width="210" Style="{StaticResource DangerButton}"/>
+            <Button Content="Center Selected" Click="center_selected_click" Width="130"/>
+            <Button Content="Clear List" Click="clear_items_click" Width="110"/>
+            <Button Content="Close" Click="close_click" Width="90"/>
+        </StackPanel>
+    </Grid>
+</Window>

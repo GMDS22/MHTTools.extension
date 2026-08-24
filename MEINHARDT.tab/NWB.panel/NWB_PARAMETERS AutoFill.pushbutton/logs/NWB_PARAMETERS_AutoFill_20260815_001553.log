@@ -1,0 +1,56 @@
+START | Tool=NWB_PARAMETERS AutoFill
+START | View=Multi-Category Schedule 2
+START | ViewId=16056611
+START | ViewMode=schedule
+START | WriteMode=smart
+START | ParameterTargetMode=Both
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=selection
+START | SelectedInputCount=1
+START | ArchRoomLink=AUTO
+START | SiteOverride=WBH
+START | BuildingOverride=WBH
+START | DesignPkgOverride=
+START | BuildingPermitOverride=
+START | ExportAudit=True
+START | AuditFile=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB_PARAMETERS AutoFill.pushbutton\logs\NWB_PARAMETERS_AutoFill_20260815_001553_audit.csv
+WORKBOOK | C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB Dim AutoFill.pushbutton\NWB-WAL-GEN-DE-REG-0003.xlsx
+READY | Elements=1 | AssetRows=1464 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB_PARAMETERS AutoFill.pushbutton\logs\NWB_PARAMETERS_AutoFill_20260815_001553.log
+READY | CategoryBreakdown=Air Terminals=1
+READY | EligibleElementIds=13028946
+INFO | Candidate: NWB_AssetTypeCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626182
+INFO | Candidate: NWB_AssetID | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626164
+INFO | Candidate: NWB_AssetType | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626181
+INFO | Candidate: NWB_Discipline | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626159
+INFO | Candidate: NWB_Category | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626160
+INFO | Candidate: NWB_System | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626163
+INFO | Candidate: NWB_UniclassCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626165
+INFO | Candidate: NWB_UniclassDescription | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626166
+INFO | Candidate: NWB_DesignPkg | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626167
+ERROR | Element 13028946 | Category=Air Terminals | Family= | Parameter=NWB_BuildingPermitPkg | Reason=missing | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Air Flow, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Collar Size, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Height, IFC Predefined Type, IfcGUID, Image
+INFO | Candidate: NWB_WBS00 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214738
+ERROR | Element 13028946 | Category=Air Terminals | Family= | Parameter=NWB_WBS00 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Air Flow, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Collar Size, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Height, IFC Predefined Type, IfcGUID, Image
+INFO | Candidate: NWB_WBS01 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214798
+ERROR | Element 13028946 | Category=Air Terminals | Family= | Parameter=NWB_WBS01 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Air Flow, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Collar Size, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Height, IFC Predefined Type, IfcGUID, Image
+INFO | Candidate: NWB_WBS02 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214786
+INFO | Candidate: NWB_WBS03 | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214750
+INFO | Candidate: NWB_WBS04 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214762
+ERROR | Element 13028946 | Category=Air Terminals | Family= | Parameter=NWB_WBS04 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Air Flow, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Collar Size, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Height, IFC Predefined Type, IfcGUID, Image
+INFO | Candidate: NWB_WBS05 | Scope=instance | Storage=String | ReadOnly=True | Shared=True | Id=9214810
+ERROR | Element 13028946 | Category=Air Terminals | Family= | Parameter=NWB_WBS05 | Reason=readonly | Writable sample: AHU_AreaServed, AHU_Serves, AHU_Type, AHU_ZoneNumber, Air Flow, Building_No, COMPLETE Y/N, Classification.UniFormat.2010.Description, Classification.UniFormat.2010.Number, Collar Size, Comments, Elevation from Level, Export to IFC, Export to IFC As, Family, Family and Type, Height, IFC Predefined Type, IfcGUID, Image
+INFO | Candidate: NWB_WBSCode | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=9214774
+SOURCE | Element 13028946 | Cat=Air Terminals | Family=MHT-ME-AT-RELIEF AIR LOUVRE | Type= | Level=LEVEL 09 | System=Return Air | LinkedRoomLink= | LinkedRoomNumber= | LinkedRoomName= | LinkedRoomDept= | LinkedRoomBuilding= | LinkedRoomSite= | LinkedRoomSource=connected-miss:d4:visited23 | ResolvedDept= | ResolvedBuilding= | ResolvedSite= | DisciplineHint=mechanical | AssetCandidates=air terminals, air terminal | WBS00=WBH | WBS01=HO | WBS03=Z00 | DesignPkg=NWB-GEN-ME-SCM-1091-A | BuildingPermitPkg=WBH - BP09
+WARN | Element 13028946 | Department unresolved | ExistingNWBDepartment= | ExistingWBS00=WBS | ExistingWBS01=HO | ExistingDiscipline=ME
+ELEMENT | 13028946 | Cat=Air Terminals | AssetScore=36 | AssetTypeCode=MAGS | AssetType=Air Grilles | AssetCategory=Air Terminal | Targets=NWB_AssetTypeCode=MAGS; NWB_AssetID=MAGS-HO-09-13028946; NWB_AssetType=Air Grilles; NWB_Discipline=ME; NWB_Category=Air Terminal; NWB_Department=; NWB_SubDepartment=; NWB_Material=; NWB_System=Return Air; NWB_UniclassCode=Pr_70_65_04_03; NWB_UniclassDescription=Air grilles; NWB_DesignPkg=NWB-GEN-ME-SCM-1091-A; NWB_BuildingPermitPkg=WBH - BP09; NWB_WBS00=WBH; NWB_WBS01=HO; NWB_WBS02=09; NWB_WBS03=Z00; NWB_WBS04=ME; NWB_WBS05=SI5; NWB_WBSCode=WBH-HO-09-Z00-ME-SI5
+INFO | Transaction Status = Committed
+CHUNK COMMIT | Status=Committed | Processed=1
+SUMMARY | Top unresolved / skipped reasons
+SUMMARY | Count=1 | Category=Air Terminals | Parameter=NWB_BuildingPermitPkg | Reason=missing
+SUMMARY | Count=1 | Category=Air Terminals | Parameter=NWB_Department | Reason=linked/direct room department unavailable (connected-miss:d4:visited23)
+SUMMARY | Count=1 | Category=Air Terminals | Parameter=NWB_Material | Reason=workbook material blank and model material missing
+SUMMARY | Count=1 | Category=Air Terminals | Parameter=NWB_SubDepartment | Reason=linked/direct room subdepartment unavailable (connected-miss:d4:visited23)
+SUMMARY | Count=1 | Category=Air Terminals | Parameter=NWB_WBS00 | Reason=readonly
+SUMMARY | Count=1 | Category=Air Terminals | Parameter=NWB_WBS01 | Reason=readonly
+SUMMARY | Count=1 | Category=Air Terminals | Parameter=NWB_WBS04 | Reason=readonly
+SUMMARY | Count=1 | Category=Air Terminals | Parameter=NWB_WBS05 | Reason=readonly
+END | Attempted=0 | Written=0 | Skipped=16 | VerifyFailed=0 | SharedWrites=0 | FamilyWrites=0 | TypeWrites=0 | InstanceWrites=0 | ReadOnly=4 | MissingTarget=1 | SkipTargetMode=0 | DuplicateParameter=0 | SkipWorksharing=0 | Failed=0 | Cancelled=False

@@ -42,6 +42,14 @@ TOOL_TITLE = "NWB_PARAMETERS AutoFill"
 WORKBOOK_FILE_NAME = "NWB-WAL-GEN-DE-REG-0003.xlsx"
 
 WBH_SCOPE_BOX_WBS01_RULES = [
+    ("Companion Building", "CB"),
+    ("Hospital", "HO"),
+    ("Bridge", "LB"),
+    ("Link Bridge", "LB"),
+    ("Hub Building", "HB"),
+    ("General", "GE"),
+    ("External Area", "EA"),
+    ("External Areas", "EA"),
     ("ZONE 222 - LINK BRIDGE", "LB"),
     ("ZONE 223 - LINK BRIDGE", "LB"),
     ("ZONE 251 - COMPANION", "CB"),
@@ -2547,6 +2555,14 @@ def _get_linked_room_context(element):
         return _linked_room_context_from_room_item(room_item, source_label)
 
     return {
+        "room": None,
+        "department": "",
+        "subdepartment": "",
+        "building": "",
+        "site": "",
+        "room_name": "",
+        "room_number": "",
+        "link_name": "",
         "source": "connected-miss:d4:visited{0}".format(visited_count),
     }
 
@@ -4078,7 +4094,7 @@ def _derive_wbs01(facts, wb_data):
     if "external" in lvl_norm:
         return "EA"
 
-    return ""
+    return "EA"
 
 
 def _derive_wbs02(facts, wb_data):

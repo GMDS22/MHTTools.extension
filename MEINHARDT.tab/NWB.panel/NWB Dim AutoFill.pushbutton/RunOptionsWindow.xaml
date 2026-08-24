@@ -174,6 +174,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Text="Run Options" FontSize="15" FontWeight="Bold" Margin="0,0,0,12"/>
@@ -190,6 +191,8 @@
 
                     <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" x:Name="chkExportAudit" Margin="0,10,0,0"
                               Content="Export detailed audit CSV for this run (recommended)"/>
+                    <CheckBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" x:Name="chkFastMode" Margin="0,4,0,0"
+                              Content="Fast mode: disable live monitor and per-element runtime logging"/>
                 </Grid>
             </Border>
 

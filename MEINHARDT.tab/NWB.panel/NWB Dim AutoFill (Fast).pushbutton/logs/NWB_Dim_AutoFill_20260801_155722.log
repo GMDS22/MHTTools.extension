@@ -1,0 +1,1309 @@
+START | Tool=NWB Dim AutoFill
+START | View=MECHANICAL DUCTWORK LAYOUT - LEVEL 09
+START | ViewId=9423012
+START | ViewMode=model
+START | WriteMode=skip
+START | ParameterTargetMode=SharedOnly
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=selection
+START | SelectedInputCount=258
+START | ExportAudit=True
+START | AuditFile=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB Dim AutoFill.pushbutton\logs\NWB_Dim_AutoFill_20260801_155722_audit.csv
+READY | Elements=258 | Log=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\MEP Data.panel\Data Manage.pulldown\NWB Dim AutoFill.pushbutton\logs\NWB_Dim_AutoFill_20260801_155722.log
+READY | CategoryBreakdown=Air Terminals=39; Duct Accessories=5; Duct Fittings=104; Ducts=89; Flex Ducts=19; Mechanical Equipment=2
+READY | EligibleElementIds=7249741, 7249915, 7256942, 7577221, 7577222, 11591253, 12416145, 12989889, 12989890, 12989891, 13123943, 13124053, 13124110, 13141964, 13142057, 13142360, 13142556, 13142570, 13143241, 13143604, 13143609, 13143615, 13143626, 13143629, 13143898, 13143921, 13143992, 13144016, 13144112, 13144392, 13144438, 13169092, 13248158, 13248161, 13248162, 13248165, 13248166, 13248168, 13248190, 13248193, 13248197, 13248198, 13248200, 13248243, 13248244, 13248245, 13248247, 13248252, 13363750, 13363752, 13363758, 13363759, 13363761, 13363762, 13363765, 13363766, 13363768, 13363772, 13363775, 13363776, 13363779, 13363780, 13363786, 13363789, 13363793, 13363794, 13363796, 13363839, 13363840, 13363842, 13363843, 13363846, 13363847, 13363849, 13363853, 13363854, 13363856, 13363857, 13363860, 13363861, 13363863, 13363867, 13363868, 13363870, 13363871, 13363873, 13363876, 13363877, 13363879, 13363881, 13363949, 13376867, 13376868, 13376871, 13376874, 13380256, 13569042, 13569043, 13569045, 13569046, 13569049, 13569050, 13569052, 13637327, 13637420, 13932151, 14311745, 14311752, 14671012, 14671174, 14671260, 14671291, 14671327, 14671407, 14671506, 14686851, 14693223, 14704170, 14704212, 14704231, 14704299, 14867768, 14867774, 14867783, 14870004, 14870010, 14870017, 14870018, 14870023, 14874096, 14874103, 14886437, 14886438, 14886474, 14886532, 14887377, 14887594, 14887713, 14887906, 14889022, 14889470, 14889580, 14889619, 14889629, 14889641, 14889644, 14898506, 14903735, 14903855, 14904345, 14906204, 14906396, 14906521, 14906529, 14907187, 14907327, 14908172, 14908214, 14908340, 14908376, 14908708, 14908849, 14908879, 14908910, 14909063, 14909226, 14909238, 14909295, 14910878, 14910919, 14911394, 14914203, 14914274, 14914277, 14914279, 14914493, 14914526, 14915585, 14916764, 14916889, 14916901, 14928157, 14928168, 14928170, 15258713, 15258718, 15258732, 15258734, 15258736, 15258738, 15258740, 15258744, 15258747, 15258749, 15258755, 15258804, 15258914, 15258947, 15259016, 15259139 ... (+58 more)
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 7249741 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=200x250 | Width=200 | Height=250 | Diameter=
+ELEMENT | 7249741 | Size='200x250' | Width='200' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 7249915 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=375x350 | Width=375 | Height=350 | Diameter=
+ELEMENT | 7249915 | Size='375x350' | Width='375' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 7256942 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 06 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 7256942 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 7577221 | Cat=Duct Accessories | Family=MHT-ME-DA-Damper (Motorized) | Type= | Level=LEVEL 09 | Name=MVCD | System=Exhaust Air | SizeText=1500x900-1500x900 | Width=1500 | Height=900 | Diameter=
+ELEMENT | 7577221 | Size='1500x900-1500x900' | Width='1500' | Height='900' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 7577222 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1500x900 | Width=1500 | Height=900 | Diameter=
+ELEMENT | 7577222 | Size='1500x900' | Width='1500' | Height='900' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+SKIP | Element 11591253 | Size empty | Cat=Mechanical Equipment | Family=MHT-ME-Pass-Through Station | Type= | Level=LEVEL 09 | Name=MHT-ME-Pass-Through Station
+SKIP | Element 12416145 | Size empty | Cat=Mechanical Equipment | Family=MHT-ME-Pass-Through Station | Type= | Level=LEVEL 09 | Name=MHT-ME-Pass-Through Station
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 12989889 | Cat=Air Terminals | Family=MHT_AT_Sidewall Grille Supply | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=1200x700 | Width=1200 | Height=700 | Diameter=
+ELEMENT | 12989889 | Size='1200x700' | Width='1200' | Height='700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 12989890 | Cat=Duct Accessories | Family=MHT-ME-Volume Control Damper - Rectangular-01 | Type= | Level=LEVEL 09 | Name=MHT-ME-FAM-FAM-Volume Control Damper - Rectangular-01 | System=Supply Air | SizeText=1200x700-1200x700 | Width=1200 | Height=700 | Diameter=
+ELEMENT | 12989890 | Size='1200x700-1200x700' | Width='1200' | Height='700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 12989891 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=1200x700 | Width=1200 | Height=700 | Diameter=
+ELEMENT | 12989891 | Size='1200x700' | Width='1200' | Height='700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13123943 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | Name=No Damper | System=Supply Air | SizeText=250ø | Width= | Height= | Diameter=250
+ELEMENT | 13123943 | Size='250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13124053 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | Name=No Damper | System=Supply Air | SizeText=250ø | Width= | Height= | Diameter=250
+ELEMENT | 13124053 | Size='250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13124110 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | Name=No Damper | System=Supply Air | SizeText=250ø | Width= | Height= | Diameter=250
+ELEMENT | 13124110 | Size='250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13141964 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=200x300 | Width=200 | Height=300 | Diameter=
+ELEMENT | 13141964 | Size='200x300' | Width='200' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13142057 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x300 | Width=200 | Height=300 | Diameter=
+ELEMENT | 13142057 | Size='200x300' | Width='200' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13142360 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | Name=No Damper | System=Supply Air | SizeText=250ø | Width= | Height= | Diameter=250
+ELEMENT | 13142360 | Size='250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13142556 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | Name=No Damper | System=Supply Air | SizeText=250ø | Width= | Height= | Diameter=250
+ELEMENT | 13142556 | Size='250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13142570 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | Name=No Damper | System=Supply Air | SizeText=250ø | Width= | Height= | Diameter=250
+ELEMENT | 13142570 | Size='250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13143241 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Return Air | SizeText=300 mmø | Width= | Height= | Diameter=300
+ELEMENT | 13143241 | Size='300 mmø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13143604 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=450x300 | Width=450 | Height=300 | Diameter=
+ELEMENT | 13143604 | Size='450x300' | Width='450' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13143609 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=350x300 | Width=350 | Height=300 | Diameter=
+ELEMENT | 13143609 | Size='350x300' | Width='350' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13143615 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-Manula Length | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-Manual Length | System=Supply Air | SizeText=450x300-350x300 | Width=450 | Height=300 | Diameter=
+ELEMENT | 13143615 | Size='450x300-350x300' | Width='450' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 13143626 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=350x300-200x300 | Width=350 | Height=300 | Diameter=
+ELEMENT | 13143626 | Size='350x300-200x300' | Width='350' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13143629 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=200x300 | Width=200 | Height=300 | Diameter=
+ELEMENT | 13143629 | Size='200x300' | Width='200' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13143898 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=450x300 | Width=450 | Height=300 | Diameter=
+ELEMENT | 13143898 | Size='450x300' | Width='450' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 13143921 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=450x300-350x300 | Width=450 | Height=300 | Diameter=
+ELEMENT | 13143921 | Size='450x300-350x300' | Width='450' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13143992 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=350x300 | Width=350 | Height=300 | Diameter=
+ELEMENT | 13143992 | Size='350x300' | Width='350' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 13144016 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=350x300-200x300 | Width=350 | Height=300 | Diameter=
+ELEMENT | 13144016 | Size='350x300-200x300' | Width='350' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13144112 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Return Air | SizeText=300 mmø | Width= | Height= | Diameter=300
+ELEMENT | 13144112 | Size='300 mmø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13144392 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Return Air | SizeText=300 mmø | Width= | Height= | Diameter=300
+ELEMENT | 13144392 | Size='300 mmø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13144438 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=200x300 | Width=200 | Height=300 | Diameter=
+ELEMENT | 13144438 | Size='200x300' | Width='200' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13169092 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 10 | Name=Flex - Round | System=Exhaust Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 13169092 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248158 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13248158 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248161 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13248161 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248162 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13248162 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248165 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13248165 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248166 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13248166 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248168 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13248168 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248190 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Undefined | SizeText=200x200 | Width=200 | Height=200 | Diameter=
+ELEMENT | 13248190 | Size='200x200' | Width='200' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248193 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Undefined | SizeText=200x200 | Width=200 | Height=200 | Diameter=
+ELEMENT | 13248193 | Size='200x200' | Width='200' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248197 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Undefined | SizeText=200x200 | Width=200 | Height=200 | Diameter=
+ELEMENT | 13248197 | Size='200x200' | Width='200' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248198 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Undefined | SizeText=200x200-200x200 | Width=200 | Height=200 | Diameter=
+ELEMENT | 13248198 | Size='200x200-200x200' | Width='200' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248200 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Undefined | SizeText=200x200-200x200 | Width=200 | Height=200 | Diameter=
+ELEMENT | 13248200 | Size='200x200-200x200' | Width='200' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248243 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=600x300 | Width=600 | Height=300 | Diameter=
+ELEMENT | 13248243 | Size='600x300' | Width='600' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248244 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=600x300 | Width=600 | Height=300 | Diameter=
+ELEMENT | 13248244 | Size='600x300' | Width='600' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248245 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 600x300 | System=Supply Air | SizeText=600x300 | Width=600 | Height=300 | Diameter=
+ELEMENT | 13248245 | Size='600x300' | Width='600' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248247 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=600x300 | Width=600 | Height=300 | Diameter=
+ELEMENT | 13248247 | Size='600x300' | Width='600' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13248252 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x600-300x600 | Width=300 | Height=600 | Diameter=
+ELEMENT | 13248252 | Size='300x600-300x600' | Width='300' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 13363750 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Undefined | SizeText=300x300-200x200 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363750 | Size='300x300-200x200' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 13363752 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Undefined | SizeText=300x300-200x200 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363752 | Size='300x300-200x200' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363758 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363758 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363759 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363759 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363761 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363761 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363762 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363762 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363765 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363765 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363766 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363766 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363768 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363768 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363772 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363772 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363775 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363775 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363776 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363776 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363779 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363779 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363780 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363780 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363786 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363786 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363789 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363789 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363793 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363793 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363794 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363794 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363796 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363796 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363839 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363839 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363840 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363840 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363842 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363842 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363843 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363843 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363846 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363846 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363847 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363847 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363849 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363849 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363853 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363853 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363854 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363854 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363856 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363856 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363857 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363857 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363860 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363860 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363861 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363861 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363863 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363863 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363867 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 13363867 | Size='250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363868 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363868 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363870 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 13363870 | Size='250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363871 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363871 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 13363873 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-250x250 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363873 | Size='300x300-250x250' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363876 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 13363876 | Size='250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 13363877 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-250x250 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13363877 | Size='300x300-250x250' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363879 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=250x250-250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 13363879 | Size='250x250-250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13363881 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=250x250-250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 13363881 | Size='250x250-250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13363949 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | Name=No Damper | System=Supply Air | SizeText=200ø | Width= | Height= | Diameter=200
+ELEMENT | 13363949 | Size='200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13376867 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=600x300 | Width=600 | Height=300 | Diameter=
+ELEMENT | 13376867 | Size='600x300' | Width='600' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13376868 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=600x300 | Width=600 | Height=300 | Diameter=
+ELEMENT | 13376868 | Size='600x300' | Width='600' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13376871 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=600x300 | Width=600 | Height=300 | Diameter=
+ELEMENT | 13376871 | Size='600x300' | Width='600' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13376874 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x600-300x600 | Width=300 | Height=600 | Diameter=
+ELEMENT | 13376874 | Size='300x600-300x600' | Width='300' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13380256 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Return Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 13380256 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13569042 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13569042 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13569043 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13569043 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13569045 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13569045 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13569046 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13569046 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13569049 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13569049 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13569050 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13569050 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13569052 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13569052 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13637327 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Supply Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 13637327 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 13637420 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Supply Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 13637420 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 13932151 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 13932151 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14311745 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=375x350 | Width=375 | Height=350 | Diameter=
+ELEMENT | 14311745 | Size='375x350' | Width='375' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14311752 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x250 | Width=200 | Height=250 | Diameter=
+ELEMENT | 14311752 | Size='200x250' | Width='200' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Element 14671012 | NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='200'
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14671012 | Cat=Air Terminals | Family=MHT_AT_RA ECG cw plenum | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=200ø | Width= | Height=200 | Diameter=200
+ELEMENT | 14671012 | Size='200ø' | Width='' | Height='200' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:OK; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14671174 | Cat=Air Terminals | Family=MHT_AT_RA ECG cw plenum | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=300ø | Width= | Height=300 | Diameter=300
+ELEMENT | 14671174 | Size='300ø' | Width='' | Height='300' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14671260 | Cat=Air Terminals | Family=MHT_AT_RA ECG cw plenum | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=300ø | Width= | Height=300 | Diameter=300
+ELEMENT | 14671260 | Size='300ø' | Width='' | Height='300' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14671291 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=300ø-300ø | Width= | Height= | Diameter=300
+ELEMENT | 14671291 | Size='300ø-300ø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14671327 | Cat=Air Terminals | Family=MHT_AT_RA ECG cw plenum | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=300ø | Width= | Height=300 | Diameter=300
+ELEMENT | 14671327 | Size='300ø' | Width='' | Height='300' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14671407 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=300ø-300ø | Width= | Height= | Diameter=300
+ELEMENT | 14671407 | Size='300ø-300ø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14671506 | Cat=Air Terminals | Family=MHT_AT_RA ECG cw plenum | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=250ø | Width= | Height=250 | Diameter=250
+ELEMENT | 14671506 | Size='250ø' | Width='' | Height='250' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Element 14686851 | NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='250'
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14686851 | Cat=Air Terminals | Family=MHT_AT_RA ECG cw plenum | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=250ø | Width= | Height=250 | Diameter=250
+ELEMENT | 14686851 | Size='250ø' | Width='' | Height='250' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:OK; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14693223 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 14693223 | Size='250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14704170 | Cat=Air Terminals | Family=MHT_AT_RA ECG cw plenum | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=250ø | Width= | Height=250 | Diameter=250
+ELEMENT | 14704170 | Size='250ø' | Width='' | Height='250' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14704212 | Cat=Air Terminals | Family=MHT_AT_RA ECG cw plenum | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=250ø | Width= | Height=250 | Diameter=250
+ELEMENT | 14704212 | Size='250ø' | Width='' | Height='250' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14704231 | Cat=Air Terminals | Family=MHT_AT_RA ECG cw plenum | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=200ø | Width= | Height=200 | Diameter=200
+ELEMENT | 14704231 | Size='200ø' | Width='' | Height='200' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14704299 | Cat=Air Terminals | Family=MHT_AT_RA ECG cw plenum | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=200ø | Width= | Height=200 | Diameter=200
+ELEMENT | 14704299 | Size='200ø' | Width='' | Height='200' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14867768 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 14867768 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14867774 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 14867774 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14867783 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 14867783 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14870004 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 14870004 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14870010 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 14870010 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 14870017 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Supply Air | SizeText=250x300-250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 14870017 | Size='250x300-250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14870018 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 14870018 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 14870023 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Supply Air | SizeText=250x300-250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 14870023 | Size='250x300-250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14874096 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=225x150 | Width=225 | Height=150 | Diameter=
+ELEMENT | 14874096 | Size='225x150' | Width='225' | Height='150' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 14874103 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Exhaust Air | SizeText=225x150-225x150 | Width=225 | Height=150 | Diameter=
+ELEMENT | 14874103 | Size='225x150-225x150' | Width='225' | Height='150' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14886437 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=275x200 | Width=275 | Height=200 | Diameter=
+ELEMENT | 14886437 | Size='275x200' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14886438 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=275x200 | Width=275 | Height=200 | Diameter=
+ELEMENT | 14886438 | Size='275x200' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 14886474 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Return Air | SizeText=275x200-275x200 | Width=275 | Height=200 | Diameter=
+ELEMENT | 14886474 | Size='275x200-275x200' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14886532 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=275x200 | Width=275 | Height=200 | Diameter=
+ELEMENT | 14886532 | Size='275x200' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14887377 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | Name=No Damper | System=Supply Air | SizeText=250ø | Width= | Height= | Diameter=250
+ELEMENT | 14887377 | Size='250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14887594 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x275 | Width=200 | Height=275 | Diameter=
+ELEMENT | 14887594 | Size='200x275' | Width='200' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14887713 | Cat=Air Terminals | Family=MHT_AT_S Air Diff Swirl | Type= | Level=LEVEL 09 | Name=No Damper | System=Supply Air | SizeText=250ø | Width= | Height= | Diameter=250
+ELEMENT | 14887713 | Size='250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14887906 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=275x200 | Width=275 | Height=200 | Diameter=
+ELEMENT | 14887906 | Size='275x200' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14889022 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=275x200 | Width=275 | Height=200 | Diameter=
+ELEMENT | 14889022 | Size='275x200' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+INFO | Element 14889470 | NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='250'
+SOURCE | Element 14889470 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Supply Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 14889470 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:OK
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 14889580 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Return Air | SizeText=450x300-450x300 | Width=450 | Height=300 | Diameter=
+ELEMENT | 14889580 | Size='450x300-450x300' | Width='450' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 14889619 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Supply Air | SizeText=450x300-450x300 | Width=450 | Height=300 | Diameter=
+ELEMENT | 14889619 | Size='450x300-450x300' | Width='450' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14889629 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=350x550 | Width=350 | Height=550 | Diameter=
+ELEMENT | 14889629 | Size='350x550' | Width='350' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14889641 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 14889641 | Size='250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14889644 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 14889644 | Size='250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14898506 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=200x250 | Width=200 | Height=250 | Diameter=
+ELEMENT | 14898506 | Size='200x250' | Width='200' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14903735 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=750x300 | Width=750 | Height=300 | Diameter=
+ELEMENT | 14903735 | Size='750x300' | Width='750' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14903855 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=750x250 | Width=750 | Height=250 | Diameter=
+ELEMENT | 14903855 | Size='750x250' | Width='750' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14904345 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=350x550 | Width=350 | Height=550 | Diameter=
+ELEMENT | 14904345 | Size='350x550' | Width='350' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14906204 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x275 | Width=250 | Height=275 | Diameter=
+ELEMENT | 14906204 | Size='250x275' | Width='250' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+INFO | Element 14906396 | NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='200'
+SOURCE | Element 14906396 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Supply Air | SizeText=200 mmø | Width= | Height= | Diameter=200
+ELEMENT | 14906396 | Size='200 mmø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:OK
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14906521 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=325x200 | Width=325 | Height=200 | Diameter=
+ELEMENT | 14906521 | Size='325x200' | Width='325' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 14906529 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Return Air | SizeText=325x200-325x200 | Width=325 | Height=200 | Diameter=
+ELEMENT | 14906529 | Size='325x200-325x200' | Width='325' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14907187 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Supply Air | SizeText=200ø-200ø | Width= | Height= | Diameter=200
+ELEMENT | 14907187 | Size='200ø-200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14907327 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Supply Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 14907327 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14908172 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Supply Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 14908172 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14908214 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Supply Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 14908214 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14908340 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Supply Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 14908340 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14908376 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Supply Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 14908376 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14908708 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=250x200 | Width=250 | Height=200 | Diameter=
+ELEMENT | 14908708 | Size='250x200' | Width='250' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14908849 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Exhaust Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 14908849 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14908879 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Exhaust Air | SizeText=250x200 | Width=250 | Height=200 | Diameter=
+ELEMENT | 14908879 | Size='250x200' | Width='250' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14908910 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Exhaust Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 14908910 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14909063 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Exhaust Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 14909063 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14909226 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Exhaust Air | SizeText=200 mmø | Width= | Height= | Diameter=200
+ELEMENT | 14909226 | Size='200 mmø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14909238 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=250x200 | Width=250 | Height=200 | Diameter=
+ELEMENT | 14909238 | Size='250x200' | Width='250' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14909295 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=325x200 | Width=325 | Height=200 | Diameter=
+ELEMENT | 14909295 | Size='325x200' | Width='325' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14910878 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Supply Air | SizeText=200ø-200ø | Width= | Height= | Diameter=200
+ELEMENT | 14910878 | Size='200ø-200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14910919 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 14910919 | Size='250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14911394 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=300ø-300ø | Width= | Height= | Diameter=300
+ELEMENT | 14911394 | Size='300ø-300ø' | Width='' | Height='' | Diameter='300' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14914203 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Supply Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 14914203 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14914274 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Supply Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 14914274 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14914277 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Supply Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 14914277 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 14914279 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=500x350-400x300 | Width=500 | Height=350 | Diameter=
+ELEMENT | 14914279 | Size='500x350-400x300' | Width='500' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14914493 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=400x300 | Width=400 | Height=300 | Diameter=
+ELEMENT | 14914493 | Size='400x300' | Width='400' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 14914526 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=400x300-250x300 | Width=400 | Height=300 | Diameter=
+ELEMENT | 14914526 | Size='400x300-250x300' | Width='400' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14915585 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=275x150 | Width=275 | Height=150 | Diameter=
+ELEMENT | 14915585 | Size='275x150' | Width='275' | Height='150' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14916764 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Supply Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 14916764 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14916889 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Supply Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 14916889 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14916901 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 14916901 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14928157 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 14928157 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 14928168 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Exhaust Air | SizeText=250x200-250x200 | Width=250 | Height=200 | Diameter=
+ELEMENT | 14928168 | Size='250x200-250x200' | Width='250' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 14928170 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Exhaust Air | SizeText=200ø-200ø | Width= | Height= | Diameter=200
+ELEMENT | 14928170 | Size='200ø-200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258713 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=200x275 | Width=200 | Height=275 | Diameter=
+ELEMENT | 15258713 | Size='200x275' | Width='200' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258718 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=275x200 | Width=275 | Height=200 | Diameter=
+ELEMENT | 15258718 | Size='275x200' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258732 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=275x200-275x200 | Width=275 | Height=200 | Diameter=
+ELEMENT | 15258732 | Size='275x200-275x200' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15258734 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=275x200-200x275 | Width=275 | Height=200 | Diameter=
+ELEMENT | 15258734 | Size='275x200-200x275' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258736 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=275x200-275x200 | Width=275 | Height=200 | Diameter=
+ELEMENT | 15258736 | Size='275x200-275x200' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15258738 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=275x200-200x275 | Width=275 | Height=200 | Diameter=
+ELEMENT | 15258738 | Size='275x200-200x275' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258740 | Cat=Duct Accessories | Family=MHT-ME-Fire Damper-02 | Type= | Level=LEVEL 09 | Name=MHT-ME-FAM-FAM-Fire Damper | System=Supply Air | SizeText=200x275-200x275 | Width=200 | Height=275 | Diameter=
+ELEMENT | 15258740 | Size='200x275-200x275' | Width='200' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258744 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x275 | Width=200 | Height=275 | Diameter=
+ELEMENT | 15258744 | Size='200x275' | Width='200' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258747 | Cat=Duct Accessories | Family=MHT-ME-Fire Damper-02 | Type= | Level=LEVEL 09 | Name=MHT-ME-FAM-FAM-Fire Damper | System=Return Air | SizeText=200x275-200x275 | Width=200 | Height=275 | Diameter=
+ELEMENT | 15258747 | Size='200x275-200x275' | Width='200' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258749 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=200x275 | Width=200 | Height=275 | Diameter=
+ELEMENT | 15258749 | Size='200x275' | Width='200' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 15258755 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Supply Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 15258755 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258804 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=250x250-250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 15258804 | Size='250x250-250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258914 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=350x600-350x600 | Width=350 | Height=600 | Diameter=
+ELEMENT | 15258914 | Size='350x600-350x600' | Width='350' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15258947 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=350x550-350x550 | Width=350 | Height=550 | Diameter=
+ELEMENT | 15258947 | Size='350x550-350x550' | Width='350' | Height='550' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15259016 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Exhaust Air | SizeText=250x250-250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 15259016 | Size='250x250-250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15259139 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=250x250-250x250 | Width=250 | Height=250 | Diameter=
+ELEMENT | 15259139 | Size='250x250-250x250' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15259578 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=550x350-550x350 | Width=550 | Height=350 | Diameter=
+ELEMENT | 15259578 | Size='550x350-550x350' | Width='550' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15260332 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=550x350-550x350 | Width=550 | Height=350 | Diameter=
+ELEMENT | 15260332 | Size='550x350-550x350' | Width='550' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15300170 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 06 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1700x1700 | Width=1700 | Height=1700 | Diameter=
+ELEMENT | 15300170 | Size='1700x1700' | Width='1700' | Height='1700' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15300252 | Cat=Duct Accessories | Family=MHT-ME-DA-Damper (Motorized) | Type= | Level=LEVEL 09 | Name=MVCD | System=Exhaust Air | SizeText=1500x900-1500x900 | Width=1500 | Height=900 | Diameter=
+ELEMENT | 15300252 | Size='1500x900-1500x900' | Width='1500' | Height='900' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15300253 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=1500x900 | Width=1500 | Height=900 | Diameter=
+ELEMENT | 15300253 | Size='1500x900' | Width='1500' | Height='900' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15336571 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Exhaust Air | SizeText=225x150 | Width=225 | Height=150 | Diameter=
+ELEMENT | 15336571 | Size='225x150' | Width='225' | Height='150' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15364143 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=200x275 | Width=200 | Height=275 | Diameter=
+ELEMENT | 15364143 | Size='200x275' | Width='200' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15364145 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Union-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=200x275-200x275 | Width=200 | Height=275 | Diameter=
+ELEMENT | 15364145 | Size='200x275-200x275' | Width='200' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15364197 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Return Air | SizeText=200x275 | Width=200 | Height=275 | Diameter=
+ELEMENT | 15364197 | Size='200x275' | Width='200' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15364199 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Union-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Return Air | SizeText=200x275-200x275 | Width=200 | Height=275 | Diameter=
+ELEMENT | 15364199 | Size='200x275-200x275' | Width='200' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+INFO | Element 15618760 | NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='200'
+SOURCE | Element 15618760 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Return Air | SizeText=200 mmø | Width= | Height= | Diameter=200
+ELEMENT | 15618760 | Size='200 mmø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:OK
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 15618763 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=200ø-200ø | Width= | Height= | Diameter=200
+ELEMENT | 15618763 | Size='200ø-200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15618819 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 15618819 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15618820 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 15618820 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15618874 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x300-300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 15618874 | Size='300x300-300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 15618951 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Exhaust Air | SizeText=200ø-200ø | Width= | Height= | Diameter=200
+ELEMENT | 15618951 | Size='200ø-200ø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 15619029 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Exhaust Air | SizeText=200 mmø | Width= | Height= | Diameter=200
+ELEMENT | 15619029 | Size='200 mmø' | Width='' | Height='' | Diameter='200' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15619191 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=350x300 | Width=350 | Height=300 | Diameter=
+ELEMENT | 15619191 | Size='350x300' | Width='350' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15619328 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Exhaust Air | SizeText=250x300-250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15619328 | Size='250x300-250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15619329 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Exhaust Air | SizeText=250x300-250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15619329 | Size='250x300-250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15619604 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15619604 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15619619 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Exhaust Air | SizeText=250x300-250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15619619 | Size='250x300-250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15619620 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Exhaust Air | SizeText=250x300-250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15619620 | Size='250x300-250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15619789 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=225x275 | Width=225 | Height=275 | Diameter=
+ELEMENT | 15619789 | Size='225x275' | Width='225' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15619805 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Exhaust Air | SizeText=350x300-225x275 | Width=350 | Height=300 | Diameter=
+ELEMENT | 15619805 | Size='350x300-225x275' | Width='350' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 15620000 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 10 | Name=Damper | System=Exhaust Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 15620000 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15620037 | Cat=Duct Fittings | Family=MHT-ME-DF-Square Cap-BMA | Type= | Level=LEVEL 09 | Name=Standard | System=Exhaust Air | SizeText=225x275 | Width=225 | Height=275 | Diameter=
+ELEMENT | 15620037 | Size='225x275' | Width='225' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15620108 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Shoe Branch - Flanged | Type= | Level=LEVEL 09 | Name=Standard | System=Exhaust Air | SizeText=250x300-250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15620108 | Size='250x300-250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15620234 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 300x300 | System=Supply Air | SizeText=300x300 | Width=300 | Height=300 | Diameter=
+ELEMENT | 15620234 | Size='300x300' | Width='300' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15620570 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 600x300 | System=Supply Air | SizeText=600x300 | Width=600 | Height=300 | Diameter=
+ELEMENT | 15620570 | Size='600x300' | Width='600' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15620605 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x600-300x600 | Width=300 | Height=600 | Diameter=
+ELEMENT | 15620605 | Size='300x600-300x600' | Width='300' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15620644 | Cat=Air Terminals | Family=MHT-ME-AT - Supply Air Grille | Type= | Level= | Name=MHT-ME-AT - 600x300 | System=Supply Air | SizeText=600x300 | Width=600 | Height=300 | Diameter=
+ELEMENT | 15620644 | Size='600x300' | Width='600' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15620663 | Cat=Duct Fittings | Family=MHT_Rectangular Elbow - Mitered - Single Thickness Vanes | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=300x600-300x600 | Width=300 | Height=600 | Diameter=
+ELEMENT | 15620663 | Size='300x600-300x600' | Width='300' | Height='600' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 15620805 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Supply Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 15620805 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+INFO | Element 15620862 | NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='250'
+SOURCE | Element 15620862 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Supply Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 15620862 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:OK
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+INFO | Element 15621003 | NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Storage=String | Old='' | New='250'
+SOURCE | Element 15621003 | Cat=Flex Ducts | Family=Flex Duct Round | Type= | Level=LEVEL 09 | Name=Flex - Round | System=Return Air | SizeText=250 mmø | Width= | Height= | Diameter=250
+ELEMENT | 15621003 | Size='250 mmø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:OK
+INFO | Candidate: NWB_DimDiameter | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626172
+SOURCE | Element 15621044 | Cat=Duct Fittings | Family=MHT_DF_Spigot | Type= | Level=LEVEL 09 | Name=Damper | System=Return Air | SizeText=250ø-250ø | Width= | Height= | Diameter=250
+ELEMENT | 15621044 | Size='250ø-250ø' | Width='' | Height='' | Diameter='250' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15621168 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15621168 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15621175 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Supply Air | SizeText=250x300-250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15621175 | Size='250x300-250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15621176 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15621176 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Transaction Status = Committed
+WARN | Regenerate after commit failed: Modification of the document is forbidden.  Typically, this is because there is no open transaction;  consult documentation for Document.IsModified for other possible causes.
+CHUNK COMMIT | Status=Committed | Processed=240
+INFO | VERIFY OK | Element 14671012 | Parameter=NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Id=7626170 | Actual='200'
+INFO | VERIFY OK | Element 14686851 | Parameter=NWB_DimHeight | Kind=Shared Parameter | Scope=instance | Id=7626170 | Actual='250'
+INFO | VERIFY OK | Element 14889470 | Parameter=NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Id=7626172 | Actual='250'
+INFO | VERIFY OK | Element 14906396 | Parameter=NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Id=7626172 | Actual='200'
+INFO | VERIFY OK | Element 15618760 | Parameter=NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Id=7626172 | Actual='200'
+INFO | VERIFY OK | Element 15620862 | Parameter=NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Id=7626172 | Actual='250'
+INFO | VERIFY OK | Element 15621003 | Parameter=NWB_DimDiameter | Kind=Shared Parameter | Scope=instance | Id=7626172 | Actual='250'
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15621306 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=350x300 | Width=350 | Height=300 | Diameter=
+ELEMENT | 15621306 | Size='350x300' | Width='350' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15621370 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=350x300 | Width=350 | Height=300 | Diameter=
+ELEMENT | 15621370 | Size='350x300' | Width='350' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15621371 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Exhaust Air | SizeText=350x300 | Width=350 | Height=300 | Diameter=
+ELEMENT | 15621371 | Size='350x300' | Width='350' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15621372 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Exhaust Air | SizeText=300x350-300x350 | Width=300 | Height=350 | Diameter=
+ELEMENT | 15621372 | Size='300x350-300x350' | Width='300' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15621378 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Exhaust Air | SizeText=300x350-300x350 | Width=300 | Height=350 | Diameter=
+ELEMENT | 15621378 | Size='300x350-300x350' | Width='300' | Height='350' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15621461 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15621461 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15621462 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15621462 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15621464 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Supply Air | SizeText=300x250-300x250 | Width=300 | Height=250 | Diameter=
+ELEMENT | 15621464 | Size='300x250-300x250' | Width='300' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15621472 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Supply Air | SizeText=250x300-250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15621472 | Size='250x300-250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15621474 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Supply Air | SizeText=300x250-300x250 | Width=300 | Height=250 | Diameter=
+ELEMENT | 15621474 | Size='300x250-300x250' | Width='300' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15621519 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15621519 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+SOURCE | Element 15621520 | Cat=Ducts | Family=Rectangular Duct | Type= | Level=LEVEL 09 | Name=Flanged Long Radius Elbows / Shoe Branch | System=Supply Air | SizeText=250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15621520 | Size='250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15621522 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Supply Air | SizeText=300x250-300x250 | Width=300 | Height=250 | Diameter=
+ELEMENT | 15621522 | Size='300x250-300x250' | Width='300' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15621529 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Supply Air | SizeText=250x300-250x300 | Width=250 | Height=300 | Diameter=
+ELEMENT | 15621529 | Size='250x300-250x300' | Width='250' | Height='300' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15621531 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | Type= | Level=LEVEL 09 | Name=MHT-ME-DF-Rectangular Short Radius Bend - Flanged | System=Supply Air | SizeText=300x250-300x250 | Width=300 | Height=250 | Diameter=
+ELEMENT | 15621531 | Size='300x250-300x250' | Width='300' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15639084 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=275x200-150x275 | Width=275 | Height=200 | Diameter=
+ELEMENT | 15639084 | Size='275x200-150x275' | Width='275' | Height='200' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15639088 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=250x275-250x200 | Width=250 | Height=275 | Diameter=
+ELEMENT | 15639088 | Size='250x275-250x200' | Width='250' | Height='275' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045165
+INFO | Candidate: NWB_DimWidth | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626175
+INFO | Found 2 parameters named NWB_DimWidth
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626175
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045165
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=Double | ReadOnly=False | Shared=True | Id=3045163
+INFO | Candidate: NWB_DimHeight | Scope=instance | Storage=String | ReadOnly=False | Shared=True | Id=7626170
+INFO | Found 2 parameters named NWB_DimHeight
+INFO | SELECTED | Shared Parameter | Scope=instance | ReadOnly=False | Id=7626170
+INFO | IGNORED (SharedOnly) | Shared Parameter | Scope=instance | ReadOnly=False | Id=3045163
+SOURCE | Element 15639094 | Cat=Duct Fittings | Family=MHT-ME-DF-Rectangular Eccentric Taper - Flanged-01 | Type= | Level=LEVEL 09 | Name=Standard | System=Supply Air | SizeText=250x250-200x150 | Width=250 | Height=250 | Diameter=
+ELEMENT | 15639094 | Size='250x250-200x150' | Width='250' | Height='250' | Diameter='' | Statuses=NWB_DimWidth:SKIP; NWB_DimHeight:SKIP; NWB_DimDiameter:SKIP
+INFO | Transaction Status = Committed
+WARN | Regenerate after commit failed: Modification of the document is forbidden.  Typically, this is because there is no open transaction;  consult documentation for Document.IsModified for other possible causes.
+CHUNK COMMIT | Status=Committed | Processed=258
+END | Attempted=7 | Written=7 | Skipped=761 | VerifyFailed=0 | SharedWrites=7 | FamilyWrites=0 | TypeWrites=0 | InstanceWrites=7 | ReadOnly=0 | MissingTarget=0 | SkipTargetMode=0 | DuplicateParameter=74 | SkipWorksharing=0 | Failed=0 | Cancelled=False

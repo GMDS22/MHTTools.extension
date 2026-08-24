@@ -4,6 +4,7 @@ from __future__ import print_function
 from collections import defaultdict
 import csv
 import io
+import math
 import os
 import re
 import tempfile
@@ -33,15 +34,6 @@ doc = revit.doc
 uidoc = revit.uidoc
 logger = script.get_logger()
 config = script.get_config()
-
-PARAMETER_TARGET_MODES = [
-    "SharedOnly",
-    "FamilyOnly",
-    "Both",
-    "FirstMatch",
-]
-
-DEFAULT_PARAMETER_TARGET_MODE = "SharedOnly"
 
 __title__ = "Linked Room\nParameter Transfer"
 __doc__ = "Select a room from a linked model and transfer room parameter values into selected host elements."
@@ -138,8 +130,6 @@ def _load_persistent_settings():
         "export_mapped_preview_csv": getattr(config, "export_mapped_preview_csv", False),
         "last_preview_export_dir": getattr(config, "last_preview_export_dir", ""),
         "preview_height": getattr(config, "preview_height", 220),
-        "mapped_target_params": getattr(config, "mapped_target_params", []),
-        "parameter_target_mode": getattr(config, "parameter_target_mode", DEFAULT_PARAMETER_TARGET_MODE),
     }
     return settings
 
@@ -156,8 +146,6 @@ def _save_persistent_settings(settings):
         config.export_mapped_preview_csv = bool(settings.get("export_mapped_preview_csv", False))
         config.last_preview_export_dir = settings.get("last_preview_export_dir", "")
         config.preview_height = settings.get("preview_height", 220)
-        config.mapped_target_params = settings.get("mapped_target_params", [])
-        config.parameter_target_mode = settings.get("parameter_target_mode", DEFAULT_PARAMETER_TARGET_MODE)
         script.save_config()
     except Exception:
         pass
@@ -178,146 +166,6 @@ def normalize_name(name):
     if not name:
         return ""
     return "".join(ch for ch in name.lower() if ch.isalnum())
-
-
-def _iter_param_owners(element):
-    if element is None:
-        return
-
-    yield ("instance", element)
-
-    try:
-        symbol = getattr(element, "Symbol", None)
-        if symbol is not None:
-            yield ("type", symbol)
-            return
-    except Exception:
-        pass
-
-    try:
-        type_id = getattr(element, "GetTypeId", lambda: None)()
-        if type_id is not None and type_id != ElementId.InvalidElementId:
-            type_el = doc.GetElement(type_id)
-            if type_el is not None:
-                yield ("type", type_el)
-    except Exception:
-        pass
-
-
-def _param_is_shared(param):
-    try:
-        return bool(getattr(param, "IsShared", False))
-    except Exception:
-        return False
-
-
-def _param_candidate_sort_key(candidate):
-    scope_priority = 0 if candidate.get("scope") == "instance" else 1
-    shared_priority = 0 if candidate.get("is_shared") else 1
-    return (
-        scope_priority,
-        shared_priority,
-        _safe_str(getattr(candidate.get("param"), "StorageType", "")),
-        _safe_str(getattr(getattr(candidate.get("param"), "Definition", None), "Name", "")),
-    )
-
-
-def _collect_param_candidates(target_element, target_param_name):
-    if target_element is None or not target_param_name:
-        return []
-
-    normalized_target_name = normalize_name(target_param_name.strip())
-    storage_none = getattr(StorageType, "None")
-    candidates = []
-
-    for source_name, owner in _iter_param_owners(target_element):
-        seen = set()
-
-        try:
-            param = owner.LookupParameter(target_param_name)
-            if param is not None:
-                seen.add(id(param))
-                if param.StorageType != storage_none:
-                    candidates.append({
-                        "param": param,
-                        "scope": source_name,
-                        "is_shared": _param_is_shared(param),
-                    })
-        except Exception:
-            pass
-
-        try:
-            params = list(owner.GetParameters(target_param_name))
-        except Exception:
-            params = []
-
-        for param in params:
-            if param is None or id(param) in seen:
-                continue
-            seen.add(id(param))
-            try:
-                if param.StorageType != storage_none:
-                    candidates.append({
-                        "param": param,
-                        "scope": source_name,
-                        "is_shared": _param_is_shared(param),
-                    })
-            except Exception:
-                continue
-
-        if not normalized_target_name:
-            continue
-
-        try:
-            for param in owner.Parameters:
-                if param is None or id(param) in seen:
-                    continue
-                definition = getattr(param, "Definition", None)
-                if definition is None:
-                    continue
-                if normalize_name(getattr(definition, "Name", "")) != normalized_target_name:
-                    continue
-                seen.add(id(param))
-                if param.StorageType != storage_none:
-                    candidates.append({
-                        "param": param,
-                        "scope": source_name,
-                        "is_shared": _param_is_shared(param),
-                    })
-        except Exception:
-            pass
-
-    return sorted(candidates, key=_param_candidate_sort_key)
-
-
-def _resolve_param_candidate(candidates, target_mode):
-    if not candidates:
-        return None, "missing"
-
-    writable = [candidate for candidate in candidates if not candidate["param"].IsReadOnly]
-    if not writable:
-        return None, "read-only"
-
-    shared = [candidate for candidate in writable if candidate.get("is_shared")]
-    nonshared = [candidate for candidate in writable if not candidate.get("is_shared")]
-
-    mode = target_mode if target_mode in PARAMETER_TARGET_MODES else DEFAULT_PARAMETER_TARGET_MODE
-    if mode == "FamilyOnly":
-        if nonshared:
-            return nonshared[0], "family-only"
-        return None, "no-family"
-
-    if mode == "Both":
-        if shared:
-            return shared[0], "both"
-        return writable[0], "both"
-
-    if mode == "FirstMatch":
-        return writable[0], "first-match"
-
-    if shared:
-        return shared[0], "shared-only"
-    return None, "no-shared"
 
 
 def get_link_instances(active_doc):
@@ -687,31 +535,68 @@ def get_best_match(room_param_name, target_param_names, strictness_mode="balance
     return None
 
 
-def _find_writable_parameter(target_element, target_param_name, target_mode=DEFAULT_PARAMETER_TARGET_MODE, lookup_cache=None):
+def _find_writable_parameter(target_element, target_param_name):
     if target_element is None or not target_param_name:
         return None, None
 
-    cache_key = None
-    if lookup_cache is not None:
+    name = target_param_name.strip()
+    normalized_target_name = normalize_name(name)
+    search_sources = []
+
+    try:
+        search_sources.append(("instance", target_element))
+    except Exception:
+        pass
+
+    try:
+        symbol = getattr(target_element, "Symbol", None)
+        if symbol is not None:
+            search_sources.append(("type", symbol))
+    except Exception:
+        pass
+
+    read_only_found = False
+    storage_none = getattr(StorageType, "None")
+
+    for source_name, owner in search_sources:
         try:
-            cache_key = (
-                int(target_element.Id.IntegerValue),
-                normalize_name(target_param_name.strip()),
-                target_mode,
-            )
-            if cache_key in lookup_cache:
-                return lookup_cache[cache_key]
+            param = owner.LookupParameter(name)
+            if param is not None:
+                if not param.IsReadOnly and param.StorageType != storage_none:
+                    return param, source_name
+                read_only_found = True
         except Exception:
-            cache_key = None
+            pass
 
-    candidates = _collect_param_candidates(target_element, target_param_name)
-    chosen, reason = _resolve_param_candidate(candidates, target_mode)
-    result = (chosen["param"], chosen["scope"]) if chosen is not None else (None, reason)
+        try:
+            params = list(owner.GetParameters(name))
+        except Exception:
+            params = []
 
-    if lookup_cache is not None and cache_key is not None:
-        lookup_cache[cache_key] = result
+        for param in params:
+            if param is None:
+                continue
+            if not param.IsReadOnly and param.StorageType != storage_none:
+                return param, source_name
+            read_only_found = True
 
-    return result
+    if normalized_target_name:
+        for source_name, owner in search_sources:
+            try:
+                for param in owner.Parameters:
+                    if param is None or param.Definition is None:
+                        continue
+                    if normalize_name(param.Definition.Name) != normalized_target_name:
+                        continue
+                    if not param.IsReadOnly and param.StorageType != storage_none:
+                        return param, source_name
+                    read_only_found = True
+            except Exception:
+                pass
+
+    if read_only_found:
+        return None, "read-only"
+    return None, None
 
 
 def _find_parameter_for_verification(target_element, target_param_name, target_source=None):
@@ -837,6 +722,11 @@ class LinkedRoomTransferWindow(WPFWindow):
         self.last_transfer_summary = []
         self.element_room_map = {}
         self.room_detection_index = []
+        self.room_detection_grid = {}
+        self.room_detection_grid_fallback = []
+        self.room_detection_grid_fallback_by_link = {}
+        self.room_detection_link_contexts = {}
+        self.room_detection_grid_size = 20.0
         self.room_detection_scope_mode = None
         self.room_detection_link_id = None
         self.room_index_capped = False
@@ -844,7 +734,6 @@ class LinkedRoomTransferWindow(WPFWindow):
         self.detect_levels = []
         self.selected_link_index = 0
         self.auto_map_target_filter_items = []
-        self.mapped_target_params_history = set()
 
         self._load_links()
         if not self.links:
@@ -1081,42 +970,7 @@ class LinkedRoomTransferWindow(WPFWindow):
         except Exception:
             pass
 
-        try:
-            mapped_targets = settings.get("mapped_target_params", []) or []
-            self.mapped_target_params_history = set(
-                [str(x).strip() for x in mapped_targets if str(x).strip()]
-            )
-        except Exception:
-            self.mapped_target_params_history = set()
-
-        try:
-            self._select_combo_item_by_tag_or_content(
-                getattr(self, "cmbParameterTargetMode", None),
-                settings.get("parameter_target_mode", DEFAULT_PARAMETER_TARGET_MODE),
-            )
-        except Exception:
-            pass
-
     def _save_persistent_settings_now(self):
-        mapped_target_params = []
-        try:
-            mapped_target_params = sorted(
-                set([str(v).strip() for v in self.mapping.values() if str(v).strip()])
-            )
-        except Exception:
-            mapped_target_params = []
-
-        if not mapped_target_params:
-            try:
-                mapped_target_params = sorted(set(getattr(self, "mapped_target_params_history", set()) or set()))
-            except Exception:
-                mapped_target_params = []
-
-        try:
-            self.mapped_target_params_history = set(mapped_target_params)
-        except Exception:
-            pass
-
         settings = {
             "selected_categories": [
                 item["name"] for item in self.category_items if item["cb"].IsChecked
@@ -1129,55 +983,8 @@ class LinkedRoomTransferWindow(WPFWindow):
             "export_mapped_preview_csv": bool(getattr(self, "chkExportMappedPreviewCsv", None) and self.chkExportMappedPreviewCsv.IsChecked),
             "last_preview_export_dir": str(getattr(config, "last_preview_export_dir", "") or ""),
             "preview_height": int(float(getattr(getattr(self, "sldPreviewHeight", None), "Value", 220) or 220)),
-            "mapped_target_params": mapped_target_params,
-            "parameter_target_mode": self._get_parameter_target_mode(),
         }
         _save_persistent_settings(settings)
-
-    def _select_combo_item_by_tag_or_content(self, combo, desired_value):
-        if combo is None:
-            return
-
-        desired = _safe_str(desired_value).strip()
-        if not desired:
-            desired = DEFAULT_PARAMETER_TARGET_MODE
-
-        try:
-            for idx in range(combo.Items.Count):
-                item = combo.Items[idx]
-                raw = getattr(item, "Tag", None)
-                if raw in (None, ""):
-                    raw = getattr(item, "Content", None)
-                value = _safe_str(raw).strip()
-                if value == desired:
-                    combo.SelectedIndex = idx
-                    return
-        except Exception:
-            pass
-
-        try:
-            combo.SelectedIndex = 0
-        except Exception:
-            pass
-
-    def _get_parameter_target_mode(self):
-        combo = getattr(self, "cmbParameterTargetMode", None)
-        if combo is not None:
-            try:
-                item = combo.SelectedItem
-                if item is not None:
-                    raw = getattr(item, "Tag", None)
-                    if raw in (None, ""):
-                        raw = getattr(item, "Content", None)
-                    value = _safe_str(raw).strip()
-                    if value in PARAMETER_TARGET_MODES:
-                        return value
-            except Exception:
-                pass
-        return DEFAULT_PARAMETER_TARGET_MODE
-
-    def parameter_target_mode_changed(self, sender, e):
-        self._save_persistent_settings_now()
 
     def _get_probe_offset_mm(self):
         try:
@@ -1212,20 +1019,6 @@ class LinkedRoomTransferWindow(WPFWindow):
         if self._is_safe_mode():
             est *= 1.1
         return int(max(0.0, est))
-
-    def _get_transfer_chunk_size(self, mapping_count):
-        """Choose a conservative batch size to reduce long transaction stalls."""
-        try:
-            mcount = max(1, int(mapping_count))
-        except Exception:
-            mcount = 1
-
-        base = 250 if self._is_safe_mode() else 600
-        if mcount >= 25:
-            base = min(base, 150)
-        elif mcount >= 12:
-            base = min(base, 220)
-        return max(50, int(base))
 
     def window_size_changed(self, sender, e):
         try:
@@ -1826,7 +1619,7 @@ class LinkedRoomTransferWindow(WPFWindow):
         self._refresh_mapping_controls()
         self._render_mapping_list()
 
-    def _rebuild_auto_map_target_filter(self, target_params, preferred_mapped_targets=None):
+    def _rebuild_auto_map_target_filter(self, target_params):
         try:
             lst = getattr(self, "lstAutoMapTargetFilter", None)
             if lst is None:
@@ -1839,31 +1632,13 @@ class LinkedRoomTransferWindow(WPFWindow):
                 except Exception:
                     continue
 
-            mapped_targets = set()
-            try:
-                mapped_targets.update(set([str(v).strip() for v in self.mapping.values() if str(v).strip()]))
-            except Exception:
-                pass
-            try:
-                mapped_targets.update(set(getattr(self, "mapped_target_params_history", set()) or set()))
-            except Exception:
-                pass
-            try:
-                if preferred_mapped_targets:
-                    mapped_targets.update(set([str(v).strip() for v in preferred_mapped_targets if str(v).strip()]))
-            except Exception:
-                pass
-
             lst.Items.Clear()
             self.auto_map_target_filter_items = []
 
             for pname in sorted(target_params):
                 cb = CheckBox()
                 cb.Content = pname
-                checked = previous_state.get(pname, True)
-                if pname in mapped_targets:
-                    checked = True
-                cb.IsChecked = checked
+                cb.IsChecked = previous_state.get(pname, True)
                 try:
                     cb.Checked += self.auto_map_target_filter_changed
                     cb.Unchecked += self.auto_map_target_filter_changed
@@ -1929,16 +1704,6 @@ class LinkedRoomTransferWindow(WPFWindow):
             forms.alert("Deselect-all auto-map targets failed safely:\n{0}".format(str(ex)))
 
     def _refresh_target_parameters(self):
-        previous_mapped_targets = set()
-        try:
-            previous_mapped_targets.update(set([str(v).strip() for v in self.mapping.values() if str(v).strip()]))
-        except Exception:
-            pass
-        try:
-            previous_mapped_targets.update(set(getattr(self, "mapped_target_params_history", set()) or set()))
-        except Exception:
-            pass
-
         self.lstCommonParams.Items.Clear()
         try:
             self.lstAutoMapTargetFilter.Items.Clear()
@@ -1972,13 +1737,7 @@ class LinkedRoomTransferWindow(WPFWindow):
             target_params = common
 
         self.common_params = set(target_params)
-        self._rebuild_auto_map_target_filter(target_params, preferred_mapped_targets=previous_mapped_targets)
-
-        try:
-            still_valid = [p for p in previous_mapped_targets if p in self.common_params]
-            self.mapped_target_params_history = set(still_valid)
-        except Exception:
-            pass
+        self._rebuild_auto_map_target_filter(target_params)
 
         for pname in sorted(target_params):
             self.lstCommonParams.Items.Add(pname)
@@ -2253,6 +2012,10 @@ class LinkedRoomTransferWindow(WPFWindow):
 
     def _build_room_detection_index(self, scope_mode=None, selected_link=None):
         self.room_detection_index = []
+        self.room_detection_grid = {}
+        self.room_detection_grid_fallback = []
+        self.room_detection_grid_fallback_by_link = {}
+        self.room_detection_link_contexts = {}
         self.room_index_capped = False
         opts = SpatialElementBoundaryOptions() if self._ENABLE_BOUNDARY_FALLBACK else None
         scope_mode = scope_mode or self._get_auto_detect_scope()
@@ -2358,7 +2121,7 @@ class LinkedRoomTransferWindow(WPFWindow):
 
                 has_boundary = bool(loops) and minx is not None
 
-                self.room_detection_index.append({
+                room_item = {
                     "link_inst": link_inst,
                     "link_doc": src_doc,
                     "inv_transform": inv_transform,
@@ -2373,7 +2136,33 @@ class LinkedRoomTransferWindow(WPFWindow):
                     "maxz": maxz,
                     "loops": loops,
                     "has_boundary": has_boundary,
-                })
+                }
+                self.room_detection_index.append(room_item)
+                self.room_detection_link_contexts[link_id] = inv_transform
+
+                # Index room bounding boxes so detection does not scan every room
+                # for every element in large projects.
+                if minx is None or miny is None or maxx is None or maxy is None:
+                    self.room_detection_grid_fallback.append(room_item)
+                    self.room_detection_grid_fallback_by_link.setdefault(link_id, []).append(room_item)
+                    continue
+                try:
+                    cell_size = self.room_detection_grid_size
+                    cell_min_x = int(math.floor(float(minx) / cell_size))
+                    cell_max_x = int(math.floor(float(maxx) / cell_size))
+                    cell_min_y = int(math.floor(float(miny) / cell_size))
+                    cell_max_y = int(math.floor(float(maxy) / cell_size))
+                    cell_count = (cell_max_x - cell_min_x + 1) * (cell_max_y - cell_min_y + 1)
+                    if cell_count > 400:
+                        self.room_detection_grid_fallback.append(room_item)
+                        self.room_detection_grid_fallback_by_link.setdefault(link_id, []).append(room_item)
+                        continue
+                    for cell_x in range(cell_min_x, cell_max_x + 1):
+                        for cell_y in range(cell_min_y, cell_max_y + 1):
+                            self.room_detection_grid.setdefault((link_id, cell_x, cell_y), []).append(room_item)
+                except Exception:
+                    self.room_detection_grid_fallback.append(room_item)
+                    self.room_detection_grid_fallback_by_link.setdefault(link_id, []).append(room_item)
 
     def _find_linked_room_for_host_point(self, host_point, probe_offset_mm=0.0, tol=1.0, scope_mode=None, selected_link=None):
         if host_point is None:
@@ -2397,7 +2186,40 @@ class LinkedRoomTransferWindow(WPFWindow):
         except Exception:
             pass
 
-        for room_item in self.room_detection_index:
+        candidate_rooms = []
+        seen_room_keys = set()
+        for probe_point in points:
+            for link_id, inv_transform in self.room_detection_link_contexts.items():
+                try:
+                    p = inv_transform.OfPoint(probe_point) if inv_transform is not None else probe_point
+                except Exception:
+                    continue
+                try:
+                    cell_size = self.room_detection_grid_size
+                    cell_x = int(math.floor(float(p.X) / cell_size))
+                    cell_y = int(math.floor(float(p.Y) / cell_size))
+                    nearby = []
+                    for dx in (-1, 0, 1):
+                        for dy in (-1, 0, 1):
+                            nearby.extend(self.room_detection_grid.get((link_id, cell_x + dx, cell_y + dy), []))
+                    nearby.extend(self.room_detection_grid_fallback_by_link.get(link_id, []))
+                    for room_item in nearby:
+                        room_key = (room_item["link_id"], room_item["room_id"])
+                        if room_key not in seen_room_keys:
+                            seen_room_keys.add(room_key)
+                            candidate_rooms.append(room_item)
+                except Exception:
+                    continue
+
+        # Rooms without usable bounding boxes are rare; preserve correctness by
+        # checking them even when the spatial grid has no matching cell.
+        for room_item in self.room_detection_grid_fallback:
+            room_key = (room_item["link_id"], room_item["room_id"])
+            if room_key not in seen_room_keys:
+                seen_room_keys.add(room_key)
+                candidate_rooms.append(room_item)
+
+        for room_item in candidate_rooms:
             for probe_point in points:
                 try:
                     inv_transform = room_item.get("inv_transform")
@@ -3163,7 +2985,6 @@ class LinkedRoomTransferWindow(WPFWindow):
             self.mapping_auto_generated = False
             self._render_mapping_list()
             self._refresh_preview_list()
-            self._save_persistent_settings_now()
         except Exception as ex:
             logger.exception("Add/update mapping failed")
             forms.alert("Add/Update mapping failed safely:\n{0}".format(str(ex)))
@@ -3211,7 +3032,6 @@ class LinkedRoomTransferWindow(WPFWindow):
             self.mapping_auto_generated = False
             self._render_mapping_list()
             self._refresh_preview_list()
-            self._save_persistent_settings_now()
         except Exception as ex:
             logger.exception("Remove mapping failed")
             forms.alert("Remove mapping failed safely:\n{0}".format(str(ex)))
@@ -3251,7 +3071,6 @@ class LinkedRoomTransferWindow(WPFWindow):
             self.mapping_auto_generated = False
             self._render_mapping_list()
             self._refresh_preview_list()
-            self._save_persistent_settings_now()
         except Exception as ex:
             logger.exception("Clear mappings failed")
             forms.alert("Clear mappings failed safely:\n{0}".format(str(ex)))
@@ -3351,55 +3170,6 @@ class LinkedRoomTransferWindow(WPFWindow):
             forms.alert("\n".join(lines))
             return
 
-        # Preflight: coverage check per mapped target parameter across selected elements.
-        coverage_lines = []
-        has_coverage_gaps = False
-        parameter_target_mode = self._get_parameter_target_mode()
-        coverage_lookup_cache = {}
-        try:
-            for _, target_pname in sorted(self.mapping.items()):
-                found = 0
-                missing = 0
-                readonly = 0
-                for el in self.selected_elements:
-                    p, source_state = _find_writable_parameter(el, target_pname, parameter_target_mode, coverage_lookup_cache)
-                    if p is None:
-                        if source_state == "read-only":
-                            readonly += 1
-                        else:
-                            missing += 1
-                    else:
-                        found += 1
-
-                if missing > 0 or readonly > 0:
-                    has_coverage_gaps = True
-                coverage_lines.append(
-                    "- {0}: writable on {1}/{2}, missing={3}, read-only={4}".format(
-                        target_pname,
-                        found,
-                        len(self.selected_elements),
-                        missing,
-                        readonly,
-                    )
-                )
-        except Exception:
-            coverage_lines = []
-
-        if has_coverage_gaps and coverage_lines:
-            msg = [
-                "Parameter coverage warning across selected elements/categories:",
-                "Some selected elements do not expose mapped target parameters as writable under the current target mode.",
-                "Those rows will be skipped.",
-                "",
-            ]
-            msg.extend(coverage_lines[:14])
-            if len(coverage_lines) > 14:
-                msg.append("...and {0} more mapped targets".format(len(coverage_lines) - 14))
-            msg.append("")
-            msg.append("Continue anyway?")
-            if not self._confirm("\n".join(msg), title="Target Parameter Coverage Warning"):
-                return
-
         if estimated_ms >= 12000:
             msg = (
                 "Estimated transfer duration: {0}.\n"
@@ -3427,13 +3197,11 @@ class LinkedRoomTransferWindow(WPFWindow):
             pass
 
         skip_empty = bool(self.chkSkipEmpty.IsChecked)
-        target_lookup_cache = {}
 
         log_lines = []
         log_lines.append("Linked Room Parameter Transfer started")
         log_lines.append("Selected room mode: {0}".format("auto-room" if auto_room_mode else "single-room"))
         log_lines.append("Selected elements: {0}".format(len(self.selected_elements)))
-        log_lines.append("Parameter target mode: {0}".format(parameter_target_mode))
         log_lines.append("Mappings:")
         for room_pname, target_pname in self.mapping.items():
             log_lines.append("  {0} -> {1}".format(room_pname, target_pname))
@@ -3450,9 +3218,6 @@ class LinkedRoomTransferWindow(WPFWindow):
         skipped_type_dedup = 0
         blocked_type_auto = 0
         no_change_skips = 0
-        skipped_no_room = 0
-        skipped_empty_source = 0
-        skipped_missing_source_param = 0
         instance_writes_applied = 0
         type_writes_applied = 0
         mapping_evaluated = 0
@@ -3462,345 +3227,279 @@ class LinkedRoomTransferWindow(WPFWindow):
         type_write_keys = set()
         fallback_used_count = 0
         successful_write_attempts = []
-        chunk_size = self._get_transfer_chunk_size(len(self.mapping))
-        total_elements = len(self.selected_elements)
-        processed_elements = 0
-        cancelled_by_user = False
 
-        tg = TransactionGroup(doc, "Linked Room Parameter Transfer")
-        tg.Start()
+        tx = Transaction(doc, "Linked Room Parameter Transfer")
+        tx.Start()
         try:
-            with forms.ProgressBar(
-                title="Applying mapped values {value}/{max_value}",
-                cancellable=True,
-            ) as pb_transfer:
-                i = 0
-                while i < total_elements:
-                    if pb_transfer.cancelled:
-                        cancelled_by_user = True
-                        break
+            for el in self.selected_elements:
+                try:
+                    per_element_values = None
+                    room_item = None
 
-                    chunk = self.selected_elements[i:i + chunk_size]
-                    chunk_idx = (i // chunk_size) + 1
-                    tx = Transaction(doc, "Linked Room Parameter Transfer (chunk {0})".format(chunk_idx))
-                    tx.Start()
-
-                    try:
-                        for el in chunk:
-                            if pb_transfer.cancelled:
-                                cancelled_by_user = True
-                                break
-
-                            try:
-                                per_element_values = None
+                    if auto_room_mode:
+                        room_item = self.element_room_map.get(el.Id.IntegerValue)
+                        if room_item is not None and selected_link is not None:
+                            if room_item.get("link_id") != selected_link.Id.IntegerValue:
                                 room_item = None
+                        if room_item is None:
+                            room_item = self._find_linked_room_for_element(
+                                el,
+                                probe_offset_mm=self._get_probe_offset_mm(),
+                                scope_mode=scope_mode,
+                                selected_link=selected_link,
+                            )
+                            if room_item is not None:
+                                self.element_room_map[el.Id.IntegerValue] = room_item
 
-                                if auto_room_mode:
-                                    room_item = self.element_room_map.get(el.Id.IntegerValue)
-                                    if room_item is not None and selected_link is not None:
-                                        if room_item.get("link_id") != selected_link.Id.IntegerValue:
-                                            room_item = None
-                                    if room_item is None:
-                                        room_item = self._find_linked_room_for_element(
-                                            el,
-                                            probe_offset_mm=self._get_probe_offset_mm(),
-                                            scope_mode=scope_mode,
-                                            selected_link=selected_link,
-                                        )
-                                        if room_item is not None:
-                                            self.element_room_map[el.Id.IntegerValue] = room_item
+                        if room_item is None and allow_selected_room_fallback and self.selected_room is not None:
+                            # Fallback to manually selected linked room when auto-room detection fails.
+                            room_item = {
+                                "link_id": self.selected_room_link_inst.Id.IntegerValue,
+                                "room_id": self.selected_room.Id.IntegerValue,
+                                "room": self.selected_room,
+                                "link_doc": self.selected_room_doc,
+                            }
+                            log_lines.append(
+                                "Element {0}: auto-room failed, falling back to selected room.".format(
+                                    el.Id.IntegerValue
+                                )
+                            )
+                            fallback_used_count += 1
 
-                                    if room_item is None and allow_selected_room_fallback and self.selected_room is not None:
-                                        # Fallback to manually selected linked room when auto-room detection fails.
-                                        room_item = {
-                                            "link_id": self.selected_room_link_inst.Id.IntegerValue,
-                                            "room_id": self.selected_room.Id.IntegerValue,
-                                            "room": self.selected_room,
-                                            "link_doc": self.selected_room_doc,
-                                        }
-                                        log_lines.append(
-                                            "Element {0}: auto-room failed, falling back to selected room.".format(
-                                                el.Id.IntegerValue
-                                            )
-                                        )
-                                        fallback_used_count += 1
+                        if room_item is None:
+                            skipped += len(self.mapping)
+                            log_lines.append(
+                                "Element {0}: no linked room found, skipping {1} mappings.".format(
+                                    el.Id.IntegerValue, len(self.mapping)
+                                )
+                            )
+                            continue
 
-                                    if room_item is None:
-                                        skipped += len(self.mapping)
-                                        skipped_no_room += len(self.mapping)
-                                        log_lines.append(
-                                            "Element {0}: no linked room found, skipping {1} mappings.".format(
-                                                el.Id.IntegerValue, len(self.mapping)
-                                            )
-                                        )
-                                        processed_elements += 1
-                                        if (processed_elements % 10) == 0 or processed_elements == total_elements:
-                                            pb_transfer.update_progress(processed_elements, total_elements)
-                                        continue
+                        room_key = (room_item["link_id"], room_item["room_id"])
+                        used_rooms.add(room_key)
+                        if room_key not in room_value_cache:
+                            room_value_cache[room_key] = self._extract_room_values(
+                                room_item["room"], room_item["link_doc"]
+                            )
+                        per_element_values = room_value_cache[room_key]
 
-                                    room_key = (room_item["link_id"], room_item["room_id"])
-                                    used_rooms.add(room_key)
-                                    if room_key not in room_value_cache:
-                                        room_value_cache[room_key] = self._extract_room_values(
-                                            room_item["room"], room_item["link_doc"]
-                                        )
-                                    per_element_values = room_value_cache[room_key]
-
-                                for room_pname, target_pname in self.mapping.items():
-                                    mapping_evaluated += 1
-                                    if auto_room_mode:
-                                        value = per_element_values.get(room_pname) if per_element_values else None
-                                    else:
-                                        room_data = self.selected_room_params.get(room_pname)
-                                        if not room_data:
-                                            skipped += 1
-                                            skipped_missing_source_param += 1
-                                            log_lines.append(
-                                                "Element {0}: source room parameter '{1}' not found, skipping.".format(
-                                                    el.Id.IntegerValue, room_pname
-                                                )
-                                            )
-                                            continue
-                                        value = room_data.get("value")
-                                        if value in (None, ""):
-                                            value = room_data.get("display")
-
-                                    if skip_empty and (value is None or value == ""):
-                                        skipped += 1
-                                        skipped_empty_source += 1
-                                        log_lines.append(
-                                            "Element {0}: value for {1} -> {2} is empty, skipping.".format(
-                                                el.Id.IntegerValue, room_pname, target_pname
-                                            )
-                                        )
-                                        continue
-
-                                    target_param, target_source = _find_writable_parameter(el, target_pname, parameter_target_mode, target_lookup_cache)
-                                    log_lines.append(
-                                        "Element {0}: trying {1} -> {2} (target_source={3})".format(
-                                            el.Id.IntegerValue, room_pname, target_pname, target_source or "none"
-                                        )
-                                    )
-
-                                    if target_param is None:
-                                        failed += 1
-                                        if len(fail_messages) < 8:
-                                            if target_source == "read-only":
-                                                msg_desc = "target parameter exists but is read-only"
-                                            elif target_source == "no-shared":
-                                                msg_desc = "no shared writable target matched the current target mode"
-                                            elif target_source == "no-family":
-                                                msg_desc = "no family/non-shared writable target matched the current target mode"
-                                            else:
-                                                msg_desc = "target parameter not found or not writable under the current target mode"
-                                            fail_messages.append(
-                                                "{0} -> {1}: {2} on element {3}".format(
-                                                    room_pname, target_pname, msg_desc, el.Id.IntegerValue
-                                                )
-                                            )
-                                        available = list_writable_parameter_names(el, max_items=25)
-                                        if available:
-                                            log_lines.append(
-                                                "  Available writable params for element {0}: {1}".format(
-                                                    el.Id.IntegerValue, ", ".join(available)
-                                                )
-                                            )
-                                        continue
-
-                                    current_value = read_parameter_value(target_param)
-                                    log_lines.append(
-                                        "  Found parameter '{0}' on element {1}, current='{2}', new='{3}', storage={4}".format(
-                                            target_pname,
-                                            el.Id.IntegerValue,
-                                            current_value,
-                                            value,
-                                            target_param.StorageType,
-                                        )
-                                    )
-
-                                    if target_source == "type":
-                                        if auto_room_mode:
-                                            allow_type_writes = bool(getattr(self, "chkAllowTypeWritesInAutoRoomMode", None) and self.chkAllowTypeWritesInAutoRoomMode.IsChecked)
-                                            if not allow_type_writes:
-                                                blocked_type_auto += 1
-                                                skipped += 1
-                                                if len(fail_messages) < 8:
-                                                    fail_messages.append(
-                                                        "{0} -> {1}: skipped because target is a TYPE parameter in auto-room mode".format(
-                                                            room_pname, target_pname
-                                                        )
-                                                    )
-                                                log_lines.append(
-                                                    "  Element {0}: skipping type parameter {1} in auto-room mode.".format(
-                                                        el.Id.IntegerValue, target_pname
-                                                    )
-                                                )
-                                                continue
-                                            log_lines.append(
-                                                "  Element {0}: allowing type parameter {1} in auto-room mode because user enabled the option.".format(
-                                                    el.Id.IntegerValue, target_pname
-                                                )
-                                            )
-                                        try:
-                                            owner_id = target_param.Element.Id.IntegerValue
-                                        except Exception:
-                                            try:
-                                                owner_id = el.GetTypeId().IntegerValue
-                                            except Exception:
-                                                owner_id = None
-
-                                        if owner_id is not None:
-                                            write_key = (owner_id, target_pname)
-                                            if write_key in type_write_keys:
-                                                skipped_type_dedup += 1
-                                                skipped += 1
-                                                log_lines.append(
-                                                    "  Skipping duplicate type write for {0} on type {1}".format(
-                                                        target_pname, owner_id
-                                                    )
-                                                )
-                                                continue
-                                            type_write_keys.add(write_key)
-
-                                    ok, msg = set_parameter_value(target_param, value, duplicate_mode)
-                                    post_value_for_log = None
-                                    try:
-                                        post_value_for_log = read_parameter_value(target_param)
-                                    except Exception:
-                                        post_value_for_log = None
-
-                                    # Add a CSV-safe detailed row for this attempt
-                                    msg_l = (msg or "").lower()
-                                    is_skip_result = (
-                                        (not ok)
-                                        and (
-                                            "skipped" in msg_l
-                                            or "empty" in msg_l
-                                            or "no change" in msg_l
-                                            or "already equal" in msg_l
-                                        )
-                                    )
-                                    try:
-                                        tsnow = datetime.now().isoformat()
-                                        storage = str(target_param.StorageType)
-                                        source_kind = str(target_source or "")
-                                        before_value = str(current_value) if current_value is not None else ""
-                                        attempted = str(value) if value is not None else ""
-                                        after_value = str(post_value_for_log) if post_value_for_log is not None else ""
-                                        # escape double quotes
-                                        before_safe = '"' + before_value.replace('"', '""') + '"'
-                                        attempted_safe = '"' + attempted.replace('"', '""') + '"'
-                                        after_safe = '"' + after_value.replace('"', '""') + '"'
-                                        if ok:
-                                            result = "SUCCESS"
-                                        elif is_skip_result:
-                                            result = "SKIP"
-                                        else:
-                                            result = "FAIL"
-                                        msg_safe = '"' + str(msg).replace('"', '""') + '"'
-                                        row = ",".join([
-                                            tsnow,
-                                            str(el.Id.IntegerValue),
-                                            str(room_pname),
-                                            str(target_pname),
-                                            source_kind,
-                                            storage,
-                                            before_safe,
-                                            attempted_safe,
-                                            after_safe,
-                                            result,
-                                            msg_safe,
-                                        ])
-                                        detail_rows.append(row)
-                                    except Exception:
-                                        pass
-                                    if ok:
-                                        transferred += 1
-                                        updated_elements.add(el.Id.IntegerValue)
-                                        if target_source == "type":
-                                            type_writes_applied += 1
-                                        else:
-                                            instance_writes_applied += 1
-                                        successful_write_attempts.append({
-                                            "element_id": el.Id.IntegerValue,
-                                            "room_param": room_pname,
-                                            "target_param": target_pname,
-                                            "target_source": target_source,
-                                            "storage": target_param.StorageType,
-                                            "expected": value,
-                                            "result_msg": msg,
-                                        })
-                                        log_lines.append(
-                                            "  SUCCESS: {0} -> {1} on element {2} ({3})".format(
-                                                room_pname, target_pname, el.Id.IntegerValue, msg
-                                            )
-                                        )
-                                    else:
-                                        if is_skip_result:
-                                            skipped += 1
-                                            if "no change" in msg_l or "already equal" in msg_l:
-                                                no_change_skips += 1
-                                            log_lines.append(
-                                                "  SKIPPED: {0} -> {1} on element {2}: {3}".format(
-                                                    room_pname, target_pname, el.Id.IntegerValue, msg
-                                                )
-                                            )
-                                        else:
-                                            failed += 1
-                                            if len(fail_messages) < 8:
-                                                fail_messages.append(
-                                                    "{0} -> {1} [{2}]: {3}".format(
-                                                        room_pname, target_pname, target_source, msg
-                                                    )
-                                                )
-                                            log_lines.append(
-                                                "  FAIL: {0} -> {1} on element {2}: {3}".format(
-                                                    room_pname, target_pname, el.Id.IntegerValue, msg
-                                                )
-                                            )
-
-                                processed_elements += 1
-                                if (processed_elements % 10) == 0 or processed_elements == total_elements:
-                                    pb_transfer.update_progress(processed_elements, total_elements)
-
-                            except Exception as ex:
-                                failed += 1
-                                logger.exception("Element transfer failed for element {0}".format(el.Id.IntegerValue))
+                    for room_pname, target_pname in self.mapping.items():
+                        mapping_evaluated += 1
+                        if auto_room_mode:
+                            value = per_element_values.get(room_pname) if per_element_values else None
+                        else:
+                            room_data = self.selected_room_params.get(room_pname)
+                            if not room_data:
+                                skipped += 1
                                 log_lines.append(
-                                    "Element {0}: unexpected error, skipped remaining mappings ({1})".format(
-                                        el.Id.IntegerValue, ex
+                                    "Element {0}: source room parameter '{1}' not found, skipping.".format(
+                                        el.Id.IntegerValue, room_pname
                                     )
                                 )
-                                processed_elements += 1
-                                if (processed_elements % 10) == 0 or processed_elements == total_elements:
-                                    pb_transfer.update_progress(processed_elements, total_elements)
                                 continue
+                            value = room_data.get("value")
+                            if value in (None, ""):
+                                value = room_data.get("display")
 
-                        if cancelled_by_user:
-                            tx.RollBack()
-                            break
+                        if skip_empty and (value is None or value == ""):
+                            skipped += 1
+                            log_lines.append(
+                                "Element {0}: value for {1} -> {2} is empty, skipping.".format(
+                                    el.Id.IntegerValue, room_pname, target_pname
+                                )
+                            )
+                            continue
 
-                        tx.Commit()
+                        target_param, target_source = _find_writable_parameter(el, target_pname)
+                        log_lines.append(
+                            "Element {0}: trying {1} -> {2} (target_source={3})".format(
+                                el.Id.IntegerValue, room_pname, target_pname, target_source or "none"
+                            )
+                        )
+
+                        if target_param is None:
+                            failed += 1
+                            if len(fail_messages) < 8:
+                                if target_source == "read-only":
+                                    msg_desc = "target parameter exists but is read-only"
+                                else:
+                                    msg_desc = "target parameter not found or not writable"
+                                fail_messages.append(
+                                    "{0} -> {1}: {2} on element {3}".format(
+                                        room_pname, target_pname, msg_desc, el.Id.IntegerValue
+                                    )
+                                )
+                            available = list_writable_parameter_names(el, max_items=25)
+                            if available:
+                                log_lines.append(
+                                    "  Available writable params for element {0}: {1}".format(
+                                        el.Id.IntegerValue, ", ".join(available)
+                                    )
+                                )
+                            continue
+
+                        current_value = read_parameter_value(target_param)
+                        log_lines.append(
+                            "  Found parameter '{0}' on element {1}, current='{2}', new='{3}', storage={4}".format(
+                                target_pname,
+                                el.Id.IntegerValue,
+                                current_value,
+                                value,
+                                target_param.StorageType,
+                            )
+                        )
+
+                        if target_source == "type":
+                            if auto_room_mode:
+                                allow_type_writes = bool(getattr(self, "chkAllowTypeWritesInAutoRoomMode", None) and self.chkAllowTypeWritesInAutoRoomMode.IsChecked)
+                                if not allow_type_writes:
+                                    blocked_type_auto += 1
+                                    skipped += 1
+                                    if len(fail_messages) < 8:
+                                        fail_messages.append(
+                                            "{0} -> {1}: skipped because target is a TYPE parameter in auto-room mode".format(
+                                                room_pname, target_pname
+                                            )
+                                        )
+                                    log_lines.append(
+                                        "  Element {0}: skipping type parameter {1} in auto-room mode.".format(
+                                            el.Id.IntegerValue, target_pname
+                                        )
+                                    )
+                                    continue
+                                log_lines.append(
+                                    "  Element {0}: allowing type parameter {1} in auto-room mode because user enabled the option.".format(
+                                        el.Id.IntegerValue, target_pname
+                                    )
+                                )
+                            try:
+                                owner_id = target_param.Element.Id.IntegerValue
+                            except Exception:
+                                try:
+                                    owner_id = el.GetTypeId().IntegerValue
+                                except Exception:
+                                    owner_id = None
+
+                            if owner_id is not None:
+                                write_key = (owner_id, target_pname)
+                                if write_key in type_write_keys:
+                                    skipped_type_dedup += 1
+                                    skipped += 1
+                                    log_lines.append(
+                                        "  Skipping duplicate type write for {0} on type {1}".format(
+                                            target_pname, owner_id
+                                        )
+                                    )
+                                    continue
+                                type_write_keys.add(write_key)
+
+                        ok, msg = set_parameter_value(target_param, value, duplicate_mode)
+                        post_value_for_log = None
                         try:
-                            doc.Regenerate()
+                            post_value_for_log = read_parameter_value(target_param)
+                        except Exception:
+                            post_value_for_log = None
+
+                        # Add a CSV-safe detailed row for this attempt
+                        msg_l = (msg or "").lower()
+                        is_skip_result = (
+                            (not ok)
+                            and (
+                                "skipped" in msg_l
+                                or "empty" in msg_l
+                                or "no change" in msg_l
+                                or "already equal" in msg_l
+                            )
+                        )
+                        try:
+                            tsnow = datetime.now().isoformat()
+                            storage = str(target_param.StorageType)
+                            source_kind = str(target_source or "")
+                            before_value = str(current_value) if current_value is not None else ""
+                            attempted = str(value) if value is not None else ""
+                            after_value = str(post_value_for_log) if post_value_for_log is not None else ""
+                            # escape double quotes
+                            before_safe = '"' + before_value.replace('"', '""') + '"'
+                            attempted_safe = '"' + attempted.replace('"', '""') + '"'
+                            after_safe = '"' + after_value.replace('"', '""') + '"'
+                            if ok:
+                                result = "SUCCESS"
+                            elif is_skip_result:
+                                result = "SKIP"
+                            else:
+                                result = "FAIL"
+                            msg_safe = '"' + str(msg).replace('"', '""') + '"'
+                            row = ",".join([
+                                tsnow,
+                                str(el.Id.IntegerValue),
+                                str(room_pname),
+                                str(target_pname),
+                                source_kind,
+                                storage,
+                                before_safe,
+                                attempted_safe,
+                                after_safe,
+                                result,
+                                msg_safe,
+                            ])
+                            detail_rows.append(row)
                         except Exception:
                             pass
+                        if ok:
+                            transferred += 1
+                            updated_elements.add(el.Id.IntegerValue)
+                            if target_source == "type":
+                                type_writes_applied += 1
+                            else:
+                                instance_writes_applied += 1
+                            successful_write_attempts.append({
+                                "element_id": el.Id.IntegerValue,
+                                "room_param": room_pname,
+                                "target_param": target_pname,
+                                "target_source": target_source,
+                                "storage": target_param.StorageType,
+                                "expected": value,
+                                "result_msg": msg,
+                            })
+                            log_lines.append(
+                                "  SUCCESS: {0} -> {1} on element {2} ({3})".format(
+                                    room_pname, target_pname, el.Id.IntegerValue, msg
+                                )
+                            )
+                        else:
+                            if is_skip_result:
+                                skipped += 1
+                                if "no change" in msg_l or "already equal" in msg_l:
+                                    no_change_skips += 1
+                                log_lines.append(
+                                    "  SKIPPED: {0} -> {1} on element {2}: {3}".format(
+                                        room_pname, target_pname, el.Id.IntegerValue, msg
+                                    )
+                                )
+                            else:
+                                failed += 1
+                                if len(fail_messages) < 8:
+                                    fail_messages.append(
+                                        "{0} -> {1} [{2}]: {3}".format(
+                                            room_pname, target_pname, target_source, msg
+                                        )
+                                    )
+                                log_lines.append(
+                                    "  FAIL: {0} -> {1} on element {2}: {3}".format(
+                                        room_pname, target_pname, el.Id.IntegerValue, msg
+                                    )
+                                )
+                except Exception as ex:
+                    failed += 1
+                    logger.exception("Element transfer failed for element {0}".format(el.Id.IntegerValue))
+                    log_lines.append(
+                        "Element {0}: unexpected error, skipped remaining mappings ({1})".format(
+                            el.Id.IntegerValue, ex
+                        )
+                    )
+                    continue
 
-                    except Exception:
-                        tx.RollBack()
-                        raise
-
-                    i += chunk_size
-
-            if cancelled_by_user:
-                tg.RollBack()
-                forms.alert(
-                    "Transfer cancelled by user. No changes were committed.",
-                    title="Linked Room Parameter Transfer",
-                )
-                return
-
-            tg.Assimilate()
+            tx.Commit()
             try:
                 doc.Regenerate()
             except Exception:
@@ -3880,10 +3579,7 @@ class LinkedRoomTransferWindow(WPFWindow):
                             "Verification error on element {0}: {1}".format(rec.get("element_id"), vex)
                         )
         except Exception as ex:
-            try:
-                tg.RollBack()
-            except Exception:
-                pass
+            tx.RollBack()
             forms.alert("Transfer failed and transaction was rolled back:\n{0}".format(ex))
             return
 
@@ -3901,8 +3597,6 @@ class LinkedRoomTransferWindow(WPFWindow):
             ),
             "Elements updated (verified): {0}".format(len(verified_elements)),
             "Mappings evaluated: {0}".format(mapping_evaluated),
-            "Elements processed: {0}/{1}".format(processed_elements, total_elements),
-            "Transaction chunk size: {0}".format(chunk_size),
             "Parameter writes (verified): {0}".format(verified_transferred),
             "Write calls returned success (pre-verify): {0}".format(transferred),
             "Instance writes applied: {0}".format(instance_writes_applied),
@@ -3922,12 +3616,6 @@ class LinkedRoomTransferWindow(WPFWindow):
 
         if no_change_skips:
             summary.append("No-change skips (value already equal): {0}".format(no_change_skips))
-        if skipped_no_room:
-            summary.append("Skips due to no room match: {0}".format(skipped_no_room))
-        if skipped_empty_source:
-            summary.append("Skips due to empty source value: {0}".format(skipped_empty_source))
-        if skipped_missing_source_param:
-            summary.append("Skips due to missing source parameter: {0}".format(skipped_missing_source_param))
 
         if transferred == 0 and failed == 0 and no_change_skips > 0:
             summary.append("Outcome: all mapped parameters were already up-to-date; no write was required.")

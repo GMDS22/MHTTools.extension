@@ -1,0 +1,13 @@
+tooltip:
+  en_us: |
+    Free disk space quickly by deleting older Windows Temp files, Revit
+    journals, and Revit web cache items while skipping locked files.
+
+    Larger Revit collaboration caches are only reported here and should be
+    cleared after closing Revit.
+author: GM
+engine:
+  clean: true
+title:
+  en_us: 'Free\nSpace'
+context: zero-doc

@@ -2,25 +2,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Linked Room Parameter by GM"
         Height="820"
-        Width="1100"
-    MinWidth="760"
-    MinHeight="620"
+        Width="1180"
+        MinWidth="980"
+        MinHeight="620"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
-    SizeChanged="window_size_changed"
         Background="#1A1A1C"
         Foreground="#E8E8E8">
     <Window.Resources>
 
-        <!-- Brushes -->
-        <SolidColorBrush x:Key="SurfaceBrush"   Color="#232327"/>
-        <SolidColorBrush x:Key="SurfaceAltBrush" Color="#2A2A2E"/>
-        <SolidColorBrush x:Key="BorderBrush"     Color="#3A3A40"/>
-        <SolidColorBrush x:Key="AccentBrush"     Color="#0E639C"/>
-        <SolidColorBrush x:Key="AccentHoverBrush" Color="#1177BB"/>
-        <SolidColorBrush x:Key="StepNumBrush"    Color="#0E639C"/>
-        <SolidColorBrush x:Key="MutedTextBrush"  Color="#8A8A9A"/>
-        <SolidColorBrush x:Key="SuccessBrush"    Color="#4CAF7D"/>
+        <!-- Brushes – Meinhardt Theme System -->
+        <SolidColorBrush x:Key="SurfaceBrush"         Color="#232327"/>
+        <SolidColorBrush x:Key="SurfaceAltBrush"      Color="#2A2A2E"/>
+        <SolidColorBrush x:Key="BorderBrush"          Color="#3A3A40"/>
+        <SolidColorBrush x:Key="TextMainBrush"        Color="#E8E8E8"/>
+        <SolidColorBrush x:Key="TextMutedBrush"       Color="#8A8A9A"/>
+        <!-- Primary Blue -->
+        <SolidColorBrush x:Key="PrimaryBrush"         Color="#0E639C"/>
+        <SolidColorBrush x:Key="PrimaryHoverBrush"    Color="#1177BB"/>
+        <!-- Secondary Teal -->
+        <SolidColorBrush x:Key="SecondaryBrush"       Color="#1FA6A6"/>
+        <SolidColorBrush x:Key="SecondaryHoverBrush"  Color="#22B8B8"/>
+        <!-- Semantic colors -->
+        <SolidColorBrush x:Key="SuccessBrush"         Color="#4CAF7D"/>
+        <SolidColorBrush x:Key="DangerBrush"          Color="#CC4B4B"/>
+        <!-- Legacy aliases -->
+        <SolidColorBrush x:Key="AccentBrush"          Color="#0E639C"/>
+        <SolidColorBrush x:Key="AccentHoverBrush"     Color="#1177BB"/>
+        <SolidColorBrush x:Key="StepNumBrush"         Color="#0E639C"/>
+        <SolidColorBrush x:Key="MutedTextBrush"       Color="#8A8A9A"/>
 
         <!-- Step badge label -->
         <Style x:Key="StepBadge" TargetType="Border">
@@ -38,7 +48,7 @@
             <Setter Property="VerticalAlignment"   Value="Center"/>
         </Style>
         <Style x:Key="StepTitle" TargetType="TextBlock">
-            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="Foreground"   Value="{StaticResource TextMainBrush}"/>
             <Setter Property="FontSize"     Value="13"/>
             <Setter Property="FontWeight"   Value="SemiBold"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -51,7 +61,7 @@
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
         <Style x:Key="InfoValue" TargetType="TextBlock">
-            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="Foreground"   Value="{StaticResource TextMainBrush}"/>
             <Setter Property="FontSize"     Value="12"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
@@ -73,40 +83,44 @@
         <Style TargetType="Button">
             <Setter Property="Margin"       Value="0,0,6,0"/>
             <Setter Property="Padding"      Value="12,5"/>
-            <Setter Property="Background"   Value="#3A3A40"/>
-            <Setter Property="Foreground"   Value="#E8E8E8"/>
-            <Setter Property="BorderBrush"  Value="#505058"/>
+            <Setter Property="Background"   Value="{StaticResource SurfaceAltBrush}"/>
+            <Setter Property="Foreground"   Value="{StaticResource TextMainBrush}"/>
+            <Setter Property="BorderBrush"  Value="{StaticResource BorderBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Cursor"       Value="Hand"/>
         </Style>
         <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="Background"   Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Background"   Value="{StaticResource PrimaryBrush}"/>
             <Setter Property="Foreground"   Value="#FFFFFF"/>
-            <Setter Property="BorderBrush"  Value="{StaticResource AccentHoverBrush}"/>
+            <Setter Property="BorderBrush"  Value="{StaticResource PrimaryHoverBrush}"/>
             <Setter Property="FontWeight"   Value="SemiBold"/>
             <Setter Property="FontSize"     Value="13"/>
             <Setter Property="Padding"      Value="20,7"/>
         </Style>
         <Style x:Key="PrimaryAction" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="Background"   Value="#1FA6A6"/>
+            <Setter Property="Background"   Value="{StaticResource SecondaryBrush}"/>
             <Setter Property="Foreground"   Value="#FFFFFF"/>
-            <Setter Property="BorderBrush"  Value="#22B8B8"/>
+            <Setter Property="BorderBrush"  Value="{StaticResource SecondaryHoverBrush}"/>
             <Setter Property="FontWeight"   Value="SemiBold"/>
         </Style>
 
-        <!-- Inputs -->
+        <!-- Global dark input styles -->
         <Style TargetType="TextBox">
-            <Setter Property="Margin"       Value="0,0,6,0"/>
-            <Setter Property="Padding"      Value="7,4"/>
-            <Setter Property="Background"   Value="#1E1E22"/>
-            <Setter Property="Foreground"   Value="#E8E8E8"/>
-            <Setter Property="BorderBrush"  Value="{StaticResource BorderBrush}"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="Padding" Value="7,4"/>
+            <Setter Property="MinHeight" Value="26"/>
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextMainBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CaretBrush"   Value="#E8E8E8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="CaretBrush" Value="{StaticResource TextMainBrush}"/>
+            <Setter Property="SelectionBrush" Value="{StaticResource PrimaryHoverBrush}"/>
         </Style>
+
         <ControlTemplate x:Key="DarkComboBoxToggleButtonTemplate" TargetType="ToggleButton">
             <Border x:Name="BtnBorder"
-                    Background="#2A2A2E"
+                    Background="{StaticResource SurfaceAltBrush}"
                     BorderBrush="{StaticResource BorderBrush}"
                     BorderThickness="1">
                 <Grid>
@@ -118,7 +132,7 @@
                     <Path Grid.Column="1"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center"
-                          Fill="#E8E8E8"
+                          Fill="{StaticResource TextMainBrush}"
                           Data="M 0 0 L 4 4 L 8 0 Z"/>
                 </Grid>
             </Border>
@@ -134,14 +148,13 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+
         <Style TargetType="ComboBox">
-            <Setter Property="Margin"       Value="0,0,6,0"/>
-            <Setter Property="Padding"      Value="6,4"/>
-            <Setter Property="Background"   Value="#1E1E22"/>
-            <Setter Property="Foreground"   Value="#E8E8E8"/>
-            <Setter Property="BorderBrush"  Value="{StaticResource BorderBrush}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Background" Value="{StaticResource SurfaceAltBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource TextMainBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
@@ -162,7 +175,7 @@
                                               ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">
                                 <ContentPresenter.Resources>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="#E8E8E8"/>
+                                        <Setter Property="Foreground" Value="{StaticResource TextMainBrush}"/>
                                     </Style>
                                 </ContentPresenter.Resources>
                             </ContentPresenter>
@@ -192,31 +205,56 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
         <Style TargetType="ComboBoxItem">
-            <Setter Property="Background"   Value="#252528"/>
-            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="Background"   Value="{StaticResource SurfaceBrush}"/>
+            <Setter Property="Foreground"   Value="{StaticResource TextMainBrush}"/>
             <Setter Property="Padding"      Value="8,4"/>
             <Style.Triggers>
                 <Trigger Property="IsHighlighted" Value="True">
-                    <Setter Property="Background" Value="#094771"/>
+                    <Setter Property="Background" Value="{StaticResource PrimaryHoverBrush}"/>
                     <Setter Property="Foreground" Value="#FFFFFF"/>
                 </Trigger>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#0E639C"/>
+                    <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
                     <Setter Property="Foreground" Value="#FFFFFF"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
         <Style TargetType="CheckBox">
             <Setter Property="Margin"       Value="0,0,12,0"/>
-            <Setter Property="Foreground"   Value="#E8E8E8"/>
+            <Setter Property="Foreground"   Value="{StaticResource TextMainBrush}"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Slider">
+            <Setter Property="Background"   Value="#1E1E22"/>
+            <Setter Property="Foreground"   Value="{StaticResource TextMainBrush}"/>
+            <Setter Property="Height"       Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Border Background="{StaticResource SurfaceAltBrush}" Height="5" VerticalAlignment="Center">
+                            <Track Name="PART_Track">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Style="{x:Null}" Command="Slider.DecreaseLarge" Background="{StaticResource PrimaryBrush}"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Style="{x:Null}" Command="Slider.IncreaseLarge" Background="{StaticResource SurfaceBrush}"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Style="{x:Null}" Background="{StaticResource PrimaryBrush}" Width="12" Height="5"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <!-- ListBox / rows -->
         <Style TargetType="ListBox">
             <Setter Property="Background"       Value="#1E1E22"/>
-            <Setter Property="Foreground"       Value="#E8E8E8"/>
+            <Setter Property="Foreground"       Value="{StaticResource TextMainBrush}"/>
             <Setter Property="BorderBrush"      Value="{StaticResource BorderBrush}"/>
             <Setter Property="BorderThickness"  Value="1"/>
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
@@ -224,14 +262,14 @@
         <Style x:Key="RowStyle" TargetType="ListBoxItem">
             <Setter Property="Padding"      Value="6,3"/>
             <Setter Property="Background"   Value="#1E1E22"/>
-            <Setter Property="Foreground"   Value="#D8D8D8"/>
+            <Setter Property="Foreground"   Value="{StaticResource TextMainBrush}"/>
             <Setter Property="FontSize"     Value="11.5"/>
             <Style.Triggers>
                 <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                    <Setter Property="Background" Value="#232327"/>
+                    <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
                 </Trigger>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#094771"/>
+                    <Setter Property="Background" Value="{StaticResource PrimaryHoverBrush}"/>
                     <Setter Property="Foreground" Value="#FFFFFF"/>
                 </Trigger>
             </Style.Triggers>
@@ -252,7 +290,7 @@
 
         <!-- ── HEADER ── -->
         <TextBlock Text="Linked Room Parameter Transfer"
-                   FontSize="18" FontWeight="Bold" Foreground="#E8E8E8"
+                   FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextMainBrush}"
                    Margin="0,0,0,2"/>
         <TextBlock Style="{StaticResource Hint}"
                    Text="Follow steps 1 → 2 → 3 → 4 in order, then click Transfer."
@@ -292,7 +330,7 @@
                         <ComboBox x:Name="cmbSourceMode"
                                   Height="26"
                                   SelectedIndex="0"
-                                  SelectionChanged="source_mode_changed"
+                                  BorderBrush="{StaticResource BorderBrush}"
                                   ToolTip="Choose source from linked models or host project model.">
                             <ComboBoxItem Content="Linked Rooms"/>
                             <ComboBoxItem Content="Linked Spaces"/>
@@ -307,18 +345,13 @@
                         <ComboBox x:Name="cmbSelectLink" 
                                   Height="26"
                                   SelectedIndex="0"
+                                  BorderBrush="{StaticResource BorderBrush}"
                                   ToolTip="Optional: choose one linked model, or keep All Linked Models.">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding}" Foreground="#E8E8E8"/>
+                                    <TextBlock Text="{Binding}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
-                            <ComboBox.ItemContainerStyle>
-                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
-                                    <Setter Property="Background" Value="#252528"/>
-                                    <Setter Property="Foreground" Value="#E8E8E8"/>
-                                </Style>
-                            </ComboBox.ItemContainerStyle>
                         </ComboBox>
                     </StackPanel>
 
@@ -328,18 +361,12 @@
                         <ComboBox x:Name="cmbRoomDetectionMode"
                                   Height="26"
                                   SelectedIndex="0"
-                                  SelectionChanged="room_detection_mode_changed"
+                                  BorderBrush="{StaticResource BorderBrush}"
                                   ToolTip="Choose how to select source elements.">
                             <ComboBoxItem Content="Auto-Detect Rooms In Current View"/>
                             <ComboBoxItem Content="Manual Pick (current view)"/>
                             <ComboBoxItem Content="Auto-Detect Per Level"/>
                                 <ComboBoxItem Content="Auto-Detect Entire Project (disabled)" IsEnabled="False" ToolTip="Entire project scope is temporarily disabled for stability. Use Active View Level or Per Level mode instead."/>
-                            <ComboBox.ItemContainerStyle>
-                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
-                                    <Setter Property="Background" Value="#252528"/>
-                                    <Setter Property="Foreground" Value="#E8E8E8"/>
-                                </Style>
-                            </ComboBox.ItemContainerStyle>
                         </ComboBox>
                     </StackPanel>
                 </Grid>
@@ -350,7 +377,7 @@
                               Width="320"
                               Height="26"
                               IsEnabled="False"
-                              SelectionChanged="detect_level_changed"
+                              BorderBrush="{StaticResource BorderBrush}"
                               ToolTip="Used by Auto-Detect Per Level mode to choose which level to scan."/>
                     <TextBlock Style="{StaticResource Hint}" Text="Enabled when Source Detection Mode is Auto-Detect Per Level." Margin="10,0,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
@@ -378,7 +405,7 @@
         <!-- Source info card – hidden until source selected -->
         <Border x:Name="pnlRoomInfo" Visibility="Collapsed"
                 Style="{StaticResource SectionCard}"
-                BorderBrush="#1D5A36" Background="#192920"
+                BorderBrush="{StaticResource SuccessBrush}" Background="#192920"
                 Margin="0,-4,0,8">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -426,7 +453,7 @@
                     <!-- search + bulk -->
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
                         <TextBox x:Name="txtCategorySearch" Width="150"
-                                 TextChanged="category_search_changed"
+                                 BorderBrush="{StaticResource BorderBrush}"
                                  ToolTip="Type a keyword to filter the category list"/>
                         <Button Content="All"   Click="select_all_categories_click"   MinWidth="44" ToolTip="Check all categories"/>
                         <Button Content="None"  Click="deselect_all_categories_click" MinWidth="44" Margin="0" ToolTip="Uncheck all categories"/>
@@ -468,7 +495,7 @@
 
                     <!-- element summary -->
                     <Border DockPanel.Dock="Top"
-                            Background="#1E1E22" BorderBrush="{StaticResource BorderBrush}"
+                            BorderBrush="{StaticResource BorderBrush}"
                             BorderThickness="1" Padding="8,6" Margin="0,0,0,8">
                         <TextBlock x:Name="txtElementSummary"
                                    Style="{StaticResource InfoValue}"
@@ -481,9 +508,12 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                             <TextBlock Text="Auto-detect scope:"
                                        VerticalAlignment="Center"
-                                       Foreground="#B0B0B8"
+                                       Foreground="{StaticResource TextMutedBrush}"
                                        Margin="0,0,8,0"/>
                             <ComboBox x:Name="cmbAutoDetectScope" Width="180" SelectedIndex="0"
+                                      Background="{StaticResource SurfaceAltBrush}"
+                                      Foreground="{StaticResource TextMainBrush}"
+                                      BorderBrush="{StaticResource BorderBrush}"
                                       ToolTip="Choose whether auto-detect searches only the active view level or the entire project.">
                                 <ComboBoxItem Content="Active View Level"/>
                                   <ComboBoxItem Content="Entire Project (disabled)" IsEnabled="False" ToolTip="Entire project scope is temporarily disabled for stability. Use Active View Level scope instead."/>
@@ -498,12 +528,13 @@
                                   Content="Show non-common parameters (union mode)"
                                   ToolTip="By default only parameters shared by all selected elements are shown. Enable this to see all writable parameters across the selection."
                                   Margin="0,0,0,8"/>
-                        <Border Background="#1E1E22" BorderBrush="{StaticResource BorderBrush}"
+                        <Border BorderBrush="{StaticResource BorderBrush}"
                                 BorderThickness="1" Padding="8,6" Margin="0,0,0,0">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <TextBlock Text="Vertical Probe Offset:" VerticalAlignment="Center" Foreground="#B0B0B8" Margin="0,0,8,0"/>
                                 <TextBox x:Name="txtProbeOffset" Width="80" Height="26" Padding="6,4"
                                          Text="2000"
+                                         BorderBrush="{StaticResource BorderBrush}"
                                          ToolTip="Vertical offset in mm used during room detection. Raises and lowers the probe point for ceiling/above-room devices."/>
                                 <TextBlock Text="mm  (default: 2000)" VerticalAlignment="Center" Foreground="#8A8A9A" FontSize="11" Margin="8,0,0,0"/>
                                 <TextBlock Text="Zero = no offset (original behavior)" VerticalAlignment="Center" Foreground="#8A8A9A" FontSize="11" FontStyle="Italic" Margin="16,0,0,0"/>
@@ -552,7 +583,6 @@
                                    Text="Room Parameters  (source values)"/>
                         <CheckBox x:Name="chkShowEmpty" DockPanel.Dock="Top"
                                   Content="Show empty parameters"
-                                  Checked="refresh_click" Unchecked="refresh_click"
                                   Margin="0,0,0,4"/>
                         <ListBox x:Name="lstRoomParameters" Height="180"
                                  AlternationCount="2"
@@ -599,36 +629,22 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <ComboBox x:Name="cmbMappingRoom"   Grid.Column="0"
-                                      Background="#1E1E22"
-                                      Foreground="#E8E8E8"
+                                      BorderBrush="{StaticResource BorderBrush}"
                                       ToolTip="Room parameter to map FROM">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding}" Foreground="#E8E8E8"/>
+                                        <TextBlock Text="{Binding}"/>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
-                                <ComboBox.ItemContainerStyle>
-                                    <Style TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
-                                        <Setter Property="Background" Value="#252528"/>
-                                        <Setter Property="Foreground" Value="#E8E8E8"/>
-                                    </Style>
-                                </ComboBox.ItemContainerStyle>
                             </ComboBox>
                             <ComboBox x:Name="cmbMappingTarget" Grid.Column="1"
-                                      Background="#1E1E22"
-                                      Foreground="#E8E8E8"
+                                      BorderBrush="{StaticResource BorderBrush}"
                                       ToolTip="Target parameter to map TO">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding}" Foreground="#E8E8E8"/>
+                                        <TextBlock Text="{Binding}"/>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
-                                <ComboBox.ItemContainerStyle>
-                                    <Style TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
-                                        <Setter Property="Background" Value="#252528"/>
-                                        <Setter Property="Foreground" Value="#E8E8E8"/>
-                                    </Style>
-                                </ComboBox.ItemContainerStyle>
                             </ComboBox>
                         </Grid>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
@@ -639,7 +655,7 @@
                             <ComboBox x:Name="cmbAutoMapStrictness"
                                       Width="210"
                                       SelectedIndex="2"
-                                      SelectionChanged="mapping_strictness_changed"
+                                      BorderBrush="{StaticResource BorderBrush}"
                                       ToolTip="Choose how strict auto-matching should be, or disable it entirely.">
                                 <ComboBoxItem Content="Disabled (manual only)"/>
                                 <ComboBoxItem Content="Strict (exact name)"/>
@@ -655,7 +671,7 @@
                             <TextBox x:Name="txtAutoMatchExclude"
                                      Width="280"
                                      Text="uniclass,class"
-                                     TextChanged="auto_match_exclusions_changed"
+                                     BorderBrush="{StaticResource BorderBrush}"
                                      ToolTip="Comma-separated keywords to exclude from auto-match. If source or target parameter name contains any keyword, it is ignored."/>
                             <TextBlock Style="{StaticResource Hint}"
                                        Text="Example: uniclass,class,code"
@@ -722,7 +738,7 @@
                         <TextBlock Text="Target mode:" VerticalAlignment="Center"
                                    Margin="16,0,8,0" Foreground="#B0B0B8"/>
                         <ComboBox x:Name="cmbParameterTargetMode" Width="200" SelectedIndex="0"
-                                  SelectionChanged="parameter_target_mode_changed">
+                                  BorderBrush="{StaticResource BorderBrush}">
                             <ComboBoxItem Content="SharedOnly (recommended)" Tag="SharedOnly"/>
                             <ComboBoxItem Content="Both (shared + legacy duplicates)" Tag="Both"/>
                             <ComboBoxItem Content="FamilyOnly / non-shared only" Tag="FamilyOnly"/>
@@ -730,7 +746,8 @@
                         </ComboBox>
                         <TextBlock Text="If target has value:" VerticalAlignment="Center"
                                    Margin="16,0,8,0" Foreground="#B0B0B8"/>
-                        <ComboBox x:Name="cmbDuplicateMode" Width="110" SelectedIndex="0">
+                        <ComboBox x:Name="cmbDuplicateMode" Width="110" SelectedIndex="0"
+                                  BorderBrush="{StaticResource BorderBrush}">
                             <ComboBoxItem Content="Overwrite"/>
                             <ComboBoxItem Content="Skip"/>
                             <ComboBoxItem Content="Append"/>
@@ -759,7 +776,6 @@
                             Value="220"
                             TickFrequency="20"
                             IsSnapToTickEnabled="True"
-                            ValueChanged="preview_height_changed"
                             ToolTip="Adjust preview panel height to inspect more rows."/>
                 </WrapPanel>
                 <ListBox x:Name="lstPreview" Height="160"

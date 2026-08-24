@@ -3,6 +3,7 @@ from __future__ import print_function
 
 import os
 import re
+import math
 import time
 
 import clr
@@ -40,6 +41,25 @@ config = script.get_config()
 
 TOOL_TITLE = "NWB_PARAMETERS AutoFill"
 WORKBOOK_FILE_NAME = "NWB-WAL-GEN-DE-REG-0003.xlsx"
+FAST_MODE_MAX_ELEMENTS = 2000
+
+WBH_SCOPE_BOX_WBS01_RULES = [
+    ("Companion Building", "CB"),
+    ("Hospital", "HO"),
+    ("Bridge", "LB"),
+    ("Link Bridge", "LB"),
+    ("Hub Building", "HB"),
+    ("General", "GE"),
+    ("External Area", "EA"),
+    ("External Areas", "EA"),
+    ("ZONE 222 - LINK BRIDGE", "LB"),
+    ("ZONE 223 - LINK BRIDGE", "LB"),
+    ("ZONE 251 - COMPANION", "CB"),
+    ("ZONE 152 - HOSPITAL", "HO"),
+    ("ZONE 153 - HOSPITAL", "HO"),
+    ("ZONE 154N - EXTERNAL", "EA"),
+    ("ZONE 154S - EXTERNAL", "EA"),
+]
 
 TARGET_PARAMETERS = [
     "NWB_AssetTypeCode",
@@ -49,6 +69,8 @@ TARGET_PARAMETERS = [
     "NWB_Category",
     "NWB_Department",
     "NWB_SubDepartment",
+    "NWB_RoomID",
+    "NWB_RoomName",
     "NWB_Material",
     "NWB_System",
     "NWB_UniclassCode",
@@ -336,6 +358,8 @@ class WorkbookData(object):
 _PROJECT_CONTEXT_CACHE = None
 _RUN_OPTIONS = {}
 _LINKED_ROOM_INDEX_CACHE = {}
+_LINKED_ROOM_GRID_CACHE = {}
+_SCOPE_BOX_WBS01_CACHE = None
 
 
 def _build_worksharing_choices():
@@ -415,6 +439,7 @@ def _load_run_settings(selected_count):
         "processing_scope": getattr(config, "nwb_params_processing_scope", "selection" if selected_count > 0 else "view"),
         "arch_room_link_id": getattr(config, "nwb_params_arch_room_link_id", ""),
         "export_audit": getattr(config, "nwb_params_export_audit", True),
+        "fast_mode": getattr(config, "nwb_params_fast_mode", False),
         "site_override": "",
         "building_override": "",
         "design_pkg_override": getattr(config, "nwb_params_design_pkg_override", ""),
@@ -448,6 +473,7 @@ def _save_run_settings(settings):
         config.nwb_params_processing_scope = settings.get("processing_scope", "view")
         config.nwb_params_arch_room_link_id = settings.get("arch_room_link_id", "")
         config.nwb_params_export_audit = bool(settings.get("export_audit", True))
+        config.nwb_params_fast_mode = bool(settings.get("fast_mode", False))
         config.nwb_params_site_override = ""
         config.nwb_params_building_override = ""
         config.nwb_params_design_pkg_override = settings.get("design_pkg_override", "")
@@ -549,6 +575,7 @@ class RunSetupWindow(WPFWindow):
             "processing_scope": self._selected_combo_value(self.cmbProcessingScope, self._scope_choices),
             "arch_room_link_id": self._selected_combo_value(self.cmbArchitecturalRoomLink, self._linked_room_choices),
             "export_audit": bool(self.chkExportAudit.IsChecked),
+            "fast_mode": bool(self.chkFastMode.IsChecked),
             "site_override": _safe_str(self.txtSiteOverride.Text).strip(),
             "building_override": _safe_str(self.txtBuildingOverride.Text).strip(),
             "design_pkg_override": _safe_str(self.txtDesignPkgOverride.Text).strip(),
@@ -1043,6 +1070,8 @@ def _collect_active_schedule_elements(schedule_view):
     try:
         for element in FilteredElementCollector(doc, schedule_view.Id).WhereElementIsNotElementType().ToElements():
             if element is None:
+                continue
+            if not _is_target_mep_category(element):
                 continue
             try:
                 _ = element.Id.IntegerValue
@@ -2043,6 +2072,104 @@ def _get_element_probe_points(element):
     return points
 
 
+def _point_within_bounds(point, minx, miny, minz, maxx, maxy, maxz, tol=0.1):
+    if point is None:
+        return False
+
+    try:
+        return (
+            point.X >= (minx - tol)
+            and point.X <= (maxx + tol)
+            and point.Y >= (miny - tol)
+            and point.Y <= (maxy + tol)
+            and point.Z >= (minz - tol)
+            and point.Z <= (maxz + tol)
+        )
+    except Exception:
+        return False
+
+
+def _build_scope_box_wbs01_index(wb_data):
+    global _SCOPE_BOX_WBS01_CACHE
+    if _SCOPE_BOX_WBS01_CACHE is not None:
+        return _SCOPE_BOX_WBS01_CACHE
+
+    name_to_code = {}
+    for scope_box_name, wbs01_code in WBH_SCOPE_BOX_WBS01_RULES:
+        valid_code = _valid_wbs_code(wbs01_code, wb_data.wbs_maps["WBS01"])
+        if valid_code:
+            name_to_code[_normalize_text(scope_box_name)] = valid_code
+
+    collected = {}
+    try:
+        scope_boxes = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_VolumeOfInterest).WhereElementIsNotElementType()
+    except Exception:
+        scope_boxes = []
+
+    for scope_box in scope_boxes:
+        if scope_box is None:
+            continue
+
+        name = _safe_str(getattr(scope_box, "Name", "")).strip()
+        code = name_to_code.get(_normalize_text(name), "")
+        if not code:
+            continue
+
+        try:
+            bb = scope_box.get_BoundingBox(None)
+            if bb is None:
+                bb = scope_box.get_BoundingBox(doc.ActiveView)
+        except Exception:
+            bb = None
+        if bb is None:
+            continue
+
+        collected.setdefault(_normalize_text(name), []).append(
+            {
+                "name": name,
+                "code": code,
+                "minx": bb.Min.X,
+                "miny": bb.Min.Y,
+                "minz": bb.Min.Z,
+                "maxx": bb.Max.X,
+                "maxy": bb.Max.Y,
+                "maxz": bb.Max.Z,
+            }
+        )
+
+    ordered = []
+    for scope_box_name, _ in WBH_SCOPE_BOX_WBS01_RULES:
+        ordered.extend(collected.get(_normalize_text(scope_box_name), []))
+
+    _SCOPE_BOX_WBS01_CACHE = ordered
+    return ordered
+
+
+def _derive_wbs01_from_scope_box(facts, wb_data):
+    element = facts.get("element")
+    if element is None:
+        return ""
+
+    probe_points = _get_element_probe_points(element)
+    if not probe_points:
+        return ""
+
+    for scope_box in _build_scope_box_wbs01_index(wb_data):
+        for probe_point in probe_points:
+            if _point_within_bounds(
+                probe_point,
+                scope_box["minx"],
+                scope_box["miny"],
+                scope_box["minz"],
+                scope_box["maxx"],
+                scope_box["maxy"],
+                scope_box["maxz"],
+            ):
+                return scope_box["code"]
+
+    return ""
+
+
 def _point_on_segment_2d(px, py, ax, ay, bx, by, tol):
     abx = bx - ax
     aby = by - ay
@@ -2189,22 +2316,67 @@ def _build_linked_room_index(link_inst):
         )
 
     _LINKED_ROOM_INDEX_CACHE[link_key] = index
+    grid = {}
+    fallback = []
+    cell_size = 20.0
+    for room_item in index:
+        minx = room_item.get("minx")
+        miny = room_item.get("miny")
+        maxx = room_item.get("maxx")
+        maxy = room_item.get("maxy")
+        if minx is None or miny is None or maxx is None or maxy is None:
+            fallback.append(room_item)
+            continue
+        try:
+            x0 = int(math.floor(float(minx) / cell_size))
+            x1 = int(math.floor(float(maxx) / cell_size))
+            y0 = int(math.floor(float(miny) / cell_size))
+            y1 = int(math.floor(float(maxy) / cell_size))
+            if (x1 - x0 + 1) * (y1 - y0 + 1) > 400:
+                fallback.append(room_item)
+                continue
+            for cell_x in range(x0, x1 + 1):
+                for cell_y in range(y0, y1 + 1):
+                    grid.setdefault((cell_x, cell_y), []).append(room_item)
+        except Exception:
+            fallback.append(room_item)
+    _LINKED_ROOM_GRID_CACHE[link_key] = (grid, fallback, cell_size)
     return index
 
 
 def _find_linked_room_for_element(element, selected_link=None, tol=1.0):
     link_candidates = []
+    try:
+        all_links = list(FilteredElementCollector(doc).OfClass(RevitLinkInstance))
+    except Exception:
+        all_links = []
+    link_candidates = []
     if selected_link is not None:
-        link_candidates = [selected_link]
-    else:
+        link_candidates.append(selected_link)
+    for link_inst in all_links:
+        if link_inst is None:
+            continue
         try:
-            link_candidates = list(FilteredElementCollector(doc).OfClass(RevitLinkInstance))
+            link_id = link_inst.Id.IntegerValue
+            selected_id = selected_link.Id.IntegerValue if selected_link is not None else None
         except Exception:
-            link_candidates = []
+            link_id = None
+            selected_id = None
+        if link_id != selected_id:
+            link_candidates.append(link_inst)
 
     points = _get_element_probe_points(element)
     if not points:
         return None
+
+    probe_points = list(points)
+    try:
+        offset_ft = 2000.0 / 304.8
+        for point in points:
+            probe_points.append(XYZ(point.X, point.Y, point.Z + offset_ft))
+            probe_points.append(XYZ(point.X, point.Y, point.Z - offset_ft))
+    except Exception:
+        probe_points = points
 
     for link_inst in link_candidates:
         if link_inst is None:
@@ -2212,13 +2384,38 @@ def _find_linked_room_for_element(element, selected_link=None, tol=1.0):
         room_index = _build_linked_room_index(link_inst)
         if not room_index:
             continue
+        try:
+            grid, fallback, cell_size = _LINKED_ROOM_GRID_CACHE.get(link_inst.Id.IntegerValue, ({}, room_index, 20.0))
+        except Exception:
+            grid, fallback, cell_size = {}, room_index, 20.0
 
-        for room_item in room_index:
+        candidate_rooms = []
+        seen_room_ids = set()
+        for probe_point in probe_points:
+            try:
+                p = room_index[0]["inv_transform"].OfPoint(probe_point)
+                cell_x = int(math.floor(float(p.X) / cell_size))
+                cell_y = int(math.floor(float(p.Y) / cell_size))
+                nearby = []
+                for dx in (-1, 0, 1):
+                    for dy in (-1, 0, 1):
+                        nearby.extend(grid.get((cell_x + dx, cell_y + dy), []))
+                nearby.extend(fallback)
+                for room_item in nearby:
+                    room_id = room_item.get("room_id")
+                    if room_id not in seen_room_ids:
+                        seen_room_ids.add(room_id)
+                        candidate_rooms.append(room_item)
+            except Exception:
+                candidate_rooms = room_index
+                break
+
+        for room_item in candidate_rooms:
             room = room_item.get("room")
             if room is None:
                 continue
 
-            for probe_point in points:
+            for probe_point in probe_points:
                 try:
                     inv_transform = room_item.get("inv_transform")
                     p = inv_transform.OfPoint(probe_point) if inv_transform is not None else probe_point
@@ -2370,6 +2567,8 @@ def _linked_room_context_from_room_item(room_item, source_label):
     if room is None:
         return {}
 
+    room_id = _read_param_text_by_name(room, ["NWB_RoomID", "Room Number", "Number", "NWB_RoomNumber", "Room ID"])
+    room_name = _read_param_text_by_name(room, ["NWB_RoomName", "Room Name", "Name"])
     room_department = _read_param_text_by_name(room, ["NWB_Department", "NWB Department", "Department", "Room Department", "Department Name", "Department Code", "Dept"])
     room_subdepartment = _read_param_text_by_name(room, ["NWB_SubDepartment", "NWB_Subdepartment", "NWB SubDepartment", "SubDepartment", "Subdepartment", "Room SubDepartment"])
     room_building = _read_param_text_by_name(room, ["Area/Building", "Area Building", "Building", "Building Name", "Building Code", "Block"])
@@ -2381,8 +2580,8 @@ def _linked_room_context_from_room_item(room_item, source_label):
         "subdepartment": room_subdepartment,
         "building": room_building,
         "site": room_site,
-        "room_name": _read_param_text_by_name(room, ["Name"]),
-        "room_number": _read_param_text_by_name(room, ["Number", "Room Number"]),
+        "room_name": room_name,
+        "room_number": room_id,
         "link_name": _safe_str(getattr(room_item.get("link_doc"), "Title", "")).strip(),
         "source": source_label,
     }
@@ -3436,6 +3635,7 @@ def _get_project_context(wb_data):
 
 def _derive_element_facts(element):
     facts = {}
+    facts["element"] = element
     linked_room = _get_linked_room_context(element)
     direct_department = _get_department_text(element)
     direct_subdepartment = _get_subdepartment_text(element)
@@ -3878,6 +4078,10 @@ def _derive_wbs01(facts, wb_data):
     project_context = _get_project_context(wb_data)
     level_name = facts.get("level", "")
 
+    scope_box_code = _derive_wbs01_from_scope_box(facts, wb_data)
+    if scope_box_code:
+        return scope_box_code
+
     manual_code = _match_wbs_code_from_text(project_context.get("building_override", ""), wb_data.wbs_maps["WBS01"])
     if manual_code:
         return manual_code
@@ -3909,7 +4113,7 @@ def _derive_wbs01(facts, wb_data):
     if "external" in lvl_norm:
         return "EA"
 
-    return ""
+    return "EA"
 
 
 def _derive_wbs02(facts, wb_data):
@@ -4174,6 +4378,8 @@ def _build_target_values(element, wb_data):
 
     target["NWB_Department"] = _safe_str(facts.get("department", "")).strip()
     target["NWB_SubDepartment"] = _safe_str(facts.get("subdepartment", "")).strip()
+    target["NWB_RoomID"] = _safe_str(facts.get("linked_room_number", "")).strip()
+    target["NWB_RoomName"] = _safe_str(facts.get("linked_room_name", "")).strip()
 
     material = _clean_asset_value(_row_value(asset_row, "NWB_Material") if asset_row else "")
     if _is_blank(material):
@@ -4486,13 +4692,17 @@ def run():
         logger.write("START | AuditFile={0}".format(audit.file_path))
 
     monitor = None
+    fast_mode = bool(run_settings.get("fast_mode", False))
     try:
-        monitor = LiveMonitorWindow("MonitorWindow.xaml")
-        monitor.Show()
-        monitor.Activate()
-        _monitor_set_status(monitor, "Initializing {0}...".format(TOOL_TITLE))
-        _monitor_add_item(monitor, "Preparing run context...")
-        _pump_ui()
+        if not fast_mode:
+            monitor = LiveMonitorWindow("MonitorWindow.xaml")
+            monitor.Show()
+            monitor.Activate()
+            _monitor_set_status(monitor, "Initializing {0}...".format(TOOL_TITLE))
+            _monitor_add_item(monitor, "Preparing run context...")
+            _pump_ui()
+        else:
+            logger.write("START | FastMode=True | Live monitor and per-element runtime logging disabled")
     except Exception as ex:
         monitor = None
         forms.alert(
@@ -4577,7 +4787,9 @@ def run():
     }
 
     total = len(elements)
-    chunk_size = 180
+    batch_size = FAST_MODE_MAX_ELEMENTS
+    logger.write("READY | Full MEP set accepted: {0} elements in batches of {1}".format(total, batch_size))
+    chunk_size = 30 if fast_mode else 120
     cancelled = False
     sample_fails = []
     owner_status_cache = {}
@@ -4662,19 +4874,21 @@ def run():
                         if st in ("FAIL", "PARTIAL") and len(sample_fails) < 12:
                             sample_fails.append("Element {0} | {1} | {2}".format(eid, param_name, msg))
 
-                    _log_element_runtime_context(logger, element, eid, debug.get("facts", {}) or {}, target_values, debug)
+                    if not fast_mode:
+                        _log_element_runtime_context(logger, element, eid, debug.get("facts", {}) or {}, target_values, debug)
 
-                    logger.write(
-                        "ELEMENT | {0} | Cat={1} | AssetScore={2} | AssetTypeCode={3} | AssetType={4} | AssetCategory={5} | Targets={6}".format(
-                            eid,
-                            debug.get("facts", {}).get("category", ""),
-                            debug.get("asset_score", 0),
-                            debug.get("asset_type_code", ""),
-                            debug.get("asset_type", ""),
-                            debug.get("asset_category", ""),
-                            "; ".join(["{0}={1}".format(x, target_values.get(x, "")) for x in TARGET_PARAMETERS]),
+                    if not fast_mode:
+                        logger.write(
+                            "ELEMENT | {0} | Cat={1} | AssetScore={2} | AssetTypeCode={3} | AssetType={4} | AssetCategory={5} | Targets={6}".format(
+                                eid,
+                                debug.get("facts", {}).get("category", ""),
+                                debug.get("asset_score", 0),
+                                debug.get("asset_type_code", ""),
+                                debug.get("asset_type", ""),
+                                debug.get("asset_category", ""),
+                                "; ".join(["{0}={1}".format(x, target_values.get(x, "")) for x in TARGET_PARAMETERS]),
+                            )
                         )
-                    )
 
                     if counters["processed"] <= 20 or (counters["processed"] % 10 == 0):
                         _monitor_add_item(monitor, "[{0}] AssetScore={1} | {2}".format(
@@ -4699,7 +4913,7 @@ def run():
                             )
                         )
 
-                    if counters["processed"] % 20 == 0:
+                    if counters["processed"] % 10 == 0:
                         _pump_ui()
 
                     if monitor is not None and monitor.has_pending_focus():
@@ -4743,6 +4957,8 @@ def run():
                 audit.flush()
 
             _pump_ui()
+            if index // batch_size != (index + processed_in_chunk) // batch_size:
+                logger.write("BATCH COMPLETE | Processed={0}/{1}".format(index + processed_in_chunk, total))
             if cancelled:
                 break
 

@@ -1,0 +1,18 @@
+START | Tool=NWB_PARAMETERS AutoFill
+START | View=Project View
+START | ViewId=1414
+START | ViewMode=model
+START | WriteMode=smart
+START | ParameterTargetMode=Both
+START | WorksharingMode=skip-other-users
+START | ProcessingScope=view
+START | SelectedInputCount=0
+START | ArchRoomLink=AUTO
+START | SiteOverride=OPH
+START | BuildingOverride=OPH
+START | DesignPkgOverride=
+START | BuildingPermitOverride=
+START | ExportAudit=True
+START | AuditFile=C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB_PARAMETERS AutoFill.pushbutton\logs\NWB_PARAMETERS_AutoFill_20260815_180755_audit.csv
+WORKBOOK | C:\Users\Gino Moreno\AppData\Roaming\pyRevit\Extensions\MHTTools.extension\MEINHARDT.tab\NWB.panel\NWB Dim AutoFill.pushbutton\NWB-WAL-GEN-DE-REG-0003.xlsx
+END | No eligible MEP elements found
