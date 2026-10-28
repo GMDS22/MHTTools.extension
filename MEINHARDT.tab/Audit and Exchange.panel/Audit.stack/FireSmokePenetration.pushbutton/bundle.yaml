@@ -1,0 +1,5 @@
+title: DUCT/WALL CLASH DETECTION
+tooltip: Detect duct clashes through fire-rated and smoke-rated linked architectural walls using configurable wall parameter aliases, including NWB_Material.
+author: GM
+help_url: ""
+image: icon.png
